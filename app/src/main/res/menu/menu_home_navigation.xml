@@ -11,7 +11,7 @@
         android:icon="@drawable/ic_navigation_groceries"/>
 
     <item
-        android:id="@+id/actionTemp"
-        android:title="@string/label_navigation_temp"
-        android:icon="@drawable/ic_navigation_temp"/>
+        android:id="@+id/actionProfile"
+        android:title="@string/label_navigation_profile"
+        android:icon="@drawable/ic_navigation_profile"/>
 </menu>

@@ -6,9 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import pw.prsk.goodfood.viewmodels.HomeViewModel
 
 class HomeFragment: Fragment() {
+    private val viewModel: HomeViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,8 +38,8 @@ class HomeFragment: Fragment() {
                 R.id.actionGroceries -> {
                     Toast.makeText(context, "You prefer go to store!", Toast.LENGTH_SHORT).show()
                 }
-                R.id.actionTemp -> {
-                    Toast.makeText(context, "Temp pressed.", Toast.LENGTH_SHORT).show()
+                R.id.actionProfile -> {
+                    Toast.makeText(context, "You wanna to open profile!", Toast.LENGTH_SHORT).show()
                 }
             }
             true
