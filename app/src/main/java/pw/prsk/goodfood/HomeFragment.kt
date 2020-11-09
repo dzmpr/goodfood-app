@@ -36,7 +36,7 @@ class HomeFragment: Fragment() {
         navigation.setOnNavigationItemSelectedListener {
             loadFragment(when (it.itemId) {
                 R.id.actionMeals -> HomeTabs.MEALS
-                R.id.actionGroceries -> HomeTabs.GROCERIES
+                R.id.actionProducts -> HomeTabs.PRODUCTS
                 R.id.actionProfile -> HomeTabs.PROFILE
                 else -> throw IllegalStateException("Unknown bottom bar action menu id.")
             })
@@ -47,7 +47,7 @@ class HomeFragment: Fragment() {
 
     private fun getFragment(tabs: HomeTabs): Fragment = when (tabs) {
         HomeTabs.MEALS -> MealsFragment()
-        HomeTabs.GROCERIES -> GroceriesFragment()
+        HomeTabs.PRODUCTS -> ProductsFragment()
         HomeTabs.PROFILE -> ProfileFragment()
     }
 
@@ -59,7 +59,7 @@ class HomeFragment: Fragment() {
 
     enum class HomeTabs {
         MEALS,
-        GROCERIES,
+        PRODUCTS,
         PROFILE
     }
 }

@@ -6,9 +6,9 @@
         android:icon="@drawable/ic_navigation_meals"/>
 
     <item
-        android:id="@+id/actionGroceries"
-        android:title="@string/label_navigation_groceries"
-        android:icon="@drawable/ic_navigation_groceries"/>
+        android:id="@+id/actionProducts"
+        android:title="@string/label_navigation_products"
+        android:icon="@drawable/ic_navigation_products"/>
 
     <item
         android:id="@+id/actionProfile"

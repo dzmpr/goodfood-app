@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">GoodFood</string>
     <string name="label_navigation_meals">Meals</string>
-    <string name="label_navigation_groceries">Groceries</string>
+    <string name="label_navigation_products">Products</string>
     <string name="label_navigation_profile">Profile</string>
 </resources>
