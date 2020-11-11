@@ -5,11 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import pw.prsk.goodfood.adapters.ProductAdapter
+import pw.prsk.goodfood.viewmodels.ProductsViewModel
 
 class ProductsFragment: Fragment() {
+    private val viewModel: ProductsViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
