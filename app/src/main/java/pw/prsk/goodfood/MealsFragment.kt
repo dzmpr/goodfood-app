@@ -5,8 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import pw.prsk.goodfood.adapters.MealAdapter
 
-class MealsFragment: Fragment() {
+class MealsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -14,5 +17,14 @@ class MealsFragment: Fragment() {
     ): View? {
         val v = inflater.inflate(R.layout.fragment_meals, container, false)
         return v
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val rvMeals: RecyclerView = view.findViewById(R.id.rvMealsList)
+        rvMeals.apply {
+            layoutManager = LinearLayoutManager(this.context)
+            adapter = MealAdapter()
+        }
+        super.onViewCreated(view, savedInstanceState)
     }
 }
