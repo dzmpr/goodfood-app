@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import pw.prsk.goodfood.databinding.FragmentHomeBinding
 import pw.prsk.goodfood.viewmodels.HomeViewModel
-import java.lang.IllegalStateException
 
 class HomeFragment: Fragment() {
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
+
     private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,14 +28,14 @@ class HomeFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val v = inflater.inflate(R.layout.fragment_home, container, false)
-        return v
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val navigation = view.findViewById<BottomNavigationView>(R.id.bnvBottomMenu)
-        navigation.setOnNavigationItemSelectedListener {
+
+        binding.bnvBottomMenu.setOnNavigationItemSelectedListener {
             loadFragment(when (it.itemId) {
                 R.id.actionMeals -> HomeTabs.MEALS
                 R.id.actionProducts -> HomeTabs.PRODUCTS
@@ -42,7 +44,12 @@ class HomeFragment: Fragment() {
             })
             true
         }
-        navigation.selectedItemId = R.id.actionMeals
+        binding.bnvBottomMenu.selectedItemId = R.id.actionMeals
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun getFragment(tabs: HomeTabs): Fragment = when (tabs) {
