@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import pw.prsk.goodfood.adapters.MealAdapter
+import pw.prsk.goodfood.data.AppDatabase
 import pw.prsk.goodfood.databinding.FragmentMealsBinding
+import pw.prsk.goodfood.repository.MealRepository
 import pw.prsk.goodfood.viewmodels.MealsViewModel
 
 class MealsFragment : Fragment() {
@@ -16,6 +18,13 @@ class MealsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: MealsViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        val dbInstance = AppDatabase.getInstance(requireActivity().applicationContext)
+        val mealRepository = MealRepository(dbInstance)
+        viewModel.injectRepository(mealRepository)
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,9 +38,18 @@ class MealsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val mealAdapter = MealAdapter()
+        subscribeUi(mealAdapter)
+
         binding.rvMealsList.apply {
             layoutManager = LinearLayoutManager(this.context)
-            adapter = MealAdapter()
+            adapter = mealAdapter
+        }
+    }
+
+    private fun subscribeUi(adapter: MealAdapter) {
+        viewModel.mealList.observe(viewLifecycleOwner) {
+            meals -> adapter.setList(meals)
         }
     }
 
