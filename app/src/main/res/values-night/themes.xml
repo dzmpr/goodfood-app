@@ -14,4 +14,16 @@
         <!-- Customize your theme here. -->
         <item name="colorOnSurface">@color/white</item>
     </style>
+
+    <style name="BottomSheetDialogStyle" parent="Theme.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+        <item name="colorSurface">#242124</item>
+        <!-- Prevent keyboard to draw above BottomSheetDialog -->
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
+    <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bottom_sheet_background</item>
+    </style>
 </resources>

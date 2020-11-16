@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import pw.prsk.goodfood.adapters.MealAdapter
 import pw.prsk.goodfood.data.AppDatabase
+import pw.prsk.goodfood.databinding.DialogAddMealBinding
 import pw.prsk.goodfood.databinding.FragmentMealsBinding
 import pw.prsk.goodfood.repository.MealRepository
 import pw.prsk.goodfood.viewmodels.MealsViewModel
@@ -44,6 +46,16 @@ class MealsFragment : Fragment() {
         binding.rvMealsList.apply {
             layoutManager = LinearLayoutManager(this.context)
             adapter = mealAdapter
+        }
+
+        binding.fabAddMeal.setOnClickListener {
+            val bsd = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogStyle)
+            val dialogBinding = DialogAddMealBinding.inflate(layoutInflater)
+            bsd.setContentView(dialogBinding.root)
+            dialogBinding.bAddMeal.setOnClickListener {
+                bsd.dismiss()
+            }
+            bsd.show()
         }
     }
 
