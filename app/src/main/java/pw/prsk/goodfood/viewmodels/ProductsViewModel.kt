@@ -1,22 +1,27 @@
 package pw.prsk.goodfood.viewmodels
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import pw.prsk.goodfood.data.Product
 import pw.prsk.goodfood.repository.ProductRepository
 
-class ProductsViewModel: ViewModel() {
+class ProductsViewModel : ViewModel() {
     private var repository: ProductRepository? = null
 
     val productsList: MutableLiveData<List<Product>> by lazy {
         MutableLiveData<List<Product>>()
     }
 
-    fun loadProductsList() {
+    fun addProduct(product: Product) {
         viewModelScope.launch {
-            productsList.postValue(repository?.getProducts())
+            repository!!.addProduct(product)
+            loadProductsList()
+        }
+    }
+
+    private fun loadProductsList() {
+        viewModelScope.launch {
+            productsList.postValue(repository!!.getProducts())
         }
     }
 

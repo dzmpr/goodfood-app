@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import pw.prsk.goodfood.adapters.ProductAdapter
 import pw.prsk.goodfood.data.AppDatabase
+import pw.prsk.goodfood.data.Product
 import pw.prsk.goodfood.databinding.DialogAddProductBinding
 import pw.prsk.goodfood.databinding.FragmentProductsBinding
 import pw.prsk.goodfood.repository.ProductRepository
@@ -52,6 +53,12 @@ class ProductsFragment : Fragment() {
         binding.fabAddProduct.setOnClickListener {
             val bsd = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogStyle)
             val dialogBinding = DialogAddProductBinding.inflate(layoutInflater)
+            dialogBinding.bAddProduct.setOnClickListener {
+                viewModel.addProduct(
+                    Product(null, dialogBinding.tilProductName.editText?.text.toString(), 0, 0)
+                )
+                bsd.dismiss()
+            }
             bsd.setContentView(dialogBinding.root)
             bsd.show()
         }

@@ -10,10 +10,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import pw.prsk.goodfood.adapters.MealAdapter
 import pw.prsk.goodfood.data.AppDatabase
+import pw.prsk.goodfood.data.Meal
 import pw.prsk.goodfood.databinding.DialogAddMealBinding
 import pw.prsk.goodfood.databinding.FragmentMealsBinding
 import pw.prsk.goodfood.repository.MealRepository
 import pw.prsk.goodfood.viewmodels.MealsViewModel
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 class MealsFragment : Fragment() {
     private var _binding: FragmentMealsBinding? = null
@@ -53,6 +56,16 @@ class MealsFragment : Fragment() {
             val dialogBinding = DialogAddMealBinding.inflate(layoutInflater)
             bsd.setContentView(dialogBinding.root)
             dialogBinding.bAddMeal.setOnClickListener {
+                viewModel.addMeal(
+                    Meal(
+                        null,
+                        dialogBinding.tilMealName.editText?.text.toString(),
+                        dialogBinding.tilDescription.editText?.text.toString(),
+                        LocalDateTime.now(),
+                        0,
+                        0
+                    )
+                )
                 bsd.dismiss()
             }
             bsd.show()
@@ -60,8 +73,8 @@ class MealsFragment : Fragment() {
     }
 
     private fun subscribeUi(adapter: MealAdapter) {
-        viewModel.mealList.observe(viewLifecycleOwner) {
-            meals -> adapter.setList(meals)
+        viewModel.mealList.observe(viewLifecycleOwner) { meals ->
+            adapter.setList(meals)
         }
     }
 

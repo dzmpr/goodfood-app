@@ -62,6 +62,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/bAddProduct"
         android:text="@string/add_label"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"/>
