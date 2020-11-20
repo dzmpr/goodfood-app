@@ -45,7 +45,7 @@
         android:layout_marginBottom="10dp"
         android:clickable="true"
         android:focusable="true"
-        app:backgroundTint="?attr/colorPrimaryVariant"
+        app:tint="?attr/colorSurface"
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
         app:srcCompat="@drawable/ic_plus_sign" />
 
