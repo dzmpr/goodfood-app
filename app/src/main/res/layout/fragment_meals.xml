@@ -33,11 +33,11 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvMealsList"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rvMealsList"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         android:overScrollMode="never"
-        android:layout_height="match_parent"
         tools:listitem="@layout/item_meal" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -49,7 +49,6 @@
         android:layout_marginBottom="10dp"
         android:clickable="true"
         android:focusable="true"
-        app:backgroundTint="?attr/colorPrimaryVariant"
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
         app:srcCompat="@drawable/ic_plus_sign" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

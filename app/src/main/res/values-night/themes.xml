@@ -2,22 +2,26 @@
     <!-- Base application theme. -->
     <style name="Theme.GoodFood" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimary">@color/emerald</item>
+        <item name="colorPrimaryVariant">@color/spring_green</item>
+        <item name="colorOnPrimary">@color/ivory</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorSecondary">@color/medium_spring_green</item>
+        <item name="colorSecondaryVariant">@color/mint_green</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorSurface</item>
+        <!-- Error colors. -->
+        <item name="colorError">@color/rose_madder</item>
+        <item name="colorOnError">@color/ivory</item>
+        <!-- Surface color. -->
         <item name="colorOnSurface">@color/white</item>
+        <!-- Customize your theme here. -->
     </style>
 
     <style name="BottomSheetDialogStyle" parent="Theme.Design.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
-        <item name="colorSurface">#242124</item>
+        <item name="colorSurface">@color/raisin_black</item>
         <!-- Prevent keyboard to draw above BottomSheetDialog -->
         <item name="android:windowSoftInputMode">adjustResize</item>
         <item name="android:windowIsFloating">false</item>
