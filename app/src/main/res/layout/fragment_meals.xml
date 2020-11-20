@@ -8,13 +8,27 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true" >
 
-        <Toolbar
+        <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimaryVariant"
-            android:title="@string/label_navigation_meals" />
+            android:layout_height="100dp"
+            android:fitsSystemWindows="true"
+            android:background="?attr/colorSurface"
+            app:title="@string/label_navigation_meals"
+            app:expandedTitleMarginStart="30dp"
+            app:expandedTitleMarginEnd="64dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed" >
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:titleTextColor="?attr/colorOnSurface"
+                app:layout_collapseMode="pin"
+                android:title="@string/label_navigation_meals" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -22,6 +36,7 @@
         android:id="@+id/rvMealsList"
         android:layout_width="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        android:overScrollMode="never"
         android:layout_height="match_parent"
         tools:listitem="@layout/item_meal" />
 
