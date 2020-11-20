@@ -19,7 +19,7 @@
             app:title="@string/label_navigation_meals"
             app:expandedTitleMarginStart="30dp"
             app:expandedTitleMarginEnd="64dp"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed" >
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed" >
 
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
