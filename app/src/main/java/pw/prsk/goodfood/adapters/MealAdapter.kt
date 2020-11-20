@@ -15,6 +15,8 @@ class MealAdapter : RecyclerView.Adapter<MealAdapter.MealViewHolder>() {
 
     class MealViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.tvMealName)
+        val category: TextView = view.findViewById(R.id.tvMealCategoryName)
+        val lastEatDate: TextView = view.findViewById(R.id.tvLastEatDate)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MealViewHolder {
@@ -26,6 +28,8 @@ class MealAdapter : RecyclerView.Adapter<MealAdapter.MealViewHolder>() {
 
     override fun onBindViewHolder(holder: MealViewHolder, position: Int) {
         holder.name.text = mealList[position].name
+        holder.category.text = "Category test"
+        holder.lastEatDate.text = if (position % 2 == 0) "20.20.2020" else "Never"
     }
 
     override fun getItemCount(): Int = mealList.size
