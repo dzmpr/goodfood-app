@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/actionMeals"
+        android:title="@string/label_navigation_meals"
+        android:icon="@drawable/ic_navigation_meals"/>
+
+    <item
+        android:id="@+id/actionProducts"
+        android:title="@string/label_navigation_products"
+        android:icon="@drawable/ic_navigation_products"/>
+
+    <item
+        android:id="@+id/actionProfile"
+        android:title="@string/label_navigation_profile"
+        android:icon="@drawable/ic_navigation_profile"/>
+</menu>
