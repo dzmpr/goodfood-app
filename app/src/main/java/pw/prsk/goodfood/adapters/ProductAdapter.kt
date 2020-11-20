@@ -14,7 +14,9 @@ class ProductAdapter: RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
     private var productList: List<Product> = listOf()
 
     class ProductViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        var name: TextView = view.findViewById(R.id.tvProductName)
+        val name: TextView = view.findViewById(R.id.tvProductName)
+        val category: TextView = view.findViewById(R.id.tvProductCategoryName)
+        val unit: TextView = view.findViewById(R.id.tvProductUnitName)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
@@ -26,6 +28,8 @@ class ProductAdapter: RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         holder.name.text = productList[position].name
+        holder.category.text = "Testim categorii"
+        holder.unit.text = "pcs."
     }
 
     override fun getItemCount(): Int = productList.size
