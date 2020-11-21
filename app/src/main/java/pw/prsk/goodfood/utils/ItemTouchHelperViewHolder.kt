@@ -1,4 +1,4 @@
-package pw.prsk.goodfood.adapters
+package pw.prsk.goodfood.utils
 
 interface ItemTouchHelperViewHolder {
     fun onItemSelect()
