@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import pw.prsk.goodfood.adapters.MealAdapter
@@ -14,8 +15,8 @@ import pw.prsk.goodfood.data.Meal
 import pw.prsk.goodfood.databinding.DialogAddMealBinding
 import pw.prsk.goodfood.databinding.FragmentMealsBinding
 import pw.prsk.goodfood.repository.MealRepository
+import pw.prsk.goodfood.adapters.MealItemTouchHelperCallback
 import pw.prsk.goodfood.viewmodels.MealsViewModel
-import java.time.LocalDate
 import java.time.LocalDateTime
 
 class MealsFragment : Fragment() {
@@ -50,6 +51,10 @@ class MealsFragment : Fragment() {
             layoutManager = LinearLayoutManager(this.context)
             adapter = mealAdapter
         }
+
+        val ithCallback = MealItemTouchHelperCallback()
+        val touchHelper = ItemTouchHelper(ithCallback)
+        touchHelper.attachToRecyclerView(binding.rvMealsList)
 
         binding.fabAddMeal.setOnClickListener {
             val bsd = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogStyle)
