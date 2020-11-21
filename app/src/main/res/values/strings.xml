@@ -11,4 +11,5 @@
     <string name="add_label">Add</string>
     <string name="meal_name_placeholder_label">Meal name</string>
     <string name="description_label">Description</string>
+    <string name="delete_action_label">Delete</string>
 </resources>
