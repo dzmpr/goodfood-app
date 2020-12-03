@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">GoodFood</string>
+    <string name="label_navigation_meals">Meals</string>
+    <string name="label_navigation_products">Products</string>
+    <string name="label_navigation_profile">Profile</string>
+    <string name="add_meal_label">Add new meal</string>
+    <string name="add_product_label">Add new product</string>
+    <string name="product_name_placeholder_label">Product name</string>
+    <string name="category_select_label">Select a category</string>
+    <string name="unit_select_label">Select units</string>
+    <string name="add_label">Add</string>
+    <string name="meal_name_placeholder_label">Meal name</string>
+    <string name="description_label">Description</string>
+    <string name="delete_action_label">Delete</string>
 </resources>
