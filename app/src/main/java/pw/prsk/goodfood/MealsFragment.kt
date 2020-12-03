@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import pw.prsk.goodfood.adapters.MealAdapter
@@ -14,8 +15,9 @@ import pw.prsk.goodfood.data.Meal
 import pw.prsk.goodfood.databinding.DialogAddMealBinding
 import pw.prsk.goodfood.databinding.FragmentMealsBinding
 import pw.prsk.goodfood.repository.MealRepository
+import pw.prsk.goodfood.utils.ItemSwipeDecorator
+import pw.prsk.goodfood.utils.MealItemTouchHelperCallback
 import pw.prsk.goodfood.viewmodels.MealsViewModel
-import java.time.LocalDate
 import java.time.LocalDateTime
 
 class MealsFragment : Fragment() {
@@ -43,13 +45,7 @@ class MealsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val mealAdapter = MealAdapter()
-        subscribeUi(mealAdapter)
-
-        binding.rvMealsList.apply {
-            layoutManager = LinearLayoutManager(this.context)
-            adapter = mealAdapter
-        }
+        initMealList()
 
         binding.fabAddMeal.setOnClickListener {
             val bsd = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogStyle)
@@ -70,6 +66,27 @@ class MealsFragment : Fragment() {
             }
             bsd.show()
         }
+    }
+
+    private fun initMealList() {
+        val mealAdapter = MealAdapter()
+        subscribeUi(mealAdapter)
+
+        binding.rvMealsList.apply {
+            layoutManager = LinearLayoutManager(this.context)
+            adapter = mealAdapter
+        }
+
+        val swipeDecorator = ItemSwipeDecorator.Companion.Builder()
+            .setRightSideIcon(R.drawable.ic_trash_bin, R.color.ivory)
+            .setBackgroundColor(rightSideColorId = R.color.rose_madder)
+            .setIconMargin(50)
+            .setRightSideText(R.string.delete_action_label, R.color.ivory, 16f)
+            .getDecorator()
+
+        val ithCallback = MealItemTouchHelperCallback(viewModel, swipeDecorator)
+        val touchHelper = ItemTouchHelper(ithCallback)
+        touchHelper.attachToRecyclerView(binding.rvMealsList)
     }
 
     private fun subscribeUi(adapter: MealAdapter) {
