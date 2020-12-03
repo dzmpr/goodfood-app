@@ -6,11 +6,17 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
-@Database(entities = [Meal::class, Product::class], version = 1)
+@Database(
+    entities = [Meal::class, Product::class, MealCategory::class, ProductCategory::class],
+    version = 1
+)
 @TypeConverters(Converters::class)
-abstract class AppDatabase: RoomDatabase() {
+abstract class AppDatabase : RoomDatabase() {
     abstract fun productDao(): ProductDao
+    abstract fun productCategoryDao(): ProductCategoryDao
+
     abstract fun mealDao(): MealDao
+    abstract fun mealCategoryDao(): MealCategoryDao
 
     companion object {
         private const val DATABASE_NAME = "food-db"
