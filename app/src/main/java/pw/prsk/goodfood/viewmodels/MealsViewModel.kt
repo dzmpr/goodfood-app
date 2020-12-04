@@ -1,11 +1,13 @@
 package pw.prsk.goodfood.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import pw.prsk.goodfood.utils.ItemTouchHelperAction
 import pw.prsk.goodfood.data.Meal
+import pw.prsk.goodfood.repository.MealCategoryRepository
 import pw.prsk.goodfood.repository.MealRepository
 
 
@@ -14,30 +16,32 @@ class MealsViewModel : ViewModel(), ItemTouchHelperAction {
         MutableLiveData<List<Meal>>()
     }
 
-    private var repository: MealRepository? = null
+    private var mealRepository: MealRepository? = null
+    private var mealCategoryRepository: MealCategoryRepository? = null
 
     fun addMeal(meal: Meal) {
         viewModelScope.launch {
-            repository!!.addMeal(meal)
+            mealRepository!!.addMeal(meal)
             loadMealsList()
         }
     }
 
     private fun loadMealsList() {
         viewModelScope.launch {
-            mealList.postValue(repository!!.getMeals())
+            mealList.postValue(mealRepository!!.getMeals())
         }
     }
 
-    fun injectRepository(repository: MealRepository) {
-        this.repository = repository
+    fun injectRepositories(mealRepository: MealRepository, mealCategoryRepository: MealCategoryRepository) {
+        this.mealRepository = mealRepository
+        this.mealCategoryRepository = mealCategoryRepository
         loadMealsList()
     }
 
     override fun itemSwiped(position: Int, direction: Int) {
         viewModelScope.launch {
             val item = mealList.value?.get(position)
-            repository?.removeMeal(item!!)
+            mealRepository?.removeMeal(item!!)
             loadMealsList()
         }
     }
@@ -45,6 +49,7 @@ class MealsViewModel : ViewModel(), ItemTouchHelperAction {
     override fun itemMoved(startPosition: Int, endPosition: Int) {}
 
     override fun onCleared() {
-        repository = null
+        mealRepository = null
+        mealCategoryRepository = null
     }
 }

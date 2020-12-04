@@ -14,6 +14,7 @@ import pw.prsk.goodfood.data.AppDatabase
 import pw.prsk.goodfood.data.Meal
 import pw.prsk.goodfood.databinding.DialogAddMealBinding
 import pw.prsk.goodfood.databinding.FragmentMealsBinding
+import pw.prsk.goodfood.repository.MealCategoryRepository
 import pw.prsk.goodfood.repository.MealRepository
 import pw.prsk.goodfood.utils.ItemSwipeDecorator
 import pw.prsk.goodfood.utils.MealItemTouchHelperCallback
@@ -29,7 +30,8 @@ class MealsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         val dbInstance = AppDatabase.getInstance(requireActivity().applicationContext)
         val mealRepository = MealRepository(dbInstance)
-        viewModel.injectRepository(mealRepository)
+        val mealCategoryRepository = MealCategoryRepository(dbInstance)
+        viewModel.injectRepositories(mealRepository, mealCategoryRepository)
         super.onCreate(savedInstanceState)
     }
 
@@ -37,7 +39,7 @@ class MealsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentMealsBinding.inflate(inflater, container, false)
         return binding.root
     }

@@ -14,6 +14,7 @@ import pw.prsk.goodfood.data.AppDatabase
 import pw.prsk.goodfood.data.Product
 import pw.prsk.goodfood.databinding.DialogAddProductBinding
 import pw.prsk.goodfood.databinding.FragmentProductsBinding
+import pw.prsk.goodfood.repository.ProductCategoryRepository
 import pw.prsk.goodfood.repository.ProductRepository
 import pw.prsk.goodfood.utils.ItemSwipeDecorator
 import pw.prsk.goodfood.utils.ProductItemTouchHelperCallback
@@ -29,15 +30,16 @@ class ProductsFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         val dbInstance = AppDatabase.getInstance(requireContext().applicationContext)
-        val repository = ProductRepository(dbInstance)
-        viewModel.injectRepository(repository)
+        val productRepository = ProductRepository(dbInstance)
+        val productCategoryRepository = ProductCategoryRepository(dbInstance)
+        viewModel.injectRepository(productRepository, productCategoryRepository)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentProductsBinding.inflate(inflater, container, false)
         return binding.root
     }
