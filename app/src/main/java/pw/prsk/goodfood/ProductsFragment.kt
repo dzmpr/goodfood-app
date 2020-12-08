@@ -10,12 +10,9 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import pw.prsk.goodfood.adapters.ProductAdapter
-import pw.prsk.goodfood.data.AppDatabase
 import pw.prsk.goodfood.data.Product
 import pw.prsk.goodfood.databinding.DialogAddProductBinding
 import pw.prsk.goodfood.databinding.FragmentProductsBinding
-import pw.prsk.goodfood.repository.ProductCategoryRepository
-import pw.prsk.goodfood.repository.ProductRepository
 import pw.prsk.goodfood.utils.ItemSwipeDecorator
 import pw.prsk.goodfood.utils.ProductItemTouchHelperCallback
 import pw.prsk.goodfood.viewmodels.ProductsViewModel
@@ -28,11 +25,8 @@ class ProductsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val dbInstance = AppDatabase.getInstance(requireContext().applicationContext)
-        val productRepository = ProductRepository(dbInstance)
-        val productCategoryRepository = ProductCategoryRepository(dbInstance)
-        viewModel.injectRepository(productRepository, productCategoryRepository)
+        (requireActivity().application as MyApplication).appComponent.inject(viewModel)
+        viewModel.loadProductsList()
     }
 
     override fun onCreateView(
