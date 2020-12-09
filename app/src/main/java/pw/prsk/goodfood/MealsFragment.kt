@@ -10,12 +10,9 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import pw.prsk.goodfood.adapters.MealAdapter
-import pw.prsk.goodfood.data.AppDatabase
 import pw.prsk.goodfood.data.Meal
 import pw.prsk.goodfood.databinding.DialogAddMealBinding
 import pw.prsk.goodfood.databinding.FragmentMealsBinding
-import pw.prsk.goodfood.repository.MealCategoryRepository
-import pw.prsk.goodfood.repository.MealRepository
 import pw.prsk.goodfood.utils.ItemSwipeDecorator
 import pw.prsk.goodfood.utils.MealItemTouchHelperCallback
 import pw.prsk.goodfood.viewmodels.MealsViewModel
@@ -28,11 +25,9 @@ class MealsFragment : Fragment() {
     private val viewModel: MealsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val dbInstance = AppDatabase.getInstance(requireActivity().applicationContext)
-        val mealRepository = MealRepository(dbInstance)
-        val mealCategoryRepository = MealCategoryRepository(dbInstance)
-        viewModel.injectRepositories(mealRepository, mealCategoryRepository)
         super.onCreate(savedInstanceState)
+        (requireActivity().application as MyApplication).appComponent.inject(viewModel)
+        viewModel.loadMealsList()
     }
 
     override fun onCreateView(

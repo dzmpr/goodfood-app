@@ -1,15 +1,18 @@
 package pw.prsk.goodfood.viewmodels
 
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import pw.prsk.goodfood.data.Product
 import pw.prsk.goodfood.repository.ProductCategoryRepository
 import pw.prsk.goodfood.repository.ProductRepository
 import pw.prsk.goodfood.utils.ItemTouchHelperAction
+import javax.inject.Inject
 
 class ProductsViewModel : ViewModel(), ItemTouchHelperAction {
-    private var productRepository: ProductRepository? = null
-    private var productCategoryRepository: ProductCategoryRepository? = null
+    @Inject lateinit var productRepository: ProductRepository
+    @Inject lateinit var productCategoryRepository: ProductCategoryRepository
 
     val productsList: MutableLiveData<List<Product>> by lazy {
         MutableLiveData<List<Product>>()
@@ -17,35 +20,21 @@ class ProductsViewModel : ViewModel(), ItemTouchHelperAction {
 
     fun addProduct(product: Product) {
         viewModelScope.launch {
-            productRepository!!.addProduct(product)
+            productRepository.addProduct(product)
             loadProductsList()
         }
     }
 
-    private fun loadProductsList() {
+    fun loadProductsList() {
         viewModelScope.launch {
-            productsList.postValue(productRepository!!.getProducts())
+            productsList.postValue(productRepository.getProducts())
         }
-    }
-
-    fun injectRepository(
-        productRepository: ProductRepository,
-        productCategoryRepository: ProductCategoryRepository
-    ) {
-        this.productRepository = productRepository
-        this.productCategoryRepository = productCategoryRepository
-        loadProductsList()
-    }
-
-    override fun onCleared() {
-        productRepository = null
-        productCategoryRepository = null
     }
 
     override fun itemSwiped(position: Int, direction: Int) {
         viewModelScope.launch {
             val item = productsList.value?.get(position)
-            productRepository?.removeProduct(item!!)
+            productRepository.removeProduct(item!!)
             loadProductsList()
         }
     }
