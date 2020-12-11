@@ -12,4 +12,11 @@
     <string name="meal_name_placeholder_label">Meal name</string>
     <string name="description_label">Description</string>
     <string name="delete_action_label">Delete</string>
+
+    <string name="default_meal_category_1">Soups</string>
+    <string name="default_meal_category_2">Salads</string>
+    <string name="default_meal_category_3">Cakes</string>
+    <string name="default_product_category_1">Seafood</string>
+    <string name="default_product_category_2">Meat</string>
+    <string name="default_product_category_3">Vegetable</string>
 </resources>

@@ -6,7 +6,9 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import pw.prsk.goodfood.utils.ItemTouchHelperAction
 import pw.prsk.goodfood.data.Meal
+import pw.prsk.goodfood.repository.MealCategoryRepository
 import pw.prsk.goodfood.repository.MealRepository
+import javax.inject.Inject
 
 
 class MealsViewModel : ViewModel(), ItemTouchHelperAction {
@@ -14,37 +16,29 @@ class MealsViewModel : ViewModel(), ItemTouchHelperAction {
         MutableLiveData<List<Meal>>()
     }
 
-    private var repository: MealRepository? = null
+    @Inject lateinit var mealRepository: MealRepository
+    @Inject lateinit var mealCategoryRepository: MealCategoryRepository
 
     fun addMeal(meal: Meal) {
         viewModelScope.launch {
-            repository!!.addMeal(meal)
+            mealRepository.addMeal(meal)
             loadMealsList()
         }
     }
 
-    private fun loadMealsList() {
+    fun loadMealsList() {
         viewModelScope.launch {
-            mealList.postValue(repository!!.getMeals())
+            mealList.postValue(mealRepository.getMeals())
         }
-    }
-
-    fun injectRepository(repository: MealRepository) {
-        this.repository = repository
-        loadMealsList()
     }
 
     override fun itemSwiped(position: Int, direction: Int) {
         viewModelScope.launch {
             val item = mealList.value?.get(position)
-            repository?.removeMeal(item!!)
+            mealRepository.removeMeal(item!!)
             loadMealsList()
         }
     }
 
     override fun itemMoved(startPosition: Int, endPosition: Int) {}
-
-    override fun onCleared() {
-        repository = null
-    }
 }
