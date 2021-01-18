@@ -17,7 +17,6 @@
         <!-- Customize your theme here. -->
         <item name="colorSurface">@color/ivory</item>
         <item name="colorOnSurface">@color/black</item>
-        <item name="android:background">@color/ivory</item>
         <!-- Light theme for status bar. -->
         <item name="android:windowLightStatusBar">true</item>
     </style>
