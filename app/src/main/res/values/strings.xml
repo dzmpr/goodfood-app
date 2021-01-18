@@ -12,6 +12,7 @@
     <string name="meal_name_placeholder_label">Meal name</string>
     <string name="description_label">Description</string>
     <string name="delete_action_label">Delete</string>
+    <string name="snackbar_item_deleted">\"%s\" was removed.</string>
 
     <string name="default_meal_category_1">Soups</string>
     <string name="default_meal_category_2">Salads</string>

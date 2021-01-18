@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.snackbar.Snackbar
 import pw.prsk.goodfood.adapters.ProductAdapter
 import pw.prsk.goodfood.data.Product
 import pw.prsk.goodfood.databinding.DialogAddProductBinding
@@ -42,6 +43,11 @@ class ProductsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initProductList()
+
+        viewModel.deleteSnack.observe(viewLifecycleOwner) {
+            val message = resources.getString(R.string.snackbar_item_deleted, it)
+            showSnackbar(message)
+        }
 
         binding.fabAddProduct.setOnClickListener {
             val bsd = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogStyle)
@@ -81,6 +87,10 @@ class ProductsFragment : Fragment() {
         viewModel.productsList.observe(viewLifecycleOwner) { list ->
             adapter.setList(list)
         }
+    }
+
+    private fun showSnackbar(text: String) {
+        Snackbar.make(binding.root, text, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {
