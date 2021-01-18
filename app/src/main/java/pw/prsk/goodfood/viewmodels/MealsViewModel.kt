@@ -8,6 +8,7 @@ import pw.prsk.goodfood.utils.ItemTouchHelperAction
 import pw.prsk.goodfood.data.Meal
 import pw.prsk.goodfood.repository.MealCategoryRepository
 import pw.prsk.goodfood.repository.MealRepository
+import pw.prsk.goodfood.utils.SingleLiveEvent
 import javax.inject.Inject
 
 
@@ -15,6 +16,8 @@ class MealsViewModel : ViewModel(), ItemTouchHelperAction {
     val mealList: MutableLiveData<List<Meal>> by lazy {
         MutableLiveData<List<Meal>>()
     }
+
+    val deleteSnack = SingleLiveEvent<String>()
 
     @Inject lateinit var mealRepository: MealRepository
     @Inject lateinit var mealCategoryRepository: MealCategoryRepository
@@ -35,6 +38,7 @@ class MealsViewModel : ViewModel(), ItemTouchHelperAction {
     override fun itemSwiped(position: Int, direction: Int) {
         viewModelScope.launch {
             val item = mealList.value?.get(position)
+            deleteSnack.value = item?.name // Show snackbar with deleted item name
             mealRepository.removeMeal(item!!)
             loadMealsList()
         }

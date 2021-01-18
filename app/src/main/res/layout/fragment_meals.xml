@@ -38,6 +38,7 @@
         android:id="@+id/rvMealsList"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         android:overScrollMode="never"
+        android:background="?attr/colorSurface"
         tools:listitem="@layout/item_meal" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
