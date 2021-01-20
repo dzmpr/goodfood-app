@@ -5,14 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetDialog
+
 import com.google.android.material.snackbar.Snackbar
+
 import pw.prsk.goodfood.adapters.ProductAdapter
 import pw.prsk.goodfood.data.Product
-import pw.prsk.goodfood.databinding.DialogAddProductBinding
 import pw.prsk.goodfood.databinding.FragmentProductsBinding
 import pw.prsk.goodfood.utils.ItemSwipeDecorator
 import pw.prsk.goodfood.utils.ProductItemTouchHelperCallback
@@ -22,7 +22,7 @@ class ProductsFragment : Fragment() {
     private var _binding: FragmentProductsBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: ProductsViewModel by viewModels()
+    private val viewModel: ProductsViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,17 +50,22 @@ class ProductsFragment : Fragment() {
         }
 
         binding.fabAddProduct.setOnClickListener {
-            val bsd = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogStyle)
-            val dialogBinding = DialogAddProductBinding.inflate(layoutInflater)
-            dialogBinding.bAddProduct.setOnClickListener {
-                viewModel.addProduct(
-                    Product(null, dialogBinding.tilProductName.editText?.text.toString(), 0, 0)
-                )
-                bsd.dismiss()
-            }
-            bsd.setContentView(dialogBinding.root)
-            bsd.show()
+            val dialog = AddProductBottomFragment()
+            dialog.show(childFragmentManager, null)
         }
+
+//        binding.fabAddProduct.setOnClickListener {
+//            val bsd = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogStyle)
+//            val dialogBinding = FragmentAddProductBinding.inflate(layoutInflater)
+//            dialogBinding.bAddProduct.setOnClickListener {
+//                viewModel.addProduct(
+//                    Product(null, dialogBinding.tilProductName.editText?.text.toString(), 0, 0)
+//                )
+//                bsd.dismiss()
+//            }
+//            bsd.setContentView(dialogBinding.root)
+//            bsd.show()
+//        }
     }
 
     private fun initProductList() {

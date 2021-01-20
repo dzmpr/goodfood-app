@@ -5,25 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetDialog
+
 import com.google.android.material.snackbar.Snackbar
+
 import pw.prsk.goodfood.adapters.MealAdapter
-import pw.prsk.goodfood.data.Meal
-import pw.prsk.goodfood.databinding.DialogAddMealBinding
 import pw.prsk.goodfood.databinding.FragmentMealsBinding
 import pw.prsk.goodfood.utils.ItemSwipeDecorator
 import pw.prsk.goodfood.utils.MealItemTouchHelperCallback
 import pw.prsk.goodfood.viewmodels.MealsViewModel
-import java.time.LocalDateTime
 
 class MealsFragment : Fragment() {
     private var _binding: FragmentMealsBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: MealsViewModel by viewModels()
+    private val viewModel: MealsViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,24 +49,29 @@ class MealsFragment : Fragment() {
         }
 
         binding.fabAddMeal.setOnClickListener {
-            val bsd = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogStyle)
-            val dialogBinding = DialogAddMealBinding.inflate(layoutInflater)
-            bsd.setContentView(dialogBinding.root)
-            dialogBinding.bAddMeal.setOnClickListener {
-                viewModel.addMeal(
-                    Meal(
-                        null,
-                        dialogBinding.tilMealName.editText?.text.toString(),
-                        dialogBinding.tilDescription.editText?.text.toString(),
-                        LocalDateTime.now(),
-                        0,
-                        0
-                    )
-                )
-                bsd.dismiss()
-            }
-            bsd.show()
+            val dialog = AddMealBottomFragment()
+            dialog.show(childFragmentManager, null)
         }
+
+//        binding.fabAddMeal.setOnClickListener {
+//            val bsd = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogStyle)
+//            val dialogBinding = DialogAddMealBinding.inflate(layoutInflater)
+//            bsd.setContentView(dialogBinding.root)
+//            dialogBinding.bAddMeal.setOnClickListener {
+//                viewModel.addMeal(
+//                    Meal(
+//                        null,
+//                        dialogBinding.tilMealName.editText?.text.toString(),
+//                        dialogBinding.tilDescription.editText?.text.toString(),
+//                        LocalDateTime.now(),
+//                        0,
+//                        0
+//                    )
+//                )
+//                bsd.dismiss()
+//            }
+//            bsd.show()
+//        }
     }
 
     private fun initMealList() {
