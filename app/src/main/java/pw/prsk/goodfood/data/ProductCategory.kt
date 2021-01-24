@@ -8,4 +8,8 @@ import androidx.room.PrimaryKey
 data class ProductCategory(
     @PrimaryKey(autoGenerate = true) val id: Int? = null,
     @ColumnInfo(name = "name") var name: String
-)
+) {
+    override fun toString(): String {
+        return name
+    }
+}

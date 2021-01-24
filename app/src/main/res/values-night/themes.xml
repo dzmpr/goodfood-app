@@ -17,11 +17,11 @@
         <!-- Surface color. -->
         <item name="colorOnSurface">@color/white</item>
         <!-- Customize your theme here. -->
+        <item name="bottomSheetDialogTheme">@style/BottomSheetDialogStyle</item>
     </style>
 
-    <style name="BottomSheetDialogStyle" parent="Theme.Design.BottomSheetDialog">
+    <style name="BottomSheetDialogStyle" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
-        <item name="colorSurface">@color/raisin_black</item>
         <!-- Prevent keyboard to draw above BottomSheetDialog -->
         <item name="android:windowSoftInputMode">adjustResize</item>
         <item name="android:windowIsFloating">false</item>

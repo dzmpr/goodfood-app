@@ -18,6 +18,7 @@ class MealsViewModel : ViewModel(), ItemTouchHelperAction {
     }
 
     val deleteSnack = SingleLiveEvent<String>()
+    var test = "TESTIM"
 
     @Inject lateinit var mealRepository: MealRepository
     @Inject lateinit var mealCategoryRepository: MealCategoryRepository
