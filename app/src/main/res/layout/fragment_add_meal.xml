@@ -20,7 +20,7 @@
         android:id="@+id/tilMealName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_marginBottom="@dimen/bottom_sheet_fields_margin"
         android:hint="@string/meal_name_placeholder_label" >
 
@@ -33,7 +33,7 @@
         android:id="@+id/tilDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_marginBottom="@dimen/bottom_sheet_fields_margin"
         android:hint="@string/description_label" >
 

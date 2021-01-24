@@ -20,4 +20,6 @@
     <string name="default_product_category_1">Seafood</string>
     <string name="default_product_category_2">Meat</string>
     <string name="default_product_category_3">Vegetable</string>
+    <string name="label_name_error">Field shouldn\'t be empty.</string>
+    <string name="label_category_error">Select category.</string>
 </resources>
