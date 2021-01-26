@@ -9,6 +9,7 @@ import pw.prsk.goodfood.data.Product
 import pw.prsk.goodfood.data.ProductCategory
 import pw.prsk.goodfood.repository.ProductCategoryRepository
 import pw.prsk.goodfood.repository.ProductRepository
+import pw.prsk.goodfood.repository.ProductUnitsRepository
 import pw.prsk.goodfood.utils.ItemTouchHelperAction
 import pw.prsk.goodfood.utils.SingleLiveEvent
 import javax.inject.Inject
@@ -16,6 +17,7 @@ import javax.inject.Inject
 class ProductsViewModel : ViewModel(), ItemTouchHelperAction {
     @Inject lateinit var productRepository: ProductRepository
     @Inject lateinit var productCategoryRepository: ProductCategoryRepository
+    @Inject lateinit var productUnitsRepository: ProductUnitsRepository
 
     val deleteSnack = SingleLiveEvent<String>()
 
