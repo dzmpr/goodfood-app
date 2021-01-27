@@ -17,4 +17,8 @@ class ProductRepository(private val dbInstance: AppDatabase) {
     suspend fun removeProduct(product: Product) = withContext(Dispatchers.IO) {
         dbInstance.productDao().delete(product)
     }
+
+    suspend fun getProductsWithMeta() = withContext(Dispatchers.IO) {
+        dbInstance.productDao().getProductsWithMeta()
+    }
 }
