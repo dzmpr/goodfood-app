@@ -10,6 +10,9 @@ interface ProductDao : BaseDao<Product> {
     @Query("SELECT * FROM products WHERE id = :id")
     fun getById(id: Int): Product
 
+    @Query("DELETE FROM products WHERE id = :id")
+    fun deleteById(id: Int)
+
     @Query("""
         SELECT 
             products.id, 

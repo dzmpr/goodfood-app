@@ -53,19 +53,6 @@ class ProductsFragment : Fragment() {
             val dialog = AddProductBottomFragment()
             dialog.show(childFragmentManager, null)
         }
-
-//        binding.fabAddProduct.setOnClickListener {
-//            val bsd = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogStyle)
-//            val dialogBinding = FragmentAddProductBinding.inflate(layoutInflater)
-//            dialogBinding.bAddProduct.setOnClickListener {
-//                viewModel.addProduct(
-//                    Product(null, dialogBinding.tilProductName.editText?.text.toString(), 0, 0)
-//                )
-//                bsd.dismiss()
-//            }
-//            bsd.setContentView(dialogBinding.root)
-//            bsd.show()
-//        }
     }
 
     private fun initProductList() {
