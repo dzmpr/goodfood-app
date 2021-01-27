@@ -14,12 +14,18 @@
     <string name="delete_action_label">Delete</string>
     <string name="snackbar_item_deleted">\"%s\" was removed.</string>
 
+    <!--    Prepopulation data-->
     <string name="default_meal_category_1">Soups</string>
     <string name="default_meal_category_2">Salads</string>
     <string name="default_meal_category_3">Cakes</string>
     <string name="default_product_category_1">Seafood</string>
     <string name="default_product_category_2">Meat</string>
     <string name="default_product_category_3">Vegetable</string>
+    <string name="default_product_unit_1">pcs.</string>
+    <string name="default_product_unit_2">tsp.</string>
+    <string name="default_product_unit_3">tbs.</string>
+
     <string name="label_name_error">Field shouldn\'t be empty.</string>
     <string name="label_category_error">Select category.</string>
+    <string name="label_product_units_error">Select units.</string>
 </resources>
