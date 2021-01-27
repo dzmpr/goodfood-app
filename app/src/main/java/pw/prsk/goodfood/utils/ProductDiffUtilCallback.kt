@@ -2,8 +2,9 @@ package pw.prsk.goodfood.utils
 
 import androidx.recyclerview.widget.DiffUtil
 import pw.prsk.goodfood.data.Product
+import pw.prsk.goodfood.data.ProductWithMeta
 
-class ProductDiffUtilCallback(private val oldList: List<Product>, private val newList: List<Product>) :
+class ProductDiffUtilCallback(private val oldList: List<ProductWithMeta>, private val newList: List<ProductWithMeta>) :
     DiffUtil.Callback() {
     override fun getOldListSize(): Int = oldList.size
 

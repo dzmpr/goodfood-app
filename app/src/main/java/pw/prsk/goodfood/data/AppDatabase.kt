@@ -2,9 +2,9 @@ package pw.prsk.goodfood.data
 
 import android.content.Context
 import androidx.room.*
-import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import pw.prsk.goodfood.R
+import pw.prsk.goodfood.data.dao.*
 import java.util.concurrent.Executors
 
 @Database(

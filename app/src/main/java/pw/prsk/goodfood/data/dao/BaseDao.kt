@@ -1,4 +1,4 @@
-package pw.prsk.goodfood.data
+package pw.prsk.goodfood.data.dao
 
 import androidx.room.Delete
 import androidx.room.Insert
