@@ -1,7 +1,8 @@
-package pw.prsk.goodfood.data
+package pw.prsk.goodfood.data.dao
 
 import androidx.room.Dao
 import androidx.room.Query
+import pw.prsk.goodfood.data.MealCategory
 
 @Dao
 interface MealCategoryDao: BaseDao<MealCategory> {

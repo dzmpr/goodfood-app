@@ -1,6 +1,8 @@
-package pw.prsk.goodfood.data
+package pw.prsk.goodfood.data.dao
 
 import androidx.room.*
+import pw.prsk.goodfood.data.Product
+import pw.prsk.goodfood.data.ProductWithMeta
 
 @Dao
 interface ProductDao : BaseDao<Product> {
