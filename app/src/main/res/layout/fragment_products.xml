@@ -44,8 +44,8 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/layout_start_margin"
                 android:paddingTop="0dp"
-                android:paddingEnd="@dimen/layout_start_margin"
                 android:paddingBottom="6dp"
+                android:paddingEnd="@dimen/layout_end_margin"
                 app:singleLine="true"
                 app:singleSelection="true" />
         </HorizontalScrollView>
