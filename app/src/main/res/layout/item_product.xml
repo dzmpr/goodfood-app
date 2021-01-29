@@ -17,7 +17,7 @@
             android:id="@+id/tvProductName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="@dimen/layout_start_margin"
             android:layout_marginTop="10dp"
             android:textColor="?attr/colorOnSurface"
             android:textSize="20sp"
@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvProductCategoryName"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="@dimen/layout_start_margin"
         tools:text="Category" />
 
 </LinearLayout>

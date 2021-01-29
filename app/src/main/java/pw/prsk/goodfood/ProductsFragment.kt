@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.chip.Chip
 
 import com.google.android.material.snackbar.Snackbar
 
@@ -28,6 +29,7 @@ class ProductsFragment : Fragment() {
         super.onCreate(savedInstanceState)
         (requireActivity().application as MyApplication).appComponent.inject(viewModel)
         viewModel.loadProductsList()
+        viewModel.loadCategories()
     }
 
     override fun onCreateView(
@@ -43,6 +45,7 @@ class ProductsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initProductList()
+        initCategoryChips()
 
         viewModel.deleteSnack.observe(viewLifecycleOwner) {
             val message = resources.getString(R.string.snackbar_item_deleted, it)
@@ -52,6 +55,20 @@ class ProductsFragment : Fragment() {
         binding.fabAddProduct.setOnClickListener {
             val dialog = AddProductBottomFragment()
             dialog.show(childFragmentManager, null)
+        }
+    }
+
+    private fun initCategoryChips() {
+        viewModel.categoriesList.observe(viewLifecycleOwner) {
+            if (binding.cgCategoryChips.childCount > 0) {
+                binding.cgCategoryChips.removeAllViews()
+            }
+
+            it.forEach { category ->
+                val chip = layoutInflater.inflate(R.layout.chip_sort_layout, binding.cgCategoryChips, false) as Chip
+                chip.text = category.name
+                binding.cgCategoryChips.addView(chip)
+            }
         }
     }
 

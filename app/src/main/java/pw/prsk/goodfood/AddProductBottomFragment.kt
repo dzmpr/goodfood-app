@@ -53,7 +53,7 @@ class AddProductBottomFragment : BottomSheetDialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.loadCategories()
+//        viewModel.loadCategories()
         viewModel.loadUnits()
     }
 
