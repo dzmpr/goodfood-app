@@ -13,7 +13,6 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 
 import pw.prsk.goodfood.adapters.ProductAdapter
-import pw.prsk.goodfood.data.Product
 import pw.prsk.goodfood.databinding.FragmentProductsBinding
 import pw.prsk.goodfood.utils.ItemSwipeDecorator
 import pw.prsk.goodfood.utils.ProductItemTouchHelperCallback
@@ -59,14 +58,27 @@ class ProductsFragment : Fragment() {
     }
 
     private fun initCategoryChips() {
+        binding.cgCategoryChips.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                View.NO_ID -> {
+                    viewModel.loadProductsList()
+                }
+                else -> {
+                    val category = viewModel.categoriesList.value!![checkedId]
+                    viewModel.loadProductsByCategory(category.id!!)
+                }
+            }
+        }
+
         viewModel.categoriesList.observe(viewLifecycleOwner) {
             if (binding.cgCategoryChips.childCount > 0) {
                 binding.cgCategoryChips.removeAllViews()
             }
 
-            it.forEach { category ->
+            for ((i, category) in it.withIndex()) {
                 val chip = layoutInflater.inflate(R.layout.chip_sort_layout, binding.cgCategoryChips, false) as Chip
                 chip.text = category.name
+                chip.id = i
                 binding.cgCategoryChips.addView(chip)
             }
         }
