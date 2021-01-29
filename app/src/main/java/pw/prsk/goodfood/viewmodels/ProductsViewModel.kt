@@ -45,6 +45,12 @@ class ProductsViewModel : ViewModel(), ItemTouchHelperAction {
         }
     }
 
+    fun loadProductsByCategory(categoryId: Int) {
+        viewModelScope.launch {
+            productsList.postValue(productRepository.getProductsWithMetaByCategory(categoryId))
+        }
+    }
+
     fun loadCategories() {
         viewModelScope.launch {
             categoriesList.postValue(productCategoryRepository.getCategories())

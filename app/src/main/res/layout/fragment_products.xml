@@ -1,41 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true" >
+        android:background="?attr/colorSurface"
+        android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            app:title="@string/label_navigation_products"
-            android:background="?attr/colorSurface"
             android:fitsSystemWindows="true"
-            app:expandedTitleMarginStart="30dp"
             app:expandedTitleMarginEnd="64dp"
-            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed" >
+            app:expandedTitleMarginStart="32dp"
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+            app:title="@string/label_navigation_products">
 
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:title="@string/label_navigation_products"
                 android:titleTextColor="?attr/colorOnSurface"
+                app:contentInsetStart="0dp"
                 app:layout_collapseMode="pin"
-                android:title="@string/label_navigation_products" />
+                app:titleMarginStart="@dimen/layout_start_margin" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/cgCategoryChips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/layout_start_margin"
+                android:paddingTop="0dp"
+                android:paddingBottom="6dp"
+                android:paddingEnd="@dimen/layout_end_margin"
+                app:singleLine="true"
+                app:singleSelection="true" />
+        </HorizontalScrollView>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvProductsList"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        android:overScrollMode="never"
-        android:background="?attr/colorSurface"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="?attr/colorSurface"
+        android:overScrollMode="never"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        tools:listitem="@layout/item_product" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddProduct"
@@ -44,10 +67,11 @@
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="10dp"
+        android:contentDescription="@string/add_meal_label"
         android:clickable="true"
         android:focusable="true"
-        app:tint="?attr/colorSurface"
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
-        app:srcCompat="@drawable/ic_plus_sign" />
+        app:srcCompat="@drawable/ic_plus_sign"
+        app:tint="?attr/colorSurface" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
