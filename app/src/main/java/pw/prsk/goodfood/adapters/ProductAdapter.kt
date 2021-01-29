@@ -8,10 +8,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import pw.prsk.goodfood.R
 import pw.prsk.goodfood.data.Product
+import pw.prsk.goodfood.data.ProductWithMeta
 import pw.prsk.goodfood.utils.ProductDiffUtilCallback
 
 class ProductAdapter: RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
-    private var productList: List<Product> = listOf()
+    private var productList: List<ProductWithMeta> = listOf()
 
     class ProductViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.tvProductName)
@@ -27,14 +28,16 @@ class ProductAdapter: RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        holder.name.text = productList[position].name
-        holder.category.text = "Testim categorii"
-        holder.unit.text = "pcs."
+        with (productList[position]) {
+            holder.name.text = name
+            holder.category.text = categoryName
+            holder.unit.text = unitName
+        }
     }
 
     override fun getItemCount(): Int = productList.size
 
-    fun setList(list: List<Product>) {
+    fun setList(list: List<ProductWithMeta>) {
         if (productList.isEmpty()) {
             productList = list
             notifyDataSetChanged()

@@ -3,10 +3,7 @@ package pw.prsk.goodfood.di.modules
 import dagger.Module
 import dagger.Provides
 import pw.prsk.goodfood.data.AppDatabase
-import pw.prsk.goodfood.repository.MealCategoryRepository
-import pw.prsk.goodfood.repository.MealRepository
-import pw.prsk.goodfood.repository.ProductCategoryRepository
-import pw.prsk.goodfood.repository.ProductRepository
+import pw.prsk.goodfood.repository.*
 
 @Module
 class RepositoryModule {
@@ -25,4 +22,8 @@ class RepositoryModule {
     @Provides
     fun provideMealCategoryRepository(dbInstance: AppDatabase): MealCategoryRepository =
         MealCategoryRepository(dbInstance)
+
+    @Provides
+    fun provideProductUnitsRepository(dbInstance: AppDatabase): ProductUnitsRepository =
+        ProductUnitsRepository(dbInstance)
 }

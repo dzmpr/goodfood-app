@@ -1,6 +1,7 @@
-package pw.prsk.goodfood.data
+package pw.prsk.goodfood.data.dao
 
 import androidx.room.*
+import pw.prsk.goodfood.data.Meal
 
 @Dao
 interface MealDao: BaseDao<Meal> {

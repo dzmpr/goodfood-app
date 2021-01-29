@@ -4,23 +4,25 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="10dp">
+    android:background="?attr/colorSurface"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingBottom="10dp">
+        android:layout_marginBottom="10dp">
 
         <TextView
             android:id="@+id/tvProductName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginStart="@dimen/layout_start_margin"
             android:textColor="?attr/colorOnSurface"
             android:textSize="20sp"
             tools:text="Product name" />
+
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -29,17 +31,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tvProductUnitName"
-            android:layout_marginEnd="15dp"
-            android:layout_marginTop="10dp"
-            tools:text="Unit" />
+            android:id="@+id/tvProductCategoryName"
+            android:layout_marginEnd="@dimen/layout_end_margin"
+            android:layout_gravity="bottom"
+            tools:text="Category" />
     </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvProductCategoryName"
-        android:layout_marginStart="20dp"
-        tools:text="Category" />
+        android:id="@+id/tvProductUnitName"
+        android:layout_gravity="end"
+        android:layout_marginEnd="@dimen/layout_end_margin"
+        tools:text="Unit" />
 
 </LinearLayout>

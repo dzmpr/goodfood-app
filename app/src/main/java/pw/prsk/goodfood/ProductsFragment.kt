@@ -5,13 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.chip.Chip
+
+import com.google.android.material.snackbar.Snackbar
+
 import pw.prsk.goodfood.adapters.ProductAdapter
-import pw.prsk.goodfood.data.Product
-import pw.prsk.goodfood.databinding.DialogAddProductBinding
 import pw.prsk.goodfood.databinding.FragmentProductsBinding
 import pw.prsk.goodfood.utils.ItemSwipeDecorator
 import pw.prsk.goodfood.utils.ProductItemTouchHelperCallback
@@ -21,12 +22,13 @@ class ProductsFragment : Fragment() {
     private var _binding: FragmentProductsBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: ProductsViewModel by viewModels()
+    private val viewModel: ProductsViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (requireActivity().application as MyApplication).appComponent.inject(viewModel)
         viewModel.loadProductsList()
+        viewModel.loadCategories()
     }
 
     override fun onCreateView(
@@ -42,18 +44,43 @@ class ProductsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initProductList()
+        initCategoryChips()
+
+        viewModel.deleteSnack.observe(viewLifecycleOwner) {
+            val message = resources.getString(R.string.snackbar_item_deleted, it)
+            showSnackbar(message)
+        }
 
         binding.fabAddProduct.setOnClickListener {
-            val bsd = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogStyle)
-            val dialogBinding = DialogAddProductBinding.inflate(layoutInflater)
-            dialogBinding.bAddProduct.setOnClickListener {
-                viewModel.addProduct(
-                    Product(null, dialogBinding.tilProductName.editText?.text.toString(), 0, 0)
-                )
-                bsd.dismiss()
+            val dialog = AddProductBottomFragment()
+            dialog.show(childFragmentManager, null)
+        }
+    }
+
+    private fun initCategoryChips() {
+        binding.cgCategoryChips.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                View.NO_ID -> {
+                    viewModel.loadProductsList()
+                }
+                else -> {
+                    val category = viewModel.categoriesList.value!![checkedId]
+                    viewModel.loadProductsByCategory(category.id!!)
+                }
             }
-            bsd.setContentView(dialogBinding.root)
-            bsd.show()
+        }
+
+        viewModel.categoriesList.observe(viewLifecycleOwner) {
+            if (binding.cgCategoryChips.childCount > 0) {
+                binding.cgCategoryChips.removeAllViews()
+            }
+
+            for ((i, category) in it.withIndex()) {
+                val chip = layoutInflater.inflate(R.layout.chip_sort_layout, binding.cgCategoryChips, false) as Chip
+                chip.text = category.name
+                chip.id = i
+                binding.cgCategoryChips.addView(chip)
+            }
         }
     }
 
@@ -81,6 +108,10 @@ class ProductsFragment : Fragment() {
         viewModel.productsList.observe(viewLifecycleOwner) { list ->
             adapter.setList(list)
         }
+    }
+
+    private fun showSnackbar(text: String) {
+        Snackbar.make(binding.root, text, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {
