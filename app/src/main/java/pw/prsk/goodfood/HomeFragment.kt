@@ -27,7 +27,7 @@ class HomeFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -44,6 +44,9 @@ class HomeFragment: Fragment() {
             })
             true
         }
+        // Remove action on item reselected
+        binding.bnvBottomMenu.setOnNavigationItemReselectedListener {}
+
         binding.bnvBottomMenu.selectedItemId = R.id.actionMeals
     }
 
