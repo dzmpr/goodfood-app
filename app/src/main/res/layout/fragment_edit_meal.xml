@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/ablAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorSurface"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:titleTextColor="?attr/colorOnSurface"
+                android:title="Test edit meal" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/spring_green"
+            android:id="@+id/vContainer"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            app:layout_constraintTop_toTopOf="@id/ivMealPhoto"
+            app:layout_constraintStart_toStartOf="@id/startMargin"
+            app:layout_constraintEnd_toEndOf="@id/endMargin"
+            app:layout_constraintBottom_toBottomOf="@id/ivMealPhoto"/>
+
+        <ImageView
+            android:id="@+id/ivMealPhoto"
+            android:layout_width="80dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_add_photo"
+            app:layout_constraintStart_toStartOf="@id/startMargin"
+            app:layout_constraintTop_toBottomOf="@id/ablAppBar" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@id/endMargin"
+            app:layout_constraintStart_toEndOf="@id/ivMealPhoto"
+            app:layout_constraintTop_toBottomOf="@id/ablAppBar"
+            app:layout_constraintBottom_toBottomOf="@id/vContainer"
+            tools:text="Select or take photo"
+            android:text="Select or take photo"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilMealName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:hint="Meal name"
+            app:layout_constraintEnd_toStartOf="@id/endMargin"
+            app:layout_constraintStart_toStartOf="@id/startMargin"
+            app:layout_constraintTop_toBottomOf="@id/bEndPhoto">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:hint="Description"
+            app:layout_constraintEnd_toStartOf="@id/endMargin"
+            app:layout_constraintStart_toStartOf="@id/startMargin"
+            app:layout_constraintTop_toBottomOf="@id/tilMealName">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:inputType="textMultiLine"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tvIngredientsSection"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Ingredients list:"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@id/tilDescription"
+            app:layout_constraintStart_toStartOf="@id/startMargin"
+            app:layout_constraintEnd_toStartOf="@id/endMargin"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilTemp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:hint="Ingredient"
+            app:layout_constraintTop_toBottomOf="@id/tvIngredientsSection"
+            app:layout_constraintStart_toStartOf="@id/startMargin"
+            app:layout_constraintEnd_toStartOf="@id/endMargin">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <EditText
+            android:id="@+id/etTest"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Ingredient"
+            app:layout_constraintTop_toBottomOf="@id/tilTemp"
+            app:layout_constraintStart_toStartOf="@id/startMargin"
+            app:layout_constraintEnd_toEndOf="@id/endMargin" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/bAddIngredient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Ingredient"
+            android:layout_marginTop="10dp"
+
+            style="?attr/materialButtonOutlinedStyle"
+            app:layout_constraintTop_toBottomOf="@id/etTest"
+            app:layout_constraintStart_toStartOf="@id/startMargin"
+            app:layout_constraintEnd_toStartOf="@id/bSaveRecipe"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/bSaveRecipe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Save recipe"
+            style="@style/Widget.MaterialComponents.Button"
+            app:layout_constraintTop_toBottomOf="@id/etTest"
+            app:layout_constraintStart_toEndOf="@id/bAddIngredient"
+            app:layout_constraintEnd_toEndOf="@id/endMargin" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/startMargin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/layout_start_margin" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/endMargin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/layout_end_margin" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/bEndPhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="top"
+            app:layout_constraintTop_toBottomOf="@id/ivMealPhoto" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
