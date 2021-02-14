@@ -49,29 +49,10 @@ class MealsFragment : Fragment() {
         }
 
         binding.fabAddMeal.setOnClickListener {
-            val dialog = AddMealBottomFragment()
-            dialog.show(childFragmentManager, null)
+//            val dialog = AddMealBottomFragment()
+//            dialog.show(childFragmentManager, null)
+            (activity as MainActivity).changeFragment()
         }
-
-//        binding.fabAddMeal.setOnClickListener {
-//            val bsd = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogStyle)
-//            val dialogBinding = DialogAddMealBinding.inflate(layoutInflater)
-//            bsd.setContentView(dialogBinding.root)
-//            dialogBinding.bAddMeal.setOnClickListener {
-//                viewModel.addMeal(
-//                    Meal(
-//                        null,
-//                        dialogBinding.tilMealName.editText?.text.toString(),
-//                        dialogBinding.tilDescription.editText?.text.toString(),
-//                        LocalDateTime.now(),
-//                        0,
-//                        0
-//                    )
-//                )
-//                bsd.dismiss()
-//            }
-//            bsd.show()
-//        }
     }
 
     private fun initMealList() {
