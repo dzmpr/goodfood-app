@@ -40,7 +40,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvRecipePhoto"
@@ -92,9 +93,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Ingredients list:"
+                android:text="Ingredients list"
                 android:textColor="?attr/colorOnSurface"
-                android:textSize="18sp"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@id/endMargin"
                 app:layout_constraintStart_toStartOf="@id/startMargin"
                 app:layout_constraintTop_toBottomOf="@id/tilDescription" />
@@ -104,6 +106,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:overScrollMode="never"
                 app:layout_constraintEnd_toEndOf="@id/endMargin"
                 app:layout_constraintStart_toStartOf="@id/startMargin"
                 app:layout_constraintTop_toBottomOf="@id/tvIngredientsSection" />
