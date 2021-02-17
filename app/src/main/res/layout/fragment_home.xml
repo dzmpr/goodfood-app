@@ -11,7 +11,7 @@
         android:layout_height="0dp"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_weight="1"
-        app:navGraph="@navigation/bottom_menu_graph"
+        app:navGraph="@navigation/navigation_bottom_menu"
         app:defaultNavHost="true" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

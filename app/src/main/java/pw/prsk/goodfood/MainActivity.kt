@@ -13,24 +13,24 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (savedInstanceState == null) {
-            val fragment = HomeFragment()
-            supportFragmentManager.beginTransaction()
-                .add(R.id.flContainer, fragment)
-                .commit()
-        }
+//        if (savedInstanceState == null) {
+//            val fragment = HomeFragment()
+//            supportFragmentManager.beginTransaction()
+//                .add(R.id.flContainer, fragment)
+//                .commit()
+//        }
     }
 
-    fun changeFragment() {
-        supportFragmentManager.commit {
-            setCustomAnimations(
-                R.anim.screen_slide_in,
-                R.anim.screen_fade_out,
-                R.anim.screen_fade_in,
-                R.anim.screen_slide_out
-            )
-            add(R.id.flContainer, EditMealFragment())
-            addToBackStack(null)
-        }
-    }
+//    fun changeFragment() {
+//        supportFragmentManager.commit {
+//            setCustomAnimations(
+//                R.anim.screen_slide_in,
+//                R.anim.screen_fade_out,
+//                R.anim.screen_fade_in,
+//                R.anim.screen_slide_out
+//            )
+//            add(R.id.flContainer, EditMealFragment())
+//            addToBackStack(null)
+//        }
+//    }
 }

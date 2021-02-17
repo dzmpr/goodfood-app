@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 
@@ -49,9 +50,7 @@ class MealsFragment : Fragment() {
         }
 
         binding.fabAddMeal.setOnClickListener {
-//            val dialog = AddMealBottomFragment()
-//            dialog.show(childFragmentManager, null)
-            (activity as MainActivity).changeFragment()
+            Navigation.findNavController(requireActivity(), R.id.fcvContainer).navigate(R.id.add_meal_flow)
         }
     }
 
