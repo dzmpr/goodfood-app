@@ -2,8 +2,8 @@ package pw.prsk.goodfood
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.commit
 import pw.prsk.goodfood.databinding.ActivityMainBinding
-import pw.prsk.goodfood.databinding.FragmentHomeBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -13,12 +13,24 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var f = supportFragmentManager.findFragmentById(R.id.flContainer)
-        if (f == null) {
-            f = HomeFragment()
-            supportFragmentManager.beginTransaction()
-                .add(R.id.flContainer, f)
-                .commit()
-        }
+//        if (savedInstanceState == null) {
+//            val fragment = HomeFragment()
+//            supportFragmentManager.beginTransaction()
+//                .add(R.id.flContainer, fragment)
+//                .commit()
+//        }
     }
+
+//    fun changeFragment() {
+//        supportFragmentManager.commit {
+//            setCustomAnimations(
+//                R.anim.screen_slide_in,
+//                R.anim.screen_fade_out,
+//                R.anim.screen_fade_in,
+//                R.anim.screen_slide_out
+//            )
+//            add(R.id.flContainer, EditMealFragment())
+//            addToBackStack(null)
+//        }
+//    }
 }

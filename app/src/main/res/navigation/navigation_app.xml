@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/app_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="pw.prsk.goodfood.HomeFragment"
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_add_meal_flow"
+            app:destination="@id/add_meal_flow"
+            app:enterAnim="@anim/screen_slide_in"
+            app:exitAnim="@anim/screen_slide_out"
+            app:popEnterAnim="@anim/screen_fade_in"
+            app:popExitAnim="@anim/screen_fade_out" />
+    </fragment>
+    <include app:graph="@navigation/flow_add_meal" />
+</navigation>
