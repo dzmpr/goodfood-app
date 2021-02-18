@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import pw.prsk.goodfood.adapters.IngredientsAdapter
+import pw.prsk.goodfood.adapters.IngredientAdapter
 import pw.prsk.goodfood.databinding.FragmentEditMealBinding
 import pw.prsk.goodfood.viewmodels.EditMealViewModel
 
@@ -27,7 +27,7 @@ class EditMealFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val listAdapter = IngredientsAdapter()
+        val listAdapter = IngredientAdapter()
 
         binding.rvIngredientsList.apply {
             adapter = listAdapter
@@ -39,7 +39,7 @@ class EditMealFragment : Fragment() {
         }
 
         viewModel.ingredients.observe(viewLifecycleOwner) {
-            listAdapter.addIngredientsList(it)
+            listAdapter.setList(it)
         }
 
         binding.bAddIngredient.setOnClickListener {

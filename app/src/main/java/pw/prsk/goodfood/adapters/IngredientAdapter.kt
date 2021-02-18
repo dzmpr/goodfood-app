@@ -4,12 +4,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import pw.prsk.goodfood.R
 import pw.prsk.goodfood.data.IngredientWithMeta
+import pw.prsk.goodfood.utils.IngredientDiffUtilCallback
 
-class IngredientsAdapter : RecyclerView.Adapter<IngredientsAdapter.IngredientViewHolder>() {
-    private val ingredientsList: MutableList<IngredientWithMeta> = mutableListOf()
+class IngredientAdapter : RecyclerView.Adapter<IngredientAdapter.IngredientViewHolder>() {
+    private var ingredientsList: List<IngredientWithMeta> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngredientViewHolder {
         return IngredientViewHolder(
@@ -24,12 +26,15 @@ class IngredientsAdapter : RecyclerView.Adapter<IngredientsAdapter.IngredientVie
 
     override fun getItemCount(): Int = ingredientsList.size
 
-    fun addIngredient(item: IngredientWithMeta) {
-        ingredientsList.add(item)
-    }
-
-    fun addIngredientsList(itemList: List<IngredientWithMeta>) {
-        ingredientsList.addAll(itemList)
+    fun setList(newList: List<IngredientWithMeta>) {
+        if (ingredientsList.isEmpty()) {
+            ingredientsList = newList
+            notifyDataSetChanged()
+        } else {
+            val diffResult = DiffUtil.calculateDiff(IngredientDiffUtilCallback(ingredientsList, newList))
+            ingredientsList = newList
+            diffResult.dispatchUpdatesTo(this)
+        }
     }
 
     class IngredientViewHolder(view: View) : RecyclerView.ViewHolder(view) {
