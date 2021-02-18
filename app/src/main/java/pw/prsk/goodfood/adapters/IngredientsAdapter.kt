@@ -6,10 +6,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import pw.prsk.goodfood.R
-import pw.prsk.goodfood.data.Ingredient
+import pw.prsk.goodfood.data.IngredientWithMeta
 
 class IngredientsAdapter : RecyclerView.Adapter<IngredientsAdapter.IngredientViewHolder>() {
-    private val ingredientsList: MutableList<Ingredient> = mutableListOf()
+    private val ingredientsList: MutableList<IngredientWithMeta> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngredientViewHolder {
         return IngredientViewHolder(
@@ -24,11 +24,11 @@ class IngredientsAdapter : RecyclerView.Adapter<IngredientsAdapter.IngredientVie
 
     override fun getItemCount(): Int = ingredientsList.size
 
-    fun addIngredient(item: Ingredient) {
+    fun addIngredient(item: IngredientWithMeta) {
         ingredientsList.add(item)
     }
 
-    fun addIngredientsList(itemList: List<Ingredient>) {
+    fun addIngredientsList(itemList: List<IngredientWithMeta>) {
         ingredientsList.addAll(itemList)
     }
 
@@ -37,10 +37,10 @@ class IngredientsAdapter : RecyclerView.Adapter<IngredientsAdapter.IngredientVie
         val ingredientAmount: TextView = view.findViewById(R.id.tvIngredientAmount)
         val amountUnit: TextView = view.findViewById(R.id.tvAmountUnit)
 
-        fun bind(item: Ingredient) {
-            ingredientName.text = item.name
+        fun bind(item: IngredientWithMeta) {
+            ingredientName.text = item.product_name
             ingredientAmount.text = item.amount.toString()
-            amountUnit.text = item.unit.name
+            amountUnit.text = item.unit_name
         }
     }
 }

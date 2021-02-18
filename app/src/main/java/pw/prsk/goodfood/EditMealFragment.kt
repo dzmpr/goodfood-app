@@ -43,7 +43,8 @@ class EditMealFragment : Fragment() {
         }
 
         binding.bAddIngredient.setOnClickListener {
-            AddIngredientBottomFragment().show(childFragmentManager, null)
+            val sheet = AddIngredientBottomFragment()
+            sheet.show(childFragmentManager, null)
         }
     }
 }
