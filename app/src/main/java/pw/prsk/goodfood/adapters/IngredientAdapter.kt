@@ -38,13 +38,18 @@ class IngredientAdapter : RecyclerView.Adapter<IngredientAdapter.IngredientViewH
     }
 
     class IngredientViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val ingredientName: TextView = view.findViewById(R.id.tvIngredientName)
-        val ingredientAmount: TextView = view.findViewById(R.id.tvIngredientAmount)
-        val amountUnit: TextView = view.findViewById(R.id.tvAmountUnit)
+        private val ingredientName: TextView = view.findViewById(R.id.tvIngredientName)
+        private val ingredientAmount: TextView = view.findViewById(R.id.tvIngredientAmount)
+        private val amountUnit: TextView = view.findViewById(R.id.tvAmountUnit)
 
         fun bind(item: IngredientWithMeta) {
             ingredientName.text = item.product_name
-            ingredientAmount.text = item.amount.toString()
+            val amount = item.amount.toInt()
+            if (amount < item.amount) {
+                ingredientAmount.text = item.amount.toString()
+            } else {
+                ingredientAmount.text = amount.toString()
+            }
             amountUnit.text = item.unit_name
         }
     }
