@@ -5,10 +5,12 @@
     <string name="label_navigation_profile">Profile</string>
     <string name="add_meal_label">Add new meal</string>
     <string name="add_product_label">Add new product</string>
+    <string name="add_ingredient_label">Add ingredient</string>
     <string name="product_name_placeholder_label">Product name</string>
     <string name="category_select_label">Select a category</string>
     <string name="unit_select_label">Select units</string>
     <string name="add_label">Add</string>
+    <string name="add_more_label">Add more</string>
     <string name="meal_name_placeholder_label">Meal name</string>
     <string name="description_label">Description</string>
     <string name="delete_action_label">Delete</string>
@@ -28,4 +30,6 @@
     <string name="label_name_error">Field shouldn\'t be empty.</string>
     <string name="label_category_error">Select category.</string>
     <string name="label_product_units_error">Select units.</string>
+    <string name="ingredient_hint">Ingredient</string>
+    <string name="amount_label">Amount</string>
 </resources>

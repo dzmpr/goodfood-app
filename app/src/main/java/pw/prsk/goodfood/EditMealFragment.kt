@@ -41,5 +41,9 @@ class EditMealFragment : Fragment() {
         viewModel.ingredients.observe(viewLifecycleOwner) {
             listAdapter.addIngredientsList(it)
         }
+
+        binding.bAddIngredient.setOnClickListener {
+            AddIngredientBottomFragment().show(childFragmentManager, null)
+        }
     }
 }
