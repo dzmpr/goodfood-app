@@ -5,11 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AutoCompleteTextView
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import pw.prsk.goodfood.adapters.ProductAutocompleteAdapter
+import pw.prsk.goodfood.adapters.ProductUnitAdapter
 import pw.prsk.goodfood.data.IngredientWithMeta
+import pw.prsk.goodfood.data.ProductUnit
 import pw.prsk.goodfood.databinding.FragmentAddIngredientBinding
 import pw.prsk.goodfood.utils.InputValidator
 import pw.prsk.goodfood.viewmodels.EditMealViewModel
@@ -18,6 +22,8 @@ class AddIngredientBottomFragment() : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentAddIngredientBinding
 
     private val editMealViewModel: EditMealViewModel by viewModels({requireParentFragment()})
+
+    private var selectedUnitId: Int = -1
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // Open dialog with expanded state
@@ -48,7 +54,7 @@ class AddIngredientBottomFragment() : BottomSheetDialogFragment() {
         val unitValidator = InputValidator(binding.tilAmountUnit, resources.getString(R.string.label_product_units_error))
 
         binding.bAddIngredient.setOnClickListener {
-            if (nameValidator.validate() and amountValidator.validate() /* and unitValidator.validate() */) {
+            if (nameValidator.validate() and amountValidator.validate() and unitValidator.validate()) {
                 editMealViewModel.addIngredient(
                     IngredientWithMeta(
                         0,
@@ -63,17 +69,17 @@ class AddIngredientBottomFragment() : BottomSheetDialogFragment() {
         }
 
         binding.bAddMore.setOnClickListener {
-            if (nameValidator.validate() and amountValidator.validate() /* and unitValidator.validate() */) {
+            if (nameValidator.validate() and amountValidator.validate() and unitValidator.validate()) {
                 editMealViewModel.addIngredient(
                     IngredientWithMeta(
                         0,
                         binding.tilIngredientName.editText?.text.toString(),
                         binding.tilAmount.editText?.text.toString().toFloat(),
-                        0,
+                        selectedUnitId,
                         binding.tilAmountUnit.editText?.text.toString()
                     )
                 )
-                // Clear text fields. Should be replaced with animation.
+                // Clear itemText fields. Should be replaced with animation.
                 binding.tilIngredientName.editText?.text?.clear()
                 binding.tilAmount.editText?.text?.clear()
                 binding.tilAmountUnit.editText?.text?.clear()
@@ -84,6 +90,21 @@ class AddIngredientBottomFragment() : BottomSheetDialogFragment() {
                 amountValidator.hideError()
                 unitValidator.hideError()
             }
+        }
+
+        editMealViewModel.unitsList.observe(viewLifecycleOwner) {
+            val adapter = ProductUnitAdapter(requireContext(), R.layout.dropdown_item, it)
+            (binding.tilAmountUnit.editText as AutoCompleteTextView).setAdapter(adapter)
+        }
+
+        editMealViewModel.productsList.observe(viewLifecycleOwner) {
+            val adapter = ProductAutocompleteAdapter(requireContext(), R.layout.dropdown_item, it)
+            (binding.tilIngredientName.editText as AutoCompleteTextView).setAdapter(adapter)
+        }
+
+        // Get selected unit id
+        (binding.tilAmountUnit.editText as AutoCompleteTextView).setOnItemClickListener { parent, _, position, id ->
+            selectedUnitId = (parent.adapter.getItem(position) as ProductUnit).id!!
         }
     }
 }

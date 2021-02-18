@@ -14,7 +14,7 @@ class ItemSwipeDecorator private constructor() {
     private var leftSideIconId: Int? = null
     private var leftSideIconTintColor: Int? = null
 
-    // Right swipe text
+    // Right swipe itemText
     private var leftSideTextId: Int? = null
     private var leftSideTextSize: Float = 14f
     private var leftSideTextColorId: Int? = null
@@ -26,7 +26,7 @@ class ItemSwipeDecorator private constructor() {
     private var rightSideIconId: Int? = null
     private var rightSideIconTintColor: Int? = null
 
-    // Left swipe text
+    // Left swipe itemText
     private var rightSideTextId: Int? = null
     private var rightSideTextSize: Float = 14f
     private var rightSideTextColorId: Int? = null
@@ -118,7 +118,7 @@ class ItemSwipeDecorator private constructor() {
             }
         }
 
-        // Draw text
+        // Draw itemText
         if (leftSideTextId != null && dX > iconMargin + iconSize) {
             val textPaint = TextPaint()
             textPaint.isAntiAlias = true
@@ -212,7 +212,7 @@ class ItemSwipeDecorator private constructor() {
             }
         }
 
-        // Draw text
+        // Draw itemText
         if (rightSideTextId != null && dX < -iconMargin - iconSize) {
             val textPaint = TextPaint()
             textPaint.isAntiAlias = true

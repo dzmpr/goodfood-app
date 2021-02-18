@@ -17,6 +17,13 @@ class EditMealFragment : Fragment() {
 
     private val viewModel: EditMealViewModel by viewModels()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        (requireActivity().application as MyApplication).appComponent.inject(viewModel)
+        viewModel.loadProducts()
+        viewModel.loadUnits()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
