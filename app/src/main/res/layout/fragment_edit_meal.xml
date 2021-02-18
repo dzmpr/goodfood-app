@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/layout_end_margin"
                 android:layout_gravity="end"
-                android:text="Save" />
+                android:text="@string/save_label" />
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -49,11 +49,23 @@
                 android:layout_height="120dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:backgroundTint="#ACACAC"
                 app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="@id/endMargin"
                 app:layout_constraintStart_toStartOf="@id/startMargin"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:id="@+id/ivRecipePhotoPlaceholder"
+                android:src="@drawable/ic_add_photo"
+                android:contentDescription="@string/recipe_photo_label"
+                android:elevation="2dp"
+                app:tint="?attr/colorOnSurface"
+                app:layout_constraintTop_toTopOf="@id/cvRecipePhoto"
+                app:layout_constraintStart_toStartOf="@id/cvRecipePhoto"
+                app:layout_constraintEnd_toEndOf="@id/cvRecipePhoto"
+                app:layout_constraintBottom_toBottomOf="@id/cvRecipePhoto" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilRecipeName"
@@ -61,12 +73,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="Meal name"
+                android:hint="@string/recipe_name_label"
                 app:layout_constraintEnd_toStartOf="@id/endMargin"
                 app:layout_constraintStart_toStartOf="@id/startMargin"
                 app:layout_constraintTop_toBottomOf="@id/cvRecipePhoto">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:inputType="textCapSentences"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -77,7 +90,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="Description"
+                android:hint="@string/recipe_instructions_label"
                 app:layout_constraintEnd_toStartOf="@id/endMargin"
                 app:layout_constraintStart_toStartOf="@id/startMargin"
                 app:layout_constraintTop_toBottomOf="@id/tilRecipeName">
@@ -85,7 +98,25 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textMultiLine" />
+                    android:inputType="textMultiLine|textCapSentences" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilRecipeCategory"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="@string/recipe_category_label"
+                app:layout_constraintEnd_toStartOf="@id/endMargin"
+                app:layout_constraintStart_toStartOf="@id/startMargin"
+                app:layout_constraintTop_toBottomOf="@id/tilDescription">
+
+                <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -93,13 +124,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Ingredients list"
+                android:text="@string/ingredients_label"
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@id/endMargin"
                 app:layout_constraintStart_toStartOf="@id/startMargin"
-                app:layout_constraintTop_toBottomOf="@id/tilDescription" />
+                app:layout_constraintTop_toBottomOf="@id/tilRecipeCategory" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvIngredientsList"
@@ -117,8 +148,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Add ingredient"
-                app:layout_constraintWidth_percent="0.6"
+                android:text="@string/add_ingredient_label"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp"
                 app:layout_constraintEnd_toEndOf="@id/endMargin"
                 app:layout_constraintStart_toStartOf="@id/startMargin"
                 app:layout_constraintTop_toBottomOf="@id/rvIngredientsList" />

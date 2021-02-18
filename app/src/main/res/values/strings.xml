@@ -32,4 +32,10 @@
     <string name="label_product_units_error">Select units.</string>
     <string name="ingredient_hint">Ingredient</string>
     <string name="amount_label">Amount</string>
+    <string name="recipe_instructions_label">Instructions</string>
+    <string name="recipe_name_label">Recipe name</string>
+    <string name="ingredients_label">Ingredients</string>
+    <string name="recipe_category_label">Recipe category</string>
+    <string name="recipe_photo_label">Recipe photo</string>
+    <string name="save_label">Save</string>
 </resources>
