@@ -1,6 +1,7 @@
 package pw.prsk.goodfood.di.modules
 
 import android.app.Application
+import android.content.Context
 import dagger.Module
 import dagger.Provides
 
@@ -8,4 +9,7 @@ import dagger.Provides
 class ApplicationModule(private val application: Application) {
     @Provides
     fun provideApplication(): Application = application
+
+    @Provides
+    fun provideContext(): Context = application
 }

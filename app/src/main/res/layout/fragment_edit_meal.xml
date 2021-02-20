@@ -49,23 +49,33 @@
                 android:layout_height="120dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:scaleType="fitXY"
+                app:cardPreventCornerOverlap="false"
                 app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="@id/endMargin"
                 app:layout_constraintStart_toStartOf="@id/startMargin"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:id="@+id/ivRecipePhotoPlaceholder"
-                android:src="@drawable/ic_add_photo"
-                android:contentDescription="@string/recipe_photo_label"
-                android:elevation="2dp"
-                app:tint="?attr/colorOnSurface"
-                app:layout_constraintTop_toTopOf="@id/cvRecipePhoto"
-                app:layout_constraintStart_toStartOf="@id/cvRecipePhoto"
-                app:layout_constraintEnd_toEndOf="@id/cvRecipePhoto"
-                app:layout_constraintBottom_toBottomOf="@id/cvRecipePhoto" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/ivRecipePhoto"
+                    android:scaleType="centerCrop"
+                    android:contentDescription="@string/recipe_photo_label"
+                    android:elevation="3dp"
+                    android:layout_gravity="center" />
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:id="@+id/ivRecipePhotoPlaceholder"
+                    android:src="@drawable/ic_add_photo"
+                    android:contentDescription="@string/recipe_photo_label"
+                    android:elevation="2dp"
+                    android:layout_gravity="center"
+                    app:tint="?attr/colorOnSurface" />
+
+            </androidx.cardview.widget.CardView>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilRecipeName"
