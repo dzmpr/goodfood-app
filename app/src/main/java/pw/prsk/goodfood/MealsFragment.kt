@@ -27,7 +27,6 @@ class MealsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (requireActivity().application as MyApplication).appComponent.inject(viewModel)
-        viewModel.loadMealsList()
     }
 
     override fun onCreateView(
@@ -37,6 +36,11 @@ class MealsFragment : Fragment() {
     ): View {
         _binding = FragmentMealsBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.loadMealsList()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

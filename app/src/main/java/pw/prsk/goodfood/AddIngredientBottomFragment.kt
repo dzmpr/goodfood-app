@@ -13,6 +13,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import pw.prsk.goodfood.adapters.ProductAutocompleteAdapter
 import pw.prsk.goodfood.adapters.ProductUnitAdapter
 import pw.prsk.goodfood.data.IngredientWithMeta
+import pw.prsk.goodfood.data.Product
 import pw.prsk.goodfood.data.ProductUnit
 import pw.prsk.goodfood.databinding.FragmentAddIngredientBinding
 import pw.prsk.goodfood.utils.InputValidator
@@ -24,6 +25,7 @@ class AddIngredientBottomFragment() : BottomSheetDialogFragment() {
     private val editMealViewModel: EditMealViewModel by viewModels({requireParentFragment()})
 
     private var selectedUnitId: Int = -1
+    private var selectedProductId: Int? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // Open dialog with expanded state
@@ -55,30 +57,14 @@ class AddIngredientBottomFragment() : BottomSheetDialogFragment() {
 
         binding.bAddIngredient.setOnClickListener {
             if (nameValidator.validate() and amountValidator.validate() and unitValidator.validate()) {
-                editMealViewModel.addIngredient(
-                    IngredientWithMeta(
-                        0,
-                        binding.tilIngredientName.editText?.text.toString(),
-                        binding.tilAmount.editText?.text.toString().toFloat(),
-                        0,
-                        binding.tilAmountUnit.editText?.text.toString()
-                    )
-                )
+                editMealViewModel.addIngredient(getIngredient())
                 dismiss()
             }
         }
 
         binding.bAddMore.setOnClickListener {
             if (nameValidator.validate() and amountValidator.validate() and unitValidator.validate()) {
-                editMealViewModel.addIngredient(
-                    IngredientWithMeta(
-                        0,
-                        binding.tilIngredientName.editText?.text.toString(),
-                        binding.tilAmount.editText?.text.toString().toFloat(),
-                        selectedUnitId,
-                        binding.tilAmountUnit.editText?.text.toString()
-                    )
-                )
+                editMealViewModel.addIngredient(getIngredient())
                 // Clear itemText fields. Should be replaced with animation.
                 binding.tilIngredientName.editText?.text?.clear()
                 binding.tilAmount.editText?.text?.clear()
@@ -102,9 +88,26 @@ class AddIngredientBottomFragment() : BottomSheetDialogFragment() {
             (binding.tilIngredientName.editText as AutoCompleteTextView).setAdapter(adapter)
         }
 
+        // Get selected product id
+        (binding.tilIngredientName.editText as AutoCompleteTextView).setOnItemClickListener { parent, _, position, _ ->
+            selectedProductId = (parent.adapter.getItem(position) as Product).id!!
+        }
+
         // Get selected unit id
-        (binding.tilAmountUnit.editText as AutoCompleteTextView).setOnItemClickListener { parent, _, position, id ->
+        (binding.tilAmountUnit.editText as AutoCompleteTextView).setOnItemClickListener { parent, _, position, _ ->
             selectedUnitId = (parent.adapter.getItem(position) as ProductUnit).id!!
         }
     }
+
+    private fun getIngredient(): IngredientWithMeta = IngredientWithMeta(
+        Product(
+            selectedProductId,
+            binding.tilIngredientName.editText?.text.toString()
+        ),
+        binding.tilAmount.editText?.text.toString().toFloat(),
+        ProductUnit(
+            selectedUnitId,
+            binding.tilAmountUnit.editText?.text.toString()
+        )
+    )
 }

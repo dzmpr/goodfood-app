@@ -21,4 +21,12 @@ class ProductRepository(private val dbInstance: AppDatabase) {
     suspend fun removeById(id: Int) = withContext(Dispatchers.IO) {
         dbInstance.productDao().deleteById(id)
     }
+
+    suspend fun increaseUsage(id: Int) = withContext(Dispatchers.IO) {
+        dbInstance.productDao().increaseUsages(id)
+    }
+
+    suspend fun decreaseUsage(id: Int) = withContext(Dispatchers.IO) {
+        dbInstance.productDao().decreaseUsages(id)
+    }
 }

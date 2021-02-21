@@ -13,4 +13,10 @@ interface ProductDao : BaseDao<Product> {
 
     @Query("DELETE FROM products WHERE id = :id")
     fun deleteById(id: Int)
+
+    @Query("UPDATE products SET reference_count = reference_count + 1 WHERE id = :id")
+    fun increaseUsages(id: Int)
+
+    @Query("UPDATE products SET reference_count = reference_count - 1 WHERE id = :id")
+    fun decreaseUsages(id: Int)
 }

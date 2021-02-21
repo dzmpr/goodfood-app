@@ -12,11 +12,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import pw.prsk.goodfood.adapters.IngredientAdapter
 import pw.prsk.goodfood.databinding.FragmentEditMealBinding
+import pw.prsk.goodfood.utils.InputValidator
 import pw.prsk.goodfood.viewmodels.EditMealViewModel
 import java.io.FileNotFoundException
 
@@ -95,9 +95,21 @@ class EditMealFragment : Fragment() {
             }
         }
 
+        viewModel.saveStatus.observe(viewLifecycleOwner) {
+            if (it) {
+                Navigation.findNavController(requireActivity(), R.id.fcvContainer).popBackStack()
+            }
+        }
+
+        val nameValidator = InputValidator(binding.tilRecipeName, context?.getString(R.string.label_name_error))
+
         binding.bSaveRecipe.setOnClickListener {
-            viewModel.saveRecipe(binding.tilRecipeName.editText.toString(), binding.tilDescription.editText.toString())
-            Navigation.findNavController(requireActivity(), R.id.fcvContainer).popBackStack()
+            if (nameValidator.validate()) {
+                viewModel.saveRecipe(
+                    binding.tilRecipeName.editText?.text.toString(),
+                    binding.tilDescription.editText?.text.toString()
+                )
+            }
         }
     }
 

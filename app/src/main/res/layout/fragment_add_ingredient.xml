@@ -68,8 +68,7 @@
         app:layout_constraintStart_toEndOf="@id/tilAmount"
         app:layout_constraintTop_toBottomOf="@id/tilIngredientName">
 
-        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
-            style="@style/Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox.Dense"
+        <AutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none" />

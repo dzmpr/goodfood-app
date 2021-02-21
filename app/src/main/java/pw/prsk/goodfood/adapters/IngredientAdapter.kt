@@ -28,11 +28,11 @@ class IngredientAdapter : RecyclerView.Adapter<IngredientAdapter.IngredientViewH
 
     fun setList(newList: List<IngredientWithMeta>) {
         if (ingredientsList.isEmpty()) {
-            ingredientsList = newList
+            ingredientsList = newList.toList()
             notifyDataSetChanged()
         } else {
             val diffResult = DiffUtil.calculateDiff(IngredientDiffUtilCallback(ingredientsList, newList))
-            ingredientsList = newList
+            ingredientsList = newList.toList()
             diffResult.dispatchUpdatesTo(this)
         }
     }
@@ -43,14 +43,14 @@ class IngredientAdapter : RecyclerView.Adapter<IngredientAdapter.IngredientViewH
         private val amountUnit: TextView = view.findViewById(R.id.tvAmountUnit)
 
         fun bind(item: IngredientWithMeta) {
-            ingredientName.text = item.product_name
+            ingredientName.text = item.product.name
             val amount = item.amount.toInt()
             if (amount < item.amount) {
                 ingredientAmount.text = item.amount.toString()
             } else {
                 ingredientAmount.text = amount.toString()
             }
-            amountUnit.text = item.unit_name
+            amountUnit.text = item.unit.name
         }
     }
 }
