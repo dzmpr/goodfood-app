@@ -16,10 +16,6 @@ class RepositoryModule {
         ProductRepository(dbInstance)
 
     @Provides
-    fun provideProductCategoryRepository(dbInstance: AppDatabase): ProductCategoryRepository =
-        ProductCategoryRepository(dbInstance)
-
-    @Provides
     fun provideMealCategoryRepository(dbInstance: AppDatabase): MealCategoryRepository =
         MealCategoryRepository(dbInstance)
 

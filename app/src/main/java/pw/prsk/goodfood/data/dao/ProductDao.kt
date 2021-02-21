@@ -2,7 +2,6 @@ package pw.prsk.goodfood.data.dao
 
 import androidx.room.*
 import pw.prsk.goodfood.data.Product
-import pw.prsk.goodfood.data.ProductWithMeta
 
 @Dao
 interface ProductDao : BaseDao<Product> {
@@ -14,27 +13,4 @@ interface ProductDao : BaseDao<Product> {
 
     @Query("DELETE FROM products WHERE id = :id")
     fun deleteById(id: Int)
-
-    @Query("""
-        SELECT 
-            products.id, 
-            products.name, 
-            cats.name as category_name, 
-            units.name as unit_name
-        FROM products, product_categories as cats, product_units as units
-        WHERE cats.id == products.categoryId 
-        AND units.id == products.unitId""")
-    fun getProductsWithMeta(): List<ProductWithMeta>
-
-    @Query("""
-        SELECT 
-            products.id, 
-            products.name, 
-            cats.name as category_name, 
-            units.name as unit_name
-        FROM products, product_categories as cats, product_units as units
-        WHERE cats.id == products.categoryId 
-        AND units.id == products.unitId
-        AND products.categoryId == :id""")
-    fun getProductsWithMetaByCategory(id: Int): List<ProductWithMeta>
 }
