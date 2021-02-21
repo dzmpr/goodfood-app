@@ -11,6 +11,8 @@ import android.widget.PopupMenu
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import pw.prsk.goodfood.adapters.IngredientAdapter
@@ -94,7 +96,8 @@ class EditMealFragment : Fragment() {
         }
 
         binding.bSaveRecipe.setOnClickListener {
-
+            viewModel.saveRecipe(binding.tilRecipeName.editText.toString(), binding.tilDescription.editText.toString())
+            Navigation.findNavController(requireActivity(), R.id.fcvContainer).popBackStack()
         }
     }
 

@@ -69,6 +69,22 @@ class EditMealViewModel : ViewModel() {
         ingredients.value = ingredientsList
     }
 
+    fun saveRecipe(name: String, description: String) {
+//        val recipe = Meal(
+//            null,
+//            name,
+//            description,
+//            photoUri.toString(),
+//            0,
+//            false,
+//            LocalDateTime.now(),
+//            0,
+//            ingredientsList,
+//
+//        )
+        // TODO: Handle situation when recipe saved and photo shouldn't be deleted
+    }
+
     override fun onCleared() {
         super.onCleared()
         removePhoto()
