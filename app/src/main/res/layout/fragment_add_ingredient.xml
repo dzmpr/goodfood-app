@@ -26,6 +26,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/bottom_sheet_fields_margin"
         android:hint="@string/ingredient_hint"
+        app:endIconDrawable="@drawable/ic_clear"
+        app:endIconMode="custom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvSheetHeader">

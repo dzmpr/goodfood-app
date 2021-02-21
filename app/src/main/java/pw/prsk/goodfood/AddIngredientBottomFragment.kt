@@ -2,6 +2,7 @@ package pw.prsk.goodfood
 
 import android.app.Dialog
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,6 +56,20 @@ class AddIngredientBottomFragment() : BottomSheetDialogFragment() {
         val amountValidator = InputValidator(binding.tilAmount, resources.getString(R.string.label_name_error))
         val unitValidator = InputValidator(binding.tilAmountUnit, resources.getString(R.string.label_product_units_error))
 
+        binding.tilIngredientName.setEndIconOnClickListener {
+            // Clear text and remove forbid
+            binding.tilIngredientName.editText?.apply {
+                text?.clear()
+                isFocusable = true
+                isFocusableInTouchMode = true
+                requestFocus()
+            }
+            // Reset selected product
+            selectedProductId = null
+            // Hide error that TIL is empty
+            nameValidator.hideError()
+        }
+
         binding.bAddIngredient.setOnClickListener {
             if (nameValidator.validate() and amountValidator.validate() and unitValidator.validate()) {
                 editMealViewModel.addIngredient(getIngredient())
@@ -91,6 +106,13 @@ class AddIngredientBottomFragment() : BottomSheetDialogFragment() {
         // Get selected product id
         (binding.tilIngredientName.editText as AutoCompleteTextView).setOnItemClickListener { parent, _, position, _ ->
             selectedProductId = (parent.adapter.getItem(position) as Product).id!!
+            // Forbid EditText to be edited
+            binding.tilIngredientName.editText?.apply {
+                isFocusable = false
+                isFocusableInTouchMode = false
+            }
+            // Set focus to next text field
+            binding.tilAmount.requestFocus()
         }
 
         // Get selected unit id
