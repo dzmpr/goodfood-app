@@ -20,7 +20,7 @@ import pw.prsk.goodfood.databinding.FragmentAddIngredientBinding
 import pw.prsk.goodfood.utils.InputValidator
 import pw.prsk.goodfood.viewmodels.EditMealViewModel
 
-class AddIngredientBottomFragment() : BottomSheetDialogFragment() {
+class AddIngredientBottomFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentAddIngredientBinding
 
     private val editMealViewModel: EditMealViewModel by viewModels({requireParentFragment()})
@@ -85,7 +85,11 @@ class AddIngredientBottomFragment() : BottomSheetDialogFragment() {
                 binding.tilAmount.editText?.text?.clear()
                 binding.tilAmountUnit.editText?.text?.clear()
 
-                binding.tilIngredientName.requestFocus()
+                binding.tilIngredientName.editText?.apply {
+                    isFocusable = true
+                    isFocusableInTouchMode = true
+                    requestFocus()
+                }
 
                 nameValidator.hideError()
                 amountValidator.hideError()
