@@ -41,4 +41,5 @@
     <string name="take_photo_action_label">Take photo</string>
     <string name="choose_photo_action_label">Choose photo</string>
     <string name="remove_photo_action_label">Remove photo</string>
+    <string name="label_empty_ingredients_list">You not added ingredients yet!</string>
 </resources>

@@ -65,6 +65,11 @@ class EditMealFragment : Fragment() {
         }
 
         viewModel.ingredients.observe(viewLifecycleOwner) {
+            binding.groupPlaceholder.visibility = if (it.isNotEmpty()) {
+                 View.GONE
+            } else {
+                View.VISIBLE
+            }
             listAdapter.setList(it)
         }
 

@@ -50,29 +50,29 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:scaleType="fitXY"
-                app:cardPreventCornerOverlap="false"
                 app:cardCornerRadius="10dp"
+                app:cardPreventCornerOverlap="false"
                 app:layout_constraintEnd_toEndOf="@id/endMargin"
                 app:layout_constraintStart_toStartOf="@id/startMargin"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
+                    android:id="@+id/ivRecipePhoto"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/ivRecipePhoto"
-                    android:scaleType="centerCrop"
+                    android:layout_gravity="center"
                     android:contentDescription="@string/recipe_photo_label"
                     android:elevation="3dp"
-                    android:layout_gravity="center" />
+                    android:scaleType="centerCrop" />
 
                 <ImageView
+                    android:id="@+id/ivRecipePhotoPlaceholder"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
-                    android:id="@+id/ivRecipePhotoPlaceholder"
-                    android:src="@drawable/ic_add_photo"
+                    android:layout_gravity="center"
                     android:contentDescription="@string/recipe_photo_label"
                     android:elevation="2dp"
-                    android:layout_gravity="center"
+                    android:src="@drawable/ic_add_photo"
                     app:tint="?attr/colorOnSurface" />
 
             </androidx.cardview.widget.CardView>
@@ -89,9 +89,9 @@
                 app:layout_constraintTop_toBottomOf="@id/cvRecipePhoto">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:inputType="textCapSentences"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapSentences" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -151,18 +151,40 @@
                 app:layout_constraintStart_toStartOf="@id/startMargin"
                 app:layout_constraintTop_toBottomOf="@id/tvIngredientsSection" />
 
+            <ImageView
+                android:id="@+id/ivPlaceholderImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/ic_empty_box"
+                app:layout_constraintEnd_toEndOf="@id/endMargin"
+                app:layout_constraintStart_toStartOf="@id/startMargin"
+                app:layout_constraintTop_toBottomOf="@id/tvIngredientsSection"
+                app:tint="?attr/colorOnSurface" />
+
+            <TextView
+                android:id="@+id/tvPlaceholderText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/label_empty_ingredients_list"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@id/endMargin"
+                app:layout_constraintStart_toStartOf="@id/startMargin"
+                app:layout_constraintTop_toBottomOf="@id/ivPlaceholderImage" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/bAddIngredient"
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/add_ingredient_label"
                 android:paddingTop="14dp"
                 android:paddingBottom="14dp"
+                android:text="@string/add_ingredient_label"
                 app:layout_constraintEnd_toEndOf="@id/endMargin"
                 app:layout_constraintStart_toStartOf="@id/startMargin"
-                app:layout_constraintTop_toBottomOf="@id/rvIngredientsList" />
+                app:layout_constraintTop_toBottomOf="@id/barrierListBottom" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/startMargin"
@@ -177,6 +199,19 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintGuide_end="@dimen/layout_end_margin" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrierListBottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="tvPlaceholderText,rvIngredientsList" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/groupPlaceholder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="tvPlaceholderText,ivPlaceholderImage" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
