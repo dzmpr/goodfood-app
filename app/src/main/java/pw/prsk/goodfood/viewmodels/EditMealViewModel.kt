@@ -1,6 +1,8 @@
 package pw.prsk.goodfood.viewmodels
 
+import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -36,30 +38,40 @@ class EditMealViewModel : ViewModel() {
         MutableLiveData<List<ProductUnit>>()
     }
 
-    private val photoUri = MutableLiveData<Uri?>()
-    val photo: LiveData<Uri?>
-        get() = photoUri
+    private val photoDrawable = MutableLiveData<Drawable?>()
+    val photo: LiveData<Drawable?>
+        get() = photoDrawable
     val photoStatus: Boolean
-        get() = photoUri.value != null
-    private var photoWasTaken: Boolean = false
+        get() = photoDrawable.value != null
+    private var photoUri: Uri? = null
+    private var photoFilename: String? = null
+    private var photoFromCamera: Boolean = false
 
     val saveStatus: SingleLiveEvent<Boolean> = SingleLiveEvent()
 
     fun setPhotoUri(photo: Uri) {
-        photoUri.value = photo
+        photoUri = photo
+        loadPhoto()
     }
 
     fun removePhoto() {
-        if (photoWasTaken) {
-            photoGateway.removePhoto(photoUri.value!!)
-            photoWasTaken = false
+        if (photoFromCamera) {
+            photoGateway.removePhoto(photoUri!!)
+            photoFromCamera = false
         }
-        photoUri.value = null
+        photoDrawable.value = null
     }
 
-    fun getPhotoUri(): Uri? {
-        photoWasTaken = true
-        return photoGateway.createNewPhotoUri()
+    private fun loadPhoto() {
+        viewModelScope.launch {
+            photoDrawable.value = photoGateway.loadPhoto(photoUri!!)
+        }
+    }
+
+    fun getPhotoUri(): Uri {
+        photoFromCamera = true
+        val filename = photoGateway.createNewPhotoFile()
+        return photoGateway.getUriForFilename("recipe_photos", filename)
     }
 
     fun loadProducts() {
@@ -81,12 +93,20 @@ class EditMealViewModel : ViewModel() {
 
     fun saveRecipe(name: String, description: String) {
         viewModelScope.launch {
+            // Copy photo to app folder if it was picked
+            if (!photoFromCamera) {
+                photoFilename = photoGateway.createNewPhotoFile()
+                val internalUri = photoGateway.getUriForFilename("recipe_photos", photoFilename!!)
+                val newPhoto = photoGateway.copyPhoto(photoUri!!, internalUri)
+                Log.d(TAG, newPhoto.toString())
+            }
+
             val ingredients = handleIngredients()
             val recipe = Meal(
                 null,
                 name,
                 description,
-                photoUri.value.toString(),
+                photoFilename,
                 0,
                 false,
                 LocalDateTime.ofInstant(Instant.ofEpochMilli(0), ZoneId.systemDefault()),
@@ -96,7 +116,7 @@ class EditMealViewModel : ViewModel() {
             )
             mealRepository.addMeal(recipe)
 
-            photoWasTaken = false // Prevent photo deletion on exit
+            photoFromCamera = false // Prevent photo deletion on exit
             saveStatus.value = true
         }
     }
@@ -123,5 +143,9 @@ class EditMealViewModel : ViewModel() {
     override fun onCleared() {
         super.onCleared()
         removePhoto()
+    }
+
+    companion object {
+        private const val TAG = "EditMealViewModel"
     }
 }

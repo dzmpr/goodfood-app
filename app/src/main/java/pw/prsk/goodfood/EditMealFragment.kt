@@ -1,9 +1,7 @@
 package pw.prsk.goodfood
 
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +16,6 @@ import pw.prsk.goodfood.adapters.IngredientAdapter
 import pw.prsk.goodfood.databinding.FragmentEditMealBinding
 import pw.prsk.goodfood.utils.InputValidator
 import pw.prsk.goodfood.viewmodels.EditMealViewModel
-import java.io.FileNotFoundException
 
 class EditMealFragment : Fragment() {
     private lateinit var binding: FragmentEditMealBinding
@@ -81,18 +78,7 @@ class EditMealFragment : Fragment() {
         }
 
         viewModel.photo.observe(viewLifecycleOwner) {
-            if (it != null) {
-                try {
-                    val stream = context?.contentResolver?.openInputStream(it)
-                    binding.ivRecipePhoto.setImageDrawable(
-                        Drawable.createFromStream(stream, it.toString())
-                    )
-                } catch (e: FileNotFoundException) {
-                    Log.e(DEBUG_TAG, "Selected recipe photo not found. $e")
-                }
-            } else {
-                binding.ivRecipePhoto.setImageDrawable(null)
-            }
+            binding.ivRecipePhoto.setImageDrawable(it)
         }
 
         viewModel.saveStatus.observe(viewLifecycleOwner) {
@@ -159,6 +145,6 @@ class EditMealFragment : Fragment() {
     }
 
     companion object {
-        private const val DEBUG_TAG = "EditMealFragment"
+        private const val TAG = "EditMealFragment"
     }
 }
