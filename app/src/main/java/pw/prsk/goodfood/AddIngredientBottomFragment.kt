@@ -17,6 +17,7 @@ import pw.prsk.goodfood.data.Product
 import pw.prsk.goodfood.data.ProductUnit
 import pw.prsk.goodfood.databinding.FragmentAddIngredientBinding
 import pw.prsk.goodfood.utils.AutocompleteSelectionHelper
+import pw.prsk.goodfood.utils.DropdownSelectionHelper
 import pw.prsk.goodfood.utils.InputValidator
 import pw.prsk.goodfood.viewmodels.EditMealViewModel
 
@@ -25,8 +26,7 @@ class AddIngredientBottomFragment : BottomSheetDialogFragment() {
 
     private val editMealViewModel: EditMealViewModel by viewModels({requireParentFragment()})
 
-    private var selectedUnitId: Int = -1
-
+    private lateinit var selectedUnitHelper: DropdownSelectionHelper
     private lateinit var selectedProductHelper: AutocompleteSelectionHelper
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -64,6 +64,10 @@ class AddIngredientBottomFragment : BottomSheetDialogFragment() {
             binding.tilAmount.requestFocus()
         }
 
+        selectedUnitHelper = DropdownSelectionHelper(binding.tilAmountUnit) { input ->
+            ProductUnit(name = input)
+        }
+
         binding.bAddIngredient.setOnClickListener {
             if (nameValidator.validate() and amountValidator.validate() and unitValidator.validate()) {
                 editMealViewModel.addIngredient(getIngredient())
@@ -94,19 +98,11 @@ class AddIngredientBottomFragment : BottomSheetDialogFragment() {
             val adapter = ProductAutocompleteAdapter(requireContext(), R.layout.dropdown_item, it)
             (binding.tilIngredientName.editText as AutoCompleteTextView).setAdapter(adapter)
         }
-
-        // Get selected unit id
-        (binding.tilAmountUnit.editText as AutoCompleteTextView).setOnItemClickListener { parent, _, position, _ ->
-            selectedUnitId = (parent.adapter.getItem(position) as ProductUnit).id!!
-        }
     }
 
     private fun getIngredient(): IngredientWithMeta = IngredientWithMeta(
         selectedProductHelper.selected as Product,
         binding.tilAmount.editText?.text.toString().toFloat(),
-        ProductUnit(
-            selectedUnitId,
-            binding.tilAmountUnit.editText?.text.toString()
-        )
+        selectedUnitHelper.selected as ProductUnit
     )
 }
