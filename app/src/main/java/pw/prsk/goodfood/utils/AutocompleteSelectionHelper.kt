@@ -10,18 +10,20 @@ class AutocompleteSelectionHelper(
 ) {
     private val textColor = field.editText!!.currentTextColor
     private var selectedItem: Any? = null
-    val selected: Any
-        get() = if (selectedItem != null) {
-            selectedItem!!
-        } else {
-            inputNotMatch(this.field.editText?.text.toString())
+    val selected: Any?
+        get() = when {
+            selectedItem != null -> selectedItem!!
+            this.field.editText?.text.toString().isNotEmpty() -> {
+                inputNotMatch(this.field.editText?.text.toString())
+            }
+            else -> null
         }
 
     private val endIconClickListener = View.OnClickListener {
         resetSelection(true)
     }
 
-    private var itemSelectedListener: ((Any) -> Unit)? = null
+    private var itemSelectedListener: ((Any?) -> Unit)? = null
 
     init {
         // Attach item selected listener
@@ -42,7 +44,7 @@ class AutocompleteSelectionHelper(
         field.setEndIconOnClickListener(null)
     }
 
-    fun addItemSelectedListener(itemSelectedListener: (Any) -> Unit): AutocompleteSelectionHelper {
+    fun addItemSelectedListener(itemSelectedListener: (Any?) -> Unit): AutocompleteSelectionHelper {
         this.itemSelectedListener = itemSelectedListener
         return this
     }
