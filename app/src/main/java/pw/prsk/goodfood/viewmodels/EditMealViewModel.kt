@@ -11,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import pw.prsk.goodfood.data.*
+import pw.prsk.goodfood.repository.MealCategoryRepository
 import pw.prsk.goodfood.repository.MealRepository
 import pw.prsk.goodfood.repository.ProductRepository
 import pw.prsk.goodfood.repository.ProductUnitsRepository
@@ -24,6 +25,7 @@ class EditMealViewModel : ViewModel() {
     @Inject lateinit var productRepository: ProductRepository
     @Inject lateinit var productUnitsRepository: ProductUnitsRepository
     @Inject lateinit var mealRepository: MealRepository
+    @Inject lateinit var mealCategoryRepository: MealCategoryRepository
     @Inject lateinit var photoGateway: PhotoGateway
 
     private val ingredientsList: MutableList<IngredientWithMeta> = mutableListOf()
@@ -36,6 +38,9 @@ class EditMealViewModel : ViewModel() {
     }
     val unitsList: MutableLiveData<List<ProductUnit>> by lazy {
         MutableLiveData<List<ProductUnit>>()
+    }
+    val mealCategories: MutableLiveData<List<MealCategory>> by lazy {
+        MutableLiveData<List<MealCategory>>()
     }
 
     private val photoDrawable = MutableLiveData<Drawable?>()
@@ -70,8 +75,8 @@ class EditMealViewModel : ViewModel() {
 
     fun getPhotoUri(): Uri {
         photoFromCamera = true
-        val filename = photoGateway.createNewPhotoFile()
-        return photoGateway.getUriForFilename("recipe_photos", filename)
+        photoFilename = photoGateway.createNewPhotoFile()
+        return photoGateway.getUriForFilename("recipe_photos", photoFilename!!)
     }
 
     fun loadProducts() {
@@ -86,23 +91,28 @@ class EditMealViewModel : ViewModel() {
         }
     }
 
+    fun loadCategories() {
+        viewModelScope.launch {
+            mealCategories.value = mealCategoryRepository.getCategories()
+        }
+    }
+
     fun addIngredient(item: IngredientWithMeta) {
         ingredientsList.add(item)
         ingredients.value = ingredientsList
     }
 
-    fun saveRecipe(name: String, description: String) {
+    fun saveRecipe(name: String, description: String?, category: MealCategory?) {
         viewModelScope.launch {
             // Copy photo to app folder if it was picked
-            if (!photoFromCamera) {
+            if (!photoFromCamera && photoStatus) {
                 photoFilename = photoGateway.createNewPhotoFile()
                 val internalUri = photoGateway.getUriForFilename("recipe_photos", photoFilename!!)
                 val newPhoto = photoGateway.copyPhoto(photoUri!!, internalUri)
-                Log.d(TAG, newPhoto.toString())
+                Log.d(TAG, "Filename where chosen photo will be copied: '${newPhoto.toString()}'.")
             }
 
-            val ingredients = handleIngredients()
-            val recipe = Meal(
+            val recipe = MealWithMeta(
                 null,
                 name,
                 description,
@@ -111,33 +121,14 @@ class EditMealViewModel : ViewModel() {
                 false,
                 LocalDateTime.ofInstant(Instant.ofEpochMilli(0), ZoneId.systemDefault()),
                 0,
-                ingredients,
-                0
+                ingredientsList,
+                category
             )
-            mealRepository.addMeal(recipe)
+            mealRepository.addRecipe(recipe)
 
             photoFromCamera = false // Prevent photo deletion on exit
             saveStatus.value = true
         }
-    }
-
-    private suspend fun handleIngredients(): List<Ingredient> = withContext(Dispatchers.Default) {
-        for (ingredient in ingredientsList) {
-            handleIngredient(ingredient)
-        }
-        ingredientsList.map {
-            Ingredient(it.product.id!!, it.amount, it.unit.id!!)
-        }
-    }
-
-    private suspend fun handleIngredient(ingredient: IngredientWithMeta) {
-        // Create product if it is not exists
-        if (ingredient.product.id == null) {
-            val newId = productRepository.addProduct(ingredient.product)
-            ingredient.product.id = newId.toInt()
-        }
-        // Increase product usage count
-        productRepository.increaseUsage(ingredient.product.id!!)
     }
 
     override fun onCleared() {

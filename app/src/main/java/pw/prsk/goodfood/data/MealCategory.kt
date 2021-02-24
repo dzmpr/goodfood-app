@@ -6,6 +6,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "meal_categories")
 data class MealCategory(
-    @PrimaryKey(autoGenerate = true) val id: Int? = null,
-    @ColumnInfo(name = "name") var name: String
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id") var id: Int? = null,
+    @ColumnInfo(name = "name") var name: String,
+    @ColumnInfo(name = "reference_count") var referenceCount: Int = 0
 )

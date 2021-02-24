@@ -9,5 +9,5 @@ data class Product(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id") var id: Int? = null,
     @ColumnInfo(name = "name") var name: String,
-    @ColumnInfo(name = "reference_count") var referenceCount: Int = 0,
+    @ColumnInfo(name = "reference_count") var referenceCount: Int = 0
 )

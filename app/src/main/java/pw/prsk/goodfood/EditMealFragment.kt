@@ -81,11 +81,16 @@ class EditMealFragment : Fragment() {
         val nameValidator = InputValidator(binding.tilRecipeName, context?.getString(R.string.label_name_error))
 
         binding.bSaveRecipe.setOnClickListener {
+            val description = if (binding.tilDescription.editText?.text.toString().isEmpty()) {
+                null
+            } else {
+                binding.tilDescription.editText?.text.toString()
+            }
             if (nameValidator.validate()) {
                 viewModel.saveRecipe(
                     binding.tilRecipeName.editText?.text.toString(),
-                    binding.tilDescription.editText?.text.toString(),
-                    categorySelectHelper.selected as MealCategory
+                    description,
+                    categorySelectHelper.selected as MealCategory?
                 )
             }
         }
