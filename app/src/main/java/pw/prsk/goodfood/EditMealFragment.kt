@@ -42,6 +42,8 @@ class EditMealFragment : Fragment() {
 
     private lateinit var categorySelectHelper: AutocompleteSelectionHelper
 
+    private var servingsCount: Int = 4
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
@@ -74,6 +76,13 @@ class EditMealFragment : Fragment() {
             showPopup()
         }
 
+        // Set default slider value to TextView
+        binding.tvServings.text = binding.sServings.value.toInt().toString()
+        binding.sServings.addOnChangeListener { _, value, _ ->
+            servingsCount = value.toInt()
+            binding.tvServings.text = value.toInt().toString()
+        }
+
         categorySelectHelper = AutocompleteSelectionHelper(binding.tilRecipeCategory) { input ->
             MealCategory(name = input)
         }
@@ -90,6 +99,7 @@ class EditMealFragment : Fragment() {
                 viewModel.saveRecipe(
                     binding.tilRecipeName.editText?.text.toString(),
                     description,
+                    servingsCount,
                     categorySelectHelper.selected as MealCategory?
                 )
             }

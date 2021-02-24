@@ -102,7 +102,7 @@ class EditMealViewModel : ViewModel() {
         ingredients.value = ingredientsList
     }
 
-    fun saveRecipe(name: String, description: String?, category: MealCategory?) {
+    fun saveRecipe(name: String, description: String?, servingsCount: Int, category: MealCategory?) {
         viewModelScope.launch {
             // Copy photo to app folder if it was picked
             if (!photoFromCamera && photoStatus) {
@@ -117,7 +117,7 @@ class EditMealViewModel : ViewModel() {
                 name,
                 description,
                 photoFilename,
-                0,
+                servingsCount,
                 false,
                 LocalDateTime.ofInstant(Instant.ofEpochMilli(0), ZoneId.systemDefault()),
                 0,
