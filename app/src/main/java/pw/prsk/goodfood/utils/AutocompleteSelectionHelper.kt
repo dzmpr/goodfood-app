@@ -18,33 +18,33 @@ class AutocompleteSelectionHelper(
         }
 
     private val endIconClickListener = View.OnClickListener {
-        field.editText?.text?.clear()
-        enableInput(true)
-        field.setEndIconOnClickListener(null)
+        resetSelection(true)
     }
 
-    private var itemSelectedCallback: ((Any) -> Unit)? = null
+    private var itemSelectedListener: ((Any) -> Unit)? = null
 
     init {
         // Attach item selected listener
         (field.editText as AutoCompleteTextView).setOnItemClickListener { parent, _, position, _ ->
-            selectedItem = parent.getItemAtPosition(position)
+            selectedItem = parent.getItemAtPosition(position) // Save selected item
+            itemSelectedListener?.invoke(selected) // Call item selected listener
             disableInput()
-            field.setEndIconOnClickListener(endIconClickListener)
-            itemSelectedCallback?.invoke(selected)
+            field.setEndIconOnClickListener(endIconClickListener) // Add end icon click listener
         }
-        // Hide end icon when item not selected
+        // Initially hide end icon
         field.isEndIconVisible = false
     }
 
-    fun resetSelection() {
+    fun resetSelection(focusNeeded: Boolean) {
+        selectedItem = null
         field.editText?.text?.clear()
-        enableInput(false)
+        enableInput(focusNeeded)
         field.setEndIconOnClickListener(null)
     }
 
-    fun addItemSelectedCallback(itemSelectedCallback: (Any) -> Unit) {
-        this.itemSelectedCallback = itemSelectedCallback
+    fun addItemSelectedListener(itemSelectedListener: (Any) -> Unit): AutocompleteSelectionHelper {
+        this.itemSelectedListener = itemSelectedListener
+        return this
     }
 
     private fun disableInput() {
@@ -58,6 +58,7 @@ class AutocompleteSelectionHelper(
 
     private fun enableInput(focusNeeded: Boolean) {
         field.apply {
+            isErrorEnabled = false
             isEndIconVisible = false
             editText?.isEnabled = true
             if (focusNeeded) editText?.requestFocus()

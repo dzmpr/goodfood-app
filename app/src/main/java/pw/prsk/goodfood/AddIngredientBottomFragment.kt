@@ -2,7 +2,6 @@ package pw.prsk.goodfood
 
 import android.app.Dialog
 import android.os.Bundle
-import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +16,7 @@ import pw.prsk.goodfood.data.IngredientWithMeta
 import pw.prsk.goodfood.data.Product
 import pw.prsk.goodfood.data.ProductUnit
 import pw.prsk.goodfood.databinding.FragmentAddIngredientBinding
+import pw.prsk.goodfood.utils.AutocompleteSelectionHelper
 import pw.prsk.goodfood.utils.InputValidator
 import pw.prsk.goodfood.viewmodels.EditMealViewModel
 
@@ -26,7 +26,8 @@ class AddIngredientBottomFragment : BottomSheetDialogFragment() {
     private val editMealViewModel: EditMealViewModel by viewModels({requireParentFragment()})
 
     private var selectedUnitId: Int = -1
-    private var selectedProductId: Int? = null
+
+    private lateinit var selectedProductHelper: AutocompleteSelectionHelper
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // Open dialog with expanded state
@@ -56,18 +57,11 @@ class AddIngredientBottomFragment : BottomSheetDialogFragment() {
         val amountValidator = InputValidator(binding.tilAmount, resources.getString(R.string.label_name_error))
         val unitValidator = InputValidator(binding.tilAmountUnit, resources.getString(R.string.label_product_units_error))
 
-        binding.tilIngredientName.setEndIconOnClickListener {
-            // Clear text and remove forbid
-            binding.tilIngredientName.editText?.apply {
-                text?.clear()
-                isFocusable = true
-                isFocusableInTouchMode = true
-                requestFocus()
-            }
-            // Reset selected product
-            selectedProductId = null
-            // Hide error that TIL is empty
-            nameValidator.hideError()
+        selectedProductHelper = AutocompleteSelectionHelper(binding.tilIngredientName) { input ->
+            Product(name = input)
+        }.addItemSelectedListener {
+            // Set focus to next text field
+            binding.tilAmount.requestFocus()
         }
 
         binding.bAddIngredient.setOnClickListener {
@@ -81,17 +75,11 @@ class AddIngredientBottomFragment : BottomSheetDialogFragment() {
             if (nameValidator.validate() and amountValidator.validate() and unitValidator.validate()) {
                 editMealViewModel.addIngredient(getIngredient())
                 // Clear itemText fields. Should be replaced with animation.
-                binding.tilIngredientName.editText?.text?.clear()
                 binding.tilAmount.editText?.text?.clear()
                 binding.tilAmountUnit.editText?.text?.clear()
 
-                binding.tilIngredientName.editText?.apply {
-                    isFocusable = true
-                    isFocusableInTouchMode = true
-                    requestFocus()
-                }
+                selectedProductHelper.resetSelection(true)
 
-                nameValidator.hideError()
                 amountValidator.hideError()
                 unitValidator.hideError()
             }
@@ -107,18 +95,6 @@ class AddIngredientBottomFragment : BottomSheetDialogFragment() {
             (binding.tilIngredientName.editText as AutoCompleteTextView).setAdapter(adapter)
         }
 
-        // Get selected product id
-        (binding.tilIngredientName.editText as AutoCompleteTextView).setOnItemClickListener { parent, _, position, _ ->
-            selectedProductId = (parent.adapter.getItem(position) as Product).id!!
-            // Forbid EditText to be edited
-            binding.tilIngredientName.editText?.apply {
-                isFocusable = false
-                isFocusableInTouchMode = false
-            }
-            // Set focus to next text field
-            binding.tilAmount.requestFocus()
-        }
-
         // Get selected unit id
         (binding.tilAmountUnit.editText as AutoCompleteTextView).setOnItemClickListener { parent, _, position, _ ->
             selectedUnitId = (parent.adapter.getItem(position) as ProductUnit).id!!
@@ -126,10 +102,7 @@ class AddIngredientBottomFragment : BottomSheetDialogFragment() {
     }
 
     private fun getIngredient(): IngredientWithMeta = IngredientWithMeta(
-        Product(
-            selectedProductId,
-            binding.tilIngredientName.editText?.text.toString()
-        ),
+        selectedProductHelper.selected as Product,
         binding.tilAmount.editText?.text.toString().toFloat(),
         ProductUnit(
             selectedUnitId,

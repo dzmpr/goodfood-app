@@ -14,7 +14,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import pw.prsk.goodfood.adapters.IngredientAdapter
-import pw.prsk.goodfood.adapters.MealCategoryDropdownAdapter
+import pw.prsk.goodfood.adapters.MealCategoryAutocompleteAdapter
 import pw.prsk.goodfood.data.MealCategory
 import pw.prsk.goodfood.databinding.FragmentEditMealBinding
 import pw.prsk.goodfood.utils.AutocompleteSelectionHelper
@@ -44,10 +44,12 @@ class EditMealFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        (requireActivity().application as MyApplication).appComponent.inject(viewModel)
-        viewModel.loadProducts()
-        viewModel.loadUnits()
-        viewModel.loadCategories()
+        if (savedInstanceState == null) {
+            (requireActivity().application as MyApplication).appComponent.inject(viewModel)
+            viewModel.loadProducts()
+            viewModel.loadUnits()
+            viewModel.loadCategories()
+        }
     }
 
     override fun onCreateView(
@@ -60,25 +62,8 @@ class EditMealFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val listAdapter = IngredientAdapter()
-
-        binding.rvIngredientsList.apply {
-            adapter = listAdapter
-            layoutManager = LinearLayoutManager(this.context)
-            addItemDecoration(
-                DividerItemDecoration(this.context,
-                LinearLayoutManager.VERTICAL)
-            )
-        }
-
-        viewModel.ingredients.observe(viewLifecycleOwner) {
-            binding.groupPlaceholder.visibility = if (it.isNotEmpty()) {
-                 View.GONE
-            } else {
-                View.VISIBLE
-            }
-            listAdapter.setList(it)
-        }
+        initIngredientsRecycler()
+        subscribeUi()
 
         binding.bAddIngredient.setOnClickListener {
             val sheet = AddIngredientBottomFragment()
@@ -89,24 +74,8 @@ class EditMealFragment : Fragment() {
             showPopup()
         }
 
-        viewModel.photo.observe(viewLifecycleOwner) {
-            binding.ivRecipePhoto.setImageDrawable(it)
-        }
-
-        viewModel.mealCategories.observe(viewLifecycleOwner) {
-            val adapter = MealCategoryDropdownAdapter(requireContext(), R.layout.dropdown_item, it)
-            (binding.tilRecipeCategory.editText as AutoCompleteTextView).setAdapter(adapter)
-        }
-
         categorySelectHelper = AutocompleteSelectionHelper(binding.tilRecipeCategory) { input ->
             MealCategory(name = input)
-        }
-
-
-        viewModel.saveStatus.observe(viewLifecycleOwner) {
-            if (it) {
-                Navigation.findNavController(requireActivity(), R.id.fcvContainer).popBackStack()
-            }
         }
 
         val nameValidator = InputValidator(binding.tilRecipeName, context?.getString(R.string.label_name_error))
@@ -118,6 +87,45 @@ class EditMealFragment : Fragment() {
                     binding.tilDescription.editText?.text.toString(),
                     categorySelectHelper.selected as MealCategory
                 )
+            }
+        }
+    }
+
+    private fun initIngredientsRecycler() {
+        val listAdapter = IngredientAdapter()
+
+        binding.rvIngredientsList.apply {
+            adapter = listAdapter
+            layoutManager = LinearLayoutManager(this.context)
+            addItemDecoration(
+                DividerItemDecoration(this.context,
+                    LinearLayoutManager.VERTICAL)
+            )
+        }
+
+        viewModel.ingredients.observe(viewLifecycleOwner) {
+            binding.groupPlaceholder.visibility = if (it.isNotEmpty()) {
+                View.GONE
+            } else {
+                View.VISIBLE
+            }
+            listAdapter.setList(it)
+        }
+    }
+
+    private fun subscribeUi() {
+        viewModel.photo.observe(viewLifecycleOwner) {
+            binding.ivRecipePhoto.setImageDrawable(it)
+        }
+
+        viewModel.mealCategories.observe(viewLifecycleOwner) {
+            val adapter = MealCategoryAutocompleteAdapter(requireContext(), R.layout.dropdown_item, it)
+            (binding.tilRecipeCategory.editText as AutoCompleteTextView).setAdapter(adapter)
+        }
+
+        viewModel.saveStatus.observe(viewLifecycleOwner) {
+            if (it) {
+                Navigation.findNavController(requireActivity(), R.id.fcvContainer).popBackStack()
             }
         }
     }
