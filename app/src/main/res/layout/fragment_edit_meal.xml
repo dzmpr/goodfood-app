@@ -113,19 +113,23 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilRecipeCategory"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="@string/recipe_category_label"
+                app:endIconDrawable="@drawable/ic_clear"
+                app:endIconMode="custom"
                 app:layout_constraintEnd_toStartOf="@id/endMargin"
                 app:layout_constraintStart_toStartOf="@id/startMargin"
                 app:layout_constraintTop_toBottomOf="@id/tilDescription">
 
-                <AutoCompleteTextView
+                <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                    style="@style/Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none" />
+                    android:maxLines="1"
+                    android:inputType="textCapSentences" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView

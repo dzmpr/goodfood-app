@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AutoCompleteTextView
 import android.widget.PopupMenu
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
@@ -13,7 +14,10 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import pw.prsk.goodfood.adapters.IngredientAdapter
+import pw.prsk.goodfood.adapters.MealCategoryDropdownAdapter
+import pw.prsk.goodfood.data.MealCategory
 import pw.prsk.goodfood.databinding.FragmentEditMealBinding
+import pw.prsk.goodfood.utils.AutocompleteSelectionHelper
 import pw.prsk.goodfood.utils.InputValidator
 import pw.prsk.goodfood.viewmodels.EditMealViewModel
 
@@ -36,11 +40,14 @@ class EditMealFragment : Fragment() {
 
     private var newPhotoUri: Uri? = null
 
+    private lateinit var categorySelectHelper: AutocompleteSelectionHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (requireActivity().application as MyApplication).appComponent.inject(viewModel)
         viewModel.loadProducts()
         viewModel.loadUnits()
+        viewModel.loadCategories()
     }
 
     override fun onCreateView(
@@ -86,6 +93,16 @@ class EditMealFragment : Fragment() {
             binding.ivRecipePhoto.setImageDrawable(it)
         }
 
+        viewModel.mealCategories.observe(viewLifecycleOwner) {
+            val adapter = MealCategoryDropdownAdapter(requireContext(), R.layout.dropdown_item, it)
+            (binding.tilRecipeCategory.editText as AutoCompleteTextView).setAdapter(adapter)
+        }
+
+        categorySelectHelper = AutocompleteSelectionHelper(binding.tilRecipeCategory) { input ->
+            MealCategory(name = input)
+        }
+
+
         viewModel.saveStatus.observe(viewLifecycleOwner) {
             if (it) {
                 Navigation.findNavController(requireActivity(), R.id.fcvContainer).popBackStack()
@@ -98,7 +115,8 @@ class EditMealFragment : Fragment() {
             if (nameValidator.validate()) {
                 viewModel.saveRecipe(
                     binding.tilRecipeName.editText?.text.toString(),
-                    binding.tilDescription.editText?.text.toString()
+                    binding.tilDescription.editText?.text.toString(),
+                    categorySelectHelper.selected as MealCategory
                 )
             }
         }
