@@ -76,7 +76,8 @@ class EditMealViewModel : ViewModel() {
     fun getPhotoUri(): Uri {
         photoFromCamera = true
         photoFilename = photoGateway.createNewPhotoFile()
-        return photoGateway.getUriForFilename("recipe_photos", photoFilename!!)
+        photoUri = photoGateway.getUriForFilename("recipe_photos", photoFilename!!)
+        return photoUri!!
     }
 
     fun loadProducts() {

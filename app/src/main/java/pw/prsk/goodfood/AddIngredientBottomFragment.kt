@@ -10,8 +10,8 @@ import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import pw.prsk.goodfood.adapters.BaseDropdownAdapter
 import pw.prsk.goodfood.adapters.ProductAutocompleteAdapter
-import pw.prsk.goodfood.adapters.ProductUnitAdapter
 import pw.prsk.goodfood.data.IngredientWithMeta
 import pw.prsk.goodfood.data.Product
 import pw.prsk.goodfood.data.ProductUnit
@@ -89,8 +89,10 @@ class AddIngredientBottomFragment : BottomSheetDialogFragment() {
             }
         }
 
-        editMealViewModel.unitsList.observe(viewLifecycleOwner) {
-            val adapter = ProductUnitAdapter(requireContext(), R.layout.dropdown_item, it)
+        editMealViewModel.unitsList.observe(viewLifecycleOwner) { it ->
+            val adapter = BaseDropdownAdapter(requireContext(), R.layout.dropdown_item, it) { item ->
+                item.name
+            }
             (binding.tilAmountUnit.editText as AutoCompleteTextView).setAdapter(adapter)
         }
 

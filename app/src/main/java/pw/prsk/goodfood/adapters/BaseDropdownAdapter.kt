@@ -9,10 +9,11 @@ import android.widget.TextView
 import androidx.annotation.LayoutRes
 import pw.prsk.goodfood.R
 
-abstract class BaseDropdownAdapter<T>(
+class BaseDropdownAdapter<T>(
     context: Context,
     @LayoutRes val resource: Int,
-    private val items: List<T>
+    private val items: List<T>,
+    private val getFieldName: ((T) -> String)
 ) : ArrayAdapter<T>(context, resource, items) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view: View
@@ -25,11 +26,9 @@ abstract class BaseDropdownAdapter<T>(
             view = convertView
             viewHolder = view.tag as ViewHolder
         }
-        viewHolder.itemText.text = getItemName(items[position])
+        viewHolder.itemText.text = getFieldName(items[position])
         return view
     }
-
-    abstract fun getItemName(item: T): String
 
     class ViewHolder(val itemText: TextView)
 }

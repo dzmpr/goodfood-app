@@ -9,12 +9,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileNotFoundException
-import java.util.*
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class PhotoGateway(private val applicationContext: Context) {
     fun createNewPhotoFile() : String {
         while (true) {
-            val fileName = UUID.randomUUID().toString()
+            val currentTimestamp = LocalDateTime.now()
+            val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("_ddMMyyyy_HHmmss")
+            val fileName = "cover" + currentTimestamp.format(formatter)
             val file = File(applicationContext.getExternalFilesDir("recipe_photos"), fileName)
 
             if (file.createNewFile()) {

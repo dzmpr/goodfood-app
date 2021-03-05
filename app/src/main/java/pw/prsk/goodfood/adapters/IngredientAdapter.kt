@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import pw.prsk.goodfood.R
 import pw.prsk.goodfood.data.IngredientWithMeta
-import pw.prsk.goodfood.utils.IngredientDiffUtilCallback
 
 class IngredientAdapter : RecyclerView.Adapter<IngredientAdapter.IngredientViewHolder>() {
     private var ingredientsList: List<IngredientWithMeta> = mutableListOf()
@@ -51,6 +50,23 @@ class IngredientAdapter : RecyclerView.Adapter<IngredientAdapter.IngredientViewH
                 ingredientAmount.text = amount.toString()
             }
             amountUnit.text = item.unit.name
+        }
+    }
+
+    class IngredientDiffUtilCallback(
+        private val oldList: List<IngredientWithMeta>,
+        private val newList: List<IngredientWithMeta>
+    ) : DiffUtil.Callback() {
+        override fun getOldListSize(): Int = oldList.size
+
+        override fun getNewListSize(): Int = newList.size
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition].product.id == newList[newItemPosition].product.id
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition] == newList[newItemPosition]
         }
     }
 }
