@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 
@@ -26,7 +27,6 @@ class MealsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (requireActivity().application as MyApplication).appComponent.inject(viewModel)
-        viewModel.loadMealsList()
     }
 
     override fun onCreateView(
@@ -36,6 +36,11 @@ class MealsFragment : Fragment() {
     ): View {
         _binding = FragmentMealsBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.loadMealsList()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,29 +54,8 @@ class MealsFragment : Fragment() {
         }
 
         binding.fabAddMeal.setOnClickListener {
-            val dialog = AddMealBottomFragment()
-            dialog.show(childFragmentManager, null)
+            Navigation.findNavController(requireActivity(), R.id.fcvContainer).navigate(R.id.add_meal_flow)
         }
-
-//        binding.fabAddMeal.setOnClickListener {
-//            val bsd = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogStyle)
-//            val dialogBinding = DialogAddMealBinding.inflate(layoutInflater)
-//            bsd.setContentView(dialogBinding.root)
-//            dialogBinding.bAddMeal.setOnClickListener {
-//                viewModel.addMeal(
-//                    Meal(
-//                        null,
-//                        dialogBinding.tilMealName.editText?.text.toString(),
-//                        dialogBinding.tilDescription.editText?.text.toString(),
-//                        LocalDateTime.now(),
-//                        0,
-//                        0
-//                    )
-//                )
-//                bsd.dismiss()
-//            }
-//            bsd.show()
-//        }
     }
 
     private fun initMealList() {

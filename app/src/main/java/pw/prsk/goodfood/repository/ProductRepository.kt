@@ -22,11 +22,11 @@ class ProductRepository(private val dbInstance: AppDatabase) {
         dbInstance.productDao().deleteById(id)
     }
 
-    suspend fun getProductsWithMeta() = withContext(Dispatchers.IO) {
-        dbInstance.productDao().getProductsWithMeta()
+    suspend fun increaseUsage(id: Int) = withContext(Dispatchers.IO) {
+        dbInstance.productDao().increaseUsages(id)
     }
 
-    suspend fun getProductsWithMetaByCategory(id: Int) = withContext(Dispatchers.IO) {
-        dbInstance.productDao().getProductsWithMetaByCategory(id)
+    suspend fun decreaseUsage(id: Int) = withContext(Dispatchers.IO) {
+        dbInstance.productDao().decreaseUsages(id)
     }
 }

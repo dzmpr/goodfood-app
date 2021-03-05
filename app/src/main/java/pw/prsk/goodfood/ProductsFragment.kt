@@ -4,14 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
-
 import com.google.android.material.snackbar.Snackbar
-
 import pw.prsk.goodfood.adapters.ProductAdapter
 import pw.prsk.goodfood.databinding.FragmentProductsBinding
 import pw.prsk.goodfood.utils.ItemSwipeDecorator
@@ -22,13 +21,12 @@ class ProductsFragment : Fragment() {
     private var _binding: FragmentProductsBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: ProductsViewModel by activityViewModels()
+    private val viewModel: ProductsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (requireActivity().application as MyApplication).appComponent.inject(viewModel)
         viewModel.loadProductsList()
-        viewModel.loadCategories()
     }
 
     override fun onCreateView(
@@ -58,30 +56,20 @@ class ProductsFragment : Fragment() {
     }
 
     private fun initCategoryChips() {
-        binding.cgCategoryChips.setOnCheckedChangeListener { _, checkedId ->
-            when (checkedId) {
-                View.NO_ID -> {
-                    viewModel.loadProductsList()
-                }
-                else -> {
-                    val category = viewModel.categoriesList.value!![checkedId]
-                    viewModel.loadProductsByCategory(category.id!!)
-                }
-            }
+        binding.cgCategoryChips.setOnCheckedChangeListener { _, _ ->
+            Toast.makeText(context, "Deprecated", Toast.LENGTH_SHORT).show()
         }
 
-        viewModel.categoriesList.observe(viewLifecycleOwner) {
             if (binding.cgCategoryChips.childCount > 0) {
                 binding.cgCategoryChips.removeAllViews()
             }
 
-            for ((i, category) in it.withIndex()) {
+            for (i in 1 until 7) {
                 val chip = layoutInflater.inflate(R.layout.chip_sort_layout, binding.cgCategoryChips, false) as Chip
-                chip.text = category.name
+                chip.text = "Chip $i"
                 chip.id = i
                 binding.cgCategoryChips.addView(chip)
             }
-        }
     }
 
     private fun initProductList() {

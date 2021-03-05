@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/ablAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorSurface">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:titleTextColor="?attr/colorOnSurface"
+            app:titleMarginStart="@dimen/layout_start_margin"
+            app:title="Add new recipe" >
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/bSaveRecipe"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/layout_end_margin"
+                android:layout_gravity="end"
+                android:text="@string/save_label" />
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvRecipePhoto"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:scaleType="fitXY"
+                app:cardCornerRadius="10dp"
+                app:cardPreventCornerOverlap="false"
+                app:layout_constraintEnd_toEndOf="@id/endMargin"
+                app:layout_constraintStart_toStartOf="@id/startMargin"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/ivRecipePhoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/recipe_photo_label"
+                    android:elevation="3dp"
+                    android:scaleType="centerCrop" />
+
+                <ImageView
+                    android:id="@+id/ivRecipePhotoPlaceholder"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/recipe_photo_label"
+                    android:elevation="2dp"
+                    android:src="@drawable/ic_add_photo"
+                    app:tint="?attr/colorOnSurface" />
+
+            </androidx.cardview.widget.CardView>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilRecipeName"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="@string/recipe_name_label"
+                app:layout_constraintEnd_toStartOf="@id/endMargin"
+                app:layout_constraintStart_toStartOf="@id/startMargin"
+                app:layout_constraintTop_toBottomOf="@id/cvRecipePhoto">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapSentences" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilDescription"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="@string/recipe_instructions_label"
+                app:layout_constraintEnd_toStartOf="@id/endMargin"
+                app:layout_constraintStart_toStartOf="@id/startMargin"
+                app:layout_constraintTop_toBottomOf="@id/tilRecipeName">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine|textCapSentences" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilRecipeCategory"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="@string/recipe_category_label"
+                app:endIconDrawable="@drawable/ic_clear"
+                app:endIconMode="custom"
+                app:layout_constraintEnd_toStartOf="@id/endMargin"
+                app:layout_constraintStart_toStartOf="@id/startMargin"
+                app:layout_constraintTop_toBottomOf="@id/tilDescription">
+
+                <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                    style="@style/Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:inputType="textCapSentences" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tvServingsSection"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/label_servings"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@id/endMargin"
+                app:layout_constraintStart_toStartOf="@id/startMargin"
+                app:layout_constraintTop_toBottomOf="@id/tilRecipeCategory" />
+
+            <com.google.android.material.slider.Slider
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/sServings"
+                android:valueFrom="1"
+                android:valueTo="35"
+                android:stepSize="1"
+                android:value="4"
+                app:tickVisible="false"
+                app:thumbRadius="6dp"
+                app:haloRadius="12dp"
+                app:layout_constraintTop_toBottomOf="@id/tvServingsSection"
+                app:layout_constraintStart_toStartOf="@id/startMargin"
+                app:layout_constraintEnd_toStartOf="@id/tvServings" />
+
+            <TextView
+                android:id="@+id/tvServings"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="18sp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:gravity="center_vertical"
+                tools:text="4"
+                app:layout_constraintTop_toTopOf="@id/sServings"
+                app:layout_constraintStart_toEndOf="@id/sServings"
+                app:layout_constraintBottom_toBottomOf="@id/sServings"
+                app:layout_constraintEnd_toEndOf="@id/endMargin" />
+
+            <TextView
+                android:id="@+id/tvIngredientsSection"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@string/ingredients_label"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@id/endMargin"
+                app:layout_constraintStart_toStartOf="@id/startMargin"
+                app:layout_constraintTop_toBottomOf="@id/tvServings" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvIngredientsList"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:overScrollMode="never"
+                app:layout_constraintEnd_toEndOf="@id/endMargin"
+                app:layout_constraintStart_toStartOf="@id/startMargin"
+                app:layout_constraintTop_toBottomOf="@id/tvIngredientsSection" />
+
+            <ImageView
+                android:id="@+id/ivPlaceholderImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/ic_empty_box"
+                app:layout_constraintEnd_toEndOf="@id/endMargin"
+                app:layout_constraintStart_toStartOf="@id/startMargin"
+                app:layout_constraintTop_toBottomOf="@id/tvIngredientsSection"
+                app:tint="?attr/colorOnSurface" />
+
+            <TextView
+                android:id="@+id/tvPlaceholderText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/label_empty_ingredients_list"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@id/endMargin"
+                app:layout_constraintStart_toStartOf="@id/startMargin"
+                app:layout_constraintTop_toBottomOf="@id/ivPlaceholderImage" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/bAddIngredient"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp"
+                android:text="@string/add_ingredient_label"
+                app:layout_constraintEnd_toEndOf="@id/endMargin"
+                app:layout_constraintStart_toStartOf="@id/startMargin"
+                app:layout_constraintTop_toBottomOf="@id/barrierListBottom" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/startMargin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/layout_start_margin" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/endMargin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/layout_end_margin" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrierListBottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="tvPlaceholderText,rvIngredientsList" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/groupPlaceholder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="tvPlaceholderText,ivPlaceholderImage" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>
