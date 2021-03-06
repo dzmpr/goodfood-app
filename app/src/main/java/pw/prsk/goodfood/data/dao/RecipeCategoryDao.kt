@@ -2,15 +2,15 @@ package pw.prsk.goodfood.data.dao
 
 import androidx.room.Dao
 import androidx.room.Query
-import pw.prsk.goodfood.data.MealCategory
+import pw.prsk.goodfood.data.RecipeCategory
 
 @Dao
-interface MealCategoryDao: BaseDao<MealCategory> {
+interface RecipeCategoryDao: BaseDao<RecipeCategory> {
     @Query("SELECT * FROM meal_categories")
-    fun getAll(): List<MealCategory>
+    fun getAll(): List<RecipeCategory>
 
     @Query("SELECT * FROM meal_categories WHERE id = :id")
-    fun getById(id: Int): MealCategory
+    fun getById(id: Int): RecipeCategory
 
     @Query("UPDATE meal_categories SET reference_count = reference_count + 1 WHERE id = :id")
     fun increaseUsages(id: Int)

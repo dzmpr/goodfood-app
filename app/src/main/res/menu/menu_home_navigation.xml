@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@id/actionMeals"
-        android:title="@string/label_navigation_meals"
-        android:icon="@drawable/ic_navigation_meals"/>
+        android:id="@id/actionRecipes"
+        android:title="@string/label_navigation_recipes"
+        android:icon="@drawable/ic_navigation_recipes"/>
 
     <item
         android:id="@id/actionProducts"

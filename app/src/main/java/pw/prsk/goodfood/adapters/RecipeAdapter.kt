@@ -7,44 +7,44 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import pw.prsk.goodfood.R
-import pw.prsk.goodfood.data.Meal
+import pw.prsk.goodfood.data.Recipe
 
-class MealAdapter : RecyclerView.Adapter<MealAdapter.MealViewHolder>() {
-    private var mealList: List<Meal> = listOf()
+class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
+    private var recipeList: List<Recipe> = listOf()
 
-    class MealViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class RecipeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.tvMealName)
         val category: TextView = view.findViewById(R.id.tvMealCategoryName)
         val lastEatDate: TextView = view.findViewById(R.id.tvLastEatDate)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MealViewHolder {
-        return MealViewHolder(LayoutInflater
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
+        return RecipeViewHolder(LayoutInflater
                 .from(parent.context)
-                .inflate(R.layout.item_meal, parent, false)
+                .inflate(R.layout.item_recipe, parent, false)
         )
     }
 
-    override fun onBindViewHolder(holder: MealViewHolder, position: Int) {
-        holder.name.text = mealList[position].name
+    override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
+        holder.name.text = recipeList[position].name
         holder.category.text = "Category test"
         holder.lastEatDate.text = if (position % 2 == 0) "20.20.2020" else "Never"
     }
 
-    override fun getItemCount(): Int = mealList.size
+    override fun getItemCount(): Int = recipeList.size
 
-    fun setList(list: List<Meal>) {
+    fun setList(list: List<Recipe>) {
         if (list.isEmpty()) {
-            mealList = list
+            recipeList = list
             notifyDataSetChanged()
         } else {
-            val diffResult = DiffUtil.calculateDiff(MealDiffUtilCallback(mealList, list))
-            mealList = list
+            val diffResult = DiffUtil.calculateDiff(MealDiffUtilCallback(recipeList, list))
+            recipeList = list
             diffResult.dispatchUpdatesTo(this)
         }
     }
 
-    class MealDiffUtilCallback(private val oldList: List<Meal>, private val newList: List<Meal>) :
+    class MealDiffUtilCallback(private val oldList: List<Recipe>, private val newList: List<Recipe>) :
         DiffUtil.Callback() {
         override fun getOldListSize(): Int = oldList.size
 

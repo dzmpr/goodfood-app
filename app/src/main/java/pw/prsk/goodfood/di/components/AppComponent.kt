@@ -6,8 +6,8 @@ import pw.prsk.goodfood.di.modules.ApplicationModule
 import pw.prsk.goodfood.di.modules.GatewayModule
 import pw.prsk.goodfood.di.modules.RepositoryModule
 import pw.prsk.goodfood.di.modules.RoomModule
-import pw.prsk.goodfood.viewmodels.EditMealViewModel
-import pw.prsk.goodfood.viewmodels.MealsViewModel
+import pw.prsk.goodfood.viewmodels.EditRecipeViewModel
+import pw.prsk.goodfood.viewmodels.RecipesOverviewViewModel
 import pw.prsk.goodfood.viewmodels.ProductsViewModel
 import javax.inject.Singleton
 
@@ -16,7 +16,7 @@ import javax.inject.Singleton
 interface AppComponent {
     fun context(): Application
 
-    fun inject(viewModel: MealsViewModel)
+    fun inject(viewModel: RecipesOverviewViewModel)
     fun inject(viewModel: ProductsViewModel)
-    fun inject(viewModel: EditMealViewModel)
+    fun inject(viewModel: EditRecipeViewModel)
 }

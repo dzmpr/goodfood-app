@@ -22,7 +22,7 @@
             android:layout_marginTop="10dp"
             android:textColor="?attr/colorOnSurface"
             android:textSize="20sp"
-            tools:text="Meal name" />
+            tools:text="Recipe name" />
 
         <View
             android:layout_width="0dp"

@@ -16,7 +16,7 @@
             android:layout_height="100dp"
             android:fitsSystemWindows="true"
             android:background="?attr/colorSurface"
-            app:title="@string/label_navigation_meals"
+            app:title="@string/label_navigation_recipes"
             app:expandedTitleMarginStart="30dp"
             app:expandedTitleMarginEnd="64dp"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed" >
@@ -26,7 +26,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:titleTextColor="?attr/colorOnSurface"
                 app:layout_collapseMode="pin"
-                android:title="@string/label_navigation_meals" />
+                android:title="@string/label_navigation_recipes" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -39,7 +39,7 @@
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         android:overScrollMode="never"
         android:background="?attr/colorSurface"
-        tools:listitem="@layout/item_meal" />
+        tools:listitem="@layout/item_recipe" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddMeal"

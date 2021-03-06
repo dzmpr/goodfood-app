@@ -38,7 +38,7 @@ class HomeFragment: Fragment() {
         // Remove action on item reselected
         binding.bnvBottomMenu.setOnNavigationItemReselectedListener {}
 
-        binding.bnvBottomMenu.selectedItemId = R.id.actionMeals
+        binding.bnvBottomMenu.selectedItemId = R.id.actionRecipes
     }
 
     override fun onDestroyView() {

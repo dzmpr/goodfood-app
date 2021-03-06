@@ -9,9 +9,9 @@ import java.util.concurrent.Executors
 
 @Database(
     entities = [
-        Meal::class,
+        Recipe::class,
         Product::class,
-        MealCategory::class,
+        RecipeCategory::class,
         ProductUnit::class],
     version = 1
 )
@@ -19,8 +19,8 @@ import java.util.concurrent.Executors
 abstract class AppDatabase : RoomDatabase() {
     abstract fun productDao(): ProductDao
 
-    abstract fun mealDao(): MealDao
-    abstract fun mealCategoryDao(): MealCategoryDao
+    abstract fun recipeDao(): RecipeDao
+    abstract fun recipeCategoryDao(): RecipeCategoryDao
 
     abstract fun productUnitsDao(): ProductUnitsDao
 

@@ -4,31 +4,31 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import pw.prsk.goodfood.data.*
 
-class MealRepository(
+class RecipeRepository(
     private val dbInstance: AppDatabase,
     private val photoGateway: PhotoGateway
 ) {
-    suspend fun addMeal(meal: Meal) = withContext(Dispatchers.IO) {
-        dbInstance.mealDao().insert(meal)
+    suspend fun addRecipe(recipe: Recipe) = withContext(Dispatchers.IO) {
+        dbInstance.recipeDao().insert(recipe)
     }
 
-    suspend fun getMeals(): List<Meal> = withContext(Dispatchers.IO) {
-        dbInstance.mealDao().getAll()
+    suspend fun getRecipes(): List<Recipe> = withContext(Dispatchers.IO) {
+        dbInstance.recipeDao().getAll()
     }
 
-    suspend fun removeMeal(meal: Meal) = withContext(Dispatchers.IO) {
-        removeRecipeById(meal.id!!)
+    suspend fun removeRecipe(recipe: Recipe) = withContext(Dispatchers.IO) {
+        removeRecipeById(recipe.id!!)
     }
 
     suspend fun removeRecipeById(id: Int) = withContext(Dispatchers.IO) {
-        val recipe = dbInstance.mealDao().getById(id)
+        val recipe = dbInstance.recipeDao().getById(id)
         removeIngredients(recipe.ingredientsList)
         removeCategory(recipe.category_id)
         if (recipe.photoFilename != null) {
             val uri = photoGateway.getUriForPhoto(recipe.photoFilename!!)
             photoGateway.removePhoto(uri)
         }
-        dbInstance.mealDao().deleteById(recipe.id!!)
+        dbInstance.recipeDao().deleteById(recipe.id!!)
     }
 
     private fun removeIngredients(ingredients: List<Ingredient>) {
@@ -46,21 +46,21 @@ class MealRepository(
 
     private fun removeCategory(category_id: Int?) {
         if (category_id != null) {
-            val category = dbInstance.mealCategoryDao().getById(category_id)
+            val category = dbInstance.recipeCategoryDao().getById(category_id)
             // If this is the only recipe where this category is used - delete it
             if (category.referenceCount == 1) {
-                dbInstance.mealCategoryDao().delete(category)
+                dbInstance.recipeCategoryDao().delete(category)
             } else {
-                dbInstance.mealCategoryDao().decreaseUsages(category_id)
+                dbInstance.recipeCategoryDao().decreaseUsages(category_id)
             }
         }
     }
 
-    suspend fun addRecipe(recipe: MealWithMeta) = withContext(Dispatchers.IO) {
+    suspend fun addRecipe(recipe: RecipeWithMeta) = withContext(Dispatchers.IO) {
         val convertedIngredients = processIngredients(recipe.ingredientsList)
         processCategory(recipe.category)
-        dbInstance.mealDao().insert(
-            Meal(
+        dbInstance.recipeDao().insert(
+            Recipe(
                 recipe.id,
                 recipe.name,
                 recipe.description,
@@ -94,15 +94,15 @@ class MealRepository(
         dbInstance.productDao().increaseUsages(ingredient.product.id!!)
     }
 
-    private fun processCategory(category: MealCategory?) {
+    private fun processCategory(category: RecipeCategory?) {
         if (category != null) {
             // Create category if it is not exists
             if (category.id == null) {
-                val newId = dbInstance.mealCategoryDao().insert(category)
+                val newId = dbInstance.recipeCategoryDao().insert(category)
                 category.id = newId.toInt()
             }
             // Increase category usages
-            dbInstance.mealCategoryDao().increaseUsages(category.id!!)
+            dbInstance.recipeCategoryDao().increaseUsages(category.id!!)
         }
     }
 }

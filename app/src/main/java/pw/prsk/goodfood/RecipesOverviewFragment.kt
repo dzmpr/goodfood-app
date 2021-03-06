@@ -5,24 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-
 import com.google.android.material.snackbar.Snackbar
-
-import pw.prsk.goodfood.adapters.MealAdapter
-import pw.prsk.goodfood.databinding.FragmentMealsBinding
+import pw.prsk.goodfood.adapters.RecipeAdapter
+import pw.prsk.goodfood.databinding.FragmentRecipesOverviewBinding
 import pw.prsk.goodfood.utils.ItemSwipeDecorator
-import pw.prsk.goodfood.utils.MealItemTouchHelperCallback
-import pw.prsk.goodfood.viewmodels.MealsViewModel
+import pw.prsk.goodfood.utils.RecipeItemTouchHelperCallback
+import pw.prsk.goodfood.viewmodels.RecipesOverviewViewModel
 
-class MealsFragment : Fragment() {
-    private var _binding: FragmentMealsBinding? = null
+class RecipesOverviewFragment : Fragment() {
+    private var _binding: FragmentRecipesOverviewBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: MealsViewModel by activityViewModels()
+    private val viewModel: RecipesOverviewViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +32,7 @@ class MealsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMealsBinding.inflate(inflater, container, false)
+        _binding = FragmentRecipesOverviewBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -59,7 +57,7 @@ class MealsFragment : Fragment() {
     }
 
     private fun initMealList() {
-        val mealAdapter = MealAdapter()
+        val mealAdapter = RecipeAdapter()
         subscribeUi(mealAdapter)
 
         binding.rvMealsList.apply {
@@ -74,13 +72,13 @@ class MealsFragment : Fragment() {
             .setRightSideText(R.string.delete_action_label, R.color.ivory, 16f)
             .getDecorator()
 
-        val ithCallback = MealItemTouchHelperCallback(viewModel, swipeDecorator)
+        val ithCallback = RecipeItemTouchHelperCallback(viewModel, swipeDecorator)
         val touchHelper = ItemTouchHelper(ithCallback)
         touchHelper.attachToRecyclerView(binding.rvMealsList)
     }
 
-    private fun subscribeUi(adapter: MealAdapter) {
-        viewModel.mealList.observe(viewLifecycleOwner) { meals ->
+    private fun subscribeUi(adapter: RecipeAdapter) {
+        viewModel.recipeList.observe(viewLifecycleOwner) { meals ->
             adapter.setList(meals)
         }
     }

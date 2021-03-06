@@ -4,7 +4,7 @@ import android.graphics.*
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
-class MealItemTouchHelperCallback(
+class RecipeItemTouchHelperCallback(
     private val handler: ItemTouchHelperAction,
     private val swipeDecorator: ItemSwipeDecorator
 ) : ItemTouchHelper.Callback() {
