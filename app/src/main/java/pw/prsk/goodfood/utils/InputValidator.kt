@@ -58,7 +58,7 @@ class InputValidator(private val field: TextInputLayout, requiredMessage: String
         field.isErrorEnabled = true
     }
 
-    private fun hideError() {
+    fun hideError() {
         field.isErrorEnabled = false
     }
 

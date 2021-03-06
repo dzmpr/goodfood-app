@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import pw.prsk.goodfood.R
 import pw.prsk.goodfood.data.Meal
-import pw.prsk.goodfood.utils.MealDiffUtilCallback
 
 class MealAdapter : RecyclerView.Adapter<MealAdapter.MealViewHolder>() {
     private var mealList: List<Meal> = listOf()
@@ -42,6 +41,21 @@ class MealAdapter : RecyclerView.Adapter<MealAdapter.MealViewHolder>() {
             val diffResult = DiffUtil.calculateDiff(MealDiffUtilCallback(mealList, list))
             mealList = list
             diffResult.dispatchUpdatesTo(this)
+        }
+    }
+
+    class MealDiffUtilCallback(private val oldList: List<Meal>, private val newList: List<Meal>) :
+        DiffUtil.Callback() {
+        override fun getOldListSize(): Int = oldList.size
+
+        override fun getNewListSize(): Int = newList.size
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition].id == newList[newItemPosition].id
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition] == newList[newItemPosition]
         }
     }
 }

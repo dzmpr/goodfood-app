@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bsdMealsContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_behavior="@string/bottom_sheet_behavior">
+
+    <TextView
+        android:id="@+id/tvSheetHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/bottom_sheet_fields_margin"
+        android:text="@string/add_ingredient_label"
+        android:textAlignment="center"
+        android:textColor="?attr/colorOnSurface"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilIngredientName"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/bottom_sheet_fields_margin"
+        android:hint="@string/ingredient_hint"
+        app:endIconDrawable="@drawable/ic_clear"
+        app:endIconMode="custom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSheetHeader">
+
+        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+            style="@style/Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox.Dense"
+            android:maxLines="1"
+            android:inputType="textCapSentences"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilAmount"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/bottom_sheet_fields_margin"
+        android:layout_marginEnd="@dimen/bottom_sheet_horizontal_margin"
+        android:hint="@string/amount_label"
+        app:layout_constraintEnd_toStartOf="@id/tilAmountUnit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tilIngredientName" >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilAmountUnit"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/bottom_sheet_fields_margin"
+        android:layout_marginStart="@dimen/bottom_sheet_horizontal_margin"
+        android:hint="@string/unit_select_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tilAmount"
+        app:layout_constraintTop_toBottomOf="@id/tilIngredientName">
+
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bAddMore"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="@string/add_more_label"
+        android:layout_marginTop="@dimen/bottom_sheet_fields_margin"
+        android:layout_marginEnd="@dimen/bottom_sheet_horizontal_margin"
+        app:layout_constraintEnd_toStartOf="@id/bAddIngredient"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tilAmountUnit" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bAddIngredient"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="@string/add_label"
+        android:layout_marginTop="@dimen/bottom_sheet_fields_margin"
+        android:layout_marginStart="@dimen/bottom_sheet_horizontal_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/bAddMore"
+        app:layout_constraintTop_toBottomOf="@id/tilAmountUnit" />
+</androidx.constraintlayout.widget.ConstraintLayout>

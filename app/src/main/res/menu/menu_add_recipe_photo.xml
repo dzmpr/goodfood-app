@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group android:id="@+id/groupAddPhoto">
+        <item
+            android:id="@+id/actionTakePhoto"
+            android:title="@string/take_photo_action_label" />
+        <item
+            android:id="@+id/actionChoosePhoto"
+            android:title="@string/choose_photo_action_label" />
+    </group>
+    <group android:id="@+id/groupRemovePhoto">
+        <item
+            android:id="@+id/actionRemovePhoto"
+            android:title="@string/remove_photo_action_label" />
+    </group>
+</menu>

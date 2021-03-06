@@ -3,21 +3,18 @@ package pw.prsk.goodfood.di.modules
 import dagger.Module
 import dagger.Provides
 import pw.prsk.goodfood.data.AppDatabase
+import pw.prsk.goodfood.data.PhotoGateway
 import pw.prsk.goodfood.repository.*
 
 @Module
 class RepositoryModule {
     @Provides
-    fun provideMealRepository(dbInstance: AppDatabase): MealRepository =
-        MealRepository(dbInstance)
+    fun provideMealRepository(dbInstance: AppDatabase, photoGateway: PhotoGateway): MealRepository =
+        MealRepository(dbInstance, photoGateway)
 
     @Provides
     fun provideProductRepository(dbInstance: AppDatabase): ProductRepository =
         ProductRepository(dbInstance)
-
-    @Provides
-    fun provideProductCategoryRepository(dbInstance: AppDatabase): ProductCategoryRepository =
-        ProductCategoryRepository(dbInstance)
 
     @Provides
     fun provideMealCategoryRepository(dbInstance: AppDatabase): MealCategoryRepository =

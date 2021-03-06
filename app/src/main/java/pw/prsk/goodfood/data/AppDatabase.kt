@@ -12,14 +12,12 @@ import java.util.concurrent.Executors
         Meal::class,
         Product::class,
         MealCategory::class,
-        ProductCategory::class,
         ProductUnit::class],
     version = 1
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun productDao(): ProductDao
-    abstract fun productCategoryDao(): ProductCategoryDao
 
     abstract fun mealDao(): MealDao
     abstract fun mealCategoryDao(): MealCategoryDao
@@ -46,20 +44,6 @@ abstract class AppDatabase : RoomDatabase() {
                         Executors.newSingleThreadExecutor().execute {
                             val database = getInstance(context)
                             val res = context.resources
-
-                            // Prepopulate meal categories
-                            with(database.mealCategoryDao()) {
-                                insert(MealCategory(name = res.getString(R.string.default_meal_category_1)))
-                                insert(MealCategory(name = res.getString(R.string.default_meal_category_2)))
-                                insert(MealCategory(name = res.getString(R.string.default_meal_category_3)))
-                            }
-
-                            // Prepopulate product categories
-                            with(database.productCategoryDao()) {
-                                insert(ProductCategory(name = res.getString(R.string.default_product_category_1)))
-                                insert(ProductCategory(name = res.getString(R.string.default_product_category_2)))
-                                insert(ProductCategory(name = res.getString(R.string.default_product_category_3)))
-                            }
 
                             // Prepopulate units
                             with(database.productUnitsDao()) {
