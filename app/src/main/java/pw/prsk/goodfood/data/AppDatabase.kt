@@ -45,13 +45,6 @@ abstract class AppDatabase : RoomDatabase() {
                             val database = getInstance(context)
                             val res = context.resources
 
-                            // Prepopulate meal categories
-                            with(database.mealCategoryDao()) {
-                                insert(MealCategory(name = res.getString(R.string.default_meal_category_1)))
-                                insert(MealCategory(name = res.getString(R.string.default_meal_category_2)))
-                                insert(MealCategory(name = res.getString(R.string.default_meal_category_3)))
-                            }
-
                             // Prepopulate units
                             with(database.productUnitsDao()) {
                                 insert(ProductUnit(name = res.getString(R.string.default_product_unit_1)))
