@@ -10,4 +10,7 @@ interface MealDao: BaseDao<Meal> {
 
     @Query("SELECT * FROM meals WHERE id = :id")
     fun getById(id: Int): Meal
+
+    @Query("DELETE FROM meals WHERE id = :id")
+    fun deleteById(id: Int)
 }
