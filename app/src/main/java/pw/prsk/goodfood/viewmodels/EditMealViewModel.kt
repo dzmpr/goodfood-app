@@ -7,9 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import pw.prsk.goodfood.data.*
 import pw.prsk.goodfood.repository.MealCategoryRepository
 import pw.prsk.goodfood.repository.MealRepository
@@ -76,7 +74,7 @@ class EditMealViewModel : ViewModel() {
     fun getPhotoUri(): Uri {
         photoFromCamera = true
         photoFilename = photoGateway.createNewPhotoFile()
-        photoUri = photoGateway.getUriForFilename("recipe_photos", photoFilename!!)
+        photoUri = photoGateway.getUriForPhoto(photoFilename!!)
         return photoUri!!
     }
 
@@ -108,7 +106,7 @@ class EditMealViewModel : ViewModel() {
             // Copy photo to app folder if it was picked
             if (!photoFromCamera && photoStatus) {
                 photoFilename = photoGateway.createNewPhotoFile()
-                val internalUri = photoGateway.getUriForFilename("recipe_photos", photoFilename!!)
+                val internalUri = photoGateway.getUriForPhoto(photoFilename!!)
                 val newPhoto = photoGateway.copyPhoto(photoUri!!, internalUri)
                 Log.d(TAG, "Filename where chosen photo will be copied: '${newPhoto.toString()}'.")
             }

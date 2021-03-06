@@ -25,7 +25,7 @@ class MealRepository(
         removeIngredients(recipe.ingredientsList)
         removeCategory(recipe.category_id)
         if (recipe.photoFilename != null) {
-            val uri = photoGateway.getUriForFilename("recipe_photos", recipe.photoFilename!!)
+            val uri = photoGateway.getUriForPhoto(recipe.photoFilename!!)
             photoGateway.removePhoto(uri)
         }
         dbInstance.mealDao().deleteById(recipe.id!!)
