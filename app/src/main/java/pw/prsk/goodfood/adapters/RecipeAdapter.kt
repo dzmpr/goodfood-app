@@ -3,7 +3,9 @@ package pw.prsk.goodfood.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import android.widget.ToggleButton
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import pw.prsk.goodfood.R
@@ -13,9 +15,16 @@ class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
     private var recipeList: List<Recipe> = listOf()
 
     class RecipeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val name: TextView = view.findViewById(R.id.tvMealName)
-        val category: TextView = view.findViewById(R.id.tvMealCategoryName)
-        val lastEatDate: TextView = view.findViewById(R.id.tvLastEatDate)
+        private val name: TextView = view.findViewById(R.id.tvMealName)
+        private val category: TextView = view.findViewById(R.id.tvMealCategoryName)
+        private val image: ImageView = view.findViewById(R.id.ivRecipePhoto)
+        private val favoriteButton: ToggleButton = view.findViewById(R.id.tbFavorites)
+
+        fun bind(recipe: Recipe) {
+            name.text = recipe.name
+            category.text = "Category test"
+            favoriteButton.isChecked = recipe.inFavorites
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
@@ -26,9 +35,7 @@ class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
-        holder.name.text = recipeList[position].name
-        holder.category.text = "Category test"
-        holder.lastEatDate.text = if (position % 2 == 0) "20.20.2020" else "Never"
+        holder.bind(recipeList[position])
     }
 
     override fun getItemCount(): Int = recipeList.size

@@ -7,13 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import pw.prsk.goodfood.adapters.RecipeAdapter
 import pw.prsk.goodfood.databinding.FragmentRecipesOverviewBinding
-import pw.prsk.goodfood.utils.ItemSwipeDecorator
-import pw.prsk.goodfood.utils.RecipeItemTouchHelperCallback
 import pw.prsk.goodfood.viewmodels.RecipesOverviewViewModel
 
 class RecipesOverviewFragment : Fragment() {
@@ -44,7 +41,7 @@ class RecipesOverviewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initMealList()
+        initRecyclers()
 
         viewModel.deleteSnack.observe(viewLifecycleOwner) {
             val message = resources.getString(R.string.snackbar_item_deleted, it)
@@ -56,25 +53,30 @@ class RecipesOverviewFragment : Fragment() {
         }
     }
 
-    private fun initMealList() {
-        val mealAdapter = RecipeAdapter()
-        subscribeUi(mealAdapter)
+    private fun initRecyclers() {
+        val frequentAdapter = RecipeAdapter()
+        subscribeUi(frequentAdapter)
 
-        binding.rvMealsList.apply {
-            layoutManager = LinearLayoutManager(this.context)
-            adapter = mealAdapter
+        binding.rvFrequentRecipesList.apply {
+            layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = frequentAdapter
         }
 
-        val swipeDecorator = ItemSwipeDecorator.Companion.Builder()
-            .setRightSideIcon(R.drawable.ic_trash_bin, R.color.ivory)
-            .setBackgroundColor(rightSideColorId = R.color.rose_madder)
-            .setIconMargin(50)
-            .setRightSideText(R.string.delete_action_label, R.color.ivory, 16f)
-            .getDecorator()
+        val favoriteAdapter = RecipeAdapter()
+        subscribeUi(favoriteAdapter)
 
-        val ithCallback = RecipeItemTouchHelperCallback(viewModel, swipeDecorator)
-        val touchHelper = ItemTouchHelper(ithCallback)
-        touchHelper.attachToRecyclerView(binding.rvMealsList)
+        binding.rvFavoritesList.apply {
+            layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = favoriteAdapter
+        }
+
+        val allRecipesAdapter = RecipeAdapter()
+        subscribeUi(allRecipesAdapter)
+
+        binding.rvAllRecipesList.apply {
+            layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = allRecipesAdapter
+        }
     }
 
     private fun subscribeUi(adapter: RecipeAdapter) {

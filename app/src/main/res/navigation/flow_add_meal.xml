@@ -9,5 +9,5 @@
         android:id="@+id/editMealFragment"
         android:name="pw.prsk.goodfood.EditRecipeFragment"
         android:label="EditMealFragment"
-        tools:layout="@layout/fragment_edit_meal" />
+        tools:layout="@layout/fragment_edit_recipe" />
 </navigation>
