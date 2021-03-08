@@ -22,6 +22,10 @@ class RecipesOverviewViewModel @Inject constructor(
         MutableLiveData<List<RecipeWithMeta>>()
     }
 
+    val isDataPresence by lazy {
+        MutableLiveData(true)
+    }
+
     init {
         viewModelScope.launch {
             recipeRepository.getAllRecipes()
@@ -34,6 +38,10 @@ class RecipesOverviewViewModel @Inject constructor(
 
             recipeRepository.getFrequentRecipes()
                 .onEach { frequentRecipes.postValue(it) }
+                .launchIn(this)
+
+            recipeRepository.isDatabaseEmpty()
+                .onEach { isDataPresence.value = it }
                 .launchIn(this)
         }
     }

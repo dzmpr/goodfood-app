@@ -52,6 +52,16 @@ class RecipesOverviewFragment : Fragment() {
 
         initRecyclers()
 
+        viewModel.isDataPresence.observe(viewLifecycleOwner) {
+            if (it) {
+                binding.nsvContent.visibility = View.VISIBLE
+                binding.tvNoDataPlaceholder.visibility = View.GONE
+            } else {
+                binding.nsvContent.visibility = View.GONE
+                binding.tvNoDataPlaceholder.visibility = View.VISIBLE
+            }
+        }
+
         binding.fabAddMeal.setOnClickListener {
             Navigation.findNavController(requireActivity(), R.id.fcvContainer).navigate(R.id.add_meal_flow)
         }

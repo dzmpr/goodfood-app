@@ -18,6 +18,13 @@ class RecipeRepository(
         dbInstance.recipeDao().changeFavoriteMark(id, state)
     }
 
+    suspend fun isDatabaseEmpty() = withContext(Dispatchers.IO) {
+        dbInstance.recipeDao().isDatabaseEmpty()
+            .map {
+                it != 0
+            }
+    }
+
     suspend fun getAllRecipes() = withContext(Dispatchers.IO) {
         dbInstance.recipeDao().getAllRecipes()
             .map {

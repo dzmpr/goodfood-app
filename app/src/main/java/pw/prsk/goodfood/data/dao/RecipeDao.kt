@@ -23,4 +23,7 @@ interface RecipeDao: BaseDao<Recipe> {
 
     @Query("UPDATE meals SET in_favorites = :state WHERE id = :id")
     fun changeFavoriteMark(id: Int, state: Boolean)
+
+    @Query("SELECT COUNT(*) FROM meals")
+    fun isDatabaseEmpty(): Flow<Int>
 }
