@@ -18,6 +18,9 @@ interface RecipeDao: BaseDao<Recipe> {
     @Query("SELECT * FROM meals WHERE in_favorites")
     fun getFavoriteRecipes(): Flow<List<Recipe>>
 
-    @Query("SELECT * FROM meals ORDER BY eat_count DESC")
+    @Query("SELECT * FROM meals WHERE eat_count != 0 ORDER BY eat_count DESC")
     fun getFrequentRecipes(): Flow<List<Recipe>>
+
+    @Query("UPDATE meals SET in_favorites = :state WHERE id = :id")
+    fun changeFavoriteMark(id: Int, state: Boolean)
 }

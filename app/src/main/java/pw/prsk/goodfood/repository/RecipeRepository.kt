@@ -14,6 +14,10 @@ class RecipeRepository(
         dbInstance.recipeDao().insert(recipe)
     }
 
+    suspend fun changeFavoritesMark(id: Int, state: Boolean) = withContext(Dispatchers.IO) {
+        dbInstance.recipeDao().changeFavoriteMark(id, state)
+    }
+
     suspend fun getAllRecipes() = withContext(Dispatchers.IO) {
         dbInstance.recipeDao().getAllRecipes()
             .map {
