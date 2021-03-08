@@ -1,6 +1,8 @@
 package pw.prsk.goodfood.repository
 
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import pw.prsk.goodfood.data.*
 
@@ -12,9 +14,63 @@ class RecipeRepository(
         dbInstance.recipeDao().insert(recipe)
     }
 
-    suspend fun getRecipes(): List<Recipe> = withContext(Dispatchers.IO) {
-        dbInstance.recipeDao().getAll()
+    suspend fun getAllRecipes() = withContext(Dispatchers.IO) {
+        dbInstance.recipeDao().getAllRecipes()
+            .map {
+                it.map { recipe ->
+                    getRecipeWithMeta(recipe)
+                }
+            }
+            .flowOn(Dispatchers.IO)
     }
+
+    suspend fun getFrequentRecipes() = withContext(Dispatchers.IO) {
+        dbInstance.recipeDao().getFrequentRecipes()
+            .map {
+                it.map { recipe ->
+                    getRecipeWithMeta(recipe)
+                }
+            }
+            .flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getFavoriteRecipes() = withContext(Dispatchers.IO) {
+        dbInstance.recipeDao().getFavoriteRecipes()
+            .map {
+                it.map { recipe ->
+                    getRecipeWithMeta(recipe)
+                }
+            }
+            .flowOn(Dispatchers.IO)
+    }
+
+    private fun getRecipeWithMeta(recipe: Recipe): RecipeWithMeta {
+        val ingredientList = getIngredients(recipe.ingredientsList)
+        val category = if (recipe.category_id != null) {
+            dbInstance.recipeCategoryDao().getById(recipe.category_id!!)
+        } else {
+            null
+        }
+        return RecipeWithMeta(
+            recipe.id,
+            recipe.name,
+            recipe.description,
+            recipe.photoFilename,
+            recipe.servingsNum,
+            recipe.inFavorites,
+            recipe.last_eaten,
+            recipe.eat_count,
+            ingredientList,
+            category
+        )
+    }
+
+    private fun getIngredients(ingredientList: List<Ingredient>): List<IngredientWithMeta> =
+        ingredientList.map {
+            val product = dbInstance.productDao().getById(it.productId)
+            val amountUnit = dbInstance.productUnitsDao().getById(it.amountUnitId)
+            IngredientWithMeta(product, it.amount, amountUnit)
+        }
 
     suspend fun removeRecipe(recipe: Recipe) = withContext(Dispatchers.IO) {
         removeRecipeById(recipe.id!!)

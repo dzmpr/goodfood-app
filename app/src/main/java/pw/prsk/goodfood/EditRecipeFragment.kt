@@ -16,13 +16,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import pw.prsk.goodfood.adapters.IngredientAdapter
 import pw.prsk.goodfood.adapters.RecipeCategoryAutocompleteAdapter
 import pw.prsk.goodfood.data.RecipeCategory
-import pw.prsk.goodfood.databinding.FragmentEditMealBinding
+import pw.prsk.goodfood.databinding.FragmentEditRecipeBinding
 import pw.prsk.goodfood.utils.AutocompleteSelectionHelper
 import pw.prsk.goodfood.utils.InputValidator
 import pw.prsk.goodfood.viewmodels.EditRecipeViewModel
 
 class EditRecipeFragment : Fragment() {
-    private lateinit var binding: FragmentEditMealBinding
+    private lateinit var binding: FragmentEditRecipeBinding
 
     private val viewModel: EditRecipeViewModel by viewModels()
 
@@ -59,7 +59,7 @@ class EditRecipeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentEditMealBinding.inflate(inflater, container, false)
+        binding = FragmentEditRecipeBinding.inflate(inflater, container, false)
         return binding.root
     }
 

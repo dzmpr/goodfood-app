@@ -5,23 +5,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import pw.prsk.goodfood.adapters.RecipeAdapter
 import pw.prsk.goodfood.databinding.FragmentRecipesOverviewBinding
 import pw.prsk.goodfood.viewmodels.RecipesOverviewViewModel
+import javax.inject.Inject
 
 class RecipesOverviewFragment : Fragment() {
     private var _binding: FragmentRecipesOverviewBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: RecipesOverviewViewModel by viewModels()
+
+    @Inject lateinit var vmFactory: ViewModelProvider.Factory
+    private lateinit var viewModel: RecipesOverviewViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        (requireActivity().application as MyApplication).appComponent.inject(viewModel)
+        (requireActivity().application as MyApplication).appComponent.inject(this)
+        viewModel = ViewModelProvider(this, vmFactory)[RecipesOverviewViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -33,20 +37,10 @@ class RecipesOverviewFragment : Fragment() {
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
-        viewModel.loadMealsList()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initRecyclers()
-
-        viewModel.deleteSnack.observe(viewLifecycleOwner) {
-            val message = resources.getString(R.string.snackbar_item_deleted, it)
-            showSnackbar(message)
-        }
 
         binding.fabAddMeal.setOnClickListener {
             Navigation.findNavController(requireActivity(), R.id.fcvContainer).navigate(R.id.add_meal_flow)
@@ -55,7 +49,9 @@ class RecipesOverviewFragment : Fragment() {
 
     private fun initRecyclers() {
         val frequentAdapter = RecipeAdapter()
-        subscribeUi(frequentAdapter)
+        viewModel.frequentRecipes.observe(viewLifecycleOwner) {
+            frequentAdapter.setList(it)
+        }
 
         binding.rvFrequentRecipesList.apply {
             layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
@@ -63,7 +59,9 @@ class RecipesOverviewFragment : Fragment() {
         }
 
         val favoriteAdapter = RecipeAdapter()
-        subscribeUi(favoriteAdapter)
+        viewModel.favoriteRecipes.observe(viewLifecycleOwner) {
+            favoriteAdapter.setList(it)
+        }
 
         binding.rvFavoritesList.apply {
             layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
@@ -71,17 +69,13 @@ class RecipesOverviewFragment : Fragment() {
         }
 
         val allRecipesAdapter = RecipeAdapter()
-        subscribeUi(allRecipesAdapter)
+        viewModel.allRecipes.observe(viewLifecycleOwner) {
+            allRecipesAdapter.setList(it)
+        }
 
         binding.rvAllRecipesList.apply {
             layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
             adapter = allRecipesAdapter
-        }
-    }
-
-    private fun subscribeUi(adapter: RecipeAdapter) {
-        viewModel.recipeList.observe(viewLifecycleOwner) { meals ->
-            adapter.setList(meals)
         }
     }
 

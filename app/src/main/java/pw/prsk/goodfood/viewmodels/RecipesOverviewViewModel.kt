@@ -1,48 +1,40 @@
 package pw.prsk.goodfood.viewmodels
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import pw.prsk.goodfood.utils.ItemTouchHelperAction
-import pw.prsk.goodfood.data.Recipe
-import pw.prsk.goodfood.repository.RecipeCategoryRepository
+import pw.prsk.goodfood.data.RecipeWithMeta
 import pw.prsk.goodfood.repository.RecipeRepository
-import pw.prsk.goodfood.utils.SingleLiveEvent
 import javax.inject.Inject
 
 
-class RecipesOverviewViewModel : ViewModel(), ItemTouchHelperAction {
-    val recipeList: MutableLiveData<List<Recipe>> by lazy {
-        MutableLiveData<List<Recipe>>()
+class RecipesOverviewViewModel @Inject constructor(
+    private val recipeRepository: RecipeRepository
+) : ViewModel() {
+    val allRecipes by lazy {
+        MutableLiveData<List<RecipeWithMeta>>()
+    }
+    val favoriteRecipes by lazy {
+        MutableLiveData<List<RecipeWithMeta>>()
+    }
+    val frequentRecipes by lazy {
+        MutableLiveData<List<RecipeWithMeta>>()
     }
 
-    val deleteSnack = SingleLiveEvent<String>()
-
-    @Inject lateinit var recipeRepository: RecipeRepository
-    @Inject lateinit var recipeCategoryRepository: RecipeCategoryRepository
-
-    fun addMeal(recipe: Recipe) {
+    init {
         viewModelScope.launch {
-            recipeRepository.addRecipe(recipe)
-            loadMealsList()
+            recipeRepository.getAllRecipes()
+                .onEach { allRecipes.postValue(it) }
+                .launchIn(this)
+
+            recipeRepository.getFavoriteRecipes()
+                .onEach { favoriteRecipes.postValue(it) }
+                .launchIn(this)
+
+            recipeRepository.getFrequentRecipes()
+                .onEach { frequentRecipes.postValue(it) }
+                .launchIn(this)
         }
     }
-
-    fun loadMealsList() {
-        viewModelScope.launch {
-            recipeList.postValue(recipeRepository.getRecipes())
-        }
-    }
-
-    override fun itemSwiped(position: Int, direction: Int) {
-        viewModelScope.launch {
-            val item = recipeList.value?.get(position)
-            deleteSnack.value = item?.name // Show snackbar with deleted item name
-            recipeRepository.removeRecipe(item!!)
-            loadMealsList()
-        }
-    }
-
-    override fun itemMoved(startPosition: Int, endPosition: Int) {}
 }

@@ -9,10 +9,10 @@ import android.widget.ToggleButton
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import pw.prsk.goodfood.R
-import pw.prsk.goodfood.data.Recipe
+import pw.prsk.goodfood.data.RecipeWithMeta
 
 class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
-    private var recipeList: List<Recipe> = listOf()
+    private var recipeList: List<RecipeWithMeta> = listOf()
 
     class RecipeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val name: TextView = view.findViewById(R.id.tvMealName)
@@ -20,7 +20,7 @@ class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
         private val image: ImageView = view.findViewById(R.id.ivRecipePhoto)
         private val favoriteButton: ToggleButton = view.findViewById(R.id.tbFavorites)
 
-        fun bind(recipe: Recipe) {
+        fun bind(recipe: RecipeWithMeta) {
             name.text = recipe.name
             category.text = "Category test"
             favoriteButton.isChecked = recipe.inFavorites
@@ -40,7 +40,7 @@ class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
 
     override fun getItemCount(): Int = recipeList.size
 
-    fun setList(list: List<Recipe>) {
+    fun setList(list: List<RecipeWithMeta>) {
         if (list.isEmpty()) {
             recipeList = list
             notifyDataSetChanged()
@@ -51,7 +51,7 @@ class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
         }
     }
 
-    class MealDiffUtilCallback(private val oldList: List<Recipe>, private val newList: List<Recipe>) :
+    class MealDiffUtilCallback(private val oldList: List<RecipeWithMeta>, private val newList: List<RecipeWithMeta>) :
         DiffUtil.Callback() {
         override fun getOldListSize(): Int = oldList.size
 
