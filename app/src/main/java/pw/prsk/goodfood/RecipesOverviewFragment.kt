@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
@@ -22,20 +21,26 @@ class RecipesOverviewFragment : Fragment() {
     @Inject lateinit var vmFactory: ViewModelProvider.Factory
     private lateinit var viewModel: RecipesOverviewViewModel
 
-    private val recipeCallback = object : onRecipeItemClicked {
+    private val recipeCallback = object : RecipeClickCallback {
         override fun onFavoriteToggle(recipeId: Int, state: Boolean) {
             viewModel.changeFavoriteState(recipeId, state)
         }
 
         override fun onRecipeClicked(recipeId: Int) {
-            Toast.makeText(this@RecipesOverviewFragment.context, "Clicked at $recipeId recipe.", Toast.LENGTH_SHORT).show()
+            showSnackbar("Clicked at $recipeId recipe.")
+        }
+
+        override fun onMoreButtonClick(listType: Int) = when(listType) {
+            LIST_ALL_RECIPES -> showSnackbar("Open all recipes...")
+            LIST_FAVORITE_RECIPES -> showSnackbar("Open favorite recipes...")
+            else -> showSnackbar("Open frequent recipes...")
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (requireActivity().application as MyApplication).appComponent.inject(this)
-        viewModel = ViewModelProvider(this, vmFactory)[RecipesOverviewViewModel::class.java]
+        viewModel = ViewModelProvider(this, vmFactory).get(RecipesOverviewViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -68,7 +73,7 @@ class RecipesOverviewFragment : Fragment() {
     }
 
     private fun initRecyclers() {
-        val frequentAdapter = RecipeAdapter(recipeCallback)
+        val frequentAdapter = RecipeAdapter(recipeCallback, LIST_FREQUENT_RECIPES)
         (requireActivity().application as MyApplication).appComponent.inject(frequentAdapter)
         viewModel.frequentRecipes.observe(viewLifecycleOwner) {
             frequentAdapter.setList(it)
@@ -81,9 +86,10 @@ class RecipesOverviewFragment : Fragment() {
         binding.rvFrequentRecipesList.apply {
             layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
             adapter = frequentAdapter
+            isNestedScrollingEnabled = false
         }
 
-        val favoriteAdapter = RecipeAdapter(recipeCallback)
+        val favoriteAdapter = RecipeAdapter(recipeCallback, LIST_FAVORITE_RECIPES)
         (requireActivity().application as MyApplication).appComponent.inject(favoriteAdapter)
         viewModel.favoriteRecipes.observe(viewLifecycleOwner) {
             favoriteAdapter.setList(it)
@@ -96,9 +102,10 @@ class RecipesOverviewFragment : Fragment() {
         binding.rvFavoritesList.apply {
             layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
             adapter = favoriteAdapter
+            isNestedScrollingEnabled = false
         }
 
-        val allRecipesAdapter = RecipeAdapter(recipeCallback)
+        val allRecipesAdapter = RecipeAdapter(recipeCallback, LIST_ALL_RECIPES)
         (requireActivity().application as MyApplication).appComponent.inject(allRecipesAdapter)
         viewModel.allRecipes.observe(viewLifecycleOwner) {
             allRecipesAdapter.setList(it)
@@ -111,6 +118,7 @@ class RecipesOverviewFragment : Fragment() {
         binding.rvAllRecipesList.apply {
             layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
             adapter = allRecipesAdapter
+            isNestedScrollingEnabled = false
         }
     }
 
@@ -123,8 +131,15 @@ class RecipesOverviewFragment : Fragment() {
         _binding = null
     }
 
-    interface onRecipeItemClicked {
+    interface RecipeClickCallback {
         fun onFavoriteToggle(recipeId: Int, state: Boolean)
         fun onRecipeClicked(recipeId: Int)
+        fun onMoreButtonClick(listType: Int)
+    }
+
+    companion object {
+        private const val LIST_ALL_RECIPES = 0
+        private const val LIST_FAVORITE_RECIPES = 1
+        private const val LIST_FREQUENT_RECIPES = 2
     }
 }

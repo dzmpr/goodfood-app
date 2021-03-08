@@ -39,34 +39,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:button="@drawable/ic_favaorites_background"
-            android:buttonTint="?attr/colorError"
+            android:buttonTint="@color/color_favorite_icon"
             android:minWidth="0dp"
             android:minHeight="0dp" />
     </com.google.android.material.card.MaterialCardView>
 
     <TextView
-        android:id="@+id/tvMealName"
+        android:id="@+id/tvMealCategoryName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:textColor="?attr/colorOnSurface"
-        android:textSize="20sp"
         android:ellipsize="end"
         android:maxLines="1"
         app:layout_constraintStart_toStartOf="@id/cvRecipeCard"
         app:layout_constraintEnd_toEndOf="@id/cvRecipeCard"
         app:layout_constraintTop_toBottomOf="@id/cvRecipeCard"
-        tools:text="Recipe name" />
+        tools:text="Category" />
 
     <TextView
-        android:id="@+id/tvMealCategoryName"
+        android:id="@+id/tvMealName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:textColor="?attr/colorOnSurface"
+        android:textSize="17sp"
         android:ellipsize="end"
-        android:maxLines="1"
+        android:minLines="2"
+        android:maxLines="2"
         app:layout_constraintStart_toStartOf="@id/cvRecipeCard"
         app:layout_constraintEnd_toEndOf="@id/cvRecipeCard"
-        app:layout_constraintTop_toBottomOf="@id/tvMealName"
-        tools:text="Category" />
+        app:layout_constraintTop_toBottomOf="@id/tvMealCategoryName"
+        tools:text="Recipe name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

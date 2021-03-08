@@ -16,8 +16,11 @@ import pw.prsk.goodfood.data.PhotoGateway
 import pw.prsk.goodfood.data.RecipeWithMeta
 import javax.inject.Inject
 
-class RecipeAdapter(private val recipeClickCallback: RecipesOverviewFragment.onRecipeItemClicked) :
-    RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
+class RecipeAdapter(
+    private val recipeClickCallback: RecipesOverviewFragment.RecipeClickCallback,
+    private val listType: Int
+) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     @Inject lateinit var photoGateway: PhotoGateway
     private var recipeList: List<RecipeWithMeta> = listOf()
@@ -37,7 +40,7 @@ class RecipeAdapter(private val recipeClickCallback: RecipesOverviewFragment.onR
         fun bind(
             recipe: RecipeWithMeta,
             photoGateway: PhotoGateway,
-            callback: RecipesOverviewFragment.onRecipeItemClicked
+            clickCallback: RecipesOverviewFragment.RecipeClickCallback
         ) {
             recipeId = recipe.id!!
 
@@ -49,11 +52,11 @@ class RecipeAdapter(private val recipeClickCallback: RecipesOverviewFragment.onR
             loadImage(recipe, photoGateway)
 
             favoriteButton.setOnCheckedChangeListener { _, isChecked ->
-                callback.onFavoriteToggle(recipeId, isChecked)
+                clickCallback.onFavoriteToggle(recipeId, isChecked)
             }
 
             recipeCard.setOnClickListener {
-                callback.onRecipeClicked(recipeId)
+                clickCallback.onRecipeClicked(recipeId)
             }
         }
 
@@ -73,19 +76,52 @@ class RecipeAdapter(private val recipeClickCallback: RecipesOverviewFragment.onR
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
-        return RecipeViewHolder(
-            LayoutInflater
-                .from(parent.context)
-                .inflate(R.layout.item_recipe, parent, false)
-        )
+    class EndButtonViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val card: CardView = view.findViewById(R.id.cvMoreCard)
+
+        fun bind(clickCallback: RecipesOverviewFragment.RecipeClickCallback, listType: Int) {
+            card.setOnClickListener {
+                clickCallback.onMoreButtonClick(listType)
+            }
+        }
     }
 
-    override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
-        holder.bind(recipeList[position], photoGateway, recipeClickCallback)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
+        when (viewType) {
+            TYPE_RECIPE_ITEM -> RecipeViewHolder(
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_recipe, parent, false)
+            )
+            else -> EndButtonViewHolder(
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_card_more, parent, false)
+            )
+        }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (getItemViewType(position)) {
+            TYPE_END_BUTTON -> (holder as EndButtonViewHolder).bind(recipeClickCallback, listType)
+            else -> (holder as RecipeViewHolder).bind(
+                recipeList[position],
+                photoGateway,
+                recipeClickCallback
+            )
+        }
     }
 
-    override fun getItemCount(): Int = recipeList.size
+    override fun getItemViewType(position: Int): Int = if (recipeList.size < END_BUTTON_THRESHOLD) {
+        TYPE_RECIPE_ITEM
+    } else {
+        when (position) {
+            recipeList.size -> TYPE_END_BUTTON
+            else -> TYPE_RECIPE_ITEM
+        }
+    }
+
+    override fun getItemCount(): Int = when (recipeList.size < END_BUTTON_THRESHOLD) {
+        true -> recipeList.size
+        else -> recipeList.size + 1
+    }
 
     fun setList(list: List<RecipeWithMeta>) {
         if (list.isEmpty()) {
@@ -93,6 +129,9 @@ class RecipeAdapter(private val recipeClickCallback: RecipesOverviewFragment.onR
             notifyDataSetChanged()
         } else {
             val diffResult = DiffUtil.calculateDiff(MealDiffUtilCallback(recipeList, list))
+            if (recipeList.size >= END_BUTTON_THRESHOLD && list.size < END_BUTTON_THRESHOLD) {
+                notifyItemRemoved(recipeList.size)
+            }
             recipeList = list
             diffResult.dispatchUpdatesTo(this)
         }
@@ -114,5 +153,12 @@ class RecipeAdapter(private val recipeClickCallback: RecipesOverviewFragment.onR
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
             return oldList[oldItemPosition] == newList[newItemPosition]
         }
+    }
+
+    companion object {
+        private const val TYPE_RECIPE_ITEM = 0
+        private const val TYPE_END_BUTTON = 1
+
+        private const val END_BUTTON_THRESHOLD = 5
     }
 }

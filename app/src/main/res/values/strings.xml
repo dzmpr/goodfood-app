@@ -44,4 +44,5 @@
     <string name="description_recipe_placeholder">Placeholder for recipe photo</string>
     <string name="description_recipe_photo">Recipe photo</string>
     <string name="description_no_data">You don\'t recorded any recipes yet!</string>
+    <string name="label_more">more</string>
 </resources>
