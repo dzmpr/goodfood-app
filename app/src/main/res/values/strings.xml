@@ -38,4 +38,9 @@
     <string name="label_empty_ingredients_list">You not added ingredients yet!</string>
     <string name="label_servings">Servings</string>
     <string name="label_uncategorized">Uncategorized</string>
+    <string name="label_all_recipes">All recipes</string>
+    <string name="label_favorites">Favorites</string>
+    <string name="label_frequent_recipes">Frequent recipes</string>
+    <string name="description_recipe_placeholder">Placeholder for recipe photo</string>
+    <string name="description_recipe_photo">Recipe photo</string>
 </resources>

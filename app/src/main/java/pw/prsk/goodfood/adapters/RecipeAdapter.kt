@@ -3,9 +3,9 @@ package pw.prsk.goodfood.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.ToggleButton
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -26,7 +26,7 @@ class RecipeAdapter(private val recipeClickCallback: RecipesOverviewFragment.onR
         private val name: TextView = view.findViewById(R.id.tvMealName)
         private val category: TextView = view.findViewById(R.id.tvMealCategoryName)
         private val image: ImageView = view.findViewById(R.id.ivRecipePhoto)
-        private val favoriteButton: ToggleButton = view.findViewById(R.id.tbFavorites)
+        private val favoriteButton: CheckBox = view.findViewById(R.id.tbFavorites)
         private val recipeCard: CardView = view.findViewById(R.id.cvRecipeCard)
 
         private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
