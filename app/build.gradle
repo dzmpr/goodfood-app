@@ -79,4 +79,6 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
     // Kotlin serialization
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0"
+    // ExifInterface
+    implementation 'androidx.exifinterface:exifinterface:1.3.2'
 }

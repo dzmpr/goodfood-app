@@ -49,6 +49,7 @@ class RecipesOverviewFragment : Fragment() {
 
     private fun initRecyclers() {
         val frequentAdapter = RecipeAdapter()
+        (requireActivity().application as MyApplication).appComponent.inject(frequentAdapter)
         viewModel.frequentRecipes.observe(viewLifecycleOwner) {
             frequentAdapter.setList(it)
         }
@@ -59,6 +60,7 @@ class RecipesOverviewFragment : Fragment() {
         }
 
         val favoriteAdapter = RecipeAdapter()
+        (requireActivity().application as MyApplication).appComponent.inject(favoriteAdapter)
         viewModel.favoriteRecipes.observe(viewLifecycleOwner) {
             favoriteAdapter.setList(it)
         }
@@ -69,6 +71,7 @@ class RecipesOverviewFragment : Fragment() {
         }
 
         val allRecipesAdapter = RecipeAdapter()
+        (requireActivity().application as MyApplication).appComponent.inject(allRecipesAdapter)
         viewModel.allRecipes.observe(viewLifecycleOwner) {
             allRecipesAdapter.setList(it)
         }
