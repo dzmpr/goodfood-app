@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
-import pw.prsk.goodfood.adapters.RecipeAdapter
+import pw.prsk.goodfood.adapters.RecipeCardAdapter
 import pw.prsk.goodfood.databinding.FragmentRecipesOverviewBinding
 import pw.prsk.goodfood.viewmodels.RecipesOverviewViewModel
 import javax.inject.Inject
@@ -73,7 +73,7 @@ class RecipesOverviewFragment : Fragment() {
     }
 
     private fun initRecyclers() {
-        val frequentAdapter = RecipeAdapter(recipeCallback, LIST_FREQUENT_RECIPES)
+        val frequentAdapter = RecipeCardAdapter(recipeCallback, LIST_FREQUENT_RECIPES)
         (requireActivity().application as MyApplication).appComponent.inject(frequentAdapter)
         viewModel.frequentRecipes.observe(viewLifecycleOwner) {
             frequentAdapter.setList(it)
@@ -89,7 +89,7 @@ class RecipesOverviewFragment : Fragment() {
             isNestedScrollingEnabled = false
         }
 
-        val favoriteAdapter = RecipeAdapter(recipeCallback, LIST_FAVORITE_RECIPES)
+        val favoriteAdapter = RecipeCardAdapter(recipeCallback, LIST_FAVORITE_RECIPES)
         (requireActivity().application as MyApplication).appComponent.inject(favoriteAdapter)
         viewModel.favoriteRecipes.observe(viewLifecycleOwner) {
             favoriteAdapter.setList(it)
@@ -105,7 +105,7 @@ class RecipesOverviewFragment : Fragment() {
             isNestedScrollingEnabled = false
         }
 
-        val allRecipesAdapter = RecipeAdapter(recipeCallback, LIST_ALL_RECIPES)
+        val allRecipesAdapter = RecipeCardAdapter(recipeCallback, LIST_ALL_RECIPES)
         (requireActivity().application as MyApplication).appComponent.inject(allRecipesAdapter)
         viewModel.allRecipes.observe(viewLifecycleOwner) {
             allRecipesAdapter.setList(it)

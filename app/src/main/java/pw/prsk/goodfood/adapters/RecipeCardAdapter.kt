@@ -16,7 +16,7 @@ import pw.prsk.goodfood.data.PhotoGateway
 import pw.prsk.goodfood.data.RecipeWithMeta
 import javax.inject.Inject
 
-class RecipeAdapter(
+class RecipeCardAdapter(
     private val recipeClickCallback: RecipesOverviewFragment.RecipeClickCallback,
     private val listType: Int
 ) :
@@ -90,7 +90,7 @@ class RecipeAdapter(
         when (viewType) {
             TYPE_RECIPE_ITEM -> RecipeViewHolder(
                 LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_recipe, parent, false)
+                    .inflate(R.layout.item_recipe_card, parent, false)
             )
             else -> EndButtonViewHolder(
                 LayoutInflater.from(parent.context)
