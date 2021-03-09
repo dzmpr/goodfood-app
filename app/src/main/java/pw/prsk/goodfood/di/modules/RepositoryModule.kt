@@ -9,16 +9,16 @@ import pw.prsk.goodfood.repository.*
 @Module
 class RepositoryModule {
     @Provides
-    fun provideMealRepository(dbInstance: AppDatabase, photoGateway: PhotoGateway): MealRepository =
-        MealRepository(dbInstance, photoGateway)
+    fun provideRecipeRepository(dbInstance: AppDatabase, photoGateway: PhotoGateway): RecipeRepository =
+        RecipeRepository(dbInstance, photoGateway)
 
     @Provides
     fun provideProductRepository(dbInstance: AppDatabase): ProductRepository =
         ProductRepository(dbInstance)
 
     @Provides
-    fun provideMealCategoryRepository(dbInstance: AppDatabase): MealCategoryRepository =
-        MealCategoryRepository(dbInstance)
+    fun provideRecipeCategoryRepository(dbInstance: AppDatabase): RecipeCategoryRepository =
+        RecipeCategoryRepository(dbInstance)
 
     @Provides
     fun provideProductUnitsRepository(dbInstance: AppDatabase): ProductUnitsRepository =

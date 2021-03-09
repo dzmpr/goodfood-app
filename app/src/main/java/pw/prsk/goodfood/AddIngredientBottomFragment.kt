@@ -19,12 +19,12 @@ import pw.prsk.goodfood.databinding.FragmentAddIngredientBinding
 import pw.prsk.goodfood.utils.AutocompleteSelectionHelper
 import pw.prsk.goodfood.utils.DropdownSelectionHelper
 import pw.prsk.goodfood.utils.InputValidator
-import pw.prsk.goodfood.viewmodels.EditMealViewModel
+import pw.prsk.goodfood.viewmodels.EditRecipeViewModel
 
 class AddIngredientBottomFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentAddIngredientBinding
 
-    private val editMealViewModel: EditMealViewModel by viewModels({requireParentFragment()})
+    private val editRecipeViewModel: EditRecipeViewModel by viewModels({requireParentFragment()})
 
     private lateinit var selectedUnitHelper: DropdownSelectionHelper
     private lateinit var selectedProductHelper: AutocompleteSelectionHelper
@@ -70,14 +70,14 @@ class AddIngredientBottomFragment : BottomSheetDialogFragment() {
 
         binding.bAddIngredient.setOnClickListener {
             if (nameValidator.validate() and amountValidator.validate() and unitValidator.validate()) {
-                editMealViewModel.addIngredient(getIngredient())
+                editRecipeViewModel.addIngredient(getIngredient())
                 dismiss()
             }
         }
 
         binding.bAddMore.setOnClickListener {
             if (nameValidator.validate() and amountValidator.validate() and unitValidator.validate()) {
-                editMealViewModel.addIngredient(getIngredient())
+                editRecipeViewModel.addIngredient(getIngredient())
                 // Clear itemText fields. Should be replaced with animation.
                 binding.tilAmount.editText?.text?.clear()
                 binding.tilAmountUnit.editText?.text?.clear()
@@ -89,14 +89,14 @@ class AddIngredientBottomFragment : BottomSheetDialogFragment() {
             }
         }
 
-        editMealViewModel.unitsList.observe(viewLifecycleOwner) { it ->
+        editRecipeViewModel.unitsList.observe(viewLifecycleOwner) { it ->
             val adapter = BaseDropdownAdapter(requireContext(), R.layout.dropdown_item, it) { item ->
                 item.name
             }
             (binding.tilAmountUnit.editText as AutoCompleteTextView).setAdapter(adapter)
         }
 
-        editMealViewModel.productsList.observe(viewLifecycleOwner) {
+        editRecipeViewModel.productsList.observe(viewLifecycleOwner) {
             val adapter = ProductAutocompleteAdapter(requireContext(), R.layout.dropdown_item, it)
             (binding.tilIngredientName.editText as AutoCompleteTextView).setAdapter(adapter)
         }

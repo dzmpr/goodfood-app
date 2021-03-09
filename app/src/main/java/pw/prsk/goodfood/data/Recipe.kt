@@ -5,8 +5,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.time.LocalDateTime
 
-@Entity(tableName = "meals")
-data class Meal(
+@Entity(tableName = "recipes")
+data class Recipe(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id") val id: Int? = null,
     @ColumnInfo(name = "name") var name: String,

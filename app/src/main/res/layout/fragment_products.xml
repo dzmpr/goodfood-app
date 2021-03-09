@@ -67,7 +67,7 @@
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="10dp"
-        android:contentDescription="@string/add_meal_label"
+        android:contentDescription="@string/add_recipe_label"
         android:clickable="true"
         android:focusable="true"
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
