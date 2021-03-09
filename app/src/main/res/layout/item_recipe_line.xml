@@ -1,48 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/colorSurface"
     android:paddingTop="8dp"
     android:paddingBottom="8dp">
 
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/ivRecipeThumbnail"
+        android:layout_marginStart="@dimen/layout_start_margin"
+        android:layout_gravity="center_vertical"/>
+
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="10dp">
+        android:layout_weight="1"
+        android:layout_marginStart="8dp"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tvProductName"
+            android:id="@+id/tvRecipeName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/layout_start_margin"
             android:textColor="?attr/colorOnSurface"
             android:textSize="20sp"
-            tools:text="Product name" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
+            tools:text="Recipe name" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tvProductCategoryName"
-            android:layout_marginEnd="@dimen/layout_end_margin"
-            android:layout_gravity="bottom"
+            android:id="@+id/tvRecipeCategoryName"
             tools:text="Category" />
     </LinearLayout>
 
-    <TextView
+    <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvProductUnitName"
-        android:layout_gravity="end"
+        android:id="@+id/cbFavoriteMark"
+        android:layout_gravity="center_vertical"
+        android:button="@drawable/ic_favaorites_background"
+        android:buttonTint="@color/color_favorite_icon"
         android:layout_marginEnd="@dimen/layout_end_margin"
-        tools:text="Unit" />
-
+        android:minWidth="0dp"
+        android:minHeight="0dp" />
 </LinearLayout>

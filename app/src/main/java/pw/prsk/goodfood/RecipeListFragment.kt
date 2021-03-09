@@ -6,27 +6,29 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
-import pw.prsk.goodfood.adapters.ProductAdapter
-import pw.prsk.goodfood.databinding.FragmentProductsBinding
+import pw.prsk.goodfood.adapters.RecipeLineAdapter
+import pw.prsk.goodfood.databinding.FragmentRecipeListBinding
 import pw.prsk.goodfood.utils.ItemSwipeDecorator
 import pw.prsk.goodfood.utils.ProductItemTouchHelperCallback
-import pw.prsk.goodfood.viewmodels.ProductsViewModel
+import pw.prsk.goodfood.viewmodels.RecipeListViewModel
+import javax.inject.Inject
 
-class ProductsFragment : Fragment() {
-    private var _binding: FragmentProductsBinding? = null
+class RecipeListFragment : Fragment() {
+    private var _binding: FragmentRecipeListBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: ProductsViewModel by viewModels()
+    @Inject lateinit var vmFactory: ViewModelProvider.Factory
+    private lateinit var viewModel: RecipeListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        (requireActivity().application as MyApplication).appComponent.inject(viewModel)
-        viewModel.loadProductsList()
+        (requireActivity().application as MyApplication).appComponent.inject(this)
+        viewModel = ViewModelProvider(this, vmFactory).get(RecipeListViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -34,7 +36,7 @@ class ProductsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentProductsBinding.inflate(inflater, container, false)
+        _binding = FragmentRecipeListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -73,12 +75,12 @@ class ProductsFragment : Fragment() {
     }
 
     private fun initProductList() {
-        val productAdapter = ProductAdapter()
-        subscribeUi(productAdapter)
+        val recipeLineAdapter = RecipeLineAdapter()
+        subscribeUi(recipeLineAdapter)
 
-        binding.rvProductsList.apply {
+        binding.rvRecipesList.apply {
             layoutManager = LinearLayoutManager(this.context)
-            adapter = productAdapter
+            adapter = recipeLineAdapter
         }
 
         val swipeDecorator = ItemSwipeDecorator.Companion.Builder()
@@ -89,11 +91,11 @@ class ProductsFragment : Fragment() {
             .getDecorator()
         val ithCallback = ProductItemTouchHelperCallback(viewModel, swipeDecorator)
         val touchHelper = ItemTouchHelper(ithCallback)
-        touchHelper.attachToRecyclerView(binding.rvProductsList)
+        touchHelper.attachToRecyclerView(binding.rvRecipesList)
     }
 
-    private fun subscribeUi(adapter: ProductAdapter) {
-        viewModel.productsList.observe(viewLifecycleOwner) { list ->
+    private fun subscribeUi(adapter: RecipeLineAdapter) {
+        viewModel.recipeList.observe(viewLifecycleOwner) { list ->
             adapter.setList(list)
         }
     }

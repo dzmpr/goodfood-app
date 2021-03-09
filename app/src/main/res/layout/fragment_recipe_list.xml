@@ -19,12 +19,12 @@
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="32dp"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
-            app:title="@string/label_navigation_products">
+            app:title="@string/label_navigation_recipes">
 
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:title="@string/label_navigation_products"
+                android:title="@string/label_navigation_recipes"
                 android:titleTextColor="?attr/colorOnSurface"
                 app:contentInsetStart="0dp"
                 app:layout_collapseMode="pin"
@@ -52,13 +52,13 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvProductsList"
+        android:id="@+id/rvRecipesList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/colorSurface"
         android:overScrollMode="never"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        tools:listitem="@layout/item_product" />
+        tools:listitem="@layout/item_recipe_line" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddProduct"

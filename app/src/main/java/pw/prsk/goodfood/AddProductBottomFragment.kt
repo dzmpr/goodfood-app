@@ -12,13 +12,13 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import pw.prsk.goodfood.data.Product
 import pw.prsk.goodfood.databinding.FragmentAddProductBinding
 import pw.prsk.goodfood.utils.InputValidator
-import pw.prsk.goodfood.viewmodels.ProductsViewModel
+import pw.prsk.goodfood.viewmodels.RecipeListViewModel
 
 class AddProductBottomFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentAddProductBinding
 
     // TODO: Mb refactor sharedViewModel
-    private val viewModel: ProductsViewModel by viewModels({ requireParentFragment() })
+    private val viewModel: RecipeListViewModel by viewModels({ requireParentFragment() })
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val bottomSheetDialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
@@ -50,7 +50,7 @@ class AddProductBottomFragment : BottomSheetDialogFragment() {
 
         binding.bAddProduct.setOnClickListener {
             if (nameValidator.validate()) {
-                viewModel.addProduct(Product(name = binding.tilProductName.editText?.text.toString()))
+//                viewModel.addProduct(Product(name = binding.tilProductName.editText?.text.toString()))
                 dismiss()
             }
         }
