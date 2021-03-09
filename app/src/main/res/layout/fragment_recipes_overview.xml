@@ -17,12 +17,12 @@
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="30dp"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
-            app:title="@string/label_navigation_recipes">
+            app:title="@string/label_recipes_overview">
 
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:title="@string/label_navigation_recipes"
+                android:title="@string/label_recipes_overview"
                 android:titleTextColor="?attr/colorOnSurface"
                 app:layout_collapseMode="pin" />
 

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">GoodFood</string>
     <string name="label_navigation_recipes">Recipes</string>
+    <string name="label_recipes_overview">My recipes</string>
     <string name="label_navigation_products">Products</string>
     <string name="label_navigation_profile">Profile</string>
     <string name="add_recipe_label">Add new recipe</string>
