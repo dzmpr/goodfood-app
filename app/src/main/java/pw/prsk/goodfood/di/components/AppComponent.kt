@@ -5,6 +5,7 @@ import dagger.Component
 import pw.prsk.goodfood.RecipeListFragment
 import pw.prsk.goodfood.RecipesOverviewFragment
 import pw.prsk.goodfood.adapters.RecipeCardAdapter
+import pw.prsk.goodfood.adapters.RecipeLineAdapter
 import pw.prsk.goodfood.di.modules.*
 import pw.prsk.goodfood.viewmodels.EditRecipeViewModel
 import javax.inject.Singleton
@@ -26,6 +27,7 @@ interface AppComponent {
     fun inject(fragment: RecipeListFragment)
 
     fun inject(adapter: RecipeCardAdapter)
+    fun inject(adapter: RecipeLineAdapter)
 
     fun inject(viewModel: EditRecipeViewModel)
 }

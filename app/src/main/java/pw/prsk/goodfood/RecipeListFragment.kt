@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
@@ -103,11 +104,16 @@ class RecipeListFragment : Fragment() {
 
     private fun initList() {
         val recipeLineAdapter = RecipeLineAdapter()
+        (requireActivity().application as MyApplication).appComponent.inject(recipeLineAdapter)
         subscribeUi(recipeLineAdapter)
 
         binding.rvRecipesList.apply {
             layoutManager = LinearLayoutManager(this.context)
             adapter = recipeLineAdapter
+            addItemDecoration(
+                DividerItemDecoration(this.context,
+                    LinearLayoutManager.VERTICAL)
+            )
         }
 
         val swipeDecorator = ItemSwipeDecorator.Companion.Builder()
