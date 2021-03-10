@@ -7,7 +7,6 @@ import pw.prsk.goodfood.RecipesOverviewFragment
 import pw.prsk.goodfood.adapters.RecipeCardAdapter
 import pw.prsk.goodfood.di.modules.*
 import pw.prsk.goodfood.viewmodels.EditRecipeViewModel
-import pw.prsk.goodfood.viewmodels.RecipeListViewModel
 import javax.inject.Singleton
 
 @Singleton
@@ -16,7 +15,8 @@ import javax.inject.Singleton
     RepositoryModule::class,
     RoomModule::class,
     GatewayModule::class,
-    ViewModelModule::class
+    ViewModelModule::class,
+    PreferenceModule::class
 ]
 )
 interface AppComponent {

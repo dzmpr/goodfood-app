@@ -1,10 +1,12 @@
 package pw.prsk.goodfood.data
 
 import android.content.Context
+import androidx.core.content.edit
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteDatabase
 import pw.prsk.goodfood.R
 import pw.prsk.goodfood.data.dao.*
+import pw.prsk.goodfood.data.local.RecipePreferences
 import java.util.concurrent.Executors
 
 @Database(
@@ -50,6 +52,15 @@ abstract class AppDatabase : RoomDatabase() {
                                 insert(ProductUnit(name = res.getString(R.string.default_product_unit_1)))
                                 insert(ProductUnit(name = res.getString(R.string.default_product_unit_2)))
                                 insert(ProductUnit(name = res.getString(R.string.default_product_unit_3)))
+                            }
+
+                            // Create category 'No category'
+                            val noCategoryId = database.recipeCategoryDao()
+                                .insert(RecipeCategory(name = res.getString(R.string.label_no_category)))
+                                .toInt()
+
+                            context.getSharedPreferences(RecipePreferences.PREFERENCES_NAME, Context.MODE_PRIVATE).edit {
+                                putInt(RecipePreferences.FIELD_NO_CATEGORY, noCategoryId)
                             }
                         }
                     }
