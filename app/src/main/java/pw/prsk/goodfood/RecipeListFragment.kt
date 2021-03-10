@@ -103,7 +103,15 @@ class RecipeListFragment : Fragment() {
     }
 
     private fun initList() {
-        val recipeLineAdapter = RecipeLineAdapter()
+        val recipeLineAdapter = RecipeLineAdapter(object : RecipeClickCallback {
+            override fun onFavoriteToggle(recipeId: Int, state: Boolean) {
+                viewModel.changeFavoriteState(recipeId, state)
+            }
+
+            override fun onRecipeClicked(recipeId: Int) {
+                showSnackbar("Clicked on $recipeId.")
+            }
+        })
         (requireActivity().application as MyApplication).appComponent.inject(recipeLineAdapter)
         subscribeUi(recipeLineAdapter)
 
@@ -140,6 +148,11 @@ class RecipeListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    interface RecipeClickCallback {
+        fun onFavoriteToggle(recipeId: Int, state: Boolean)
+        fun onRecipeClicked(recipeId: Int)
     }
 
     companion object {

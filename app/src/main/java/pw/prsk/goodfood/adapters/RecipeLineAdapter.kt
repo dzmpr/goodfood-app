@@ -5,22 +5,31 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.*
 import pw.prsk.goodfood.R
+import pw.prsk.goodfood.RecipeListFragment
 import pw.prsk.goodfood.data.PhotoGateway
 import pw.prsk.goodfood.data.RecipeWithMeta
 import javax.inject.Inject
 
-class RecipeLineAdapter : RecyclerView.Adapter<RecipeLineAdapter.RecipeLineViewHolder>() {
+class RecipeLineAdapter(
+    private val recipeClickCallback: RecipeListFragment.RecipeClickCallback
+) : RecyclerView.Adapter<RecipeLineAdapter.RecipeLineViewHolder>() {
 
-    @Inject lateinit var photoGateway: PhotoGateway
+    @Inject
+    lateinit var photoGateway: PhotoGateway
     private var recipeList: List<RecipeWithMeta> = listOf()
 
-    class RecipeLineViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class RecipeLineViewHolder(
+        view: View,
+        recipeClickCallback: RecipeListFragment.RecipeClickCallback
+    ) : RecyclerView.ViewHolder(view) {
+        private val container: LinearLayout = view.findViewById(R.id.llRecipeItemContainer)
         private val name: TextView = view.findViewById(R.id.tvRecipeName)
         private val category: TextView = view.findViewById(R.id.tvRecipeCategoryName)
         private val thumbnail: ImageView = view.findViewById(R.id.ivRecipeThumbnail)
@@ -29,10 +38,24 @@ class RecipeLineAdapter : RecyclerView.Adapter<RecipeLineAdapter.RecipeLineViewH
         private val holderScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
         private var loadImageJob: Job? = null
 
+        private var recipeId = 0
+
+        init {
+            container.setOnClickListener {
+                recipeClickCallback.onRecipeClicked(recipeId)
+            }
+
+            favoriteMark.setOnCheckedChangeListener { _, isChecked ->
+                recipeClickCallback.onFavoriteToggle(recipeId, isChecked)
+            }
+        }
+
         fun bind(
             recipe: RecipeWithMeta,
             photoGateway: PhotoGateway
         ) {
+            recipeId = recipe.id!!
+
             name.text = recipe.name
             category.text = recipe.category.name
             favoriteMark.isChecked = recipe.inFavorites
@@ -60,7 +83,8 @@ class RecipeLineAdapter : RecyclerView.Adapter<RecipeLineAdapter.RecipeLineViewH
         return RecipeLineViewHolder(
             LayoutInflater
                 .from(parent.context)
-                .inflate(R.layout.item_recipe_line, parent, false)
+                .inflate(R.layout.item_recipe_line, parent, false),
+            recipeClickCallback
         )
     }
 

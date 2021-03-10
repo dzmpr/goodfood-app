@@ -78,6 +78,12 @@ class RecipeListViewModel @Inject constructor(
         selectedCategory.value = categoryId
     }
 
+    fun changeFavoriteState(recipeId: Int, state: Boolean) {
+        viewModelScope.launch {
+            recipeRepository.changeFavoritesMark(recipeId, state)
+        }
+    }
+
     override fun itemSwiped(position: Int, direction: Int) {
         viewModelScope.launch {
             val item = recipeList.value?.get(position)
