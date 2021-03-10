@@ -28,15 +28,15 @@ class RecipesOverviewViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            recipeRepository.getAllRecipes()
+            recipeRepository.getAllRecipesPreview()
                 .onEach { allRecipes.postValue(it) }
                 .launchIn(this)
 
-            recipeRepository.getFavoriteRecipes()
+            recipeRepository.getFavoriteRecipesPreview()
                 .onEach { favoriteRecipes.postValue(it) }
                 .launchIn(this)
 
-            recipeRepository.getFrequentRecipes()
+            recipeRepository.getFrequentRecipesPreview()
                 .onEach { frequentRecipes.postValue(it) }
                 .launchIn(this)
 

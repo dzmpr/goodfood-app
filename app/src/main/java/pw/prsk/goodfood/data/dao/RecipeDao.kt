@@ -26,4 +26,13 @@ interface RecipeDao: BaseDao<Recipe> {
 
     @Query("SELECT COUNT(*) FROM recipes")
     fun isDatabaseEmpty(): Flow<Int>
+
+    @Query("SELECT * FROM recipes WHERE in_favorites ORDER BY eat_count DESC LIMIT 5")
+    fun getFavoriteRecipesPreview(): Flow<List<Recipe>>
+
+    @Query("SELECT * FROM recipes WHERE eat_count != 0 ORDER BY eat_count DESC LIMIT 5")
+    fun getFrequentRecipesPreview(): Flow<List<Recipe>>
+
+    @Query("SELECT * FROM recipes LIMIT 5")
+    fun getAllRecipesPreview(): Flow<List<Recipe>>
 }

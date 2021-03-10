@@ -57,6 +57,36 @@ class RecipeRepository(
             .flowOn(Dispatchers.IO)
     }
 
+    suspend fun getAllRecipesPreview() = withContext(Dispatchers.IO) {
+        dbInstance.recipeDao().getAllRecipesPreview()
+            .map {
+                it.map { recipe ->
+                    getRecipeWithMeta(recipe)
+                }
+            }
+            .flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getFrequentRecipesPreview() = withContext(Dispatchers.IO) {
+        dbInstance.recipeDao().getFrequentRecipesPreview()
+            .map {
+                it.map { recipe ->
+                    getRecipeWithMeta(recipe)
+                }
+            }
+            .flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getFavoriteRecipesPreview() = withContext(Dispatchers.IO) {
+        dbInstance.recipeDao().getFavoriteRecipesPreview()
+            .map {
+                it.map { recipe ->
+                    getRecipeWithMeta(recipe)
+                }
+            }
+            .flowOn(Dispatchers.IO)
+    }
+
     private fun getRecipeWithMeta(recipe: Recipe): RecipeWithMeta {
         val ingredientList = getIngredients(recipe.ingredientsList)
         val category = dbInstance.recipeCategoryDao().getById(recipe.category_id)
