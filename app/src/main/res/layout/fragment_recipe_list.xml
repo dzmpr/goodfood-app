@@ -8,14 +8,12 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorSurface"
-        android:fitsSystemWindows="true">
+        android:layout_height="wrap_content" >
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:fitsSystemWindows="true"
+            android:background="?attr/colorSurface"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="32dp"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
@@ -35,6 +33,7 @@
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="?attr/colorSurface"
             android:overScrollMode="never"
             android:scrollbars="none">
 
@@ -59,19 +58,5 @@
         android:overScrollMode="never"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         tools:listitem="@layout/item_recipe_line" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAddProduct"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="10dp"
-        android:contentDescription="@string/add_recipe_label"
-        android:clickable="true"
-        android:focusable="true"
-        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
-        app:srcCompat="@drawable/ic_plus_sign"
-        app:tint="?attr/colorSurface" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

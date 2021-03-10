@@ -6,7 +6,7 @@
         android:icon="@drawable/ic_navigation_recipes"/>
 
     <item
-        android:id="@id/actionProducts"
+        android:id="@id/actionCart"
         android:title="@string/label_navigation_products"
         android:icon="@drawable/ic_navigation_products"/>
 

@@ -3,11 +3,13 @@ package pw.prsk.goodfood.viewmodels
 import androidx.lifecycle.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import pw.prsk.goodfood.RecipeListFragment
 import pw.prsk.goodfood.data.RecipeCategory
 import pw.prsk.goodfood.data.RecipeWithMeta
 import pw.prsk.goodfood.repository.RecipeRepository
 import pw.prsk.goodfood.utils.ItemTouchHelperAction
 import pw.prsk.goodfood.utils.SingleLiveEvent
+import java.lang.IllegalStateException
 import javax.inject.Inject
 
 class RecipeListViewModel @Inject constructor(
@@ -23,10 +25,24 @@ class RecipeListViewModel @Inject constructor(
 
     private val selectedCategory = MutableStateFlow(0)
 
-    init {
-        viewModelScope.launch {
-            recipes = recipeRepository.getAllRecipes()
+    val deleteSnack = SingleLiveEvent<String>()
 
+    fun setListSource(sourceKey: Int) {
+        viewModelScope.launch {
+            recipes = when (sourceKey) {
+                RecipeListFragment.LIST_TYPE_ALL -> recipeRepository.getAllRecipes()
+                RecipeListFragment.LIST_TYPE_FAVORITES -> recipeRepository.getFavoriteRecipes()
+                RecipeListFragment.LIST_TYPE_FREQUENT -> recipeRepository.getFrequentRecipes()
+                else -> {
+                    throw IllegalStateException("Unknown list type $sourceKey.")
+                }
+            }
+            loadList()
+        }
+    }
+
+    private fun loadList() {
+        viewModelScope.launch {
             recipes
                 .onEach {
                     val categorySet = mutableSetOf<RecipeCategory>()
@@ -57,8 +73,6 @@ class RecipeListViewModel @Inject constructor(
                 .launchIn(this)
         }
     }
-
-    val deleteSnack = SingleLiveEvent<String>()
 
     fun onCategorySelected(categoryId: Int) {
         selectedCategory.value = categoryId

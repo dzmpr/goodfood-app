@@ -12,6 +12,7 @@ import com.google.android.material.snackbar.Snackbar
 import pw.prsk.goodfood.adapters.RecipeCardAdapter
 import pw.prsk.goodfood.databinding.FragmentRecipesOverviewBinding
 import pw.prsk.goodfood.viewmodels.RecipesOverviewViewModel
+import java.lang.IllegalStateException
 import javax.inject.Inject
 
 class RecipesOverviewFragment : Fragment() {
@@ -30,10 +31,19 @@ class RecipesOverviewFragment : Fragment() {
             showSnackbar("Clicked at $recipeId recipe.")
         }
 
-        override fun onMoreButtonClick(listType: Int) = when(listType) {
-            LIST_ALL_RECIPES -> showSnackbar("Open all recipes...")
-            LIST_FAVORITE_RECIPES -> showSnackbar("Open favorite recipes...")
-            else -> showSnackbar("Open frequent recipes...")
+        override fun onMoreButtonClick(listType: Int) {
+            val listTypeKey = when(listType) {
+                LIST_ALL_RECIPES -> RecipeListFragment.LIST_TYPE_ALL
+                LIST_FAVORITE_RECIPES -> RecipeListFragment.LIST_TYPE_FAVORITES
+                LIST_FREQUENT_RECIPES -> RecipeListFragment.LIST_TYPE_FREQUENT
+                else -> {
+                    throw IllegalStateException("Unknown list type $listType")
+                }
+            }
+            val args = Bundle().apply {
+                putInt(RecipeListFragment.LIST_TYPE_KEY, listTypeKey)
+            }
+            Navigation.findNavController(requireActivity(), R.id.fcvContainer).navigate(R.id.actionNavigateToRecipeList, args)
         }
     }
 
@@ -68,7 +78,14 @@ class RecipesOverviewFragment : Fragment() {
         }
 
         binding.fabAddMeal.setOnClickListener {
-            Navigation.findNavController(requireActivity(), R.id.fcvContainer).navigate(R.id.add_meal_flow)
+            Navigation.findNavController(requireActivity(), R.id.fcvContainer).navigate(R.id.actionNavigateToEditRecipe)
+        }
+
+        binding.bAllRecipes.setOnClickListener {
+            val args = Bundle().apply {
+                putInt(RecipeListFragment.LIST_TYPE_KEY, RecipeListFragment.LIST_TYPE_ALL)
+            }
+            Navigation.findNavController(requireActivity(), R.id.fcvContainer).navigate(R.id.actionNavigateToRecipeList, args)
         }
     }
 

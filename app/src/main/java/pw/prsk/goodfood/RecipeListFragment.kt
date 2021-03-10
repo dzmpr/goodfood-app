@@ -30,6 +30,15 @@ class RecipeListFragment : Fragment() {
         super.onCreate(savedInstanceState)
         (requireActivity().application as MyApplication).appComponent.inject(this)
         viewModel = ViewModelProvider(this, vmFactory).get(RecipeListViewModel::class.java)
+
+        handleArguments()
+    }
+
+    private fun handleArguments() {
+        val sourceKey = arguments?.getInt(LIST_TYPE_KEY)
+        if (sourceKey != null) {
+            viewModel.setListSource(sourceKey)
+        }
     }
 
     override fun onCreateView(
@@ -50,11 +59,6 @@ class RecipeListFragment : Fragment() {
         viewModel.deleteSnack.observe(viewLifecycleOwner) {
             val message = resources.getString(R.string.snackbar_item_deleted, it)
             showSnackbar(message)
-        }
-
-        binding.fabAddProduct.setOnClickListener {
-            val dialog = AddProductBottomFragment()
-            dialog.show(childFragmentManager, null)
         }
     }
 
@@ -130,5 +134,13 @@ class RecipeListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        const val LIST_TYPE_KEY = "list_type_key"
+
+        const val LIST_TYPE_ALL = 0
+        const val LIST_TYPE_FAVORITES = 1
+        const val LIST_TYPE_FREQUENT = 2
     }
 }
