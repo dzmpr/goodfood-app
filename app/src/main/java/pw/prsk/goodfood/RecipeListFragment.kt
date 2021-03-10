@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -12,9 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 import pw.prsk.goodfood.adapters.RecipeLineAdapter
+import pw.prsk.goodfood.data.RecipeCategory
 import pw.prsk.goodfood.databinding.FragmentRecipeListBinding
 import pw.prsk.goodfood.utils.ItemSwipeDecorator
-import pw.prsk.goodfood.utils.ProductItemTouchHelperCallback
+import pw.prsk.goodfood.utils.RecipeListItemTouchHelperCallback
 import pw.prsk.goodfood.viewmodels.RecipeListViewModel
 import javax.inject.Inject
 
@@ -43,7 +44,7 @@ class RecipeListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initProductList()
+        initList()
         initCategoryChips()
 
         viewModel.deleteSnack.observe(viewLifecycleOwner) {
@@ -58,23 +59,45 @@ class RecipeListFragment : Fragment() {
     }
 
     private fun initCategoryChips() {
-        binding.cgCategoryChips.setOnCheckedChangeListener { _, _ ->
-            Toast.makeText(context, "Deprecated", Toast.LENGTH_SHORT).show()
+        binding.cgCategoryChips.setOnCheckedChangeListener { group, checkedId ->
+            when (checkedId) {
+                View.NO_ID -> {
+                    viewModel.onCategorySelected(0)
+                }
+                else -> {
+                    val category = group[checkedId].tag as RecipeCategory
+                    viewModel.onCategorySelected(category.id!!)
+                }
+            }
         }
 
-            if (binding.cgCategoryChips.childCount > 0) {
-                binding.cgCategoryChips.removeAllViews()
-            }
+        viewModel.categorySet.observe(viewLifecycleOwner) { set ->
+            if (set.size > 1) {
+                binding.cgCategoryChips.visibility = View.VISIBLE
 
-            for (i in 1 until 7) {
-                val chip = layoutInflater.inflate(R.layout.chip_sort_layout, binding.cgCategoryChips, false) as Chip
-                chip.text = "Chip $i"
-                chip.id = i
-                binding.cgCategoryChips.addView(chip)
+                if (binding.cgCategoryChips.childCount > 0) {
+                    binding.cgCategoryChips.removeAllViews()
+                    viewModel.onCategorySelected(0)
+                }
+
+                for ((index, category) in set.withIndex()) {
+                    val chip = layoutInflater.inflate(
+                        R.layout.chip_sort_layout,
+                        binding.cgCategoryChips,
+                        false
+                    ) as Chip
+                    chip.text = category.name
+                    chip.id = index
+                    chip.tag = category
+                    binding.cgCategoryChips.addView(chip)
+                }
+            } else {
+                binding.cgCategoryChips.visibility = View.GONE
             }
+        }
     }
 
-    private fun initProductList() {
+    private fun initList() {
         val recipeLineAdapter = RecipeLineAdapter()
         subscribeUi(recipeLineAdapter)
 
@@ -89,7 +112,7 @@ class RecipeListFragment : Fragment() {
             .setRightSideText(R.string.delete_action_label, R.color.ivory, 16f)
             .setIconMargin(50)
             .getDecorator()
-        val ithCallback = ProductItemTouchHelperCallback(viewModel, swipeDecorator)
+        val ithCallback = RecipeListItemTouchHelperCallback(viewModel, swipeDecorator)
         val touchHelper = ItemTouchHelper(ithCallback)
         touchHelper.attachToRecyclerView(binding.rvRecipesList)
     }

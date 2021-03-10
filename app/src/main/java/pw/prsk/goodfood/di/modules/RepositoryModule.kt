@@ -4,13 +4,18 @@ import dagger.Module
 import dagger.Provides
 import pw.prsk.goodfood.data.AppDatabase
 import pw.prsk.goodfood.data.PhotoGateway
+import pw.prsk.goodfood.data.local.RecipePreferences
 import pw.prsk.goodfood.repository.*
 
 @Module
 class RepositoryModule {
     @Provides
-    fun provideRecipeRepository(dbInstance: AppDatabase, photoGateway: PhotoGateway): RecipeRepository =
-        RecipeRepository(dbInstance, photoGateway)
+    fun provideRecipeRepository(
+        dbInstance: AppDatabase,
+        photoGateway: PhotoGateway,
+        recipePreferences: RecipePreferences
+    ): RecipeRepository =
+        RecipeRepository(dbInstance, photoGateway, recipePreferences)
 
     @Provides
     fun provideProductRepository(dbInstance: AppDatabase): ProductRepository =

@@ -5,10 +5,12 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import pw.prsk.goodfood.data.*
+import pw.prsk.goodfood.data.local.RecipePreferences
 
 class RecipeRepository(
     private val dbInstance: AppDatabase,
-    private val photoGateway: PhotoGateway
+    private val photoGateway: PhotoGateway,
+    private val recipePreferences: RecipePreferences
 ) {
     suspend fun addRecipe(recipe: Recipe) = withContext(Dispatchers.IO) {
         dbInstance.recipeDao().insert(recipe)
@@ -108,15 +110,17 @@ class RecipeRepository(
         }
     }
 
-    private fun removeCategory(category_id: Int?) {
-        if (category_id != null) {
-            val category = dbInstance.recipeCategoryDao().getById(category_id)
-            // If this is the only recipe where this category is used - delete it
-            if (category.referenceCount == 1) {
+    private fun removeCategory(category_id: Int) {
+        val category = dbInstance.recipeCategoryDao().getById(category_id)
+        // If this is the only recipe where this category is used - delete it
+        if (category.referenceCount == 1) {
+            if (category_id != recipePreferences.getValue(RecipePreferences.FIELD_NO_CATEGORY,1)) {
                 dbInstance.recipeCategoryDao().delete(category)
             } else {
                 dbInstance.recipeCategoryDao().decreaseUsages(category_id)
             }
+        } else {
+            dbInstance.recipeCategoryDao().decreaseUsages(category_id)
         }
     }
 
