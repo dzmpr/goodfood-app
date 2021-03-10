@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import pw.prsk.goodfood.R
-import pw.prsk.goodfood.data.Product
 import pw.prsk.goodfood.data.RecipeWithMeta
 
 class RecipeLineAdapter: RecyclerView.Adapter<RecipeLineAdapter.RecipeLineViewHolder>() {
@@ -23,7 +22,7 @@ class RecipeLineAdapter: RecyclerView.Adapter<RecipeLineAdapter.RecipeLineViewHo
 
         fun bind(recipe: RecipeWithMeta) {
             name.text = recipe.name
-            category.text = recipe.category?.name ?: itemView.context.resources.getString(R.string.label_uncategorized)
+            category.text = recipe.category.name
             favoriteMark.isChecked = recipe.inFavorites
         }
     }

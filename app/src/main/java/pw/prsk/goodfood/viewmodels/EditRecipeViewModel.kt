@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import pw.prsk.goodfood.data.*
+import pw.prsk.goodfood.data.local.RecipePreferences
 import pw.prsk.goodfood.repository.RecipeCategoryRepository
 import pw.prsk.goodfood.repository.RecipeRepository
 import pw.prsk.goodfood.repository.ProductRepository
@@ -25,6 +26,7 @@ class EditRecipeViewModel : ViewModel() {
     @Inject lateinit var recipeRepository: RecipeRepository
     @Inject lateinit var recipeCategoryRepository: RecipeCategoryRepository
     @Inject lateinit var photoGateway: PhotoGateway
+    @Inject lateinit var recipePreferences: RecipePreferences
 
     private val ingredientsList: MutableList<IngredientWithMeta> = mutableListOf()
 
@@ -101,7 +103,7 @@ class EditRecipeViewModel : ViewModel() {
         ingredients.value = ingredientsList
     }
 
-    fun saveRecipe(name: String, description: String?, servingsCount: Int, category: RecipeCategory?) {
+    fun saveRecipe(name: String, description: String?, servingsCount: Int, selectedCategory: RecipeCategory?) {
         viewModelScope.launch {
             // Copy photo to app folder if it was picked
             if (!photoFromCamera && photoStatus) {
@@ -110,6 +112,9 @@ class EditRecipeViewModel : ViewModel() {
                 val newPhoto = photoGateway.copyPhoto(photoUri!!, internalUri)
                 Log.d(TAG, "Filename where chosen photo will be copied: '${newPhoto.toString()}'.")
             }
+
+            val category = selectedCategory
+                ?: RecipeCategory(recipePreferences.getValue(RecipePreferences.FIELD_NO_CATEGORY, 0), "")
 
             val recipe = RecipeWithMeta(
                 null,

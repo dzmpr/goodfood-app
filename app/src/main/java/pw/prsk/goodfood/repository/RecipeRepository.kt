@@ -57,11 +57,8 @@ class RecipeRepository(
 
     private fun getRecipeWithMeta(recipe: Recipe): RecipeWithMeta {
         val ingredientList = getIngredients(recipe.ingredientsList)
-        val category = if (recipe.category_id != null) {
-            dbInstance.recipeCategoryDao().getById(recipe.category_id!!)
-        } else {
-            null
-        }
+        val category = dbInstance.recipeCategoryDao().getById(recipe.category_id)
+
         return RecipeWithMeta(
             recipe.id,
             recipe.name,
@@ -137,7 +134,7 @@ class RecipeRepository(
                 recipe.last_eaten,
                 recipe.eat_count,
                 convertedIngredients,
-                recipe.category?.id
+                recipe.category.id!!
             )
         )
     }

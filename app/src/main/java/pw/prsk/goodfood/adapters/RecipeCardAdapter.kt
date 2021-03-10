@@ -45,8 +45,7 @@ class RecipeCardAdapter(
             recipeId = recipe.id!!
 
             name.text = recipe.name
-            category.text = recipe.category?.name
-                ?: itemView.context.resources.getString(R.string.label_uncategorized)
+            category.text = recipe.category.name
             favoriteButton.isChecked = recipe.inFavorites
 
             loadImage(recipe, photoGateway)
