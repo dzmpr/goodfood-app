@@ -9,8 +9,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import pw.prsk.goodfood.data.*
-import pw.prsk.goodfood.repository.MealCategoryRepository
-import pw.prsk.goodfood.repository.MealRepository
+import pw.prsk.goodfood.data.local.RecipePreferences
+import pw.prsk.goodfood.repository.RecipeCategoryRepository
+import pw.prsk.goodfood.repository.RecipeRepository
 import pw.prsk.goodfood.repository.ProductRepository
 import pw.prsk.goodfood.repository.ProductUnitsRepository
 import pw.prsk.goodfood.utils.SingleLiveEvent
@@ -19,12 +20,13 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import javax.inject.Inject
 
-class EditMealViewModel : ViewModel() {
+class EditRecipeViewModel : ViewModel() {
     @Inject lateinit var productRepository: ProductRepository
     @Inject lateinit var productUnitsRepository: ProductUnitsRepository
-    @Inject lateinit var mealRepository: MealRepository
-    @Inject lateinit var mealCategoryRepository: MealCategoryRepository
+    @Inject lateinit var recipeRepository: RecipeRepository
+    @Inject lateinit var recipeCategoryRepository: RecipeCategoryRepository
     @Inject lateinit var photoGateway: PhotoGateway
+    @Inject lateinit var recipePreferences: RecipePreferences
 
     private val ingredientsList: MutableList<IngredientWithMeta> = mutableListOf()
 
@@ -37,8 +39,8 @@ class EditMealViewModel : ViewModel() {
     val unitsList: MutableLiveData<List<ProductUnit>> by lazy {
         MutableLiveData<List<ProductUnit>>()
     }
-    val mealCategories: MutableLiveData<List<MealCategory>> by lazy {
-        MutableLiveData<List<MealCategory>>()
+    val recipeCategories: MutableLiveData<List<RecipeCategory>> by lazy {
+        MutableLiveData<List<RecipeCategory>>()
     }
 
     private val photoDrawable = MutableLiveData<Drawable?>()
@@ -92,7 +94,7 @@ class EditMealViewModel : ViewModel() {
 
     fun loadCategories() {
         viewModelScope.launch {
-            mealCategories.value = mealCategoryRepository.getCategories()
+            recipeCategories.value = recipeCategoryRepository.getCategories()
         }
     }
 
@@ -101,7 +103,7 @@ class EditMealViewModel : ViewModel() {
         ingredients.value = ingredientsList
     }
 
-    fun saveRecipe(name: String, description: String?, servingsCount: Int, category: MealCategory?) {
+    fun saveRecipe(name: String, description: String?, servingsCount: Int, selectedCategory: RecipeCategory?) {
         viewModelScope.launch {
             // Copy photo to app folder if it was picked
             if (!photoFromCamera && photoStatus) {
@@ -111,7 +113,10 @@ class EditMealViewModel : ViewModel() {
                 Log.d(TAG, "Filename where chosen photo will be copied: '${newPhoto.toString()}'.")
             }
 
-            val recipe = MealWithMeta(
+            val category = selectedCategory
+                ?: RecipeCategory(recipePreferences.getValue(RecipePreferences.FIELD_NO_CATEGORY, 0), "")
+
+            val recipe = RecipeWithMeta(
                 null,
                 name,
                 description,
@@ -123,7 +128,7 @@ class EditMealViewModel : ViewModel() {
                 ingredientsList,
                 category
             )
-            mealRepository.addRecipe(recipe)
+            recipeRepository.addRecipe(recipe)
 
             photoFromCamera = false // Prevent photo deletion on exit
             saveStatus.value = true

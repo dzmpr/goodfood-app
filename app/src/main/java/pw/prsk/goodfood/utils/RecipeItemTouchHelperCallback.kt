@@ -1,10 +1,10 @@
 package pw.prsk.goodfood.utils
 
-import android.graphics.Canvas
+import android.graphics.*
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
-class ProductItemTouchHelperCallback(
+class RecipeItemTouchHelperCallback(
     private val handler: ItemTouchHelperAction,
     private val swipeDecorator: ItemSwipeDecorator
 ) : ItemTouchHelper.Callback() {
@@ -12,9 +12,9 @@ class ProductItemTouchHelperCallback(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder
     ): Int {
-        val drag = 0
-        val swipe = ItemTouchHelper.LEFT
-        return makeMovementFlags(drag, swipe)
+        val dragFlags = 0
+        val swipeFlags = ItemTouchHelper.LEFT
+        return makeMovementFlags(dragFlags, swipeFlags)
     }
 
     override fun isLongPressDragEnabled(): Boolean = false
@@ -27,12 +27,6 @@ class ProductItemTouchHelperCallback(
         target: RecyclerView.ViewHolder
     ): Boolean = false
 
-    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-        if (direction == ItemTouchHelper.LEFT) {
-            handler.itemSwiped(viewHolder.adapterPosition, direction)
-        }
-    }
-
     override fun onChildDraw(
         c: Canvas,
         recyclerView: RecyclerView,
@@ -44,5 +38,11 @@ class ProductItemTouchHelperCallback(
     ) {
         swipeDecorator.decorate(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+    }
+
+    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+        if (direction == ItemTouchHelper.LEFT) {
+            handler.itemSwiped(viewHolder.adapterPosition, direction)
+        }
     }
 }

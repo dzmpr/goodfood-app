@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">GoodFood</string>
-    <string name="label_navigation_meals">Meals</string>
+    <string name="label_navigation_recipes">Recipes</string>
+    <string name="label_recipes_overview">My recipes</string>
     <string name="label_navigation_products">Products</string>
     <string name="label_navigation_profile">Profile</string>
-    <string name="add_meal_label">Add new meal</string>
+    <string name="add_recipe_label">Add new recipe</string>
     <string name="add_product_label">Add new product</string>
     <string name="add_ingredient_label">Add ingredient</string>
     <string name="product_name_placeholder_label">Product name</string>
@@ -11,18 +12,12 @@
     <string name="unit_select_label">Select units</string>
     <string name="add_label">Add</string>
     <string name="add_more_label">Add more</string>
-    <string name="meal_name_placeholder_label">Meal name</string>
+    <string name="recipe_name_placeholder_label">Recipe name</string>
     <string name="description_label">Description</string>
     <string name="delete_action_label">Delete</string>
     <string name="snackbar_item_deleted">\"%s\" was removed.</string>
 
     <!--    Prepopulation data-->
-    <string name="default_meal_category_1">Soups</string>
-    <string name="default_meal_category_2">Salads</string>
-    <string name="default_meal_category_3">Cakes</string>
-    <string name="default_product_category_1">Seafood</string>
-    <string name="default_product_category_2">Meat</string>
-    <string name="default_product_category_3">Vegetable</string>
     <string name="default_product_unit_1">pcs.</string>
     <string name="default_product_unit_2">tsp.</string>
     <string name="default_product_unit_3">tbs.</string>
@@ -43,4 +38,12 @@
     <string name="remove_photo_action_label">Remove photo</string>
     <string name="label_empty_ingredients_list">You not added ingredients yet!</string>
     <string name="label_servings">Servings</string>
+    <string name="label_no_category">No category</string>
+    <string name="label_all_recipes">All recipes</string>
+    <string name="label_favorites">Favorites</string>
+    <string name="label_frequent_recipes">Frequent recipes</string>
+    <string name="description_recipe_placeholder">Placeholder for recipe photo</string>
+    <string name="description_recipe_photo">Recipe photo</string>
+    <string name="description_no_data">You don\'t recorded any recipes yet!</string>
+    <string name="label_more">more</string>
 </resources>

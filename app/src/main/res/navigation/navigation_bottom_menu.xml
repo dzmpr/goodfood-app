@@ -3,18 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_screen_graph"
-    app:startDestination="@id/actionMeals">
+    app:startDestination="@id/actionRecipes">
 
     <fragment
-        android:id="@+id/actionMeals"
-        android:name="pw.prsk.goodfood.MealsFragment"
+        android:id="@+id/actionRecipes"
+        android:name="pw.prsk.goodfood.RecipesOverviewFragment"
         android:label="MealsFragment"
-        tools:layout="@layout/fragment_meals"/>
+        tools:layout="@layout/fragment_recipes_overview"/>
     <fragment
-        android:id="@+id/actionProducts"
-        android:name="pw.prsk.goodfood.ProductsFragment"
+        android:id="@+id/actionCart"
+        android:name="pw.prsk.goodfood.ProfileFragment"
         android:label="ProductsFragment"
-        tools:layout="@layout/fragment_products"/>
+        tools:layout="@layout/fragment_profile"/>
     <fragment
         android:id="@+id/actionProfile"
         android:name="pw.prsk.goodfood.ProfileFragment"

@@ -14,17 +14,17 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import pw.prsk.goodfood.adapters.IngredientAdapter
-import pw.prsk.goodfood.adapters.MealCategoryAutocompleteAdapter
-import pw.prsk.goodfood.data.MealCategory
-import pw.prsk.goodfood.databinding.FragmentEditMealBinding
+import pw.prsk.goodfood.adapters.RecipeCategoryAutocompleteAdapter
+import pw.prsk.goodfood.data.RecipeCategory
+import pw.prsk.goodfood.databinding.FragmentEditRecipeBinding
 import pw.prsk.goodfood.utils.AutocompleteSelectionHelper
 import pw.prsk.goodfood.utils.InputValidator
-import pw.prsk.goodfood.viewmodels.EditMealViewModel
+import pw.prsk.goodfood.viewmodels.EditRecipeViewModel
 
-class EditMealFragment : Fragment() {
-    private lateinit var binding: FragmentEditMealBinding
+class EditRecipeFragment : Fragment() {
+    private lateinit var binding: FragmentEditRecipeBinding
 
-    private val viewModel: EditMealViewModel by viewModels()
+    private val viewModel: EditRecipeViewModel by viewModels()
 
     private val getPhoto = registerForActivityResult(ActivityResultContracts.TakePicture()) {
         if (it) {
@@ -59,7 +59,7 @@ class EditMealFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentEditMealBinding.inflate(inflater, container, false)
+        binding = FragmentEditRecipeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -84,7 +84,7 @@ class EditMealFragment : Fragment() {
         }
 
         categorySelectHelper = AutocompleteSelectionHelper(binding.tilRecipeCategory) { input ->
-            MealCategory(name = input)
+            RecipeCategory(name = input)
         }
 
         val nameValidator = InputValidator(binding.tilRecipeName, context?.getString(R.string.label_name_error))
@@ -100,7 +100,7 @@ class EditMealFragment : Fragment() {
                     binding.tilRecipeName.editText?.text.toString(),
                     description,
                     servingsCount,
-                    categorySelectHelper.selected as MealCategory?
+                    categorySelectHelper.selected as RecipeCategory?
                 )
             }
         }
@@ -133,8 +133,8 @@ class EditMealFragment : Fragment() {
             binding.ivRecipePhoto.setImageDrawable(it)
         }
 
-        viewModel.mealCategories.observe(viewLifecycleOwner) {
-            val adapter = MealCategoryAutocompleteAdapter(requireContext(), R.layout.dropdown_item, it)
+        viewModel.recipeCategories.observe(viewLifecycleOwner) {
+            val adapter = RecipeCategoryAutocompleteAdapter(requireContext(), R.layout.dropdown_item, it)
             (binding.tilRecipeCategory.editText as AutoCompleteTextView).setAdapter(adapter)
         }
 
