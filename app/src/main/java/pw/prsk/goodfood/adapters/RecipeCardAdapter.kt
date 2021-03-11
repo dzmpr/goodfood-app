@@ -16,7 +16,7 @@ import pw.prsk.goodfood.data.PhotoGateway
 import pw.prsk.goodfood.data.RecipeWithMeta
 import javax.inject.Inject
 
-class RecipeAdapter(
+class RecipeCardAdapter(
     private val recipeClickCallback: RecipesOverviewFragment.RecipeClickCallback,
     private val listType: Int
 ) :
@@ -45,8 +45,7 @@ class RecipeAdapter(
             recipeId = recipe.id!!
 
             name.text = recipe.name
-            category.text = recipe.category?.name
-                ?: itemView.context.resources.getString(R.string.label_uncategorized)
+            category.text = recipe.category.name
             favoriteButton.isChecked = recipe.inFavorites
 
             loadImage(recipe, photoGateway)
@@ -90,7 +89,7 @@ class RecipeAdapter(
         when (viewType) {
             TYPE_RECIPE_ITEM -> RecipeViewHolder(
                 LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_recipe, parent, false)
+                    .inflate(R.layout.item_recipe_card, parent, false)
             )
             else -> EndButtonViewHolder(
                 LayoutInflater.from(parent.context)

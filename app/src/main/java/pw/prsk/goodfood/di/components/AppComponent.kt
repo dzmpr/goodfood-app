@@ -2,12 +2,12 @@ package pw.prsk.goodfood.di.components
 
 import android.app.Application
 import dagger.Component
+import pw.prsk.goodfood.RecipeListFragment
 import pw.prsk.goodfood.RecipesOverviewFragment
-import pw.prsk.goodfood.adapters.RecipeAdapter
+import pw.prsk.goodfood.adapters.RecipeCardAdapter
+import pw.prsk.goodfood.adapters.RecipeLineAdapter
 import pw.prsk.goodfood.di.modules.*
 import pw.prsk.goodfood.viewmodels.EditRecipeViewModel
-import pw.prsk.goodfood.viewmodels.RecipesOverviewViewModel
-import pw.prsk.goodfood.viewmodels.ProductsViewModel
 import javax.inject.Singleton
 
 @Singleton
@@ -16,16 +16,18 @@ import javax.inject.Singleton
     RepositoryModule::class,
     RoomModule::class,
     GatewayModule::class,
-    ViewModelModule::class
+    ViewModelModule::class,
+    PreferenceModule::class
 ]
 )
 interface AppComponent {
     fun context(): Application
 
     fun inject(fragment: RecipesOverviewFragment)
+    fun inject(fragment: RecipeListFragment)
 
-    fun inject(adapter: RecipeAdapter)
+    fun inject(adapter: RecipeCardAdapter)
+    fun inject(adapter: RecipeLineAdapter)
 
-    fun inject(viewModel: ProductsViewModel)
     fun inject(viewModel: EditRecipeViewModel)
 }

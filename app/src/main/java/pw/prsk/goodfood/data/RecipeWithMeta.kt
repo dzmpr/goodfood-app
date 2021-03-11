@@ -12,5 +12,5 @@ data class RecipeWithMeta(
     var last_eaten: LocalDateTime,
     var eat_count: Int = 0,
     var ingredientsList: List<IngredientWithMeta>,
-    var category: RecipeCategory?
+    var category: RecipeCategory
 )

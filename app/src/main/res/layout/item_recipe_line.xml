@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/llRecipeItemContainer"
+    android:orientation="horizontal"
+    android:background="?attr/colorSurface"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="@dimen/layout_start_margin"
+        android:layout_marginVertical="4dp"
+        android:layout_marginEnd="4dp"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="2dp"
+        app:cardPreventCornerOverlap="true" >
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_recipe_placeholder"
+            android:layout_gravity="center"
+            android:contentDescription="@string/description_recipe_placeholder"
+            app:tint="?attr/colorOnSurface" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/description_recipe_photo"
+            android:scaleType="centerCrop"
+            android:id="@+id/ivRecipeThumbnail" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="8dp"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvRecipeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="20sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            tools:text="Recipe name" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvRecipeCategoryName"
+            android:layout_marginTop="4dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            tools:text="Category" />
+    </LinearLayout>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cbFavoriteMark"
+        android:layout_gravity="center_vertical"
+        android:button="@drawable/ic_favaorites_background"
+        android:buttonTint="@color/color_favorite_icon"
+        android:layout_marginEnd="@dimen/layout_end_margin"
+        android:minWidth="0dp"
+        android:minHeight="0dp" />
+</LinearLayout>

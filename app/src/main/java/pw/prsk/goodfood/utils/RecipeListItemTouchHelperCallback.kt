@@ -3,8 +3,9 @@ package pw.prsk.goodfood.utils
 import android.graphics.Canvas
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import pw.prsk.goodfood.adapters.RecipeLineAdapter
 
-class ProductItemTouchHelperCallback(
+class RecipeListItemTouchHelperCallback(
     private val handler: ItemTouchHelperAction,
     private val swipeDecorator: ItemSwipeDecorator
 ) : ItemTouchHelper.Callback() {

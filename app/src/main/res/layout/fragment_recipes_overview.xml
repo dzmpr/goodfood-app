@@ -13,7 +13,6 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:background="?attr/colorSurface"
-            android:fitsSystemWindows="true"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="30dp"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
@@ -64,7 +63,7 @@
                 android:paddingEnd="10dp"
                 app:layout_constraintTop_toBottomOf="@id/tvFrequentRecipes"
                 tools:itemCount="1"
-                tools:listitem="@layout/item_recipe" />
+                tools:listitem="@layout/item_recipe_card" />
 
             <TextView
                 android:id="@+id/tvFavoriteRecipes"
@@ -89,7 +88,7 @@
                 android:paddingEnd="10dp"
                 app:layout_constraintTop_toBottomOf="@id/tvFavoriteRecipes"
                 tools:itemCount="1"
-                tools:listitem="@layout/item_recipe" />
+                tools:listitem="@layout/item_recipe_card" />
 
             <TextView
                 android:id="@+id/tvAllRecipes"
@@ -114,7 +113,7 @@
                 android:paddingEnd="10dp"
                 app:layout_constraintTop_toBottomOf="@id/tvAllRecipes"
                 tools:itemCount="1"
-                tools:listitem="@layout/item_recipe" />
+                tools:listitem="@layout/item_recipe_card" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/bAllRecipes"

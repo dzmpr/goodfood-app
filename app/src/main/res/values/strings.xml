@@ -38,7 +38,7 @@
     <string name="remove_photo_action_label">Remove photo</string>
     <string name="label_empty_ingredients_list">You not added ingredients yet!</string>
     <string name="label_servings">Servings</string>
-    <string name="label_uncategorized">Uncategorized</string>
+    <string name="label_no_category">No category</string>
     <string name="label_all_recipes">All recipes</string>
     <string name="label_favorites">Favorites</string>
     <string name="label_frequent_recipes">Frequent recipes</string>
