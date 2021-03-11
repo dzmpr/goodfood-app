@@ -87,6 +87,11 @@ class RecipeRepository(
             .flowOn(Dispatchers.IO)
     }
 
+    suspend fun getRecipeById(recipeId: Int) = withContext(Dispatchers.IO) {
+        val recipe = dbInstance.recipeDao().getById(recipeId)
+        getRecipeWithMeta(recipe)
+    }
+
     private fun getRecipeWithMeta(recipe: Recipe): RecipeWithMeta {
         val ingredientList = getIngredients(recipe.ingredientsList)
         val category = dbInstance.recipeCategoryDao().getById(recipe.category_id)

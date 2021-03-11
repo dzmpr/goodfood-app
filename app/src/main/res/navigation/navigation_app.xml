@@ -20,6 +20,9 @@
         <action
             android:id="@+id/actionNavigateToRecipeList"
             app:destination="@id/recipeListFragment" />
+        <action
+            android:id="@+id/actionNavigateToRecipe"
+            app:destination="@id/recipeFragment" />
     </fragment>
 
     <fragment
@@ -33,4 +36,9 @@
         android:name="pw.prsk.goodfood.RecipeListFragment"
         android:label="RecipeListFragment"
         tools:layout="@layout/fragment_recipe_list"/>
+    <fragment
+        android:id="@+id/recipeFragment"
+        android:name="pw.prsk.goodfood.RecipeFragment"
+        android:label="RecipeFragment"
+        tools:layout="@layout/fragment_recipe"/>
 </navigation>
