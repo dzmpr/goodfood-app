@@ -88,6 +88,14 @@ class RecipeRepository(
             .flowOn(Dispatchers.IO)
     }
 
+    suspend fun getFlowById(recipeId: Int) = withContext(Dispatchers.IO) {
+        dbInstance.recipeDao().getFlowableById(recipeId)
+            .map {
+                getRecipeWithMeta(it)
+            }
+            .flowOn(Dispatchers.IO)
+    }
+
     suspend fun getRecipeById(recipeId: Int) = withContext(Dispatchers.IO) {
         val recipe = dbInstance.recipeDao().getById(recipeId)
         getRecipeWithMeta(recipe)

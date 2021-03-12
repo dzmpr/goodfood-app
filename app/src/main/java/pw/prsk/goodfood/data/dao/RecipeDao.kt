@@ -13,6 +13,9 @@ interface RecipeDao: BaseDao<Recipe> {
     @Query("SELECT * FROM recipes WHERE id = :id")
     fun getById(id: Int): Recipe
 
+    @Query("SELECT * FROM recipes WHERE id = :id")
+    fun getFlowableById(id: Int): Flow<Recipe>
+
     @Query("DELETE FROM recipes WHERE id = :id")
     fun deleteById(id: Int)
 

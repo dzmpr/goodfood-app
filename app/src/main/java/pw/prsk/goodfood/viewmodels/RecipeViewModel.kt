@@ -5,6 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import pw.prsk.goodfood.data.IngredientWithMeta
 import pw.prsk.goodfood.data.PhotoGateway
@@ -37,16 +41,21 @@ class RecipeViewModel @Inject constructor(
 
     fun loadRecipe(recipeId: Int) {
         viewModelScope.launch {
-            val recipe = recipeRepository.getRecipeById(recipeId)
-            _recipe.value = recipe
-            if (recipe.photoFilename != null) {
-                _recipePhoto.value = photoGateway.loadScaledPhoto(
-                    photoGateway.getUriForPhoto(recipe.photoFilename!!),
-                    200,
-                    200
-                )
-            }
-            _recipeIngredients.value = recipe.ingredientsList
+            recipeRepository.getFlowById(recipeId)
+                .onEach { recipe ->
+                    _recipe.postValue(recipe)
+
+                    if (recipe.photoFilename != null) {
+                        _recipePhoto.postValue(photoGateway.loadScaledPhoto(
+                            photoGateway.getUriForPhoto(recipe.photoFilename!!),
+                            200,
+                            200
+                        ))
+                    }
+                    _recipeIngredients.postValue(recipe.ingredientsList)
+                }
+                .flowOn(Dispatchers.Default)
+                .launchIn(this)
         }
     }
 
