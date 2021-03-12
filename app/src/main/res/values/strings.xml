@@ -52,4 +52,5 @@
     <string name="label_last_cooked">Last cooked: \%s\.</string>
     <string name="label_never">never</string>
     <string name="label_add_to_cart">Add ingredients to cart</string>
+    <string name="description_ingredients_placeholder">Empty ingredients list placeholder</string>
 </resources>

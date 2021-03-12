@@ -67,6 +67,10 @@ class EditRecipeFragment : Fragment() {
         initIngredientsRecycler()
         subscribeUi()
 
+        binding.tbToolbar.setNavigationOnClickListener {
+            Navigation.findNavController(requireActivity(), R.id.fcvContainer).popBackStack()
+        }
+
         binding.bAddIngredient.setOnClickListener {
             val sheet = AddIngredientBottomFragment()
             sheet.show(childFragmentManager, null)
