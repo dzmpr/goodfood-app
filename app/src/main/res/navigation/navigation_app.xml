@@ -35,7 +35,11 @@
         android:id="@+id/recipeListFragment"
         android:name="pw.prsk.goodfood.RecipeListFragment"
         android:label="RecipeListFragment"
-        tools:layout="@layout/fragment_recipe_list"/>
+        tools:layout="@layout/fragment_recipe_list">
+        <action
+            android:id="@+id/actionNavigateToRecipe"
+            app:destination="@id/recipeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/recipeFragment"
         android:name="pw.prsk.goodfood.RecipeFragment"

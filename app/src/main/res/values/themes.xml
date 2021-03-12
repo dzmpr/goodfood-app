@@ -23,6 +23,13 @@
         <item name="bottomSheetDialogTheme">@style/BottomSheetDialogStyle</item>
     </style>
 
+    <style name="Theme.GoodFood.ActionBar" parent="ThemeOverlay.MaterialComponents.ActionBar">
+        <item name="iconTint">?attr/colorOnSurface</item>
+        <item name="colorControlNormal">?attr/colorOnSurface</item>
+        <item name="tint">?attr/colorOnSurface</item>
+        <item name="android:background">?attr/colorSurface</item>
+    </style>
+
     <style name="BottomSheetDialogStyle" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
 <!--        <item name="colorSurface">@color/ivory</item>-->
