@@ -95,17 +95,17 @@ class RecipeRepository(
 
     private fun getRecipeWithMeta(recipe: Recipe): RecipeWithMeta {
         val ingredientList = getIngredients(recipe.ingredientsList)
-        val category = dbInstance.recipeCategoryDao().getById(recipe.category_id)
+        val category = dbInstance.recipeCategoryDao().getById(recipe.categoryId)
 
         return RecipeWithMeta(
             recipe.id,
             recipe.name,
-            recipe.description,
+            recipe.instructions,
             recipe.photoFilename,
             recipe.servingsNum,
             recipe.inFavorites,
-            recipe.last_eaten,
-            recipe.eat_count,
+            recipe.lastCooked,
+            recipe.cookCount,
             ingredientList,
             category
         )
@@ -125,7 +125,7 @@ class RecipeRepository(
     suspend fun removeRecipeById(id: Int) = withContext(Dispatchers.IO) {
         val recipe = dbInstance.recipeDao().getById(id)
         removeIngredients(recipe.ingredientsList)
-        removeCategory(recipe.category_id)
+        removeCategory(recipe.categoryId)
         if (recipe.photoFilename != null) {
             val uri = photoGateway.getUriForPhoto(recipe.photoFilename!!)
             photoGateway.removePhoto(uri)
@@ -171,8 +171,8 @@ class RecipeRepository(
                 recipe.photoFilename,
                 recipe.servingsNum,
                 recipe.inFavorites,
-                recipe.last_eaten,
-                recipe.eat_count,
+                recipe.lastCooked,
+                recipe.cookCount,
                 convertedIngredients,
                 recipe.category.id!!
             )

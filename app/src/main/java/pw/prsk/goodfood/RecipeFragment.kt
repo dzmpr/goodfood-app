@@ -74,11 +74,11 @@ class RecipeFragment : Fragment() {
             binding.tvRecipeName.text = it.name
             binding.tvRecipeCategory.text = it.category.name
             binding.tvRecipeInstructions.text = it.description
-            binding.tvLastCooked.text = if (it.last_eaten.isEqual(LocalDateTime.ofInstant(Instant.ofEpochMilli(0), ZoneId.systemDefault()))) {
+            binding.tvLastCooked.text = if (it.lastCooked.isEqual(LocalDateTime.ofInstant(Instant.ofEpochMilli(0), ZoneId.systemDefault()))) {
                 requireContext().resources.getString(R.string.label_last_cooked, getString(R.string.label_never))
             } else {
                 val formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")
-                requireContext().resources.getString(R.string.label_last_cooked, it.last_eaten.format(formatter))
+                requireContext().resources.getString(R.string.label_last_cooked, it.lastCooked.format(formatter))
             }
         }
 
