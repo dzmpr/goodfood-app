@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import pw.prsk.goodfood.data.IngredientWithMeta
 import pw.prsk.goodfood.data.PhotoGateway
 import pw.prsk.goodfood.data.RecipeWithMeta
 import pw.prsk.goodfood.repository.RecipeRepository
@@ -27,6 +28,12 @@ class RecipeViewModel @Inject constructor(
     val recipePhoto: LiveData<Bitmap?>
         get() = _recipePhoto
 
+    private val _recipeIngredients by lazy {
+        MutableLiveData<List<IngredientWithMeta>>()
+    }
+    val ingredientsList: LiveData<List<IngredientWithMeta>>
+        get() = _recipeIngredients
+
     fun loadRecipe(recipeId: Int) {
         viewModelScope.launch {
             val recipe = recipeRepository.getRecipeById(recipeId)
@@ -34,10 +41,11 @@ class RecipeViewModel @Inject constructor(
             if (recipe.photoFilename != null) {
                 _recipePhoto.value = photoGateway.loadScaledPhoto(
                     photoGateway.getUriForPhoto(recipe.photoFilename!!),
-                    100,
-                    100
+                    200,
+                    200
                 )
             }
+            _recipeIngredients.value = recipe.ingredientsList
         }
     }
 }

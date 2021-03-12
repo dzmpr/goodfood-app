@@ -8,9 +8,15 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
+import pw.prsk.goodfood.adapters.IngredientAdapter
 import pw.prsk.goodfood.databinding.FragmentRecipeBinding
 import pw.prsk.goodfood.viewmodels.RecipeViewModel
 import java.lang.IllegalStateException
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 class RecipeFragment : Fragment() {
@@ -49,13 +55,35 @@ class RecipeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupToolbar()
 
+        val listAdapter = IngredientAdapter()
+        binding.rvIngredientsList.apply {
+            adapter = listAdapter
+            layoutManager = LinearLayoutManager(this.context)
+        }
+
+        viewModel.ingredientsList.observe(viewLifecycleOwner) {
+            binding.groupIngredientsSection.visibility = if (it.isEmpty()) {
+                View.GONE
+            } else {
+                View.VISIBLE
+            }
+            listAdapter.setList(it)
+        }
+
         viewModel.recipe.observe(viewLifecycleOwner) {
-//            binding.ctToolbar.title = it.name
-//            binding.toolbar.title = it.name
+            binding.tvRecipeName.text = it.name
+            binding.tvRecipeCategory.text = it.category.name
+            binding.tvRecipeInstructions.text = it.description
+            binding.tvLastCooked.text = if (it.last_eaten.isEqual(LocalDateTime.ofInstant(Instant.ofEpochMilli(0), ZoneId.systemDefault()))) {
+                requireContext().resources.getString(R.string.label_last_cooked, getString(R.string.label_never))
+            } else {
+                val formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")
+                requireContext().resources.getString(R.string.label_last_cooked, it.last_eaten.format(formatter))
+            }
         }
 
         viewModel.recipePhoto.observe(viewLifecycleOwner) {
-//            binding.ivRecipePhoto.setImageBitmap(it)
+            binding.ivRecipePhoto.setImageBitmap(it)
         }
     }
 
@@ -65,8 +93,17 @@ class RecipeFragment : Fragment() {
         }
 
         binding.tbToolbar.setOnMenuItemClickListener {
-            Toast.makeText(this.context, "Test menu", Toast.LENGTH_SHORT).show()
-            true
+            when (it.itemId) {
+                R.id.actionEditRecipe -> {
+                    Navigation.findNavController(requireActivity(), R.id.fcvContainer).navigate(R.id.actionNavigateToEditRecipe)
+                    true
+                }
+                R.id.actionMarkCooked -> {
+                    Toast.makeText(this.context, "Marked as cooked!", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                else -> false
+            }
         }
     }
 

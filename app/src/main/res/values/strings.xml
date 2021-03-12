@@ -2,7 +2,7 @@
     <string name="app_name">GoodFood</string>
     <string name="label_navigation_recipes">Recipes</string>
     <string name="label_recipes_overview">My recipes</string>
-    <string name="label_navigation_products">Products</string>
+    <string name="label_navigation_cart">Cart</string>
     <string name="label_navigation_profile">Profile</string>
     <string name="add_recipe_label">Add new recipe</string>
     <string name="add_product_label">Add new product</string>
@@ -49,4 +49,7 @@
     <string name="label_edit_recipe">Edit recipe</string>
     <string name="label_mark_as_cooked">Mark as cooked</string>
     <string name="label_recipe">Recipe</string>
+    <string name="label_last_cooked">Last cooked: \%s\.</string>
+    <string name="label_never">never</string>
+    <string name="label_add_to_cart">Add ingredients to cart</string>
 </resources>
