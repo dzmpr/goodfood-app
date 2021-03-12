@@ -3,6 +3,7 @@ package pw.prsk.goodfood.data.dao
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 import pw.prsk.goodfood.data.Recipe
+import java.time.LocalDateTime
 
 @Dao
 interface RecipeDao: BaseDao<Recipe> {
@@ -35,4 +36,16 @@ interface RecipeDao: BaseDao<Recipe> {
 
     @Query("SELECT * FROM recipes LIMIT 5")
     fun getAllRecipesPreview(): Flow<List<Recipe>>
+
+    @Query("UPDATE recipes SET eat_count = eat_count + 1 WHERE id = :id")
+    fun increaseCookCount(id: Int)
+
+    @Query("UPDATE recipes SET last_eaten = :date WHERE id = :id")
+    fun updateLastCookDate(id: Int, date: LocalDateTime)
+
+    @Transaction
+    fun markAsCooked(id: Int, date: LocalDateTime) {
+        increaseCookCount(id)
+        updateLastCookDate(id, date)
+    }
 }

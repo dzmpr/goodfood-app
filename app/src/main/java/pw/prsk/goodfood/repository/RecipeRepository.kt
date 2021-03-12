@@ -6,14 +6,15 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import pw.prsk.goodfood.data.*
 import pw.prsk.goodfood.data.local.RecipePreferences
+import java.time.LocalDateTime
 
 class RecipeRepository(
     private val dbInstance: AppDatabase,
     private val photoGateway: PhotoGateway,
     private val recipePreferences: RecipePreferences
 ) {
-    suspend fun addRecipe(recipe: Recipe) = withContext(Dispatchers.IO) {
-        dbInstance.recipeDao().insert(recipe)
+    suspend fun markAsCooked(id: Int, date: LocalDateTime) = withContext(Dispatchers.IO) {
+        dbInstance.recipeDao().markAsCooked(id, date)
     }
 
     suspend fun changeFavoritesMark(id: Int, state: Boolean) = withContext(Dispatchers.IO) {

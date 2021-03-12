@@ -10,6 +10,7 @@ import pw.prsk.goodfood.data.IngredientWithMeta
 import pw.prsk.goodfood.data.PhotoGateway
 import pw.prsk.goodfood.data.RecipeWithMeta
 import pw.prsk.goodfood.repository.RecipeRepository
+import java.time.LocalDateTime
 import javax.inject.Inject
 
 class RecipeViewModel @Inject constructor(
@@ -46,6 +47,13 @@ class RecipeViewModel @Inject constructor(
                 )
             }
             _recipeIngredients.value = recipe.ingredientsList
+        }
+    }
+
+    fun markAsCooked() {
+        viewModelScope.launch {
+            val currentTime = LocalDateTime.now()
+            recipeRepository.markAsCooked(recipe.value?.id!!, currentTime)
         }
     }
 }

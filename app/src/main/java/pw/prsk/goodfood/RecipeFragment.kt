@@ -99,6 +99,7 @@ class RecipeFragment : Fragment() {
                     true
                 }
                 R.id.actionMarkCooked -> {
+                    viewModel.markAsCooked()
                     Toast.makeText(this.context, "Marked as cooked!", Toast.LENGTH_SHORT).show()
                     true
                 }
