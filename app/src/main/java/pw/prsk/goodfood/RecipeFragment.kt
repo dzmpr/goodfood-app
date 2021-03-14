@@ -76,6 +76,7 @@ class RecipeFragment : Fragment() {
             binding.tvRecipeName.text = it.name
             binding.tvRecipeCategory.text = it.category.name
             binding.tvRecipeInstructions.text = it.description
+            binding.cbFavorites.isChecked = it.inFavorites
             binding.tvLastCooked.text = if (it.lastCooked.isEqual(LocalDateTime.ofInstant(Instant.ofEpochMilli(0), ZoneId.systemDefault()))) {
                 requireContext().resources.getString(R.string.label_last_cooked, getString(R.string.label_never))
             } else {
@@ -104,6 +105,10 @@ class RecipeFragment : Fragment() {
 
         binding.bIncrease.setOnClickListener {
             viewModel.onIncreaseClicked()
+        }
+
+        binding.cbFavorites.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.changeFavoriteState(isChecked)
         }
     }
 

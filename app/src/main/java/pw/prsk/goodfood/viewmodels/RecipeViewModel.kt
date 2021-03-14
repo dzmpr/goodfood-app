@@ -97,4 +97,10 @@ class RecipeViewModel @Inject constructor(
             recipeDeleteAction.value = true
         }
     }
+
+    fun changeFavoriteState(state: Boolean) {
+        viewModelScope.launch {
+            recipeRepository.changeFavoritesMark(recipe.value?.id!!, state)
+        }
+    }
 }

@@ -89,6 +89,15 @@
                     android:contentDescription="@string/description_recipe_photo"
                     android:scaleType="centerCrop"
                     tools:src="@mipmap/ic_launcher" />
+
+                <CheckBox
+                    android:id="@+id/cbFavorites"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/ic_favorites_background"
+                    android:buttonTint="@color/color_favorite_icon"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp" />
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
