@@ -7,8 +7,33 @@ import kotlinx.coroutines.withContext
 import pw.prsk.goodfood.data.local.db.AppDatabase
 import pw.prsk.goodfood.data.local.db.entity.CartItem
 import pw.prsk.goodfood.data.local.db.entity.CartItemWithMeta
+import pw.prsk.goodfood.data.local.db.entity.Ingredient
 
 class CartRepository(private val dbInstance: AppDatabase) {
+    suspend fun addIngredientsToCart(recipeId: Int, multiplier: Float) = withContext(Dispatchers.IO) {
+        val recipe = dbInstance.recipeDao().getById(recipeId)
+        val ingredientsList = recipe.ingredientsList
+        ingredientsList.forEach {
+            addProductToCart(it, multiplier)
+        }
+    }
+
+    private fun addProductToCart(ingredient: Ingredient, multiplier: Float) {
+        val cartItem = dbInstance.cartDao().getCartByProductIdAndUnitId(ingredient.productId, ingredient.amountUnitId)
+        if (cartItem == null) {
+            dbInstance.cartDao().insert(
+                CartItem(
+                    productId = ingredient.productId,
+                    amount = ingredient.amount * multiplier,
+                    unitId = ingredient.amountUnitId
+                )
+            )
+        } else {
+            cartItem.amount += (ingredient.amount * multiplier)
+            dbInstance.cartDao().update(cartItem)
+        }
+    }
+
     suspend fun changeBoughtState(id: Int, state: Boolean) = withContext(Dispatchers.IO) {
         dbInstance.cartDao().changeBoughtState(id, state)
     }

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import pw.prsk.goodfood.R
 import pw.prsk.goodfood.presentation.adapter.IngredientListAdapter
 import pw.prsk.goodfood.databinding.FragmentRecipeBinding
@@ -100,6 +101,12 @@ class RecipeFragment : Fragment() {
             binding.tvServings.text = it.toString()
         }
 
+        viewModel.cartEvent.observe(viewLifecycleOwner) {
+            if (it) {
+                showSnackbar(requireContext().getString(R.string.label_added_to_cart))
+            }
+        }
+
         binding.bDecrease.setOnClickListener {
             viewModel.onDecreaseClicked()
         }
@@ -110,6 +117,10 @@ class RecipeFragment : Fragment() {
 
         binding.cbFavorites.setOnCheckedChangeListener { _, isChecked ->
             viewModel.changeFavoriteState(isChecked)
+        }
+
+        binding.fabAddToCart.setOnClickListener {
+            viewModel.addIngredientsToCart()
         }
     }
 
@@ -139,6 +150,10 @@ class RecipeFragment : Fragment() {
                 else -> false
             }
         }
+    }
+
+    private fun showSnackbar(message: String) {
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
     }
 
     companion object {

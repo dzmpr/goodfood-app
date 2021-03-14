@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 import pw.prsk.goodfood.data.local.db.entity.IngredientWithMeta
 import pw.prsk.goodfood.data.gateway.PhotoGateway
 import pw.prsk.goodfood.data.local.db.entity.RecipeWithMeta
+import pw.prsk.goodfood.data.repository.CartRepository
 import pw.prsk.goodfood.data.repository.RecipeRepository
 import pw.prsk.goodfood.utils.SingleLiveEvent
 import java.time.LocalDateTime
@@ -21,8 +22,9 @@ import javax.inject.Inject
 
 class RecipeViewModel @Inject constructor(
     private val recipeRepository: RecipeRepository,
+    private val cartRepository: CartRepository,
     private val photoGateway: PhotoGateway
-): ViewModel() {
+) : ViewModel() {
     private val _recipe by lazy {
         MutableLiveData<RecipeWithMeta>()
     }
@@ -51,6 +53,10 @@ class RecipeViewModel @Inject constructor(
         SingleLiveEvent<Boolean>()
     }
 
+    val cartEvent by lazy {
+        SingleLiveEvent<Boolean>()
+    }
+
     private var recipeFlowJob: Job? = null
 
     fun loadRecipe(recipeId: Int) {
@@ -60,11 +66,13 @@ class RecipeViewModel @Inject constructor(
                     _recipe.postValue(recipe)
 
                     if (recipe.photoFilename != null) {
-                        _recipePhoto.postValue(photoGateway.loadScaledPhoto(
-                            photoGateway.getUriForPhoto(recipe.photoFilename!!),
-                            200,
-                            200
-                        ))
+                        _recipePhoto.postValue(
+                            photoGateway.loadScaledPhoto(
+                                photoGateway.getUriForPhoto(recipe.photoFilename!!),
+                                200,
+                                200
+                            )
+                        )
                     }
                     _recipeIngredients.postValue(recipe.ingredientsList)
                     _servings.postValue(recipe.servingsNum)
@@ -103,6 +111,16 @@ class RecipeViewModel @Inject constructor(
             if (recipe.value?.inFavorites != state) {
                 recipeRepository.changeFavoritesMark(recipe.value?.id!!, state)
             }
+        }
+    }
+
+    fun addIngredientsToCart() {
+        viewModelScope.launch {
+            cartRepository.addIngredientsToCart(
+                recipe.value?.id!!,
+                servingsNum.value!!.toFloat() / recipe.value?.servingsNum!!
+            )
+            cartEvent.value = true
         }
     }
 }

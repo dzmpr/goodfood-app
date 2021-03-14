@@ -11,4 +11,7 @@ interface CartDao: BaseDao<CartItem> {
 
     @Query("UPDATE cart SET is_bought = :state WHERE id = :id")
     fun changeBoughtState(id: Int, state: Boolean)
+
+    @Query("SELECT * FROM cart WHERE product_id = :productId AND unit_id = :unitId")
+    fun getCartByProductIdAndUnitId(productId: Int, unitId: Int): CartItem?
 }

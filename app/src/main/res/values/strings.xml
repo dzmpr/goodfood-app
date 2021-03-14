@@ -55,4 +55,5 @@
     <string name="description_ingredients_placeholder">Empty ingredients list placeholder</string>
     <string name="label_delete_recipe">Delete recipe</string>
     <string name="label_cart">Cart</string>
+    <string name="label_added_to_cart">Ingredients in your cart!</string>
 </resources>
