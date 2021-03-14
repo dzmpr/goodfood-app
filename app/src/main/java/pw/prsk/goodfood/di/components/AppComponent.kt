@@ -2,6 +2,7 @@ package pw.prsk.goodfood.di.components
 
 import android.app.Application
 import dagger.Component
+import pw.prsk.goodfood.RecipeFragment
 import pw.prsk.goodfood.RecipeListFragment
 import pw.prsk.goodfood.RecipesOverviewFragment
 import pw.prsk.goodfood.adapters.RecipeCardAdapter
@@ -25,6 +26,7 @@ interface AppComponent {
 
     fun inject(fragment: RecipesOverviewFragment)
     fun inject(fragment: RecipeListFragment)
+    fun inject(fragment: RecipeFragment)
 
     fun inject(adapter: RecipeCardAdapter)
     fun inject(adapter: RecipeLineAdapter)

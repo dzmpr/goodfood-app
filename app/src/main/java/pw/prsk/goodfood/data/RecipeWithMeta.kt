@@ -9,8 +9,8 @@ data class RecipeWithMeta(
     var photoFilename: String? = null,
     var servingsNum: Int,
     var inFavorites: Boolean = false,
-    var last_eaten: LocalDateTime,
-    var eat_count: Int = 0,
+    var lastCooked: LocalDateTime,
+    var cookCount: Int = 0,
     var ingredientsList: List<IngredientWithMeta>,
     var category: RecipeCategory
 )

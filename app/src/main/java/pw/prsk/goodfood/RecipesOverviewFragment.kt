@@ -28,7 +28,10 @@ class RecipesOverviewFragment : Fragment() {
         }
 
         override fun onRecipeClicked(recipeId: Int) {
-            showSnackbar("Clicked at $recipeId recipe.")
+            val args = Bundle().apply {
+                putInt(RecipeFragment.RECIPE_ID_KEY, recipeId)
+            }
+            Navigation.findNavController(requireActivity(), R.id.fcvContainer).navigate(R.id.actionNavigateToRecipe, args)
         }
 
         override fun onMoreButtonClick(listType: Int) {

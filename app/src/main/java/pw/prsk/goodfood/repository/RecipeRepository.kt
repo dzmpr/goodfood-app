@@ -6,14 +6,15 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import pw.prsk.goodfood.data.*
 import pw.prsk.goodfood.data.local.RecipePreferences
+import java.time.LocalDateTime
 
 class RecipeRepository(
     private val dbInstance: AppDatabase,
     private val photoGateway: PhotoGateway,
     private val recipePreferences: RecipePreferences
 ) {
-    suspend fun addRecipe(recipe: Recipe) = withContext(Dispatchers.IO) {
-        dbInstance.recipeDao().insert(recipe)
+    suspend fun markAsCooked(id: Int, date: LocalDateTime) = withContext(Dispatchers.IO) {
+        dbInstance.recipeDao().markAsCooked(id, date)
     }
 
     suspend fun changeFavoritesMark(id: Int, state: Boolean) = withContext(Dispatchers.IO) {
@@ -87,19 +88,32 @@ class RecipeRepository(
             .flowOn(Dispatchers.IO)
     }
 
+    suspend fun getFlowById(recipeId: Int) = withContext(Dispatchers.IO) {
+        dbInstance.recipeDao().getFlowableById(recipeId)
+            .map {
+                getRecipeWithMeta(it)
+            }
+            .flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getRecipeById(recipeId: Int) = withContext(Dispatchers.IO) {
+        val recipe = dbInstance.recipeDao().getById(recipeId)
+        getRecipeWithMeta(recipe)
+    }
+
     private fun getRecipeWithMeta(recipe: Recipe): RecipeWithMeta {
         val ingredientList = getIngredients(recipe.ingredientsList)
-        val category = dbInstance.recipeCategoryDao().getById(recipe.category_id)
+        val category = dbInstance.recipeCategoryDao().getById(recipe.categoryId)
 
         return RecipeWithMeta(
             recipe.id,
             recipe.name,
-            recipe.description,
+            recipe.instructions,
             recipe.photoFilename,
             recipe.servingsNum,
             recipe.inFavorites,
-            recipe.last_eaten,
-            recipe.eat_count,
+            recipe.lastCooked,
+            recipe.cookCount,
             ingredientList,
             category
         )
@@ -119,7 +133,7 @@ class RecipeRepository(
     suspend fun removeRecipeById(id: Int) = withContext(Dispatchers.IO) {
         val recipe = dbInstance.recipeDao().getById(id)
         removeIngredients(recipe.ingredientsList)
-        removeCategory(recipe.category_id)
+        removeCategory(recipe.categoryId)
         if (recipe.photoFilename != null) {
             val uri = photoGateway.getUriForPhoto(recipe.photoFilename!!)
             photoGateway.removePhoto(uri)
@@ -165,8 +179,8 @@ class RecipeRepository(
                 recipe.photoFilename,
                 recipe.servingsNum,
                 recipe.inFavorites,
-                recipe.last_eaten,
-                recipe.eat_count,
+                recipe.lastCooked,
+                recipe.cookCount,
                 convertedIngredients,
                 recipe.category.id!!
             )

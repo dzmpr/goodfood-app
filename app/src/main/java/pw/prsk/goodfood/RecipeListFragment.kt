@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -109,7 +110,10 @@ class RecipeListFragment : Fragment() {
             }
 
             override fun onRecipeClicked(recipeId: Int) {
-                showSnackbar("Clicked on $recipeId.")
+                val args = Bundle().apply {
+                    putInt(RecipeFragment.RECIPE_ID_KEY, recipeId)
+                }
+                Navigation.findNavController(requireActivity(), R.id.fcvContainer).navigate(R.id.actionNavigateToRecipe, args)
             }
         })
         (requireActivity().application as MyApplication).appComponent.inject(recipeLineAdapter)
