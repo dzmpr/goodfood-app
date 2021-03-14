@@ -6,6 +6,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import pw.prsk.goodfood.di.ViewModelFactory
+import pw.prsk.goodfood.presentation.viewmodel.CartViewModel
 import pw.prsk.goodfood.utils.ViewModelKey
 import pw.prsk.goodfood.presentation.viewmodel.RecipeListViewModel
 import pw.prsk.goodfood.presentation.viewmodel.RecipeViewModel
@@ -31,4 +32,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(RecipeViewModel::class)
     abstract fun provideRecipeViewModel(recipeViewModel: RecipeViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CartViewModel::class)
+    abstract fun provideCartViewModel(cartViewModel: CartViewModel): ViewModel
 }

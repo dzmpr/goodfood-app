@@ -12,9 +12,9 @@
         tools:layout="@layout/fragment_recipes_overview"/>
     <fragment
         android:id="@+id/actionCart"
-        android:name="pw.prsk.goodfood.presentation.ui.ProfileFragment"
+        android:name="pw.prsk.goodfood.presentation.ui.CartFragment"
         android:label="ProductsFragment"
-        tools:layout="@layout/fragment_profile"/>
+        tools:layout="@layout/fragment_cart"/>
     <fragment
         android:id="@+id/actionProfile"
         android:name="pw.prsk.goodfood.presentation.ui.ProfileFragment"
