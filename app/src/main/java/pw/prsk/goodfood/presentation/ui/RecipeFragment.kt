@@ -66,11 +66,13 @@ class RecipeFragment : Fragment() {
         }
 
         viewModel.ingredientsList.observe(viewLifecycleOwner) {
-            binding.groupIngredientsSection.visibility = if (it.isEmpty()) {
+            val visibility = if (it.isEmpty()) {
                 View.GONE
             } else {
                 View.VISIBLE
             }
+            binding.groupIngredientsSection.visibility = visibility
+            binding.fabAddToCart.visibility = visibility
             listAdapter.setList(it)
         }
 

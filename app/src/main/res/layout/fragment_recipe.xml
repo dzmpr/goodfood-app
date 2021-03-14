@@ -228,6 +228,7 @@
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="@dimen/fab_margin"
         android:contentDescription="@string/label_add_to_cart"
+        android:visibility="gone"
         app:srcCompat="@drawable/ic_add_to_cart"
         app:tint="?attr/colorSurface" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
