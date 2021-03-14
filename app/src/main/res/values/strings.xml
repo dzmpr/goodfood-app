@@ -49,7 +49,7 @@
     <string name="label_edit_recipe">Edit recipe</string>
     <string name="label_mark_as_cooked">Mark as cooked</string>
     <string name="label_recipe">Recipe</string>
-    <string name="label_last_cooked">Last cooked: \%s\.</string>
+    <string name="label_last_cooked">Last cooked: %s.</string>
     <string name="label_never">never</string>
     <string name="label_add_to_cart">Add ingredients to cart</string>
     <string name="description_ingredients_placeholder">Empty ingredients list placeholder</string>

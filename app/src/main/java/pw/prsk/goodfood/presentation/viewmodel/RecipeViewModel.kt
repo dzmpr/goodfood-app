@@ -100,7 +100,9 @@ class RecipeViewModel @Inject constructor(
 
     fun changeFavoriteState(state: Boolean) {
         viewModelScope.launch {
-            recipeRepository.changeFavoritesMark(recipe.value?.id!!, state)
+            if (recipe.value?.inFavorites != state) {
+                recipeRepository.changeFavoritesMark(recipe.value?.id!!, state)
+            }
         }
     }
 }
