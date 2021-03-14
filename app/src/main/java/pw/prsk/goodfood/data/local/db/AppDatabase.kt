@@ -6,10 +6,7 @@ import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteDatabase
 import pw.prsk.goodfood.R
 import pw.prsk.goodfood.data.local.db.dao.*
-import pw.prsk.goodfood.data.local.db.entity.Product
-import pw.prsk.goodfood.data.local.db.entity.ProductUnit
-import pw.prsk.goodfood.data.local.db.entity.Recipe
-import pw.prsk.goodfood.data.local.db.entity.RecipeCategory
+import pw.prsk.goodfood.data.local.db.entity.*
 import pw.prsk.goodfood.data.local.prefs.RecipePreferences
 import java.util.concurrent.Executors
 
@@ -18,17 +15,19 @@ import java.util.concurrent.Executors
         Recipe::class,
         Product::class,
         RecipeCategory::class,
-        ProductUnit::class],
+        ProductUnit::class,
+        CartItem::class],
     version = 1
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun productDao(): ProductDao
+    abstract fun productUnitsDao(): ProductUnitsDao
 
     abstract fun recipeDao(): RecipeDao
     abstract fun recipeCategoryDao(): RecipeCategoryDao
 
-    abstract fun productUnitsDao(): ProductUnitsDao
+    abstract fun cartDao(): CartDao
 
     companion object {
         private const val DATABASE_NAME = "food-db"
@@ -43,7 +42,6 @@ abstract class AppDatabase : RoomDatabase() {
 
         private fun buildDatabase(context: Context): AppDatabase {
             return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
-                .fallbackToDestructiveMigration() //FIXME: Remove on release
                 .addCallback(object : RoomDatabase.Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)
@@ -63,7 +61,10 @@ abstract class AppDatabase : RoomDatabase() {
                                 .insert(RecipeCategory(name = res.getString(R.string.label_no_category)))
                                 .toInt()
 
-                            context.getSharedPreferences(RecipePreferences.PREFERENCES_NAME, Context.MODE_PRIVATE).edit {
+                            context.getSharedPreferences(
+                                RecipePreferences.PREFERENCES_NAME,
+                                Context.MODE_PRIVATE
+                            ).edit {
                                 putInt(RecipePreferences.FIELD_NO_CATEGORY, noCategoryId)
                             }
                         }
