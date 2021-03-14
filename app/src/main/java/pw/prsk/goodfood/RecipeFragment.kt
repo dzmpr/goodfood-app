@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import pw.prsk.goodfood.adapters.IngredientAdapter
+import pw.prsk.goodfood.adapters.IngredientListAdapter
 import pw.prsk.goodfood.databinding.FragmentRecipeBinding
 import pw.prsk.goodfood.viewmodels.RecipeViewModel
 import java.lang.IllegalStateException
@@ -31,7 +31,9 @@ class RecipeFragment : Fragment() {
         (requireActivity().application as MyApplication).appComponent.inject(this)
         viewModel = ViewModelProvider(this, vmFactory).get(RecipeViewModel::class.java)
 
-        handleArguments()
+        if (savedInstanceState == null) {
+            handleArguments()
+        }
     }
 
     private fun handleArguments() {
@@ -55,7 +57,7 @@ class RecipeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupToolbar()
 
-        val listAdapter = IngredientAdapter()
+        val listAdapter = IngredientListAdapter()
         binding.rvIngredientsList.apply {
             adapter = listAdapter
             layoutManager = LinearLayoutManager(this.context)
@@ -80,10 +82,28 @@ class RecipeFragment : Fragment() {
                 val formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")
                 requireContext().resources.getString(R.string.label_last_cooked, it.lastCooked.format(formatter))
             }
+            listAdapter.setBaseCount(it.servingsNum)
         }
 
         viewModel.recipePhoto.observe(viewLifecycleOwner) {
             binding.ivRecipePhoto.setImageBitmap(it)
+        }
+
+        viewModel.recipeDeleteAction.observe(viewLifecycleOwner) {
+            Navigation.findNavController(requireActivity(), R.id.fcvContainer).popBackStack()
+        }
+
+        viewModel.servingsNum.observe(viewLifecycleOwner) {
+            listAdapter.setSelectedCount(it)
+            binding.tvServings.text = it.toString()
+        }
+
+        binding.bDecrease.setOnClickListener {
+            viewModel.onDecreaseClicked()
+        }
+
+        binding.bIncrease.setOnClickListener {
+            viewModel.onIncreaseClicked()
         }
     }
 
@@ -101,6 +121,11 @@ class RecipeFragment : Fragment() {
                 R.id.actionMarkCooked -> {
                     viewModel.markAsCooked()
                     Toast.makeText(this.context, "Marked as cooked!", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.actionDeleteRecipe -> {
+                    viewModel.deleteRecipe()
+                    Toast.makeText(this.context, "Recipe deleted.", Toast.LENGTH_SHORT).show()
                     true
                 }
                 else -> false

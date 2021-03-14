@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -14,6 +15,7 @@ import pw.prsk.goodfood.data.IngredientWithMeta
 import pw.prsk.goodfood.data.PhotoGateway
 import pw.prsk.goodfood.data.RecipeWithMeta
 import pw.prsk.goodfood.repository.RecipeRepository
+import pw.prsk.goodfood.utils.SingleLiveEvent
 import java.time.LocalDateTime
 import javax.inject.Inject
 
@@ -39,8 +41,20 @@ class RecipeViewModel @Inject constructor(
     val ingredientsList: LiveData<List<IngredientWithMeta>>
         get() = _recipeIngredients
 
+    private val _servings by lazy {
+        MutableLiveData(1)
+    }
+    val servingsNum: LiveData<Int>
+        get() = _servings
+
+    val recipeDeleteAction by lazy {
+        SingleLiveEvent<Boolean>()
+    }
+
+    private var recipeFlowJob: Job? = null
+
     fun loadRecipe(recipeId: Int) {
-        viewModelScope.launch {
+        recipeFlowJob = viewModelScope.launch {
             recipeRepository.getFlowById(recipeId)
                 .onEach { recipe ->
                     _recipe.postValue(recipe)
@@ -53,6 +67,7 @@ class RecipeViewModel @Inject constructor(
                         ))
                     }
                     _recipeIngredients.postValue(recipe.ingredientsList)
+                    _servings.postValue(recipe.servingsNum)
                 }
                 .flowOn(Dispatchers.Default)
                 .launchIn(this)
@@ -63,6 +78,23 @@ class RecipeViewModel @Inject constructor(
         viewModelScope.launch {
             val currentTime = LocalDateTime.now()
             recipeRepository.markAsCooked(recipe.value?.id!!, currentTime)
+        }
+    }
+
+    fun onDecreaseClicked() {
+        if (_servings.value == 1) return
+        _servings.value = _servings.value?.minus(1)
+    }
+
+    fun onIncreaseClicked() {
+        _servings.value = _servings.value?.plus(1)
+    }
+
+    fun deleteRecipe() {
+        viewModelScope.launch {
+            recipeFlowJob?.cancel()
+            recipeRepository.removeRecipeById(recipe.value?.id!!)
+            recipeDeleteAction.value = true
         }
     }
 }

@@ -53,4 +53,5 @@
     <string name="label_never">never</string>
     <string name="label_add_to_cart">Add ingredients to cart</string>
     <string name="description_ingredients_placeholder">Empty ingredients list placeholder</string>
+    <string name="label_delete_recipe">Delete recipe</string>
 </resources>

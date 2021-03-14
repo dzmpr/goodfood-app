@@ -114,7 +114,49 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/startMargin"
-                app:layout_constraintTop_toBottomOf="@id/tvRecipeInstructions" />
+                app:layout_constraintTop_toBottomOf="@id/tvRecipeInstructions"
+                app:layout_constraintBottom_toBottomOf="@id/llButtonBox"/>
+
+            <LinearLayout
+                android:id="@+id/llButtonBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:padding="1dp"
+                android:background="@drawable/bg_button_box"
+                app:layout_constraintTop_toBottomOf="@id/tvRecipeInstructions"
+                app:layout_constraintEnd_toEndOf="@id/endMargin">
+
+                <ImageButton
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/bDecrease"
+                    android:backgroundTint="?attr/colorSurface"
+                    android:src="@drawable/ic_minus"
+                    android:background="@drawable/bg_button"
+                    android:tint="?attr/colorOnSurface" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="6dp"
+                    android:id="@+id/tvServings"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="18sp" />
+
+                <ImageButton
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/bIncrease"
+                    android:backgroundTint="?attr/colorSurface"
+                    android:src="@drawable/ic_plus"
+                    android:background="@drawable/bg_button"
+                    android:tint="?attr/colorOnSurface" />
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvIngredientsList"
@@ -124,7 +166,7 @@
                 android:overScrollMode="never"
                 app:layout_constraintEnd_toEndOf="@id/endMargin"
                 app:layout_constraintStart_toStartOf="@id/startMargin"
-                app:layout_constraintTop_toBottomOf="@id/tvIngredientsLabel" />
+                app:layout_constraintTop_toBottomOf="@id/llButtonBox" />
 
             <View
                 android:id="@+id/dFooterDivider"
@@ -164,7 +206,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                app:constraint_referenced_ids="tvIngredientsLabel,rvIngredientsList" />
+                app:constraint_referenced_ids="tvIngredientsLabel,rvIngredientsList, llButtonBox" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 

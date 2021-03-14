@@ -13,4 +13,10 @@
         android:icon="@drawable/ic_edit"
         android:title="@string/label_edit_recipe"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/actionDeleteRecipe"
+        android:icon="@drawable/ic_trash_bin"
+        android:title="@string/label_delete_recipe"
+        app:showAsAction="ifRoom" />
 </menu>
