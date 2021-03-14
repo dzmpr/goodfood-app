@@ -59,4 +59,8 @@ class CartRepository(private val dbInstance: AppDatabase) {
             unit
         )
     }
+
+    suspend fun removeFromCart(id: Int) = withContext(Dispatchers.IO) {
+        dbInstance.cartDao().removeItem(id)
+    }
 }

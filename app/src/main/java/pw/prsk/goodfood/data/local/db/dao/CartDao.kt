@@ -14,4 +14,7 @@ interface CartDao: BaseDao<CartItem> {
 
     @Query("SELECT * FROM cart WHERE product_id = :productId AND unit_id = :unitId")
     fun getCartByProductIdAndUnitId(productId: Int, unitId: Int): CartItem?
+
+    @Query("DELETE FROM cart WHERE id = :id")
+    fun removeItem(id: Int)
 }

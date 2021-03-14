@@ -56,4 +56,5 @@
     <string name="label_delete_recipe">Delete recipe</string>
     <string name="label_cart">Cart</string>
     <string name="label_added_to_cart">Ingredients in your cart!</string>
+    <string name="label_remove">Remove</string>
 </resources>

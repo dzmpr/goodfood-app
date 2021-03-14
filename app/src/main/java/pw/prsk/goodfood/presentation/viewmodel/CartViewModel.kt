@@ -9,11 +9,12 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import pw.prsk.goodfood.data.local.db.entity.CartItemWithMeta
 import pw.prsk.goodfood.data.repository.CartRepository
+import pw.prsk.goodfood.utils.ItemTouchHelperAction
 import javax.inject.Inject
 
 class CartViewModel @Inject constructor(
     private val cartRepository: CartRepository
-): ViewModel() {
+): ViewModel(), ItemTouchHelperAction {
     private val cart by lazy{
         MutableLiveData<List<CartItemWithMeta>>()
     }
@@ -35,4 +36,14 @@ class CartViewModel @Inject constructor(
             cartRepository.changeBoughtState(id, state)
         }
     }
+
+    override fun itemSwiped(position: Int, direction: Int) {
+        viewModelScope.launch {
+            cart.value?.let {
+                cartRepository.removeFromCart(it[position].id!!)
+            }
+        }
+    }
+
+    override fun itemMoved(startPosition: Int, endPosition: Int) {}
 }

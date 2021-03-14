@@ -7,10 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import pw.prsk.goodfood.R
 import pw.prsk.goodfood.databinding.FragmentCartBinding
 import pw.prsk.goodfood.presentation.adapter.CartAdapter
 import pw.prsk.goodfood.presentation.viewmodel.CartViewModel
+import pw.prsk.goodfood.utils.ItemSwipeDecorator
+import pw.prsk.goodfood.utils.RecipeListItemTouchHelperCallback
 import javax.inject.Inject
 
 class CartFragment : Fragment() {
@@ -53,6 +57,16 @@ class CartFragment : Fragment() {
                 )
             )
         }
+
+        val swipeDecorator = ItemSwipeDecorator.Companion.Builder()
+            .setRightSideIcon(R.drawable.ic_remove_from_cart, R.color.ivory)
+            .setBackgroundColor(R.color.rose_madder)
+            .setRightSideText(R.string.label_remove, R.color.ivory, 16f)
+            .setIconMargin(50)
+            .getDecorator()
+        val ithCallback = RecipeListItemTouchHelperCallback(viewModel, swipeDecorator)
+        val touchHelper = ItemTouchHelper(ithCallback)
+        touchHelper.attachToRecyclerView(binding.rvCartList)
 
         viewModel.cartList.observe(viewLifecycleOwner) {
             cartAdapter.setList(it)
