@@ -41,6 +41,24 @@ class CartFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initList()
+
+        binding.tbToolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.actionRemovePurchased -> {
+                    viewModel.onRemovePurchasedClick()
+                    true
+                }
+                R.id.actionClearCart -> {
+                    viewModel.onClearCartClick()
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+
+    private fun initList() {
         val cartAdapter = CartAdapter(object : CartAdapter.BoughtChangeStateCallback {
             override fun changeBoughtState(id: Int, state: Boolean) {
                 viewModel.changeBoughtState(id, state)

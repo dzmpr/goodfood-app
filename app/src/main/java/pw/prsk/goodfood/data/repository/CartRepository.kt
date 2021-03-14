@@ -63,4 +63,12 @@ class CartRepository(private val dbInstance: AppDatabase) {
     suspend fun removeFromCart(id: Int) = withContext(Dispatchers.IO) {
         dbInstance.cartDao().removeItem(id)
     }
+
+    suspend fun removePurchased() = withContext(Dispatchers.IO) {
+        dbInstance.cartDao().removePurchasedItems()
+    }
+
+    suspend fun clearCart() = withContext(Dispatchers.IO) {
+        dbInstance.cartDao().clearCart()
+    }
 }

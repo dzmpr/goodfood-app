@@ -37,6 +37,18 @@ class CartViewModel @Inject constructor(
         }
     }
 
+    fun onRemovePurchasedClick() {
+        viewModelScope.launch {
+            cartRepository.removePurchased()
+        }
+    }
+
+    fun onClearCartClick() {
+        viewModelScope.launch {
+            cartRepository.clearCart()
+        }
+    }
+
     override fun itemSwiped(position: Int, direction: Int) {
         viewModelScope.launch {
             cart.value?.let {

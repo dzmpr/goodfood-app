@@ -21,8 +21,10 @@
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:id="@+id/tbToolbar"
                 android:title="@string/label_cart"
                 android:titleTextColor="?attr/colorOnSurface"
+                app:menu="@menu/menu_cart_actions"
                 app:layout_collapseMode="pin" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
