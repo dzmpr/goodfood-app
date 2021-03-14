@@ -69,6 +69,11 @@ class CartFragment : Fragment() {
         touchHelper.attachToRecyclerView(binding.rvCartList)
 
         viewModel.cartList.observe(viewLifecycleOwner) {
+            binding.tvCartPlaceholder.visibility = if (it.isEmpty()) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
             cartAdapter.setList(it)
         }
     }

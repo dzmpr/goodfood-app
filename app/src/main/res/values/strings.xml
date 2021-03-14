@@ -57,4 +57,5 @@
     <string name="label_cart">Cart</string>
     <string name="label_added_to_cart">Ingredients in your cart!</string>
     <string name="label_remove">Remove</string>
+    <string name="label_empty_cart">Your cart is empty!</string>
 </resources>
