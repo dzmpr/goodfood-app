@@ -3,8 +3,8 @@ package pw.prsk.goodfood.di.modules
 import android.content.Context
 import dagger.Module
 import dagger.Provides
-import pw.prsk.goodfood.data.FileGateway
-import pw.prsk.goodfood.data.PhotoGateway
+import pw.prsk.goodfood.data.gateway.FileGateway
+import pw.prsk.goodfood.data.gateway.PhotoGateway
 
 @Module
 class GatewayModule {

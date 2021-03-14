@@ -2,10 +2,10 @@ package pw.prsk.goodfood.di.modules
 
 import dagger.Module
 import dagger.Provides
-import pw.prsk.goodfood.data.AppDatabase
-import pw.prsk.goodfood.data.PhotoGateway
-import pw.prsk.goodfood.data.local.RecipePreferences
-import pw.prsk.goodfood.repository.*
+import pw.prsk.goodfood.data.local.db.AppDatabase
+import pw.prsk.goodfood.data.gateway.PhotoGateway
+import pw.prsk.goodfood.data.local.prefs.RecipePreferences
+import pw.prsk.goodfood.data.repository.*
 
 @Module
 class RepositoryModule {
