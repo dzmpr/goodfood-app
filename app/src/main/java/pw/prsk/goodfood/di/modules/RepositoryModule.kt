@@ -28,4 +28,8 @@ class RepositoryModule {
     @Provides
     fun provideProductUnitsRepository(dbInstance: AppDatabase): ProductUnitsRepository =
         ProductUnitsRepository(dbInstance)
+
+    @Provides
+    fun provideCartRepository(dbInstance: AppDatabase): CartRepository =
+        CartRepository(dbInstance)
 }
