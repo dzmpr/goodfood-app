@@ -3,6 +3,7 @@ package pw.prsk.goodfood.presentation.adapter
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.StrikethroughSpan
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,6 +36,16 @@ class CartAdapter(private val callback: BoughtChangeStateCallback) :
                 spannedText.setSpan(
                     StrikethroughSpan(), 0, spannedText.length, Spannable.SPAN_EXCLUSIVE_INCLUSIVE
                 )
+                productName.setTextColor(
+                    productName.context.resources.getColor(
+                        R.color.neutral_gray,
+                        productName.context.theme
+                    )
+                )
+            } else {
+                val color = TypedValue()
+                productName.context.theme.resolveAttribute(R.attr.colorOnSurface, color, true)
+                productName.setTextColor(color.data)
             }
             productName.text = spannedText
             val amountInt = item.amount.toInt()
