@@ -9,9 +9,4 @@
         android:id="@id/actionCart"
         android:title="@string/label_navigation_cart"
         android:icon="@drawable/ic_cart"/>
-
-    <item
-        android:id="@id/actionProfile"
-        android:title="@string/label_navigation_profile"
-        android:icon="@drawable/ic_navigation_profile"/>
 </menu>
