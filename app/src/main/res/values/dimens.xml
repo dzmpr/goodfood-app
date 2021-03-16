@@ -4,4 +4,5 @@
     <dimen name="layout_start_margin">16dp</dimen>
     <dimen name="layout_end_margin">16dp</dimen>
     <dimen name="bottom_sheet_horizontal_margin">6dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

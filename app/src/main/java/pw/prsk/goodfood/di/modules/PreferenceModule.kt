@@ -1,10 +1,9 @@
 package pw.prsk.goodfood.di.modules
 
-import android.content.Context
 import dagger.Binds
 import dagger.Module
-import pw.prsk.goodfood.data.local.PreferenceHelper
-import pw.prsk.goodfood.data.local.RecipePreferences
+import pw.prsk.goodfood.data.local.prefs.PreferenceHelper
+import pw.prsk.goodfood.data.local.prefs.RecipePreferences
 
 @Module
 abstract class PreferenceModule {

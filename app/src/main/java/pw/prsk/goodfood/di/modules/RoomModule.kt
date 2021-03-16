@@ -3,7 +3,7 @@ package pw.prsk.goodfood.di.modules
 import android.app.Application
 import dagger.Module
 import dagger.Provides
-import pw.prsk.goodfood.data.AppDatabase
+import pw.prsk.goodfood.data.local.db.AppDatabase
 import javax.inject.Singleton
 
 @Module

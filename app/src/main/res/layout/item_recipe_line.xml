@@ -70,7 +70,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/cbFavoriteMark"
         android:layout_gravity="center_vertical"
-        android:button="@drawable/ic_favaorites_background"
+        android:button="@drawable/ic_favorites_background"
         android:buttonTint="@color/color_favorite_icon"
         android:layout_marginEnd="@dimen/layout_end_margin"
         android:minWidth="0dp"

@@ -7,7 +7,7 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
@@ -117,16 +117,17 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/bAllRecipes"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:padding="10dp"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp"
                 android:text="@string/label_all_recipes"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
                 app:layout_constraintStart_toStartOf="@id/guidelineStart"
-                app:layout_constraintTop_toBottomOf="@id/rvAllRecipesList"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@id/rvAllRecipesList" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guidelineStart"
@@ -163,27 +164,26 @@
 
     </androidx.core.widget.NestedScrollView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvNoDataPlaceholder"
-            android:drawablePadding="15dp"
-            android:text="@string/description_no_data"
-            android:textColor="?attr/colorOnSurface"
-            android:textSize="20sp"
-            android:layout_gravity="center"
-            android:visibility="gone"
-            app:drawableTopCompat="@drawable/ic_recipe" />
+    <TextView
+        android:id="@+id/tvNoDataPlaceholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:drawablePadding="15dp"
+        android:text="@string/description_no_data"
+        android:textColor="?attr/colorOnSurface"
+        android:textSize="20sp"
+        android:visibility="gone"
+        app:drawableTint="?attr/colorOnSurface"
+        app:drawableTopCompat="@drawable/ic_recipe" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddMeal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="10dp"
-        android:clickable="true"
-        android:focusable="true"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginBottom="@dimen/fab_margin"
         android:contentDescription="@string/add_recipe_label"
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
         app:srcCompat="@drawable/ic_plus_sign"
