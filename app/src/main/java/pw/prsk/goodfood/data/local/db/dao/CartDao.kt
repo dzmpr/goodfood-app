@@ -23,4 +23,7 @@ interface CartDao: BaseDao<CartItem> {
 
     @Query("DELETE FROM cart")
     fun clearCart()
+
+    @Query("DELETE FROM cart WHERE product_id = :productId")
+    fun removeItemByProductId(productId: Int)
 }
