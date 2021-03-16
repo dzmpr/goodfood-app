@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/actionRecipes"
-        android:name="pw.prsk.goodfood.RecipesOverviewFragment"
+        android:name="pw.prsk.goodfood.presentation.ui.RecipesOverviewFragment"
         android:label="MealsFragment"
         tools:layout="@layout/fragment_recipes_overview"/>
     <fragment
         android:id="@+id/actionCart"
-        android:name="pw.prsk.goodfood.ProfileFragment"
+        android:name="pw.prsk.goodfood.presentation.ui.CartFragment"
         android:label="ProductsFragment"
-        tools:layout="@layout/fragment_profile"/>
+        tools:layout="@layout/fragment_cart"/>
     <fragment
         android:id="@+id/actionProfile"
-        android:name="pw.prsk.goodfood.ProfileFragment"
+        android:name="pw.prsk.goodfood.presentation.ui.ProfileFragment"
         android:label="ProfileFragment"
         tools:layout="@layout/fragment_profile"/>
 </navigation>

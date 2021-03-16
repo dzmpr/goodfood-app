@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="pw.prsk.goodfood.HomeFragment"
+        android:name="pw.prsk.goodfood.presentation.ui.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
@@ -27,13 +27,13 @@
 
     <fragment
         android:id="@+id/editRecipeFragment"
-        android:name="pw.prsk.goodfood.EditRecipeFragment"
+        android:name="pw.prsk.goodfood.presentation.ui.EditRecipeFragment"
         android:label="EditRecipeFragment"
         tools:layout="@layout/fragment_edit_recipe" >
     </fragment>
     <fragment
         android:id="@+id/recipeListFragment"
-        android:name="pw.prsk.goodfood.RecipeListFragment"
+        android:name="pw.prsk.goodfood.presentation.ui.RecipeListFragment"
         android:label="RecipeListFragment"
         tools:layout="@layout/fragment_recipe_list">
         <action
@@ -42,7 +42,7 @@
     </fragment>
     <fragment
         android:id="@+id/recipeFragment"
-        android:name="pw.prsk.goodfood.RecipeFragment"
+        android:name="pw.prsk.goodfood.presentation.ui.RecipeFragment"
         android:label="RecipeFragment"
         tools:layout="@layout/fragment_recipe">
         <action

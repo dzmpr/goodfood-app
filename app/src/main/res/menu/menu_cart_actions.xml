@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/actionRemovePurchased"
+        android:title="@string/label_remove_purchased"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/actionClearCart"
+        android:title="@string/label_clear_cart"
+        app:showAsAction="never" />
+</menu>

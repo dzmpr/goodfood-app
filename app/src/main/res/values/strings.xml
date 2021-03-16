@@ -49,9 +49,15 @@
     <string name="label_edit_recipe">Edit recipe</string>
     <string name="label_mark_as_cooked">Mark as cooked</string>
     <string name="label_recipe">Recipe</string>
-    <string name="label_last_cooked">Last cooked: \%s\.</string>
+    <string name="label_last_cooked">Last cooked: %s.</string>
     <string name="label_never">never</string>
     <string name="label_add_to_cart">Add ingredients to cart</string>
     <string name="description_ingredients_placeholder">Empty ingredients list placeholder</string>
     <string name="label_delete_recipe">Delete recipe</string>
+    <string name="label_cart">Cart</string>
+    <string name="label_added_to_cart">Ingredients in your cart!</string>
+    <string name="label_remove">Remove</string>
+    <string name="label_empty_cart">Your cart is empty!</string>
+    <string name="label_clear_cart">Clear cart</string>
+    <string name="label_remove_purchased">Remove purchased</string>
 </resources>
