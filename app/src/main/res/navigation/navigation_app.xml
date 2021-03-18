@@ -23,6 +23,9 @@
         <action
             android:id="@+id/actionNavigateToRecipe"
             app:destination="@id/recipeFragment" />
+        <action
+            android:id="@+id/actionNavigateToSettings"
+            app:destination="@id/settingsFragment" />
     </fragment>
 
     <fragment
@@ -49,4 +52,9 @@
             android:id="@+id/actionNavigateToEditRecipe"
             app:destination="@id/editRecipeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="pw.prsk.goodfood.presentation.ui.SettingsFragment"
+        android:label="SettingsFragment"
+        tools:layout="@layout/fragment_settings"/>
 </navigation>

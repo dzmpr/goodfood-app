@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.GoodFood.ActionBar" parent="ThemeOverlay.MaterialComponents.ActionBar">
+        <item name="iconTint">?attr/colorOnSurface</item>
+        <item name="colorControlNormal">?attr/colorOnSurface</item>
+        <item name="tint">?attr/colorOnSurface</item>
+        <item name="android:background">?attr/colorSurface</item>
+    </style>
+
+    <style name="BottomSheetDialogStyle" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+        <!-- Prevent keyboard to draw above BottomSheetDialog -->
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
+    <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bg_bottom_sheet</item>
+    </style>
+
+    <style name="Theme.GoodFood.FilterChip" parent="Widget.MaterialComponents.Chip.Filter">
+        <item name="chipBackgroundColor">@color/chip_background_color</item>
+        <item name="checkedIconTint">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="Theme.GoodFood.Preference" parent="PreferenceThemeOverlay.v14.Material">
+        <item name="android:layout">@layout/fragment_settings</item>
+    </style>
+
+    <style name="Theme.GoodFood.Dialog" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="background">?attr/colorSurface</item>
+        <item name="dialogCornerRadius">10dp</item>
+    </style>
+</resources>

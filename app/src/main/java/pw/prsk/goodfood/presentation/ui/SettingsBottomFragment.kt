@@ -1,18 +1,15 @@
 package pw.prsk.goodfood.presentation.ui
 
 import android.app.Dialog
-import android.content.res.Configuration
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.navigation.Navigation
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import pw.prsk.goodfood.BuildConfig
 import pw.prsk.goodfood.R
 import pw.prsk.goodfood.databinding.FragmentBottomSettingsBinding
 
@@ -51,7 +48,8 @@ class SettingsBottomFragment: BottomSheetDialogFragment() {
         }
 
         binding.llItemSettings.setOnClickListener {
-            Toast.makeText(context, "Not implemented", Toast.LENGTH_SHORT).show()
+            Navigation.findNavController(requireActivity(), R.id.fcvContainer).navigate(R.id.actionNavigateToSettings)
+            dismiss()
         }
 
         binding.llItemBackup.setOnClickListener {

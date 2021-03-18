@@ -64,4 +64,28 @@
     <string name="label_backup_amp_restore"><![CDATA[Backup & restore]]></string>
     <string name="label_manage_products">Manage products</string>
     <string name="label_manage_categories">Manage categories</string>
+
+    <string name="label_dark_theme">Dark theme</string>
+    <string name="label_light_theme">Light theme</string>
+    <string name="label_follow_system">Follow system</string>
+    <string name="label_follow_saver">Follow battery saver</string>
+
+    <string name="label_recipe_prefs">Recipe preferences</string>
+    <string name="label_app_prefs">App preferences</string>
+
+    <string name="label_default_servings">Servings count</string>
+    <string name="desc_default_servings">Default count of servings</string>
+    <string name="label_app_theme">App theme</string>
+
+    <string-array name="labels_app_theme_new">
+        <item>@string/label_follow_system</item>
+        <item>@string/label_light_theme</item>
+        <item>@string/label_dark_theme</item>
+    </string-array>
+
+    <string-array name="labels_app_theme_old">
+        <item>@string/label_follow_saver</item>
+        <item>@string/label_light_theme</item>
+        <item>@string/label_dark_theme</item>
+    </string-array>
 </resources>
