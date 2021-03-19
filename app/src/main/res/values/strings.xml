@@ -16,12 +16,6 @@
     <string name="description_label">Description</string>
     <string name="delete_action_label">Delete</string>
     <string name="snackbar_item_deleted">\"%s\" was removed.</string>
-
-    <!--    Prepopulation data-->
-    <string name="default_product_unit_1">pcs.</string>
-    <string name="default_product_unit_2">tsp.</string>
-    <string name="default_product_unit_3">tbs.</string>
-
     <string name="label_name_error">Field shouldn\'t be empty.</string>
     <string name="label_category_error">Select category.</string>
     <string name="label_product_units_error">Select units.</string>

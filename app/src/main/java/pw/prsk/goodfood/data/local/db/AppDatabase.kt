@@ -51,9 +51,10 @@ abstract class AppDatabase : RoomDatabase() {
 
                             // Prepopulate units
                             with(database.productUnitsDao()) {
-                                insert(ProductUnit(name = res.getString(R.string.default_product_unit_1)))
-                                insert(ProductUnit(name = res.getString(R.string.default_product_unit_2)))
-                                insert(ProductUnit(name = res.getString(R.string.default_product_unit_3)))
+                                val units = res.getStringArray(R.array.labels_units)
+                                units.forEach {
+                                    insert(ProductUnit(name = it))
+                                }
                             }
 
                             // Create category 'No category'
