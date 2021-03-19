@@ -2,6 +2,7 @@ package pw.prsk.goodfood.presentation.ui
 
 import android.os.Build
 import android.os.Bundle
+import android.text.InputType
 import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatDelegate
@@ -15,7 +16,6 @@ import pw.prsk.goodfood.data.local.prefs.SettingsPreferences
 
 class SettingsFragment: PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-//        setPreferencesFromResource(R.xml.app_settings, rootKey)
         val screen = preferenceManager.createPreferenceScreen(context)
         preferenceManager.sharedPreferencesName = SettingsPreferences.PREFERENCES_NAME
 
@@ -86,6 +86,10 @@ class SettingsFragment: PreferenceFragmentCompat() {
             summary = resources.getString(R.string.desc_default_servings)
             isIconSpaceReserved = false
             dialogTitle = resources.getString(R.string.desc_default_servings)
+        }
+        // Set number input type
+        defaultServingsNumPreference.setOnBindEditTextListener { editText ->
+            editText.inputType = InputType.TYPE_CLASS_NUMBER
         }
         category.addPreference(defaultServingsNumPreference)
     }
