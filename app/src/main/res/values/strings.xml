@@ -16,12 +16,6 @@
     <string name="description_label">Description</string>
     <string name="delete_action_label">Delete</string>
     <string name="snackbar_item_deleted">\"%s\" was removed.</string>
-
-    <!--    Prepopulation data-->
-    <string name="default_product_unit_1">pcs.</string>
-    <string name="default_product_unit_2">tsp.</string>
-    <string name="default_product_unit_3">tbs.</string>
-
     <string name="label_name_error">Field shouldn\'t be empty.</string>
     <string name="label_category_error">Select category.</string>
     <string name="label_product_units_error">Select units.</string>
@@ -60,4 +54,32 @@
     <string name="label_empty_cart">Your cart is empty!</string>
     <string name="label_clear_cart">Clear cart</string>
     <string name="label_remove_purchased">Remove purchased</string>
+    <string name="label_settings">Settings</string>
+    <string name="label_backup_amp_restore"><![CDATA[Backup & restore]]></string>
+    <string name="label_manage_products">Manage products</string>
+    <string name="label_manage_categories">Manage categories</string>
+
+    <string name="label_dark_theme">Dark theme</string>
+    <string name="label_light_theme">Light theme</string>
+    <string name="label_follow_system">Follow system</string>
+    <string name="label_follow_saver">Follow battery saver</string>
+
+    <string name="label_recipe_prefs">Recipe preferences</string>
+    <string name="label_app_prefs">App preferences</string>
+
+    <string name="label_default_servings">Servings count</string>
+    <string name="desc_default_servings">Default count of servings</string>
+    <string name="label_app_theme">App theme</string>
+
+    <string-array name="labels_app_theme_new">
+        <item>@string/label_follow_system</item>
+        <item>@string/label_light_theme</item>
+        <item>@string/label_dark_theme</item>
+    </string-array>
+
+    <string-array name="labels_app_theme_old">
+        <item>@string/label_follow_saver</item>
+        <item>@string/label_light_theme</item>
+        <item>@string/label_dark_theme</item>
+    </string-array>
 </resources>

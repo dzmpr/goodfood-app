@@ -21,27 +21,7 @@
         <item name="android:windowLightStatusBar">true</item>
 
         <item name="bottomSheetDialogTheme">@style/BottomSheetDialogStyle</item>
-    </style>
-
-    <style name="Theme.GoodFood.ActionBar" parent="ThemeOverlay.MaterialComponents.ActionBar">
-        <item name="iconTint">?attr/colorOnSurface</item>
-        <item name="colorControlNormal">?attr/colorOnSurface</item>
-        <item name="tint">?attr/colorOnSurface</item>
-        <item name="android:background">?attr/colorSurface</item>
-    </style>
-
-    <style name="BottomSheetDialogStyle" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
-<!--        <item name="colorSurface">@color/ivory</item>-->
-        <item name="android:windowSoftInputMode">adjustResize</item>
-        <item name="android:windowIsFloating">false</item>
-    </style>
-
-    <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@drawable/bottom_sheet_background</item>
-    </style>
-
-    <style name="Theme.GoodFood.FilterChip" parent="Widget.MaterialComponents.Chip.Filter">
-        <item name="chipBackgroundColor">@color/chip_background_color</item>
+        <item name="preferenceTheme">@style/Theme.GoodFood.Preference</item>
+        <item name="alertDialogTheme">@style/Theme.GoodFood.Dialog</item>
     </style>
 </resources>

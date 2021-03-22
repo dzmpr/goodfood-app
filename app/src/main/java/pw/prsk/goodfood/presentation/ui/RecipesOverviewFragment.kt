@@ -91,6 +91,17 @@ class RecipesOverviewFragment : Fragment() {
             }
             Navigation.findNavController(requireActivity(), R.id.fcvContainer).navigate(R.id.actionNavigateToRecipeList, args)
         }
+
+        binding.tbToolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.actionOpenSettings -> {
+                    val fragment = SettingsBottomFragment()
+                    fragment.show(childFragmentManager, null)
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     private fun initRecyclers() {

@@ -2,13 +2,10 @@ package pw.prsk.goodfood.di.components
 
 import android.app.Application
 import dagger.Component
-import pw.prsk.goodfood.presentation.ui.RecipeFragment
-import pw.prsk.goodfood.presentation.ui.RecipeListFragment
-import pw.prsk.goodfood.presentation.ui.RecipesOverviewFragment
 import pw.prsk.goodfood.presentation.adapter.RecipeCardAdapter
 import pw.prsk.goodfood.presentation.adapter.RecipeLineAdapter
 import pw.prsk.goodfood.di.modules.*
-import pw.prsk.goodfood.presentation.ui.CartFragment
+import pw.prsk.goodfood.presentation.ui.*
 import pw.prsk.goodfood.presentation.viewmodel.EditRecipeViewModel
 import javax.inject.Singleton
 
@@ -24,6 +21,7 @@ import javax.inject.Singleton
 )
 interface AppComponent {
     fun context(): Application
+    fun inject(app: MyApplication)
 
     fun inject(fragment: RecipesOverviewFragment)
     fun inject(fragment: RecipeListFragment)

@@ -4,6 +4,8 @@
     android:id="@+id/bsdMealsContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingVertical="10dp"
+    android:paddingHorizontal="20dp"
     app:layout_behavior="@string/bottom_sheet_behavior">
 
     <TextView

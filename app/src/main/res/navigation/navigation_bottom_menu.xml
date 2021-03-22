@@ -15,9 +15,4 @@
         android:name="pw.prsk.goodfood.presentation.ui.CartFragment"
         android:label="ProductsFragment"
         tools:layout="@layout/fragment_cart"/>
-    <fragment
-        android:id="@+id/actionProfile"
-        android:name="pw.prsk.goodfood.presentation.ui.ProfileFragment"
-        android:label="ProfileFragment"
-        tools:layout="@layout/fragment_profile"/>
 </navigation>

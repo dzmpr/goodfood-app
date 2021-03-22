@@ -1,15 +1,11 @@
 package pw.prsk.goodfood.presentation.ui
 
-import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AutoCompleteTextView
 import androidx.fragment.app.viewModels
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import pw.prsk.goodfood.R
 import pw.prsk.goodfood.presentation.adapter.BaseDropdownAdapter
 import pw.prsk.goodfood.presentation.adapter.ProductAutocompleteAdapter
@@ -22,25 +18,13 @@ import pw.prsk.goodfood.utils.DropdownSelectionHelper
 import pw.prsk.goodfood.utils.InputValidator
 import pw.prsk.goodfood.presentation.viewmodel.EditRecipeViewModel
 
-class AddIngredientBottomFragment : BottomSheetDialogFragment() {
+class AddIngredientBottomFragment : BaseBottomSheetFragment() {
     private lateinit var binding: FragmentAddIngredientBinding
 
     private val editRecipeViewModel: EditRecipeViewModel by viewModels({requireParentFragment()})
 
     private lateinit var selectedUnitHelper: DropdownSelectionHelper
     private lateinit var selectedProductHelper: AutocompleteSelectionHelper
-
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        // Open dialog with expanded state
-        val bottomSheetDialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
-        bottomSheetDialog.setOnShowListener {
-            val dialog = it as BottomSheetDialog
-            val bottomSheet =
-                dialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
-            BottomSheetBehavior.from(bottomSheet!!).state = BottomSheetBehavior.STATE_EXPANDED
-        }
-        return bottomSheetDialog
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,6 +36,7 @@ class AddIngredientBottomFragment : BottomSheetDialogFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.tilIngredientName.requestFocus()
 
         val nameValidator = InputValidator(binding.tilIngredientName, resources.getString(R.string.label_name_error))
