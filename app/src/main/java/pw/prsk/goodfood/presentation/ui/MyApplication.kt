@@ -34,6 +34,9 @@ class MyApplication : Application() {
             SettingsPreferences.VAL_THEME_LIGHT -> {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
+            SettingsPreferences.VAL_THEME_SAVER -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY)
+            }
         }
     }
 }

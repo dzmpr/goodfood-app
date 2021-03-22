@@ -43,11 +43,19 @@ class SettingsFragment: PreferenceFragmentCompat() {
                 resources.getStringArray(R.array.labels_app_theme_new)
             }
             setDefaultValue(SettingsPreferences.VAL_THEME_AUTO)
-            entryValues = arrayOf(
-                SettingsPreferences.VAL_THEME_AUTO,
-                SettingsPreferences.VAL_THEME_LIGHT,
-                SettingsPreferences.VAL_THEME_DARK
-            )
+            entryValues = if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.N) {
+                arrayOf(
+                    SettingsPreferences.VAL_THEME_SAVER,
+                    SettingsPreferences.VAL_THEME_LIGHT,
+                    SettingsPreferences.VAL_THEME_DARK
+                )
+            } else {
+                arrayOf(
+                    SettingsPreferences.VAL_THEME_AUTO,
+                    SettingsPreferences.VAL_THEME_LIGHT,
+                    SettingsPreferences.VAL_THEME_DARK
+                )
+            }
             isIconSpaceReserved = false
             summaryProvider = ListPreference.SimpleSummaryProvider.getInstance()
             dialogTitle = getString(R.string.label_app_theme)
@@ -64,6 +72,10 @@ class SettingsFragment: PreferenceFragmentCompat() {
                 }
                 SettingsPreferences.VAL_THEME_AUTO -> {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+                    true
+                }
+                SettingsPreferences.VAL_THEME_SAVER -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY)
                     true
                 }
                 else -> false

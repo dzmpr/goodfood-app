@@ -14,5 +14,6 @@ class SettingsPreferences @Inject constructor(
         const val VAL_THEME_DARK = "${FIELD_APP_THEME}_dark"
         const val VAL_THEME_LIGHT = "${FIELD_APP_THEME}_light"
         const val VAL_THEME_AUTO = "${FIELD_APP_THEME}_auto"
+        const val VAL_THEME_SAVER = "${FIELD_APP_THEME}_saver"
     }
 }
