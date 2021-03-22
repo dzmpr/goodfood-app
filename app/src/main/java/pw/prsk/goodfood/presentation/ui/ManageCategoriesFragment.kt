@@ -4,10 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import pw.prsk.goodfood.R
 import pw.prsk.goodfood.databinding.FragmentManageCategoriesBinding
 import pw.prsk.goodfood.presentation.adapter.CategoryAdapter
@@ -47,11 +50,19 @@ class ManageCategoriesFragment: Fragment() {
     }
 
     private fun initList() {
-        val listAdapter = CategoryAdapter()
+        val listAdapter = CategoryAdapter(object: CategoryAdapter.CategoryItemCallback {
+            override fun onClick(id: Int) {
+                Toast.makeText(context, "Clicked $id category.", Toast.LENGTH_SHORT).show()
+            }
+        })
+        val manager = FlexboxLayoutManager(context).apply {
+            flexDirection = FlexDirection.ROW
+            justifyContent = JustifyContent.SPACE_EVENLY
+        }
 
         binding.rvCategoriesList.apply {
             adapter = listAdapter
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = manager
         }
 
         viewModel.categoryList.observe(viewLifecycleOwner) {

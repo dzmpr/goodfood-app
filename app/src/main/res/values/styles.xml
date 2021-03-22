@@ -31,4 +31,9 @@
         <item name="background">?attr/colorSurface</item>
         <item name="dialogCornerRadius">10dp</item>
     </style>
+
+    <style name="TextAppearance.GoodFood.ChipBold" parent="TextAppearance.MaterialComponents.Chip">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">15sp</item>
+    </style>
 </resources>

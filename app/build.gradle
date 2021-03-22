@@ -84,4 +84,6 @@ dependencies {
     implementation "androidx.exifinterface:exifinterface:1.3.2"
     // Preferences library
     implementation "androidx.preference:preference-ktx:$preference_version"
+    // Flexbox
+    implementation "com.google.android:flexbox:2.0.1"
 }

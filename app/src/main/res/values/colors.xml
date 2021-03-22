@@ -20,4 +20,13 @@
 
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!--  Chip colors  -->
+    <!--  Palette: https://coolors.co/d5484d-f6823a-e6b40f-36ab45-a09be7-5671dc  -->
+    <color name="chip_red">#D5484D</color>
+    <color name="chip_orange">#F6823A</color>
+    <color name="chip_yellow">#E6B40F</color>
+    <color name="chip_green">#36AB45</color>
+    <color name="chip_light_blue">#A09BE7</color>
+    <color name="chip_blue">#5671DC</color>
 </resources>
