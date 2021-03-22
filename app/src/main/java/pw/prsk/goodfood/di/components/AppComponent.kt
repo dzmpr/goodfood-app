@@ -27,6 +27,7 @@ interface AppComponent {
     fun inject(fragment: RecipeListFragment)
     fun inject(fragment: RecipeFragment)
     fun inject(fragment: CartFragment)
+    fun inject(fragment: ManageCategoriesFragment)
 
     fun inject(adapter: RecipeCardAdapter)
     fun inject(adapter: RecipeLineAdapter)
