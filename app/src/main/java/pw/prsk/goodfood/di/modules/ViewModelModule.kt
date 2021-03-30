@@ -39,4 +39,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(ManageCategoriesViewModel::class)
     abstract fun provideManageCategoriesViewModel(manageCategoriesViewModel: ManageCategoriesViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ManageProductsViewModel::class)
+    abstract fun provideManageProductsViewModel(manageProductsViewModel: ManageProductsViewModel): ViewModel
 }

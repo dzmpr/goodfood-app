@@ -30,7 +30,8 @@ class SettingsBottomFragment: BaseBottomSheetFragment() {
         }
 
         binding.llItemManageProducts.setOnClickListener {
-            Toast.makeText(context, "Not implemented", Toast.LENGTH_SHORT).show()
+            Navigation.findNavController(requireActivity(), R.id.fcvContainer).navigate(R.id.actionNavigateToManageProducts)
+            dismiss()
         }
 
         binding.llItemSettings.setOnClickListener {

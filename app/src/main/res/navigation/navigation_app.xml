@@ -29,6 +29,9 @@
         <action
             android:id="@+id/actionNavigateToManageCategories"
             app:destination="@id/manageCategoriesFragment" />
+        <action
+            android:id="@+id/actionNavigateToManageProducts"
+            app:destination="@id/manageProductsFragment" />
     </fragment>
 
     <fragment
@@ -65,4 +68,9 @@
         android:name="pw.prsk.goodfood.presentation.ui.ManageCategoriesFragment"
         android:label="ManageCategoriesFragment"
         tools:layout="@layout/fragment_manage_categories"/>
+    <fragment
+        android:id="@+id/manageProductsFragment"
+        android:name="pw.prsk.goodfood.presentation.ui.ManageProductsFragment"
+        android:label="ManageProductsFragment"
+        tools:layout="@layout/fragment_manage_products"/>
 </navigation>
