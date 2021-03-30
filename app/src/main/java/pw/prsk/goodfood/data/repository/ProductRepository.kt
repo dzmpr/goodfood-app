@@ -14,6 +14,10 @@ class ProductRepository(private val dbInstance: AppDatabase) {
         dbInstance.productDao().getAll()
     }
 
+    suspend fun getProductsFlow() = withContext(Dispatchers.IO) {
+        dbInstance.productDao().getProductsFlow()
+    }
+
     suspend fun removeProduct(product: Product) = withContext(Dispatchers.IO) {
         dbInstance.productDao().delete(product)
     }
@@ -28,5 +32,9 @@ class ProductRepository(private val dbInstance: AppDatabase) {
 
     suspend fun decreaseUsage(id: Int) = withContext(Dispatchers.IO) {
         dbInstance.productDao().decreaseUsages(id)
+    }
+
+    suspend fun renameProduct(id: Int, name: String) = withContext(Dispatchers.IO) {
+        dbInstance.productDao().renameProduct(id, name)
     }
 }

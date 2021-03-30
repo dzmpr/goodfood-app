@@ -74,6 +74,7 @@
     <string name="label_ok">OK</string>
     <string name="label_cancel">Cancel</string>
     <string name="label_name">Name</string>
+    <string name="label_change_product_name">Rename product</string>
 
     <string-array name="labels_app_theme_new">
         <item>@string/label_follow_system</item>
