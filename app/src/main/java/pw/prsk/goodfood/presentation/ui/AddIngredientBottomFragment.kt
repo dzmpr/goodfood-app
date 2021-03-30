@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AutoCompleteTextView
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import pw.prsk.goodfood.R
 import pw.prsk.goodfood.presentation.adapter.BaseDropdownAdapter
 import pw.prsk.goodfood.presentation.adapter.ProductAutocompleteAdapter
@@ -17,14 +17,23 @@ import pw.prsk.goodfood.utils.AutocompleteSelectionHelper
 import pw.prsk.goodfood.utils.DropdownSelectionHelper
 import pw.prsk.goodfood.utils.InputValidator
 import pw.prsk.goodfood.presentation.viewmodel.EditRecipeViewModel
+import javax.inject.Inject
 
 class AddIngredientBottomFragment : BaseBottomSheetFragment() {
     private lateinit var binding: FragmentAddIngredientBinding
 
-    private val editRecipeViewModel: EditRecipeViewModel by viewModels({requireParentFragment()})
+    @Inject lateinit var vmFactory: ViewModelProvider.Factory
+    private lateinit var editRecipeViewModel: EditRecipeViewModel
 
     private lateinit var selectedUnitHelper: DropdownSelectionHelper
     private lateinit var selectedProductHelper: AutocompleteSelectionHelper
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        (requireActivity().application as MyApplication).appComponent.inject(this)
+        editRecipeViewModel = ViewModelProvider(requireParentFragment(), vmFactory).get(EditRecipeViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

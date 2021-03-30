@@ -10,6 +10,7 @@ import android.widget.PopupMenu
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,11 +22,13 @@ import pw.prsk.goodfood.databinding.FragmentEditRecipeBinding
 import pw.prsk.goodfood.utils.AutocompleteSelectionHelper
 import pw.prsk.goodfood.utils.InputValidator
 import pw.prsk.goodfood.presentation.viewmodel.EditRecipeViewModel
+import javax.inject.Inject
 
 class EditRecipeFragment : Fragment() {
     private lateinit var binding: FragmentEditRecipeBinding
 
-    private val viewModel: EditRecipeViewModel by viewModels()
+    @Inject lateinit var vmFactory: ViewModelProvider.Factory
+    private lateinit var viewModel: EditRecipeViewModel
 
     private val getPhoto = registerForActivityResult(ActivityResultContracts.TakePicture()) {
         if (it) {
@@ -47,12 +50,9 @@ class EditRecipeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (savedInstanceState == null) {
-            (requireActivity().application as MyApplication).appComponent.inject(viewModel)
-            viewModel.loadProducts()
-            viewModel.loadUnits()
-            viewModel.loadCategories()
-        }
+
+        (requireActivity().application as MyApplication).appComponent.inject(this)
+        viewModel = ViewModelProvider(this, vmFactory).get(EditRecipeViewModel::class.java)
     }
 
     override fun onCreateView(

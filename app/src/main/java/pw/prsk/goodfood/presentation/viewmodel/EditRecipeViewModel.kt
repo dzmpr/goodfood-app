@@ -21,14 +21,14 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import javax.inject.Inject
 
-class EditRecipeViewModel : ViewModel() {
-    @Inject lateinit var productRepository: ProductRepository
-    @Inject lateinit var productUnitsRepository: ProductUnitsRepository
-    @Inject lateinit var recipeRepository: RecipeRepository
-    @Inject lateinit var recipeCategoryRepository: RecipeCategoryRepository
-    @Inject lateinit var photoGateway: PhotoGateway
-    @Inject lateinit var recipePreferences: RecipePreferences
-
+class EditRecipeViewModel @Inject constructor(
+    private val productRepository: ProductRepository,
+    private val productUnitsRepository: ProductUnitsRepository,
+    private val recipeRepository: RecipeRepository,
+    private val recipeCategoryRepository: RecipeCategoryRepository,
+    private val photoGateway: PhotoGateway,
+    private val recipePreferences: RecipePreferences
+) : ViewModel() {
     private val ingredientsList: MutableList<IngredientWithMeta> = mutableListOf()
 
     val ingredients: MutableLiveData<List<IngredientWithMeta>> by lazy {
@@ -55,6 +55,14 @@ class EditRecipeViewModel : ViewModel() {
 
     val saveStatus: SingleLiveEvent<Boolean> = SingleLiveEvent()
 
+    init {
+        viewModelScope.launch {
+            productsList.value = productRepository.getProducts()
+            unitsList.value = productUnitsRepository.getUnits()
+            recipeCategories.value = recipeCategoryRepository.getCategories()
+        }
+    }
+
     fun setPhotoUri(photo: Uri) {
         photoUri = photo
         loadPhoto()
@@ -79,24 +87,6 @@ class EditRecipeViewModel : ViewModel() {
         photoFilename = photoGateway.createNewPhotoFile()
         photoUri = photoGateway.getUriForPhoto(photoFilename!!)
         return photoUri!!
-    }
-
-    fun loadProducts() {
-        viewModelScope.launch {
-            productsList.value = productRepository.getProducts()
-        }
-    }
-
-    fun loadUnits() {
-        viewModelScope.launch {
-            unitsList.value = productUnitsRepository.getUnits()
-        }
-    }
-
-    fun loadCategories() {
-        viewModelScope.launch {
-            recipeCategories.value = recipeCategoryRepository.getCategories()
-        }
     }
 
     fun addIngredient(item: IngredientWithMeta) {
