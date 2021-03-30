@@ -21,4 +21,7 @@ interface RecipeCategoryDao: BaseDao<RecipeCategory> {
 
     @Query("UPDATE recipe_categories SET reference_count = reference_count - 1 WHERE id = :id")
     fun decreaseUsages(id: Int)
+
+    @Query("UPDATE recipe_categories SET name = :categoryName WHERE id = :id")
+    fun renameCategory(id: Int, categoryName: String)
 }

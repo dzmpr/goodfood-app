@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
@@ -17,7 +16,7 @@ import pw.prsk.goodfood.presentation.adapter.CategoryAdapter
 import pw.prsk.goodfood.presentation.viewmodel.ManageCategoriesViewModel
 import javax.inject.Inject
 
-class ManageCategoriesFragment: Fragment() {
+class ManageCategoriesFragment : Fragment() {
     private var _binding: FragmentManageCategoriesBinding? = null
     private val binding: FragmentManageCategoriesBinding get() = _binding!!
 
@@ -28,6 +27,15 @@ class ManageCategoriesFragment: Fragment() {
         super.onCreate(savedInstanceState)
         (requireActivity().application as MyApplication).appComponent.inject(this)
         viewModel = ViewModelProvider(this, vmFactory).get(ManageCategoriesViewModel::class.java)
+
+        childFragmentManager.setFragmentResultListener(
+            EditNameDialogFragment.RENAME_DIALOG_KEY,
+            this
+        ) { _, resultBundle ->
+            val newName = resultBundle.getString(EditNameDialogFragment.RESULT_NAME_KEY)!!
+            val categoryId = resultBundle.getInt(EditNameDialogFragment.DATA_ID_KEY)
+            viewModel.onCategoryRename(categoryId, newName)
+        }
     }
 
     override fun onCreateView(
@@ -50,9 +58,14 @@ class ManageCategoriesFragment: Fragment() {
     }
 
     private fun initList() {
-        val listAdapter = CategoryAdapter(object: CategoryAdapter.CategoryItemCallback {
-            override fun onClick(id: Int) {
-                Toast.makeText(context, "Clicked $id category.", Toast.LENGTH_SHORT).show()
+        val listAdapter = CategoryAdapter(object : CategoryAdapter.CategoryItemCallback {
+            override fun onClick(id: Int, name: String) {
+                val dialog = EditNameDialogFragment.getDialog(
+                    resources.getString(R.string.label_change_category_name),
+                    name,
+                    id
+                )
+                dialog.show(childFragmentManager, null)
             }
         })
         val manager = FlexboxLayoutManager(context).apply {

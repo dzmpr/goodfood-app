@@ -16,7 +16,6 @@ class CategoryAdapter(private val callback: CategoryItemCallback) :
 
     class CategoryViewHolder(private val callback: CategoryItemCallback, private val view: View) :
         RecyclerView.ViewHolder(view) {
-        private var categoryId: Int = 0
         private val backgroundColors = arrayOf(
             R.color.chip_red,
             R.color.chip_orange,
@@ -27,12 +26,11 @@ class CategoryAdapter(private val callback: CategoryItemCallback) :
         )
 
         fun bind(item: RecipeCategory) {
-            categoryId = item.id!!
             (view as Chip).apply {
                 text = item.name
                 setChipBackgroundColorResource(nameToColor(item.name))
                 setOnClickListener {
-                    callback.onClick(categoryId)
+                    callback.onClick(item.id!!, item.name)
                 }
             }
         }
@@ -91,6 +89,6 @@ class CategoryAdapter(private val callback: CategoryItemCallback) :
     }
 
     interface CategoryItemCallback {
-        fun onClick(id: Int)
+        fun onClick(id: Int, name: String)
     }
 }

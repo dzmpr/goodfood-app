@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 class ManageCategoriesViewModel @Inject constructor(
     private val recipeCategoryRepository: RecipeCategoryRepository
-): ViewModel() {
+) : ViewModel() {
     private val categories by lazy {
         MutableLiveData<List<RecipeCategory>>()
     }
@@ -27,6 +27,12 @@ class ManageCategoriesViewModel @Inject constructor(
                     categories.value = it
                 }
                 .launchIn(this)
+        }
+    }
+
+    fun onCategoryRename(categoryId: Int, newName: String) {
+        viewModelScope.launch {
+            recipeCategoryRepository.renameCategory(categoryId, newName)
         }
     }
 }
