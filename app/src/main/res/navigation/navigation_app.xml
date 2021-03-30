@@ -26,6 +26,12 @@
         <action
             android:id="@+id/actionNavigateToSettings"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/actionNavigateToManageCategories"
+            app:destination="@id/manageCategoriesFragment" />
+        <action
+            android:id="@+id/actionNavigateToManageProducts"
+            app:destination="@id/manageProductsFragment" />
     </fragment>
 
     <fragment
@@ -57,4 +63,14 @@
         android:name="pw.prsk.goodfood.presentation.ui.SettingsFragment"
         android:label="SettingsFragment"
         tools:layout="@layout/fragment_settings"/>
+    <fragment
+        android:id="@+id/manageCategoriesFragment"
+        android:name="pw.prsk.goodfood.presentation.ui.ManageCategoriesFragment"
+        android:label="ManageCategoriesFragment"
+        tools:layout="@layout/fragment_manage_categories"/>
+    <fragment
+        android:id="@+id/manageProductsFragment"
+        android:name="pw.prsk.goodfood.presentation.ui.ManageProductsFragment"
+        android:label="ManageProductsFragment"
+        tools:layout="@layout/fragment_manage_products"/>
 </navigation>

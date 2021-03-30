@@ -28,7 +28,17 @@
     </style>
 
     <style name="Theme.GoodFood.Dialog" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
-        <item name="background">?attr/colorSurface</item>
+        <item name="android:background">?attr/colorSurface</item>
+        <item name="dialogCornerRadius">10dp</item>
+    </style>
+
+    <style name="TextAppearance.GoodFood.ChipBold" parent="TextAppearance.MaterialComponents.Chip">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="Theme.GoodFood.AlertDialog" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="android:background">?attr/colorSurface</item>
         <item name="dialogCornerRadius">10dp</item>
     </style>
 </resources>
