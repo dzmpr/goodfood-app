@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/actionRecipes"
-        android:name="ru.cookedapp.cooked.presentation.ui.RecipesOverviewFragment"
+        android:name="ru.cookedapp.cooked.ui.recipesOverview.RecipesOverviewFragment"
         android:label="MealsFragment"
         tools:layout="@layout/fragment_recipes_overview"/>
     <fragment
         android:id="@+id/actionCart"
-        android:name="ru.cookedapp.cooked.presentation.ui.CartFragment"
+        android:name="ru.cookedapp.cooked.ui.cart.CartFragment"
         android:label="ProductsFragment"
         tools:layout="@layout/fragment_cart"/>
 </navigation>

@@ -5,9 +5,9 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import ru.cookedapp.cooked.data.gateway.PhotoGateway
-import ru.cookedapp.cooked.data.local.db.AppDatabase
-import ru.cookedapp.cooked.data.local.db.entity.*
-import ru.cookedapp.cooked.data.local.prefs.RecipePreferences
+import ru.cookedapp.cooked.data.db.AppDatabase
+import ru.cookedapp.cooked.data.db.entity.*
+import ru.cookedapp.cooked.data.prefs.RecipePreferences
 import java.time.LocalDateTime
 
 class RecipeRepository(

@@ -2,11 +2,19 @@ package ru.cookedapp.cooked.di.components
 
 import android.app.Application
 import dagger.Component
-import ru.cookedapp.cooked.presentation.adapter.RecipeCardAdapter
-import ru.cookedapp.cooked.presentation.adapter.RecipeLineAdapter
+import ru.cookedapp.cooked.ui.recipesOverview.RecipeCardAdapter
+import ru.cookedapp.cooked.ui.recipeList.RecipeLineAdapter
 import ru.cookedapp.cooked.di.modules.*
-import ru.cookedapp.cooked.presentation.ui.*
-import ru.cookedapp.cooked.presentation.viewmodel.EditRecipeViewModel
+import ru.cookedapp.cooked.ui.editRecipe.EditRecipeViewModel
+import ru.cookedapp.cooked.ui.CookedApp
+import ru.cookedapp.cooked.ui.cart.CartFragment
+import ru.cookedapp.cooked.ui.editRecipe.AddIngredientBottomFragment
+import ru.cookedapp.cooked.ui.editRecipe.EditRecipeFragment
+import ru.cookedapp.cooked.ui.manageCategories.ManageCategoriesFragment
+import ru.cookedapp.cooked.ui.manageProducts.ManageProductsFragment
+import ru.cookedapp.cooked.ui.recipeDetails.RecipeDetailsFragment
+import ru.cookedapp.cooked.ui.recipeList.RecipeListFragment
+import ru.cookedapp.cooked.ui.recipesOverview.RecipesOverviewFragment
 import javax.inject.Singleton
 
 @Singleton
@@ -25,7 +33,7 @@ interface AppComponent {
 
     fun inject(fragment: RecipesOverviewFragment)
     fun inject(fragment: RecipeListFragment)
-    fun inject(fragment: RecipeFragment)
+    fun inject(fragment: RecipeDetailsFragment)
     fun inject(fragment: CartFragment)
     fun inject(fragment: ManageCategoriesFragment)
     fun inject(fragment: ManageProductsFragment)

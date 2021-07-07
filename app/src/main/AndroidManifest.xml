@@ -9,8 +9,8 @@
         android:supportsRtl="true"
         android:allowBackup="false"
         android:theme="@style/Theme.Cooked"
-        android:name="ru.cookedapp.cooked.presentation.ui.CookedApp">
-        <activity android:name="ru.cookedapp.cooked.presentation.ui.MainActivity">
+        android:name="ru.cookedapp.cooked.ui.CookedApp">
+        <activity android:name="ru.cookedapp.cooked.ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

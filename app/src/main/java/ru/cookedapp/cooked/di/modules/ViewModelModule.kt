@@ -6,7 +6,13 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import ru.cookedapp.cooked.di.ViewModelFactory
-import ru.cookedapp.cooked.presentation.viewmodel.*
+import ru.cookedapp.cooked.ui.cart.CartViewModel
+import ru.cookedapp.cooked.ui.editRecipe.EditRecipeViewModel
+import ru.cookedapp.cooked.ui.manageCategories.ManageCategoriesViewModel
+import ru.cookedapp.cooked.ui.manageProducts.ManageProductsViewModel
+import ru.cookedapp.cooked.ui.recipeDetails.RecipeDetailsViewModel
+import ru.cookedapp.cooked.ui.recipeList.RecipeListViewModel
+import ru.cookedapp.cooked.ui.recipesOverview.RecipesOverviewViewModel
 import ru.cookedapp.cooked.utils.ViewModelKey
 
 
@@ -27,8 +33,8 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(RecipeViewModel::class)
-    abstract fun provideRecipeViewModel(recipeViewModel: RecipeViewModel): ViewModel
+    @ViewModelKey(RecipeDetailsViewModel::class)
+    abstract fun provideRecipeViewModel(recipeDetailsViewModel: RecipeDetailsViewModel): ViewModel
 
     @Binds
     @IntoMap

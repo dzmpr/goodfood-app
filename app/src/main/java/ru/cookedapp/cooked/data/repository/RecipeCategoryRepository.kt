@@ -2,8 +2,8 @@ package ru.cookedapp.cooked.data.repository
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import ru.cookedapp.cooked.data.local.db.AppDatabase
-import ru.cookedapp.cooked.data.local.db.entity.RecipeCategory
+import ru.cookedapp.cooked.data.db.AppDatabase
+import ru.cookedapp.cooked.data.db.entity.RecipeCategory
 
 class RecipeCategoryRepository(private val dbInstance: AppDatabase) {
     suspend fun getCategories(): List<RecipeCategory> = withContext(Dispatchers.IO) {

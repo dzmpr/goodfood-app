@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="ru.cookedapp.cooked.presentation.ui.HomeFragment"
+        android:name="ru.cookedapp.cooked.ui.home.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
@@ -36,13 +36,13 @@
 
     <fragment
         android:id="@+id/editRecipeFragment"
-        android:name="ru.cookedapp.cooked.presentation.ui.EditRecipeFragment"
+        android:name="ru.cookedapp.cooked.ui.editRecipe.EditRecipeFragment"
         android:label="EditRecipeFragment"
         tools:layout="@layout/fragment_edit_recipe" >
     </fragment>
     <fragment
         android:id="@+id/recipeListFragment"
-        android:name="ru.cookedapp.cooked.presentation.ui.RecipeListFragment"
+        android:name="ru.cookedapp.cooked.ui.recipeList.RecipeListFragment"
         android:label="RecipeListFragment"
         tools:layout="@layout/fragment_recipe_list">
         <action
@@ -51,7 +51,7 @@
     </fragment>
     <fragment
         android:id="@+id/recipeFragment"
-        android:name="ru.cookedapp.cooked.presentation.ui.RecipeFragment"
+        android:name="ru.cookedapp.cooked.ui.recipeDetails.RecipeDetailsFragment"
         android:label="RecipeFragment"
         tools:layout="@layout/fragment_recipe">
         <action
@@ -60,17 +60,17 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="ru.cookedapp.cooked.presentation.ui.SettingsFragment"
+        android:name="ru.cookedapp.cooked.ui.settings.SettingsFragment"
         android:label="SettingsFragment"
         tools:layout="@layout/fragment_settings"/>
     <fragment
         android:id="@+id/manageCategoriesFragment"
-        android:name="ru.cookedapp.cooked.presentation.ui.ManageCategoriesFragment"
+        android:name="ru.cookedapp.cooked.ui.manageCategories.ManageCategoriesFragment"
         android:label="ManageCategoriesFragment"
         tools:layout="@layout/fragment_manage_categories"/>
     <fragment
         android:id="@+id/manageProductsFragment"
-        android:name="ru.cookedapp.cooked.presentation.ui.ManageProductsFragment"
+        android:name="ru.cookedapp.cooked.ui.manageProducts.ManageProductsFragment"
         android:label="ManageProductsFragment"
         tools:layout="@layout/fragment_manage_products"/>
 </navigation>

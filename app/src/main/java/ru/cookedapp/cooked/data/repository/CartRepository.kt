@@ -4,10 +4,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
-import ru.cookedapp.cooked.data.local.db.AppDatabase
-import ru.cookedapp.cooked.data.local.db.entity.CartItem
-import ru.cookedapp.cooked.data.local.db.entity.CartItemWithMeta
-import ru.cookedapp.cooked.data.local.db.entity.Ingredient
+import ru.cookedapp.cooked.data.db.AppDatabase
+import ru.cookedapp.cooked.data.db.entity.CartItem
+import ru.cookedapp.cooked.data.db.entity.CartItemWithMeta
+import ru.cookedapp.cooked.data.db.entity.Ingredient
 
 class CartRepository(private val dbInstance: AppDatabase) {
     suspend fun addIngredientsToCart(recipeId: Int, multiplier: Float) = withContext(Dispatchers.IO) {
