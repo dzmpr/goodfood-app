@@ -114,7 +114,8 @@ class RecipeListFragment : Fragment() {
                 val args = Bundle().apply {
                     putInt(RecipeDetailsFragment.RECIPE_ID_KEY, recipeId)
                 }
-                Navigation.findNavController(requireActivity(), R.id.fcvContainer).navigate(R.id.actionNavigateToRecipe, args)
+                Navigation.findNavController(requireActivity(), R.id.fcvContainer)
+                    .navigate(R.id.actionNavigateToRecipe, args)
             }
         })
         (requireActivity().application as CookedApp).appComponent.inject(recipeLineAdapter)

@@ -9,11 +9,16 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.*
-import ru.cookedapp.cooked.R
-import ru.cookedapp.cooked.data.gateway.PhotoGateway
-import ru.cookedapp.cooked.data.db.entity.RecipeWithMeta
 import javax.inject.Inject
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import ru.cookedapp.cooked.R
+import ru.cookedapp.cooked.data.db.entity.RecipeWithMeta
+import ru.cookedapp.cooked.data.gateway.PhotoGateway
 
 class RecipeLineAdapter(
     private val recipeClickCallback: RecipeListFragment.RecipeClickCallback

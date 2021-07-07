@@ -1,14 +1,18 @@
 package ru.cookedapp.cooked.data.repository
 
+import java.time.LocalDateTime
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
-import ru.cookedapp.cooked.data.gateway.PhotoGateway
 import ru.cookedapp.cooked.data.db.AppDatabase
-import ru.cookedapp.cooked.data.db.entity.*
+import ru.cookedapp.cooked.data.db.entity.Ingredient
+import ru.cookedapp.cooked.data.db.entity.IngredientWithMeta
+import ru.cookedapp.cooked.data.db.entity.Recipe
+import ru.cookedapp.cooked.data.db.entity.RecipeCategory
+import ru.cookedapp.cooked.data.db.entity.RecipeWithMeta
+import ru.cookedapp.cooked.data.gateway.PhotoGateway
 import ru.cookedapp.cooked.data.prefs.RecipePreferences
-import java.time.LocalDateTime
 
 class RecipeRepository(
     private val dbInstance: AppDatabase,
@@ -156,17 +160,17 @@ class RecipeRepository(
         }
     }
 
-    private fun removeCategory(category_id: Int) {
-        val category = dbInstance.recipeCategoryDao().getById(category_id)
+    private fun removeCategory(categoryId: Int) {
+        val category = dbInstance.recipeCategoryDao().getById(categoryId)
         // If this is the only recipe where this category is used - delete it
         if (category.referenceCount == 1) {
-            if (category_id != recipePreferences.getValue(RecipePreferences.FIELD_NO_CATEGORY,1)) {
+            if (categoryId != recipePreferences.getValue(RecipePreferences.FIELD_NO_CATEGORY,1)) {
                 dbInstance.recipeCategoryDao().delete(category)
             } else {
-                dbInstance.recipeCategoryDao().decreaseUsages(category_id)
+                dbInstance.recipeCategoryDao().decreaseUsages(categoryId)
             }
         } else {
-            dbInstance.recipeCategoryDao().decreaseUsages(category_id)
+            dbInstance.recipeCategoryDao().decreaseUsages(categoryId)
         }
     }
 

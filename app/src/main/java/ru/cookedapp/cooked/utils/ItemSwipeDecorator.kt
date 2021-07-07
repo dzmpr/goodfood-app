@@ -1,6 +1,12 @@
 package ru.cookedapp.cooked.utils
 
-import android.graphics.*
+import android.graphics.BlendMode
+import android.graphics.BlendModeColorFilter
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
+import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.text.TextPaint
 import android.util.TypedValue

@@ -9,14 +9,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import javax.inject.Inject
 import ru.cookedapp.cooked.R
 import ru.cookedapp.cooked.databinding.FragmentRecipesOverviewBinding
 import ru.cookedapp.cooked.ui.CookedApp
-import ru.cookedapp.cooked.ui.settings.SettingsBottomFragment
 import ru.cookedapp.cooked.ui.recipeDetails.RecipeDetailsFragment
 import ru.cookedapp.cooked.ui.recipeList.RecipeListFragment
-import java.lang.IllegalStateException
-import javax.inject.Inject
+import ru.cookedapp.cooked.ui.settings.SettingsBottomFragment
 
 class RecipesOverviewFragment : Fragment() {
     private var _binding: FragmentRecipesOverviewBinding? = null
@@ -34,7 +33,8 @@ class RecipesOverviewFragment : Fragment() {
             val args = Bundle().apply {
                 putInt(RecipeDetailsFragment.RECIPE_ID_KEY, recipeId)
             }
-            Navigation.findNavController(requireActivity(), R.id.fcvContainer).navigate(R.id.actionNavigateToRecipe, args)
+            Navigation.findNavController(requireActivity(), R.id.fcvContainer)
+                .navigate(R.id.actionNavigateToRecipe, args)
         }
 
         override fun onMoreButtonClick(listType: Int) {
@@ -49,7 +49,8 @@ class RecipesOverviewFragment : Fragment() {
             val args = Bundle().apply {
                 putInt(RecipeListFragment.LIST_TYPE_KEY, listTypeKey)
             }
-            Navigation.findNavController(requireActivity(), R.id.fcvContainer).navigate(R.id.actionNavigateToRecipeList, args)
+            Navigation.findNavController(requireActivity(), R.id.fcvContainer)
+                .navigate(R.id.actionNavigateToRecipeList, args)
         }
     }
 
@@ -91,7 +92,8 @@ class RecipesOverviewFragment : Fragment() {
             val args = Bundle().apply {
                 putInt(RecipeListFragment.LIST_TYPE_KEY, RecipeListFragment.LIST_TYPE_ALL)
             }
-            Navigation.findNavController(requireActivity(), R.id.fcvContainer).navigate(R.id.actionNavigateToRecipeList, args)
+            Navigation.findNavController(requireActivity(), R.id.fcvContainer)
+                .navigate(R.id.actionNavigateToRecipeList, args)
         }
 
         binding.tbToolbar.setOnMenuItemClickListener {

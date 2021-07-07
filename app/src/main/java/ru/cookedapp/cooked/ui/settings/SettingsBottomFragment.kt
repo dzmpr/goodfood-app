@@ -26,12 +26,14 @@ class SettingsBottomFragment: BaseBottomSheetFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.llItemManageCategories.setOnClickListener {
-            Navigation.findNavController(requireActivity(), R.id.fcvContainer).navigate(R.id.actionNavigateToManageCategories)
+            Navigation.findNavController(requireActivity(), R.id.fcvContainer)
+                .navigate(R.id.actionNavigateToManageCategories)
             dismiss()
         }
 
         binding.llItemManageProducts.setOnClickListener {
-            Navigation.findNavController(requireActivity(), R.id.fcvContainer).navigate(R.id.actionNavigateToManageProducts)
+            Navigation.findNavController(requireActivity(), R.id.fcvContainer)
+                .navigate(R.id.actionNavigateToManageProducts)
             dismiss()
         }
 

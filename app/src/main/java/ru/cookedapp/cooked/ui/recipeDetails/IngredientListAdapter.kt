@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.cookedapp.cooked.R
 import ru.cookedapp.cooked.data.db.entity.IngredientWithMeta
+import java.util.*
 
 class IngredientListAdapter: RecyclerView.Adapter<IngredientListAdapter.IngredientListViewHolder>() {
     private var ingredientsList: List<IngredientWithMeta> = mutableListOf()
@@ -24,7 +25,7 @@ class IngredientListAdapter: RecyclerView.Adapter<IngredientListAdapter.Ingredie
             val amountF = item.amount * selectedCount / baseCount
             val amount = amountF.toInt()
             if (amount < amountF) {
-                ingredientAmount.text = String.format("%.2f", amountF)
+                ingredientAmount.text = String.format(Locale.getDefault(), "%.2f", amountF)
             } else {
                 ingredientAmount.text = amount.toString()
             }

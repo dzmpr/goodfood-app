@@ -2,11 +2,22 @@ package ru.cookedapp.cooked.data.db
 
 import android.content.Context
 import androidx.core.content.edit
-import androidx.room.*
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import ru.cookedapp.cooked.R
-import ru.cookedapp.cooked.data.db.dao.*
-import ru.cookedapp.cooked.data.db.entity.*
+import ru.cookedapp.cooked.data.db.dao.CartDao
+import ru.cookedapp.cooked.data.db.dao.ProductDao
+import ru.cookedapp.cooked.data.db.dao.ProductUnitsDao
+import ru.cookedapp.cooked.data.db.dao.RecipeCategoryDao
+import ru.cookedapp.cooked.data.db.dao.RecipeDao
+import ru.cookedapp.cooked.data.db.entity.CartItem
+import ru.cookedapp.cooked.data.db.entity.Product
+import ru.cookedapp.cooked.data.db.entity.ProductUnit
+import ru.cookedapp.cooked.data.db.entity.Recipe
+import ru.cookedapp.cooked.data.db.entity.RecipeCategory
 import ru.cookedapp.cooked.data.prefs.RecipePreferences
 import java.util.concurrent.Executors
 

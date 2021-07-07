@@ -1,8 +1,9 @@
 package ru.cookedapp.cooked.data.db.dao
 
-import androidx.room.*
-import ru.cookedapp.cooked.data.db.entity.CartItem
+import androidx.room.Dao
+import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
+import ru.cookedapp.cooked.data.db.entity.CartItem
 
 @Dao
 interface CartDao: BaseDao<CartItem> {

@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlinx-serialization'
+    id 'io.gitlab.arturbosch.detekt' version '1.17.1'
 }
 
 android {
@@ -53,6 +54,21 @@ android {
 
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    detekt {
+        buildUponDefaultConfig = true
+        allRules = false
+
+        reports {
+            html {
+                enabled = true
+                destination = file("build/detekt/report.html")
+            }
+            xml.enabled = false
+            txt.enabled = false
+            sarif.enabled = false
+        }
     }
 }
 

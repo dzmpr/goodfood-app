@@ -1,15 +1,24 @@
 package ru.cookedapp.cooked.ui.recipeList
 
-import androidx.lifecycle.*
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import javax.inject.Inject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import ru.cookedapp.cooked.data.db.entity.RecipeCategory
 import ru.cookedapp.cooked.data.db.entity.RecipeWithMeta
 import ru.cookedapp.cooked.data.repository.RecipeRepository
 import ru.cookedapp.cooked.utils.ItemTouchHelperAction
 import ru.cookedapp.cooked.utils.SingleLiveEvent
-import java.lang.IllegalStateException
-import javax.inject.Inject
 
 class RecipeListViewModel @Inject constructor(
     private val recipeRepository: RecipeRepository

@@ -11,6 +11,7 @@ import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import java.util.Locale
 import ru.cookedapp.cooked.R
 import ru.cookedapp.cooked.data.db.entity.CartItemWithMeta
 
@@ -50,7 +51,7 @@ class CartAdapter(private val callback: BoughtChangeStateCallback) :
             productName.text = spannedText
             val amountInt = item.amount.toInt()
             if (amountInt < item.amount) {
-                amount.text = String.format("%.2f", item.amount)
+                amount.text = String.format(Locale.getDefault(), "%.2f", item.amount)
             } else {
                 amount.text = amountInt.toString()
             }

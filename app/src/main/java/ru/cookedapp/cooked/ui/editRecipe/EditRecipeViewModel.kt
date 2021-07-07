@@ -7,19 +7,23 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
-import ru.cookedapp.cooked.data.gateway.PhotoGateway
-import ru.cookedapp.cooked.data.db.entity.*
-import ru.cookedapp.cooked.data.prefs.RecipePreferences
-import ru.cookedapp.cooked.data.repository.RecipeCategoryRepository
-import ru.cookedapp.cooked.data.repository.RecipeRepository
-import ru.cookedapp.cooked.data.repository.ProductRepository
-import ru.cookedapp.cooked.data.repository.ProductUnitsRepository
-import ru.cookedapp.cooked.utils.SingleLiveEvent
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import javax.inject.Inject
+import kotlinx.coroutines.launch
+import ru.cookedapp.cooked.data.db.entity.IngredientWithMeta
+import ru.cookedapp.cooked.data.db.entity.Product
+import ru.cookedapp.cooked.data.db.entity.ProductUnit
+import ru.cookedapp.cooked.data.db.entity.RecipeCategory
+import ru.cookedapp.cooked.data.db.entity.RecipeWithMeta
+import ru.cookedapp.cooked.data.gateway.PhotoGateway
+import ru.cookedapp.cooked.data.prefs.RecipePreferences
+import ru.cookedapp.cooked.data.repository.ProductRepository
+import ru.cookedapp.cooked.data.repository.ProductUnitsRepository
+import ru.cookedapp.cooked.data.repository.RecipeCategoryRepository
+import ru.cookedapp.cooked.data.repository.RecipeRepository
+import ru.cookedapp.cooked.utils.SingleLiveEvent
 
 class EditRecipeViewModel @Inject constructor(
     private val productRepository: ProductRepository,

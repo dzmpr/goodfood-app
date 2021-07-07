@@ -8,7 +8,11 @@ import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.Navigation
-import androidx.preference.*
+import androidx.preference.EditTextPreference
+import androidx.preference.ListPreference
+import androidx.preference.PreferenceCategory
+import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceScreen
 import androidx.recyclerview.widget.RecyclerView
 import ru.cookedapp.cooked.R
 import ru.cookedapp.cooked.data.prefs.SettingsPreferences

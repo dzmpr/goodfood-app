@@ -1,6 +1,6 @@
 package ru.cookedapp.cooked.utils
 
-import android.graphics.*
+import android.graphics.Canvas
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
