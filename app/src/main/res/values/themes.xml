@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.GoodFood" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.Cooked" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/emerald</item>
         <item name="colorPrimaryVariant">@color/spring_green</item>
@@ -21,8 +21,8 @@
         <item name="android:windowLightStatusBar">true</item>
 
         <item name="bottomSheetDialogTheme">@style/BottomSheetDialogStyle</item>
-        <item name="preferenceTheme">@style/Theme.GoodFood.Preference</item>
-        <item name="alertDialogTheme">@style/Theme.GoodFood.Dialog</item>
-        <item name="android:alertDialogTheme">@style/Theme.GoodFood.AlertDialog</item>
+        <item name="preferenceTheme">@style/Theme.Cooked.Preference</item>
+        <item name="alertDialogTheme">@style/Theme.Cooked.Dialog</item>
+        <item name="android:alertDialogTheme">@style/Theme.Cooked.AlertDialog</item>
     </style>
 </resources>

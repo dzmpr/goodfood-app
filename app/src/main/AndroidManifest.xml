@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="pw.prsk.goodfood">
+    package="ru.cookedapp.cooked">
 
     <application
         android:label="${appNameRes}"
@@ -8,9 +8,9 @@
         android:roundIcon="${appIconRoundRes}"
         android:supportsRtl="true"
         android:allowBackup="false"
-        android:theme="@style/Theme.GoodFood"
-        android:name=".presentation.ui.MyApplication">
-        <activity android:name=".presentation.ui.MainActivity">
+        android:theme="@style/Theme.Cooked"
+        android:name="ru.cookedapp.cooked.presentation.ui.CookedApp">
+        <activity android:name="ru.cookedapp.cooked.presentation.ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

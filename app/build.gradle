@@ -10,7 +10,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "pw.prsk.goodfood"
+        applicationId "ru.cookedapp.cooked"
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1

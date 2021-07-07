@@ -14,7 +14,7 @@
             android:id="@+id/tbToolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:theme="@style/Theme.GoodFood.ActionBar"
+            android:theme="@style/Theme.Cooked.ActionBar"
             android:titleTextColor="?attr/colorOnSurface"
             app:contentInsetStartWithNavigation="0dp"
             app:menu="@menu/menu_recipe_actions"
@@ -145,7 +145,7 @@
                     android:backgroundTint="?attr/colorSurface"
                     android:src="@drawable/ic_minus"
                     android:background="@drawable/bg_button"
-                    android:tint="?attr/colorOnSurface" />
+                    app:tint="?attr/colorOnSurface" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -164,7 +164,7 @@
                     android:backgroundTint="?attr/colorSurface"
                     android:src="@drawable/ic_plus"
                     android:background="@drawable/bg_button"
-                    android:tint="?attr/colorOnSurface" />
+                    app:tint="?attr/colorOnSurface" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView

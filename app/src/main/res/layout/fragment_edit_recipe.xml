@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:id="@+id/tbToolbar"
-            android:theme="@style/Theme.GoodFood.ActionBar"
+            android:theme="@style/Theme.Cooked.ActionBar"
             app:navigationIcon="@drawable/ic_back_arrow"
             app:contentInsetStartWithNavigation="0dp"
             app:title="Add new recipe" >

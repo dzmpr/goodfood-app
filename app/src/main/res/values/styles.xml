@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.GoodFood.ActionBar" parent="ThemeOverlay.MaterialComponents.ActionBar">
+    <style name="Theme.Cooked.ActionBar" parent="ThemeOverlay.MaterialComponents.ActionBar">
         <item name="iconTint">?attr/colorOnSurface</item>
         <item name="colorControlNormal">?attr/colorOnSurface</item>
         <item name="tint">?attr/colorOnSurface</item>
@@ -18,26 +18,26 @@
         <item name="android:background">@drawable/bg_bottom_sheet</item>
     </style>
 
-    <style name="Theme.GoodFood.FilterChip" parent="Widget.MaterialComponents.Chip.Filter">
+    <style name="Theme.Cooked.FilterChip" parent="Widget.MaterialComponents.Chip.Filter">
         <item name="chipBackgroundColor">@color/chip_background_color</item>
         <item name="checkedIconTint">?attr/colorOnSurface</item>
     </style>
 
-    <style name="Theme.GoodFood.Preference" parent="PreferenceThemeOverlay.v14.Material">
+    <style name="Theme.Cooked.Preference" parent="PreferenceThemeOverlay.v14.Material">
         <item name="android:layout">@layout/fragment_settings</item>
     </style>
 
-    <style name="Theme.GoodFood.Dialog" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+    <style name="Theme.Cooked.Dialog" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
         <item name="android:background">?attr/colorSurface</item>
         <item name="dialogCornerRadius">10dp</item>
     </style>
 
-    <style name="TextAppearance.GoodFood.ChipBold" parent="TextAppearance.MaterialComponents.Chip">
+    <style name="TextAppearance.Cooked.ChipBold" parent="TextAppearance.MaterialComponents.Chip">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">15sp</item>
     </style>
 
-    <style name="Theme.GoodFood.AlertDialog" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+    <style name="Theme.Cooked.AlertDialog" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
         <item name="android:background">?attr/colorSurface</item>
         <item name="dialogCornerRadius">10dp</item>
     </style>
