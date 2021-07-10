@@ -12,6 +12,7 @@ import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
 import ru.cookedapp.cooked.R
 import ru.cookedapp.cooked.databinding.FragmentRecipesOverviewBinding
+import ru.cookedapp.cooked.extensions.setViewVisibility
 import ru.cookedapp.cooked.ui.CookedApp
 import ru.cookedapp.cooked.ui.recipeDetails.RecipeDetailsFragment
 import ru.cookedapp.cooked.ui.recipeList.RecipeListFragment
@@ -56,7 +57,7 @@ class RecipesOverviewFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        (requireActivity().application as CookedApp).appComponent.inject(this)
+        CookedApp.appComponent.inject(this)
         viewModel = ViewModelProvider(this, vmFactory).get(RecipesOverviewViewModel::class.java)
     }
 
@@ -74,14 +75,9 @@ class RecipesOverviewFragment : Fragment() {
 
         initRecyclers()
 
-        viewModel.isDataPresence.observe(viewLifecycleOwner) {
-            if (it) {
-                binding.nsvContent.visibility = View.VISIBLE
-                binding.tvNoDataPlaceholder.visibility = View.GONE
-            } else {
-                binding.nsvContent.visibility = View.GONE
-                binding.tvNoDataPlaceholder.visibility = View.VISIBLE
-            }
+        viewModel.isDataPresence.observe(viewLifecycleOwner) { hasData ->
+            binding.nsvContent.setViewVisibility(hasData)
+            binding.tvNoDataPlaceholder.setViewVisibility(!hasData)
         }
 
         binding.fabAddMeal.setOnClickListener {
@@ -110,13 +106,10 @@ class RecipesOverviewFragment : Fragment() {
 
     private fun initRecyclers() {
         val frequentAdapter = RecipeCardAdapter(recipeCallback, LIST_FREQUENT_RECIPES)
-        (requireActivity().application as CookedApp).appComponent.inject(frequentAdapter)
+        CookedApp.appComponent.inject(frequentAdapter)
         viewModel.frequentRecipes.observe(viewLifecycleOwner) {
             frequentAdapter.setList(it)
-            binding.groupFrequentRecipes.visibility = when {
-                it.isEmpty() -> View.GONE
-                else -> View.VISIBLE
-            }
+            binding.groupFrequentRecipes.setViewVisibility(it.isNotEmpty())
         }
 
         binding.rvFrequentRecipesList.apply {
@@ -126,13 +119,10 @@ class RecipesOverviewFragment : Fragment() {
         }
 
         val favoriteAdapter = RecipeCardAdapter(recipeCallback, LIST_FAVORITE_RECIPES)
-        (requireActivity().application as CookedApp).appComponent.inject(favoriteAdapter)
+        CookedApp.appComponent.inject(favoriteAdapter)
         viewModel.favoriteRecipes.observe(viewLifecycleOwner) {
             favoriteAdapter.setList(it)
-            binding.groupFavoriteRecipes.visibility = when {
-                it.isEmpty() -> View.GONE
-                else -> View.VISIBLE
-            }
+            binding.groupFavoriteRecipes.setViewVisibility(it.isNotEmpty())
         }
 
         binding.rvFavoritesList.apply {
@@ -142,13 +132,10 @@ class RecipesOverviewFragment : Fragment() {
         }
 
         val allRecipesAdapter = RecipeCardAdapter(recipeCallback, LIST_ALL_RECIPES)
-        (requireActivity().application as CookedApp).appComponent.inject(allRecipesAdapter)
+        CookedApp.appComponent.inject(allRecipesAdapter)
         viewModel.allRecipes.observe(viewLifecycleOwner) {
             allRecipesAdapter.setList(it)
-            binding.groupAllRecipes.visibility = when {
-                it.isEmpty() -> View.GONE
-                else -> View.VISIBLE
-            }
+            binding.groupAllRecipes.setViewVisibility(it.isNotEmpty())
         }
 
         binding.rvAllRecipesList.apply {

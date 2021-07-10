@@ -9,7 +9,7 @@ import ru.cookedapp.cooked.di.modules.ApplicationModule
 import javax.inject.Inject
 
 class CookedApp : Application() {
-    lateinit var appComponent: AppComponent
+
     @Inject lateinit var settingsPrefs: SettingsPreferences
 
     override fun onCreate() {
@@ -38,5 +38,9 @@ class CookedApp : Application() {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY)
             }
         }
+    }
+
+    companion object {
+        lateinit var appComponent: AppComponent
     }
 }

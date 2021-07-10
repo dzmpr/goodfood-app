@@ -15,6 +15,7 @@ import ru.cookedapp.cooked.ui.CookedApp
 import ru.cookedapp.cooked.utils.ItemSwipeDecorator
 import ru.cookedapp.cooked.utils.RecipeListItemTouchHelperCallback
 import javax.inject.Inject
+import ru.cookedapp.cooked.extensions.setViewVisibility
 
 class CartFragment : Fragment() {
     private var _binding: FragmentCartBinding? = null
@@ -26,7 +27,7 @@ class CartFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        (requireActivity().application as CookedApp).appComponent.inject(this)
+        CookedApp.appComponent.inject(this)
         viewModel = ViewModelProvider(this, vmFactory).get(CartViewModel::class.java)
     }
 
@@ -67,12 +68,7 @@ class CartFragment : Fragment() {
         binding.rvCartList.apply {
             adapter = cartAdapter
             layoutManager = LinearLayoutManager(context)
-            addItemDecoration(
-                DividerItemDecoration(
-                    this.context,
-                    LinearLayoutManager.VERTICAL
-                )
-            )
+            addItemDecoration(DividerItemDecoration(this.context, LinearLayoutManager.VERTICAL))
         }
 
         val swipeDecorator = ItemSwipeDecorator.Companion.Builder()
@@ -86,11 +82,7 @@ class CartFragment : Fragment() {
         touchHelper.attachToRecyclerView(binding.rvCartList)
 
         viewModel.cartList.observe(viewLifecycleOwner) {
-            binding.tvCartPlaceholder.visibility = if (it.isEmpty()) {
-                View.VISIBLE
-            } else {
-                View.GONE
-            }
+            binding.tvCartPlaceholder.setViewVisibility(it.isEmpty())
             cartAdapter.setList(it)
         }
     }

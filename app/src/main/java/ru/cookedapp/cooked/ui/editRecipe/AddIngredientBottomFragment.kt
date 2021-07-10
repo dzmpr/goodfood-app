@@ -31,7 +31,7 @@ class AddIngredientBottomFragment : BaseBottomSheetFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        (requireActivity().application as CookedApp).appComponent.inject(this)
+        CookedApp.appComponent.inject(this)
         editRecipeViewModel = ViewModelProvider(requireParentFragment(), vmFactory).get(
             EditRecipeViewModel::class.java)
     }

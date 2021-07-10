@@ -21,6 +21,7 @@ import ru.cookedapp.cooked.ui.recipeDetails.RecipeDetailsFragment
 import ru.cookedapp.cooked.utils.ItemSwipeDecorator
 import ru.cookedapp.cooked.utils.RecipeListItemTouchHelperCallback
 import javax.inject.Inject
+import ru.cookedapp.cooked.extensions.setViewVisibility
 
 class RecipeListFragment : Fragment() {
     private var _binding: FragmentRecipeListBinding? = null
@@ -31,7 +32,7 @@ class RecipeListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        (requireActivity().application as CookedApp).appComponent.inject(this)
+        CookedApp.appComponent.inject(this)
         viewModel = ViewModelProvider(this, vmFactory).get(RecipeListViewModel::class.java)
 
         handleArguments()
@@ -80,7 +81,7 @@ class RecipeListFragment : Fragment() {
 
         viewModel.categorySet.observe(viewLifecycleOwner) { set ->
             if (set.size > 1) {
-                binding.cgCategoryChips.visibility = View.VISIBLE
+                binding.cgCategoryChips.setViewVisibility(true)
 
                 if (binding.cgCategoryChips.childCount > 0) {
                     binding.cgCategoryChips.removeAllViews()
@@ -99,7 +100,7 @@ class RecipeListFragment : Fragment() {
                     binding.cgCategoryChips.addView(chip)
                 }
             } else {
-                binding.cgCategoryChips.visibility = View.GONE
+                binding.cgCategoryChips.setViewVisibility(false)
             }
         }
     }
@@ -118,15 +119,14 @@ class RecipeListFragment : Fragment() {
                     .navigate(R.id.actionNavigateToRecipe, args)
             }
         })
-        (requireActivity().application as CookedApp).appComponent.inject(recipeLineAdapter)
+        CookedApp.appComponent.inject(recipeLineAdapter)
         subscribeUi(recipeLineAdapter)
 
         binding.rvRecipesList.apply {
             layoutManager = LinearLayoutManager(this.context)
             adapter = recipeLineAdapter
             addItemDecoration(
-                DividerItemDecoration(this.context,
-                    LinearLayoutManager.VERTICAL)
+                DividerItemDecoration(this.context, LinearLayoutManager.VERTICAL)
             )
         }
 

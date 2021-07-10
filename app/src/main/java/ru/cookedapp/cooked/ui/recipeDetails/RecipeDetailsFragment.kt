@@ -19,6 +19,7 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
+import ru.cookedapp.cooked.extensions.setViewVisibility
 
 class RecipeDetailsFragment : Fragment() {
     private var _binding: FragmentRecipeBinding? = null
@@ -29,7 +30,7 @@ class RecipeDetailsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        (requireActivity().application as CookedApp).appComponent.inject(this)
+        CookedApp.appComponent.inject(this)
         viewModel = ViewModelProvider(this, vmFactory).get(RecipeDetailsViewModel::class.java)
 
         if (savedInstanceState == null) {
@@ -65,13 +66,8 @@ class RecipeDetailsFragment : Fragment() {
         }
 
         viewModel.ingredientsList.observe(viewLifecycleOwner) {
-            val visibility = if (it.isEmpty()) {
-                View.GONE
-            } else {
-                View.VISIBLE
-            }
-            binding.groupIngredientsSection.visibility = visibility
-            binding.fabAddToCart.visibility = visibility
+            binding.groupIngredientsSection.setViewVisibility(it.isNotEmpty())
+            binding.fabAddToCart.setViewVisibility(it.isNotEmpty())
             listAdapter.setList(it)
         }
 

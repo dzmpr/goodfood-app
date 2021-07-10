@@ -36,6 +36,7 @@ interface AppComponent {
     fun context(): Application
     fun inject(app: CookedApp)
 
+    // Fragments
     fun inject(fragment: RecipesOverviewFragment)
     fun inject(fragment: RecipeListFragment)
     fun inject(fragment: RecipeDetailsFragment)
@@ -45,8 +46,7 @@ interface AppComponent {
     fun inject(fragment: EditRecipeFragment)
     fun inject(fragment: AddIngredientBottomFragment)
 
+    // Adapters
     fun inject(adapter: RecipeCardAdapter)
     fun inject(adapter: RecipeLineAdapter)
-
-    fun inject(viewModel: EditRecipeViewModel)
 }

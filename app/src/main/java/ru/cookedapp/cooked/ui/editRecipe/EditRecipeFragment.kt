@@ -20,6 +20,7 @@ import ru.cookedapp.cooked.ui.CookedApp
 import ru.cookedapp.cooked.utils.AutocompleteSelectionHelper
 import ru.cookedapp.cooked.utils.InputValidator
 import javax.inject.Inject
+import ru.cookedapp.cooked.extensions.setViewVisibility
 
 class EditRecipeFragment : Fragment() {
     private lateinit var binding: FragmentEditRecipeBinding
@@ -48,7 +49,7 @@ class EditRecipeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        (requireActivity().application as CookedApp).appComponent.inject(this)
+        CookedApp.appComponent.inject(this)
         viewModel = ViewModelProvider(this, vmFactory).get(EditRecipeViewModel::class.java)
     }
 
@@ -115,17 +116,12 @@ class EditRecipeFragment : Fragment() {
             adapter = listAdapter
             layoutManager = LinearLayoutManager(this.context)
             addItemDecoration(
-                DividerItemDecoration(this.context,
-                    LinearLayoutManager.VERTICAL)
+                DividerItemDecoration(this.context, LinearLayoutManager.VERTICAL)
             )
         }
 
         viewModel.ingredients.observe(viewLifecycleOwner) {
-            binding.groupPlaceholder.visibility = if (it.isNotEmpty()) {
-                View.GONE
-            } else {
-                View.VISIBLE
-            }
+            binding.groupPlaceholder.setViewVisibility(it.isEmpty())
             listAdapter.setList(it)
         }
     }
@@ -169,13 +165,8 @@ class EditRecipeFragment : Fragment() {
                 }
             }
             /* Check photo state */
-            if (viewModel.photoStatus) {
-                menu.setGroupVisible(R.id.groupAddPhoto, false)
-                menu.setGroupVisible(R.id.groupRemovePhoto, true)
-            } else {
-                menu.setGroupVisible(R.id.groupAddPhoto, true)
-                menu.setGroupVisible(R.id.groupRemovePhoto, false)
-            }
+            menu.setGroupVisible(R.id.groupAddPhoto, !viewModel.photoStatus)
+            menu.setGroupVisible(R.id.groupRemovePhoto, viewModel.photoStatus)
             show()
         }
     }

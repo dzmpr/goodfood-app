@@ -25,7 +25,7 @@ class ManageCategoriesFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        (requireActivity().application as CookedApp).appComponent.inject(this)
+        CookedApp.appComponent.inject(this)
         viewModel = ViewModelProvider(this, vmFactory).get(ManageCategoriesViewModel::class.java)
 
         childFragmentManager.setFragmentResultListener(
