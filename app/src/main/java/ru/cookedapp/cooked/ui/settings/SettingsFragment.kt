@@ -133,7 +133,6 @@ class SettingsFragment: PreferenceFragmentCompat() {
 
         const val PREFERENCE_DEFAULT_SERVINGS = "pref_default_servings"
 
-
         const val CATEGORY_APP = "category_app"
     }
 }

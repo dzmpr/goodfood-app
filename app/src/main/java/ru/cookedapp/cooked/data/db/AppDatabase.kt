@@ -7,27 +7,27 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
+import java.util.concurrent.Executors
 import ru.cookedapp.cooked.R
 import ru.cookedapp.cooked.data.db.dao.CartDao
 import ru.cookedapp.cooked.data.db.dao.ProductDao
 import ru.cookedapp.cooked.data.db.dao.ProductUnitsDao
 import ru.cookedapp.cooked.data.db.dao.RecipeCategoryDao
 import ru.cookedapp.cooked.data.db.dao.RecipeDao
-import ru.cookedapp.cooked.data.db.entity.CartItem
-import ru.cookedapp.cooked.data.db.entity.Product
-import ru.cookedapp.cooked.data.db.entity.ProductUnit
-import ru.cookedapp.cooked.data.db.entity.Recipe
-import ru.cookedapp.cooked.data.db.entity.RecipeCategory
+import ru.cookedapp.cooked.data.db.entity.CartItemEntity
+import ru.cookedapp.cooked.data.db.entity.ProductEntity
+import ru.cookedapp.cooked.data.db.entity.ProductUnitEntity
+import ru.cookedapp.cooked.data.db.entity.RecipeCategoryEntity
+import ru.cookedapp.cooked.data.db.entity.RecipeEntity
 import ru.cookedapp.cooked.data.prefs.RecipePreferences
-import java.util.concurrent.Executors
 
 @Database(
     entities = [
-        Recipe::class,
-        Product::class,
-        RecipeCategory::class,
-        ProductUnit::class,
-        CartItem::class],
+        RecipeEntity::class,
+        ProductEntity::class,
+        RecipeCategoryEntity::class,
+        ProductUnitEntity::class,
+        CartItemEntity::class],
     version = 1
 )
 @TypeConverters(Converters::class)
@@ -64,13 +64,13 @@ abstract class AppDatabase : RoomDatabase() {
                             with(database.productUnitsDao()) {
                                 val units = res.getStringArray(R.array.labels_units)
                                 units.forEach {
-                                    insert(ProductUnit(name = it))
+                                    insert(ProductUnitEntity(name = it))
                                 }
                             }
 
                             // Create category 'No category'
                             val noCategoryId = database.recipeCategoryDao()
-                                .insert(RecipeCategory(name = res.getString(R.string.label_no_category)))
+                                .insert(RecipeCategoryEntity(name = res.getString(R.string.label_no_category)))
                                 .toInt()
 
                             context.getSharedPreferences(

@@ -3,14 +3,14 @@ package ru.cookedapp.cooked.data.repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.cookedapp.cooked.data.db.AppDatabase
-import ru.cookedapp.cooked.data.db.entity.Product
+import ru.cookedapp.cooked.data.db.entity.ProductEntity
 
 class ProductRepository(private val dbInstance: AppDatabase) {
-    suspend fun addProduct(product: Product) = withContext(Dispatchers.IO) {
+    suspend fun addProduct(product: ProductEntity) = withContext(Dispatchers.IO) {
         dbInstance.productDao().insert(product)
     }
 
-    suspend fun getProducts(): List<Product> = withContext(Dispatchers.IO) {
+    suspend fun getProducts(): List<ProductEntity> = withContext(Dispatchers.IO) {
         dbInstance.productDao().getAll()
     }
 
@@ -18,7 +18,7 @@ class ProductRepository(private val dbInstance: AppDatabase) {
         dbInstance.productDao().getProductsFlow()
     }
 
-    suspend fun removeProduct(product: Product) = withContext(Dispatchers.IO) {
+    suspend fun removeProduct(product: ProductEntity) = withContext(Dispatchers.IO) {
         dbInstance.productDao().delete(product)
     }
 

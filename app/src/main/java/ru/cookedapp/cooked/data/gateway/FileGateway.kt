@@ -15,7 +15,8 @@ class FileGateway(private val applicationContext: Context) {
         val file = File(applicationContext.getExternalFilesDir(folder), filename)
         return FileProvider.getUriForFile(
             applicationContext,
-            "${applicationContext.packageName}.fileprovider", file
+            "${applicationContext.packageName}.fileprovider",
+            file
         )
     }
 

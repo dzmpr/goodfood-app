@@ -13,10 +13,10 @@ import java.time.ZoneId
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 import ru.cookedapp.cooked.data.db.entity.IngredientWithMeta
-import ru.cookedapp.cooked.data.db.entity.Product
-import ru.cookedapp.cooked.data.db.entity.ProductUnit
-import ru.cookedapp.cooked.data.db.entity.RecipeCategory
-import ru.cookedapp.cooked.data.db.entity.RecipeWithMeta
+import ru.cookedapp.cooked.data.db.entity.ProductEntity
+import ru.cookedapp.cooked.data.db.entity.ProductUnitEntity
+import ru.cookedapp.cooked.data.db.entity.Recipe
+import ru.cookedapp.cooked.data.db.entity.RecipeCategoryEntity
 import ru.cookedapp.cooked.data.gateway.PhotoGateway
 import ru.cookedapp.cooked.data.prefs.RecipePreferences
 import ru.cookedapp.cooked.data.repository.ProductRepository
@@ -38,14 +38,14 @@ class EditRecipeViewModel @Inject constructor(
     val ingredients: MutableLiveData<List<IngredientWithMeta>> by lazy {
         MutableLiveData<List<IngredientWithMeta>>(ingredientsList)
     }
-    val productsList: MutableLiveData<List<Product>> by lazy {
-        MutableLiveData<List<Product>>()
+    val productsList: MutableLiveData<List<ProductEntity>> by lazy {
+        MutableLiveData<List<ProductEntity>>()
     }
-    val unitsList: MutableLiveData<List<ProductUnit>> by lazy {
-        MutableLiveData<List<ProductUnit>>()
+    val unitsList: MutableLiveData<List<ProductUnitEntity>> by lazy {
+        MutableLiveData<List<ProductUnitEntity>>()
     }
-    val recipeCategories: MutableLiveData<List<RecipeCategory>> by lazy {
-        MutableLiveData<List<RecipeCategory>>()
+    val recipeCategories: MutableLiveData<List<RecipeCategoryEntity>> by lazy {
+        MutableLiveData<List<RecipeCategoryEntity>>()
     }
 
     private val photoDrawable = MutableLiveData<Drawable?>()
@@ -98,7 +98,7 @@ class EditRecipeViewModel @Inject constructor(
         ingredients.value = ingredientsList
     }
 
-    fun saveRecipe(name: String, description: String?, servingsCount: Int, selectedCategory: RecipeCategory?) {
+    fun saveRecipe(name: String, description: String?, servingsCount: Int, selectedCategory: RecipeCategoryEntity?) {
         viewModelScope.launch {
             // Copy photo to app folder if it was picked
             if (!photoFromCamera && photoStatus) {
@@ -109,9 +109,9 @@ class EditRecipeViewModel @Inject constructor(
             }
 
             val category = selectedCategory
-                ?: RecipeCategory(recipePreferences.getValue(RecipePreferences.FIELD_NO_CATEGORY, 0), "")
+                ?: RecipeCategoryEntity(recipePreferences.getValue(RecipePreferences.FIELD_NO_CATEGORY, 0), "")
 
-            val recipe = RecipeWithMeta(
+            val recipe = Recipe(
                 null,
                 name,
                 description,

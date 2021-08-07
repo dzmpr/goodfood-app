@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import ru.cookedapp.cooked.data.db.AppDatabase
 import ru.cookedapp.cooked.data.db.entity.CartItem
-import ru.cookedapp.cooked.data.db.entity.CartItemWithMeta
+import ru.cookedapp.cooked.data.db.entity.CartItemEntity
 import ru.cookedapp.cooked.data.db.entity.Ingredient
 
 class CartRepository(private val dbInstance: AppDatabase) {
@@ -22,7 +22,7 @@ class CartRepository(private val dbInstance: AppDatabase) {
         val cartItem = dbInstance.cartDao().getCartByProductIdAndUnitId(ingredient.productId, ingredient.amountUnitId)
         if (cartItem == null) {
             dbInstance.cartDao().insert(
-                CartItem(
+                CartItemEntity(
                     productId = ingredient.productId,
                     amount = ingredient.amount * multiplier,
                     unitId = ingredient.amountUnitId
@@ -42,16 +42,16 @@ class CartRepository(private val dbInstance: AppDatabase) {
         dbInstance.cartDao().getCartList()
             .map { list ->
                 list.map {
-                    getItemWithMeta(it)
+                    getCartItem(it)
                 }
             }
             .flowOn(Dispatchers.IO)
     }
 
-    private fun getItemWithMeta(item: CartItem): CartItemWithMeta {
+    private fun getCartItem(item: CartItemEntity): CartItem {
         val product = dbInstance.productDao().getById(item.productId)
         val unit = dbInstance.productUnitsDao().getById(item.unitId)
-        return CartItemWithMeta(
+        return CartItem(
             item.id,
             item.isBought,
             product,

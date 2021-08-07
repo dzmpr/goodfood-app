@@ -3,18 +3,18 @@ package ru.cookedapp.cooked.data.db.dao
 import androidx.room.Dao
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
-import ru.cookedapp.cooked.data.db.entity.RecipeCategory
+import ru.cookedapp.cooked.data.db.entity.RecipeCategoryEntity
 
 @Dao
-interface RecipeCategoryDao: BaseDao<RecipeCategory> {
+interface RecipeCategoryDao: BaseDao<RecipeCategoryEntity> {
     @Query("SELECT * FROM recipe_categories")
-    fun getAll(): List<RecipeCategory>
+    fun getAll(): List<RecipeCategoryEntity>
 
     @Query("SELECT * FROM recipe_categories")
-    fun getCategoriesFlow(): Flow<List<RecipeCategory>>
+    fun getCategoriesFlow(): Flow<List<RecipeCategoryEntity>>
 
     @Query("SELECT * FROM recipe_categories WHERE id = :id")
-    fun getById(id: Int): RecipeCategory
+    fun getById(id: Int): RecipeCategoryEntity
 
     @Query("UPDATE recipe_categories SET reference_count = reference_count + 1 WHERE id = :id")
     fun increaseUsages(id: Int)

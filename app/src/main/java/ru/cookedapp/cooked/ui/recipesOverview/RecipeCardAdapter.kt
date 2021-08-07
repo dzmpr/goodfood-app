@@ -17,7 +17,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.cookedapp.cooked.R
-import ru.cookedapp.cooked.data.db.entity.RecipeWithMeta
+import ru.cookedapp.cooked.data.db.entity.Recipe
 import ru.cookedapp.cooked.data.gateway.PhotoGateway
 
 class RecipeCardAdapter(
@@ -27,7 +27,7 @@ class RecipeCardAdapter(
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     @Inject lateinit var photoGateway: PhotoGateway
-    private var recipeList: List<RecipeWithMeta> = listOf()
+    private var recipeList: List<Recipe> = listOf()
 
     class RecipeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val name: TextView = view.findViewById(R.id.tvMealName)
@@ -42,7 +42,7 @@ class RecipeCardAdapter(
         private var recipeId: Int = 0
 
         fun bind(
-            recipe: RecipeWithMeta,
+            recipe: Recipe,
             photoGateway: PhotoGateway,
             clickCallback: RecipesOverviewFragment.RecipeClickCallback
         ) {
@@ -63,7 +63,7 @@ class RecipeCardAdapter(
             }
         }
 
-        private fun loadImage(recipe: RecipeWithMeta, photoGateway: PhotoGateway) {
+        private fun loadImage(recipe: Recipe, photoGateway: PhotoGateway) {
             if (loadImageJob != null) {
                 loadImageJob?.cancel()
             }
@@ -126,7 +126,7 @@ class RecipeCardAdapter(
         else -> recipeList.size + 1
     }
 
-    fun setList(list: List<RecipeWithMeta>) {
+    fun setList(list: List<Recipe>) {
         if (list.isEmpty()) {
             recipeList = list
             notifyDataSetChanged()
@@ -141,8 +141,8 @@ class RecipeCardAdapter(
     }
 
     class MealDiffUtilCallback(
-        private val oldList: List<RecipeWithMeta>,
-        private val newList: List<RecipeWithMeta>
+        private val oldList: List<Recipe>,
+        private val newList: List<Recipe>
     ) :
         DiffUtil.Callback() {
         override fun getOldListSize(): Int = oldList.size

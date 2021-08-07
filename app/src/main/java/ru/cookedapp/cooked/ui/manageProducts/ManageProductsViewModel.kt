@@ -4,20 +4,20 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import ru.cookedapp.cooked.data.db.entity.Product
+import ru.cookedapp.cooked.data.db.entity.ProductEntity
 import ru.cookedapp.cooked.data.repository.ProductRepository
-import javax.inject.Inject
 
 class ManageProductsViewModel @Inject constructor(
     private val productRepository: ProductRepository
 ) : ViewModel() {
-    private val _productsList : MutableLiveData<List<Product>> by lazy {
-        MutableLiveData<List<Product>>()
+    private val _productsList : MutableLiveData<List<ProductEntity>> by lazy {
+        MutableLiveData<List<ProductEntity>>()
     }
-    val productsList: LiveData<List<Product>>
+    val productsList: LiveData<List<ProductEntity>>
         get() = _productsList
 
     init {

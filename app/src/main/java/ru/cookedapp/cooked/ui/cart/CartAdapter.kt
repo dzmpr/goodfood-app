@@ -13,11 +13,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import java.util.Locale
 import ru.cookedapp.cooked.R
-import ru.cookedapp.cooked.data.db.entity.CartItemWithMeta
+import ru.cookedapp.cooked.data.db.entity.CartItem
 
 class CartAdapter(private val callback: BoughtChangeStateCallback) :
     RecyclerView.Adapter<CartAdapter.CartItemViewHolder>() {
-    private var itemsList: List<CartItemWithMeta> = mutableListOf()
+    private var itemsList: List<CartItem> = mutableListOf()
 
     class CartItemViewHolder(view: View, private val callback: BoughtChangeStateCallback) :
         RecyclerView.ViewHolder(view) {
@@ -28,7 +28,7 @@ class CartAdapter(private val callback: BoughtChangeStateCallback) :
 
         private var itemId: Int = 0
 
-        fun bind(item: CartItemWithMeta) {
+        fun bind(item: CartItem) {
             itemId = item.id!!
             val spannedText = SpannableString(item.product.name)
 
@@ -65,11 +65,7 @@ class CartAdapter(private val callback: BoughtChangeStateCallback) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartItemViewHolder {
         return CartItemViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.item_cart_row,
-                parent,
-                false
-            ),
+            LayoutInflater.from(parent.context).inflate(R.layout.item_cart_row, parent, false),
             callback
         )
     }
@@ -80,17 +76,12 @@ class CartAdapter(private val callback: BoughtChangeStateCallback) :
 
     override fun getItemCount() = itemsList.size
 
-    fun setList(newList: List<CartItemWithMeta>) {
+    fun setList(newList: List<CartItem>) {
         if (itemsList.isEmpty()) {
             itemsList = newList.toList()
             notifyDataSetChanged()
         } else {
-            val diffResult = DiffUtil.calculateDiff(
-                CartItemDiffUtilCallback(
-                    itemsList,
-                    newList
-                )
-            )
+            val diffResult = DiffUtil.calculateDiff(CartItemDiffUtilCallback(itemsList, newList))
             itemsList = newList.toList()
             diffResult.dispatchUpdatesTo(this)
         }
@@ -101,8 +92,8 @@ class CartAdapter(private val callback: BoughtChangeStateCallback) :
     }
 
     class CartItemDiffUtilCallback(
-        private val oldList: List<CartItemWithMeta>,
-        private val newList: List<CartItemWithMeta>
+        private val oldList: List<CartItem>,
+        private val newList: List<CartItem>
     ) : DiffUtil.Callback() {
         override fun getOldListSize(): Int = oldList.size
 

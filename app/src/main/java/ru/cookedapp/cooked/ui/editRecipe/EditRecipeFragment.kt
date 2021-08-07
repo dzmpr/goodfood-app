@@ -13,14 +13,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import javax.inject.Inject
 import ru.cookedapp.cooked.R
-import ru.cookedapp.cooked.data.db.entity.RecipeCategory
+import ru.cookedapp.cooked.data.db.entity.RecipeCategoryEntity
 import ru.cookedapp.cooked.databinding.FragmentEditRecipeBinding
+import ru.cookedapp.cooked.extensions.setViewVisibility
 import ru.cookedapp.cooked.ui.CookedApp
 import ru.cookedapp.cooked.utils.AutocompleteSelectionHelper
 import ru.cookedapp.cooked.utils.InputValidator
-import javax.inject.Inject
-import ru.cookedapp.cooked.extensions.setViewVisibility
 
 class EditRecipeFragment : Fragment() {
     private lateinit var binding: FragmentEditRecipeBinding
@@ -87,7 +87,7 @@ class EditRecipeFragment : Fragment() {
         }
 
         categorySelectHelper = AutocompleteSelectionHelper(binding.tilRecipeCategory) { input ->
-            RecipeCategory(name = input)
+            RecipeCategoryEntity(name = input)
         }
 
         val nameValidator = InputValidator(binding.tilRecipeName, context?.getString(R.string.label_name_error))
@@ -103,7 +103,7 @@ class EditRecipeFragment : Fragment() {
                     binding.tilRecipeName.editText?.text.toString(),
                     description,
                     servingsCount,
-                    categorySelectHelper.selected as RecipeCategory?
+                    categorySelectHelper.selected as RecipeCategoryEntity?
                 )
             }
         }

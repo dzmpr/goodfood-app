@@ -2,11 +2,10 @@ package ru.cookedapp.cooked.ui
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
+import javax.inject.Inject
 import ru.cookedapp.cooked.data.prefs.SettingsPreferences
 import ru.cookedapp.cooked.di.components.AppComponent
 import ru.cookedapp.cooked.di.components.DaggerAppComponent
-import ru.cookedapp.cooked.di.modules.ApplicationModule
-import javax.inject.Inject
 
 class CookedApp : Application() {
 
@@ -14,10 +13,13 @@ class CookedApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        appComponent = DaggerAppComponent.builder()
-            .applicationModule(ApplicationModule(this))
-            .build()
-        appComponent.inject(this)
+        appComponent = DaggerAppComponent.builder().run {
+            bindContext(this@CookedApp)
+            bindApplication(this@CookedApp)
+            build()
+        }.also {
+            it.inject(this)
+        }
 
         applyTheme()
     }

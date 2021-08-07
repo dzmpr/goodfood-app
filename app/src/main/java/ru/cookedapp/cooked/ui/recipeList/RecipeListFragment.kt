@@ -13,15 +13,15 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
+import javax.inject.Inject
 import ru.cookedapp.cooked.R
-import ru.cookedapp.cooked.data.db.entity.RecipeCategory
+import ru.cookedapp.cooked.data.db.entity.RecipeCategoryEntity
 import ru.cookedapp.cooked.databinding.FragmentRecipeListBinding
+import ru.cookedapp.cooked.extensions.setViewVisibility
 import ru.cookedapp.cooked.ui.CookedApp
 import ru.cookedapp.cooked.ui.recipeDetails.RecipeDetailsFragment
 import ru.cookedapp.cooked.utils.ItemSwipeDecorator
 import ru.cookedapp.cooked.utils.RecipeListItemTouchHelperCallback
-import javax.inject.Inject
-import ru.cookedapp.cooked.extensions.setViewVisibility
 
 class RecipeListFragment : Fragment() {
     private var _binding: FragmentRecipeListBinding? = null
@@ -73,7 +73,7 @@ class RecipeListFragment : Fragment() {
                     viewModel.onCategorySelected(0)
                 }
                 else -> {
-                    val category = group[checkedId].tag as RecipeCategory
+                    val category = group[checkedId].tag as RecipeCategoryEntity
                     viewModel.onCategorySelected(category.id!!)
                 }
             }

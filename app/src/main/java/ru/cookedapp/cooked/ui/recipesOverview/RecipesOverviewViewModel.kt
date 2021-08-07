@@ -7,7 +7,7 @@ import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import ru.cookedapp.cooked.data.db.entity.RecipeWithMeta
+import ru.cookedapp.cooked.data.db.entity.Recipe
 import ru.cookedapp.cooked.data.repository.RecipeRepository
 
 
@@ -15,13 +15,13 @@ class RecipesOverviewViewModel @Inject constructor(
     private val recipeRepository: RecipeRepository
 ) : ViewModel() {
     val allRecipes by lazy {
-        MutableLiveData<List<RecipeWithMeta>>()
+        MutableLiveData<List<Recipe>>()
     }
     val favoriteRecipes by lazy {
-        MutableLiveData<List<RecipeWithMeta>>()
+        MutableLiveData<List<Recipe>>()
     }
     val frequentRecipes by lazy {
-        MutableLiveData<List<RecipeWithMeta>>()
+        MutableLiveData<List<Recipe>>()
     }
 
     val isDataPresence by lazy {

@@ -3,10 +3,10 @@ package ru.cookedapp.cooked.data.repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.cookedapp.cooked.data.db.AppDatabase
-import ru.cookedapp.cooked.data.db.entity.RecipeCategory
+import ru.cookedapp.cooked.data.db.entity.RecipeCategoryEntity
 
 class RecipeCategoryRepository(private val dbInstance: AppDatabase) {
-    suspend fun getCategories(): List<RecipeCategory> = withContext(Dispatchers.IO) {
+    suspend fun getCategories(): List<RecipeCategoryEntity> = withContext(Dispatchers.IO) {
         dbInstance.recipeCategoryDao().getAll()
     }
 

@@ -9,8 +9,8 @@ import ru.cookedapp.cooked.data.db.AppDatabase
 import ru.cookedapp.cooked.data.db.entity.Ingredient
 import ru.cookedapp.cooked.data.db.entity.IngredientWithMeta
 import ru.cookedapp.cooked.data.db.entity.Recipe
-import ru.cookedapp.cooked.data.db.entity.RecipeCategory
-import ru.cookedapp.cooked.data.db.entity.RecipeWithMeta
+import ru.cookedapp.cooked.data.db.entity.RecipeCategoryEntity
+import ru.cookedapp.cooked.data.db.entity.RecipeEntity
 import ru.cookedapp.cooked.data.gateway.PhotoGateway
 import ru.cookedapp.cooked.data.prefs.RecipePreferences
 
@@ -28,17 +28,14 @@ class RecipeRepository(
     }
 
     suspend fun isDatabaseEmpty() = withContext(Dispatchers.IO) {
-        dbInstance.recipeDao().isDatabaseEmpty()
-            .map {
-                it != 0
-            }
+        dbInstance.recipeDao().isDatabaseEmpty().map { it != 0 }
     }
 
     suspend fun getAllRecipes() = withContext(Dispatchers.IO) {
         dbInstance.recipeDao().getAllRecipes()
             .map {
                 it.map { recipe ->
-                    getRecipeWithMeta(recipe)
+                    getRecipe(recipe)
                 }
             }
             .flowOn(Dispatchers.IO)
@@ -48,7 +45,7 @@ class RecipeRepository(
         dbInstance.recipeDao().getFrequentRecipes()
             .map {
                 it.map { recipe ->
-                    getRecipeWithMeta(recipe)
+                    getRecipe(recipe)
                 }
             }
             .flowOn(Dispatchers.IO)
@@ -58,7 +55,7 @@ class RecipeRepository(
         dbInstance.recipeDao().getFavoriteRecipes()
             .map {
                 it.map { recipe ->
-                    getRecipeWithMeta(recipe)
+                    getRecipe(recipe)
                 }
             }
             .flowOn(Dispatchers.IO)
@@ -68,7 +65,7 @@ class RecipeRepository(
         dbInstance.recipeDao().getAllRecipesPreview()
             .map {
                 it.map { recipe ->
-                    getRecipeWithMeta(recipe)
+                    getRecipe(recipe)
                 }
             }
             .flowOn(Dispatchers.IO)
@@ -78,7 +75,7 @@ class RecipeRepository(
         dbInstance.recipeDao().getFrequentRecipesPreview()
             .map {
                 it.map { recipe ->
-                    getRecipeWithMeta(recipe)
+                    getRecipe(recipe)
                 }
             }
             .flowOn(Dispatchers.IO)
@@ -88,7 +85,7 @@ class RecipeRepository(
         dbInstance.recipeDao().getFavoriteRecipesPreview()
             .map {
                 it.map { recipe ->
-                    getRecipeWithMeta(recipe)
+                    getRecipe(recipe)
                 }
             }
             .flowOn(Dispatchers.IO)
@@ -97,21 +94,21 @@ class RecipeRepository(
     suspend fun getFlowById(recipeId: Int) = withContext(Dispatchers.IO) {
         dbInstance.recipeDao().getFlowableById(recipeId)
             .map {
-                getRecipeWithMeta(it)
+                getRecipe(it)
             }
             .flowOn(Dispatchers.IO)
     }
 
     suspend fun getRecipeById(recipeId: Int) = withContext(Dispatchers.IO) {
         val recipe = dbInstance.recipeDao().getById(recipeId)
-        getRecipeWithMeta(recipe)
+        getRecipe(recipe)
     }
 
-    private fun getRecipeWithMeta(recipe: Recipe): RecipeWithMeta {
+    private fun getRecipe(recipe: RecipeEntity): Recipe {
         val ingredientList = getIngredients(recipe.ingredientsList)
         val category = dbInstance.recipeCategoryDao().getById(recipe.categoryId)
 
-        return RecipeWithMeta(
+        return Recipe(
             recipe.id,
             recipe.name,
             recipe.instructions,
@@ -132,7 +129,7 @@ class RecipeRepository(
             IngredientWithMeta(product, it.amount, amountUnit)
         }
 
-    suspend fun removeRecipe(recipe: Recipe) = withContext(Dispatchers.IO) {
+    suspend fun removeRecipe(recipe: RecipeEntity) = withContext(Dispatchers.IO) {
         removeRecipeById(recipe.id!!)
     }
 
@@ -174,11 +171,11 @@ class RecipeRepository(
         }
     }
 
-    suspend fun addRecipe(recipe: RecipeWithMeta) = withContext(Dispatchers.IO) {
+    suspend fun addRecipe(recipe: Recipe) = withContext(Dispatchers.IO) {
         val convertedIngredients = processIngredients(recipe.ingredientsList)
         processCategory(recipe.category)
         dbInstance.recipeDao().insert(
-            Recipe(
+            RecipeEntity(
                 recipe.id,
                 recipe.name,
                 recipe.description,
@@ -212,7 +209,7 @@ class RecipeRepository(
         dbInstance.productDao().increaseUsages(ingredient.product.id!!)
     }
 
-    private fun processCategory(category: RecipeCategory?) {
+    private fun processCategory(category: RecipeCategoryEntity?) {
         if (category != null) {
             // Create category if it is not exists
             if (category.id == null) {

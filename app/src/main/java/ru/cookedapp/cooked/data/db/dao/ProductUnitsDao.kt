@@ -2,13 +2,13 @@ package ru.cookedapp.cooked.data.db.dao
 
 import androidx.room.Dao
 import androidx.room.Query
-import ru.cookedapp.cooked.data.db.entity.ProductUnit
+import ru.cookedapp.cooked.data.db.entity.ProductUnitEntity
 
 @Dao
-interface ProductUnitsDao: BaseDao<ProductUnit> {
+interface ProductUnitsDao: BaseDao<ProductUnitEntity> {
     @Query("SELECT * FROM product_units")
-    fun getAll(): List<ProductUnit>
+    fun getAll(): List<ProductUnitEntity>
 
     @Query("SELECT * FROM product_units WHERE id = :id")
-    fun getById(id: Int): ProductUnit
+    fun getById(id: Int): ProductUnitEntity
 }

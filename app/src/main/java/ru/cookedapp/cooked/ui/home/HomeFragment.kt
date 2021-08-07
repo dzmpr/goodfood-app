@@ -36,7 +36,7 @@ class HomeFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Remove action on item reselected
-        binding.bnvBottomMenu.setOnNavigationItemReselectedListener {}
+        binding.bnvBottomMenu.setOnItemReselectedListener {}
 
         binding.bnvBottomMenu.selectedItemId = R.id.actionRecipes
     }

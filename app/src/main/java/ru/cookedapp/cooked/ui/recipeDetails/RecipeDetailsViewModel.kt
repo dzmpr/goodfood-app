@@ -5,6 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import java.time.LocalDateTime
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.flowOn
@@ -12,13 +14,11 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import ru.cookedapp.cooked.data.db.entity.IngredientWithMeta
+import ru.cookedapp.cooked.data.db.entity.Recipe
 import ru.cookedapp.cooked.data.gateway.PhotoGateway
-import ru.cookedapp.cooked.data.db.entity.RecipeWithMeta
 import ru.cookedapp.cooked.data.repository.CartRepository
 import ru.cookedapp.cooked.data.repository.RecipeRepository
 import ru.cookedapp.cooked.utils.SingleLiveEvent
-import java.time.LocalDateTime
-import javax.inject.Inject
 
 class RecipeDetailsViewModel @Inject constructor(
     private val recipeRepository: RecipeRepository,
@@ -26,9 +26,9 @@ class RecipeDetailsViewModel @Inject constructor(
     private val photoGateway: PhotoGateway
 ) : ViewModel() {
     private val _recipe by lazy {
-        MutableLiveData<RecipeWithMeta>()
+        MutableLiveData<Recipe>()
     }
-    val recipe: LiveData<RecipeWithMeta>
+    val recipe: LiveData<Recipe>
         get() = _recipe
 
     private val _recipePhoto by lazy {

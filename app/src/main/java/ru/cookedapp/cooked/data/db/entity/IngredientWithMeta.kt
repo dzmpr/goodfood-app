@@ -1,7 +1,7 @@
 package ru.cookedapp.cooked.data.db.entity
 
 data class IngredientWithMeta(
-    val product: Product,
+    val product: ProductEntity,
     var amount: Float,
-    val unit: ProductUnit
+    val unit: ProductUnitEntity
 )

@@ -6,13 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
-import ru.cookedapp.cooked.R
-import ru.cookedapp.cooked.data.db.entity.RecipeCategory
 import kotlin.math.truncate
+import ru.cookedapp.cooked.R
+import ru.cookedapp.cooked.data.db.entity.RecipeCategoryEntity
 
 class CategoryAdapter(private val callback: CategoryItemCallback) :
     RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
-    private var categoriesList: List<RecipeCategory> = mutableListOf()
+    private var categoriesList: List<RecipeCategoryEntity> = mutableListOf()
 
     class CategoryViewHolder(private val callback: CategoryItemCallback, private val view: View) :
         RecyclerView.ViewHolder(view) {
@@ -25,7 +25,7 @@ class CategoryAdapter(private val callback: CategoryItemCallback) :
             R.color.chip_blue
         )
 
-        fun bind(item: RecipeCategory) {
+        fun bind(item: RecipeCategoryEntity) {
             (view as Chip).apply {
                 text = item.name
                 setChipBackgroundColorResource(nameToColor(item.name))
@@ -59,7 +59,7 @@ class CategoryAdapter(private val callback: CategoryItemCallback) :
 
     override fun getItemCount(): Int = categoriesList.size
 
-    fun setList(newList: List<RecipeCategory>) {
+    fun setList(newList: List<RecipeCategoryEntity>) {
         if (categoriesList.isEmpty()) {
             categoriesList = newList.toList()
             notifyDataSetChanged()
@@ -72,8 +72,8 @@ class CategoryAdapter(private val callback: CategoryItemCallback) :
     }
 
     class CategoryDiffUtilCallback(
-        private val oldList: List<RecipeCategory>,
-        private val newList: List<RecipeCategory>
+        private val oldList: List<RecipeCategoryEntity>,
+        private val newList: List<RecipeCategoryEntity>
     ) : DiffUtil.Callback() {
         override fun getOldListSize() = oldList.size
 

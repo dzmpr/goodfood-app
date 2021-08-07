@@ -6,18 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AutoCompleteTextView
 import androidx.lifecycle.ViewModelProvider
+import javax.inject.Inject
 import ru.cookedapp.cooked.R
-import ru.cookedapp.cooked.ui.base.BaseDropdownAdapter
 import ru.cookedapp.cooked.data.db.entity.IngredientWithMeta
-import ru.cookedapp.cooked.data.db.entity.Product
-import ru.cookedapp.cooked.data.db.entity.ProductUnit
+import ru.cookedapp.cooked.data.db.entity.ProductEntity
+import ru.cookedapp.cooked.data.db.entity.ProductUnitEntity
 import ru.cookedapp.cooked.databinding.FragmentAddIngredientBinding
+import ru.cookedapp.cooked.ui.CookedApp
+import ru.cookedapp.cooked.ui.base.BaseBottomSheetFragment
+import ru.cookedapp.cooked.ui.base.BaseDropdownAdapter
 import ru.cookedapp.cooked.utils.AutocompleteSelectionHelper
 import ru.cookedapp.cooked.utils.DropdownSelectionHelper
 import ru.cookedapp.cooked.utils.InputValidator
-import ru.cookedapp.cooked.ui.CookedApp
-import ru.cookedapp.cooked.ui.base.BaseBottomSheetFragment
-import javax.inject.Inject
 
 class AddIngredientBottomFragment : BaseBottomSheetFragment() {
     private lateinit var binding: FragmentAddIngredientBinding
@@ -54,14 +54,14 @@ class AddIngredientBottomFragment : BaseBottomSheetFragment() {
         val unitValidator = InputValidator(binding.tilAmountUnit, resources.getString(R.string.label_product_units_error))
 
         selectedProductHelper = AutocompleteSelectionHelper(binding.tilIngredientName) { input ->
-            Product(name = input)
+            ProductEntity(name = input)
         }.addItemSelectedListener {
             // Set focus to next text field
             binding.tilAmount.requestFocus()
         }
 
         selectedUnitHelper = DropdownSelectionHelper(binding.tilAmountUnit) { input ->
-            ProductUnit(name = input)
+            ProductUnitEntity(name = input)
         }
 
         binding.bAddIngredient.setOnClickListener {
@@ -99,8 +99,8 @@ class AddIngredientBottomFragment : BaseBottomSheetFragment() {
     }
 
     private fun getIngredient(): IngredientWithMeta = IngredientWithMeta(
-        selectedProductHelper.selected as Product,
+        selectedProductHelper.selected as ProductEntity,
         binding.tilAmount.editText?.text.toString().toFloat(),
-        selectedUnitHelper.selected as ProductUnit
+        selectedUnitHelper.selected as ProductUnitEntity
     )
 }

@@ -6,13 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
-import ru.cookedapp.cooked.R
-import ru.cookedapp.cooked.data.db.entity.Product
 import kotlin.math.truncate
+import ru.cookedapp.cooked.R
+import ru.cookedapp.cooked.data.db.entity.ProductEntity
 
 class ProductsAdapter(private val callback: ProductItemCallback) :
     RecyclerView.Adapter<ProductsAdapter.ProductsViewHolder>() {
-    private var productsList: List<Product> = emptyList()
+    private var productsList: List<ProductEntity> = emptyList()
 
     class ProductsViewHolder(private val callback: ProductItemCallback, private val view: View) :
         RecyclerView.ViewHolder(view) {
@@ -25,7 +25,7 @@ class ProductsAdapter(private val callback: ProductItemCallback) :
             R.color.chip_blue
         )
 
-        fun bind(item: Product) {
+        fun bind(item: ProductEntity) {
             (view as Chip).apply {
                 text = item.name
                 setChipBackgroundColorResource(nameToColor(item.name))
@@ -58,7 +58,7 @@ class ProductsAdapter(private val callback: ProductItemCallback) :
 
     override fun getItemCount() = productsList.size
 
-    fun setList(newList: List<Product>) {
+    fun setList(newList: List<ProductEntity>) {
         if (productsList.isEmpty()) {
             productsList = newList.toList()
             notifyDataSetChanged()
@@ -74,8 +74,8 @@ class ProductsAdapter(private val callback: ProductItemCallback) :
     }
 
     class ProductsDiffUtilCallback(
-        private val oldList: List<Product>,
-        private val newList: List<Product>
+        private val oldList: List<ProductEntity>,
+        private val newList: List<ProductEntity>
     ) : DiffUtil.Callback() {
         override fun getOldListSize() = oldList.size
 
