@@ -3,7 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlinx-serialization'
-    id 'io.gitlab.arturbosch.detekt' version '1.17.1'
+    id 'io.gitlab.arturbosch.detekt' version '1.18.0'
 }
 
 android {
@@ -26,9 +26,10 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            minifyEnabled true
+            shrinkResources true
             debuggable false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             manifestPlaceholders = [
                 appIconRes : "@mipmap/ic_launcher",
                 appIconRoundRes : "@mipmap/ic_launcher_round",
