@@ -19,3 +19,25 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# # # # # # # # # # # # # # # #
+# kotlinx.serialization rules #
+-keepattributes *Annotation*, InnerClasses
+-dontnote kotlinx.serialization.AnnotationsKt # core serialization annotations
+
+# kotlinx-serialization-json specific. Add this if you have java.lang.NoClassDefFoundError kotlinx.serialization.json.JsonObjectSerializer
+-keepclassmembers class kotlinx.serialization.json.** {
+    *** Companion;
+}
+-keepclasseswithmembers class kotlinx.serialization.json.** {
+    kotlinx.serialization.KSerializer serializer(...);
+}
+
+# Change here com.yourcompany.yourpackage
+-keep,includedescriptorclasses class ru.cookedapp.cooked.**$$serializer { *; }
+-keepclassmembers class ru.cookedapp.cooked.** {
+    *** Companion;
+}
+-keepclasseswithmembers class ru.cookedapp.cooked.** {
+    kotlinx.serialization.KSerializer serializer(...);
+}

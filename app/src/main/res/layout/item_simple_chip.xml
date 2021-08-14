@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cItem"
     android:textColor="@color/white"
-    android:textAppearance="@style/TextAppearance.GoodFood.ChipBold"
+    android:textAppearance="@style/TextAppearance.Cooked.ChipBold"
     android:layout_marginHorizontal="4dp"
     app:textEndPadding="10dp"
     app:textStartPadding="10dp"

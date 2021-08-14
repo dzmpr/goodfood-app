@@ -18,7 +18,7 @@
             android:id="@+id/tbToolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:theme="@style/Theme.GoodFood.ActionBar"
+            android:theme="@style/Theme.Cooked.ActionBar"
             android:titleTextColor="?attr/colorOnSurface"
             app:contentInsetStartWithNavigation="0dp"
             app:navigationIcon="@drawable/ic_back_arrow"
