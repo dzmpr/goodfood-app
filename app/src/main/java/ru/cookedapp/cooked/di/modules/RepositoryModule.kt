@@ -2,7 +2,11 @@ package ru.cookedapp.cooked.di.modules
 
 import dagger.Module
 import dagger.Provides
-import ru.cookedapp.cooked.data.db.AppDatabase
+import ru.cookedapp.cooked.data.db.dao.CartDao
+import ru.cookedapp.cooked.data.db.dao.ProductDao
+import ru.cookedapp.cooked.data.db.dao.ProductUnitDao
+import ru.cookedapp.cooked.data.db.dao.RecipeCategoryDao
+import ru.cookedapp.cooked.data.db.dao.RecipeDao
 import ru.cookedapp.cooked.data.gateway.PhotoGateway
 import ru.cookedapp.cooked.data.prefs.RecipePreferences
 import ru.cookedapp.cooked.data.repository.CartRepository
@@ -15,25 +19,43 @@ import ru.cookedapp.cooked.data.repository.RecipeRepository
 class RepositoryModule {
     @Provides
     fun provideRecipeRepository(
-        dbInstance: AppDatabase,
+        recipeDao: RecipeDao,
+        recipeCategoryDao: RecipeCategoryDao,
+        productDao: ProductDao,
+        productUnitDao: ProductUnitDao,
         photoGateway: PhotoGateway,
         recipePreferences: RecipePreferences
-    ): RecipeRepository =
-        RecipeRepository(dbInstance, photoGateway, recipePreferences)
+    ): RecipeRepository = RecipeRepository(
+        recipeDao,
+        recipeCategoryDao,
+        productDao,
+        productUnitDao,
+        photoGateway,
+        recipePreferences
+    )
 
     @Provides
-    fun provideProductRepository(dbInstance: AppDatabase): ProductRepository =
-        ProductRepository(dbInstance)
+    fun provideProductRepository(productDao: ProductDao): ProductRepository =
+        ProductRepository(productDao)
 
     @Provides
-    fun provideRecipeCategoryRepository(dbInstance: AppDatabase): RecipeCategoryRepository =
-        RecipeCategoryRepository(dbInstance)
+    fun provideRecipeCategoryRepository(recipeCategoryDao: RecipeCategoryDao): RecipeCategoryRepository =
+        RecipeCategoryRepository(recipeCategoryDao)
 
     @Provides
-    fun provideProductUnitsRepository(dbInstance: AppDatabase): ProductUnitsRepository =
-        ProductUnitsRepository(dbInstance)
+    fun provideProductUnitsRepository(productUnitDao: ProductUnitDao): ProductUnitsRepository =
+        ProductUnitsRepository(productUnitDao)
 
     @Provides
-    fun provideCartRepository(dbInstance: AppDatabase): CartRepository =
-        CartRepository(dbInstance)
+    fun provideCartRepository(
+        recipeDao: RecipeDao,
+        cartDao: CartDao,
+        productDao: ProductDao,
+        productUnitDao: ProductUnitDao
+    ): CartRepository = CartRepository(
+        recipeDao,
+        cartDao,
+        productDao,
+        productUnitDao
+    )
 }

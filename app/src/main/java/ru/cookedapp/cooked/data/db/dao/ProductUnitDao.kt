@@ -5,7 +5,7 @@ import androidx.room.Query
 import ru.cookedapp.cooked.data.db.entity.ProductUnitEntity
 
 @Dao
-interface ProductUnitsDao: BaseDao<ProductUnitEntity> {
+interface ProductUnitDao: BaseDao<ProductUnitEntity> {
     @Query("SELECT * FROM product_units")
     fun getAll(): List<ProductUnitEntity>
 

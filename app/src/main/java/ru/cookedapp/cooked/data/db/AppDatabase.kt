@@ -11,7 +11,7 @@ import java.util.concurrent.Executors
 import ru.cookedapp.cooked.R
 import ru.cookedapp.cooked.data.db.dao.CartDao
 import ru.cookedapp.cooked.data.db.dao.ProductDao
-import ru.cookedapp.cooked.data.db.dao.ProductUnitsDao
+import ru.cookedapp.cooked.data.db.dao.ProductUnitDao
 import ru.cookedapp.cooked.data.db.dao.RecipeCategoryDao
 import ru.cookedapp.cooked.data.db.dao.RecipeDao
 import ru.cookedapp.cooked.data.db.entity.CartItemEntity
@@ -33,7 +33,7 @@ import ru.cookedapp.cooked.data.prefs.RecipePreferences
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun productDao(): ProductDao
-    abstract fun productUnitsDao(): ProductUnitsDao
+    abstract fun productUnitDao(): ProductUnitDao
 
     abstract fun recipeDao(): RecipeDao
     abstract fun recipeCategoryDao(): RecipeCategoryDao
@@ -61,7 +61,7 @@ abstract class AppDatabase : RoomDatabase() {
                             val res = context.resources
 
                             // Prepopulate units
-                            with(database.productUnitsDao()) {
+                            with(database.productUnitDao()) {
                                 val units = res.getStringArray(R.array.labels_units)
                                 units.forEach {
                                     insert(ProductUnitEntity(name = it))
