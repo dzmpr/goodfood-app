@@ -27,9 +27,10 @@ abstract class BaseViewHolder<ViewType : ItemViewType>(
     protected val context: Context = itemView.context
 
     /**
-     * This scope is not intended to run heavy coroutines, only for subscribing to view events.
+     * This scope run on Main dispatcher and not intended to run heavy coroutines,
+     * only for subscribing to view events.
      */
-    protected val viewHolderScope = CoroutineScope(Dispatchers.Default + SupervisorJob())
+    protected val viewHolderScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
 
     fun bind(item: Item<ViewType>) {
         holderState = HolderState.BINDING
