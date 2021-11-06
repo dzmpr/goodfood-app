@@ -16,25 +16,26 @@ import androidx.fragment.app.setFragmentResult
 import ru.cookedapp.cooked.R
 
 class EditNameDialogFragment : DialogFragment() {
+
     private lateinit var dialogTitle: String
     private lateinit var initialName: String
-    private var dataId: Int = 0
+    private var dataId: Long = 0
 
     private var nameTextField: EditText? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            dialogTitle = it.getString(TITLE_KEY, "")
-            initialName = it.getString(INITIAL_NAME_KEY, "")
-            dataId = it.getInt(DATA_ID_KEY, 0)
+
+        with(arguments ?: error("No arguments passed to dialog.")) {
+            dialogTitle = getString(TITLE_KEY)!!
+            initialName = getString(INITIAL_NAME_KEY)!!
+            dataId = getLong(DATA_ID_KEY)
         }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialogBuilder = AlertDialog.Builder(context)
         val view = createLayout()
-        dialogBuilder.apply {
+        return AlertDialog.Builder(context).apply {
             setTitle(dialogTitle)
             setView(view)
             setPositiveButton(R.string.label_ok) { _, _ ->
@@ -44,8 +45,7 @@ class EditNameDialogFragment : DialogFragment() {
             setNegativeButton(R.string.label_cancel) { _, _ ->
                 dismiss()
             }
-        }
-        return dialogBuilder.create()
+        }.create()
     }
 
     private fun setResult() {
@@ -58,11 +58,12 @@ class EditNameDialogFragment : DialogFragment() {
     }
 
     private fun createLayout(): View {
-        val container = LinearLayout(context)
-        container.layoutParams = ViewGroup.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
+        val container = LinearLayout(context).apply {
+            layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+        }
 
         val textField = EditText(context).apply {
             id = View.generateViewId()
@@ -105,15 +106,15 @@ class EditNameDialogFragment : DialogFragment() {
 
         const val RESULT_NAME_KEY = "result_string"
 
-        fun getDialog(titleText: String, initialText: String, dataId: Int): EditNameDialogFragment {
-            val dialog = EditNameDialogFragment()
-            val data = bundleOf(
-                INITIAL_NAME_KEY to initialText,
-                TITLE_KEY to titleText,
-                DATA_ID_KEY to dataId
-            )
-            dialog.arguments = data
-            return dialog
+        fun getDialog(titleText: String, initialText: String, dataId: Long): EditNameDialogFragment {
+            return EditNameDialogFragment().apply {
+                val data = bundleOf(
+                    INITIAL_NAME_KEY to initialText,
+                    TITLE_KEY to titleText,
+                    DATA_ID_KEY to dataId
+                )
+                arguments = data
+            }
         }
     }
 }

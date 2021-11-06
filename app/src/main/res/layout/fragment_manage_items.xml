@@ -22,13 +22,13 @@
             android:titleTextColor="?attr/colorOnSurface"
             app:contentInsetStartWithNavigation="0dp"
             app:navigationIcon="@drawable/ic_back_arrow"
-            app:title="@string/label_manage_products" />
+            tools:title="@string/label_manage_products" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:id="@+id/rvProductsList"
+        android:id="@+id/rvItemsList"
         android:overScrollMode="never"
         android:paddingTop="4dp"
         android:paddingHorizontal="10dp"

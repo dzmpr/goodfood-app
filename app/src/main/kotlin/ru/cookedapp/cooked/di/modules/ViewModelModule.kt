@@ -8,8 +8,8 @@ import dagger.multibindings.IntoMap
 import ru.cookedapp.cooked.di.ViewModelFactory
 import ru.cookedapp.cooked.ui.cart.CartViewModel
 import ru.cookedapp.cooked.ui.editRecipe.EditRecipeViewModel
-import ru.cookedapp.cooked.ui.manageCategories.ManageCategoriesViewModel
-import ru.cookedapp.cooked.ui.manageProducts.ManageProductsViewModel
+import ru.cookedapp.cooked.ui.manageItems.manageCategories.ManageCategoriesViewModel
+import ru.cookedapp.cooked.ui.manageItems.manageProducts.ManageProductsViewModel
 import ru.cookedapp.cooked.ui.recipeDetails.RecipeDetailsViewModel
 import ru.cookedapp.cooked.ui.recipeList.RecipeListViewModel
 import ru.cookedapp.cooked.ui.recipesOverview.RecipesOverviewViewModel
@@ -18,6 +18,7 @@ import ru.cookedapp.cooked.utils.ViewModelKey
 
 @Module
 abstract class ViewModelModule {
+
     @Binds
     internal abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 
