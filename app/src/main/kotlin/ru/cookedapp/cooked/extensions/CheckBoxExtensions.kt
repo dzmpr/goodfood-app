@@ -1,20 +1,16 @@
 package ru.cookedapp.cooked.extensions
 
-import android.view.View
+import android.widget.CheckBox
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 
-fun View.setViewVisibility(visible: Boolean) {
-    visibility = if (visible) View.VISIBLE else View.GONE
-}
-
 @OptIn(ExperimentalCoroutinesApi::class)
-fun View.clicks() = callbackFlow {
-    setOnClickListener {
-        trySend(Unit)
+fun CheckBox.checked() = callbackFlow {
+    setOnCheckedChangeListener { _, isChecked ->
+        trySend(isChecked)
     }
     awaitClose {
-        setOnClickListener(null)
+        setOnCheckedChangeListener(null)
     }
 }

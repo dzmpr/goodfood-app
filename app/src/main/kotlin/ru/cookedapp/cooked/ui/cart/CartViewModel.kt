@@ -8,26 +8,28 @@ import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import ru.cookedapp.cooked.data.db.entity.CartItem
 import ru.cookedapp.cooked.data.repository.CartRepository
+import ru.cookedapp.cooked.ui.cart.data.CartViewType
 import ru.cookedapp.cooked.utils.ItemTouchHelperAction
+import ru.cookedapp.cooked.utils.listBase.data.Item
 
 class CartViewModel @Inject constructor(
     private val cartRepository: CartRepository
 ): ViewModel(), ItemTouchHelperAction {
-    private val cart by lazy{
-        MutableLiveData<List<CartItem>>()
+
+    private val cart by lazy {
+        MutableLiveData<List<Item<CartViewType>>>()
     }
-    val cartList: LiveData<List<CartItem>>
+    val cartList: LiveData<List<Item<CartViewType>>>
         get() = cart
+
+    private val cartRowProvider = CartRowProvider()
 
     init {
         viewModelScope.launch {
-            cartRepository.loadCartList()
-                .onEach {
-                    cart.value = it
-                }
-                .launchIn(this)
+            cartRepository.loadCartList().onEach {
+                cart.value = cartRowProvider.generateItems(it)
+            }.launchIn(this)
         }
     }
 
@@ -52,7 +54,7 @@ class CartViewModel @Inject constructor(
     override fun itemSwiped(position: Int, direction: Int) {
         viewModelScope.launch {
             cart.value?.let {
-                cartRepository.removeFromCart(it[position].id!!)
+                cartRepository.removeFromCart(it[position].id.toInt())
             }
         }
     }
