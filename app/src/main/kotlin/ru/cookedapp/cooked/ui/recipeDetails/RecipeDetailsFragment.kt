@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
@@ -153,6 +154,10 @@ class RecipeDetailsFragment : Fragment() {
     }
 
     companion object {
-        const val RECIPE_ID_KEY = "recipe_id_key"
+        private const val RECIPE_ID_KEY = "recipe_id_key"
+
+        fun createOpenRecipeBundle(recipeId: Int) = bundleOf(
+            RECIPE_ID_KEY to recipeId
+        )
     }
 }

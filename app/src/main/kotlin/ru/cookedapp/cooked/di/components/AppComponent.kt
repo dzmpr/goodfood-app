@@ -17,7 +17,6 @@ import ru.cookedapp.cooked.ui.editRecipe.EditRecipeFragment
 import ru.cookedapp.cooked.ui.manageCategories.ManageCategoriesFragment
 import ru.cookedapp.cooked.ui.manageProducts.ManageProductsFragment
 import ru.cookedapp.cooked.ui.recipeDetails.RecipeDetailsFragment
-import ru.cookedapp.cooked.ui.recipeList.RecipeLineAdapter
 import ru.cookedapp.cooked.ui.recipeList.RecipeListFragment
 import ru.cookedapp.cooked.ui.recipesOverview.RecipeCardAdapter
 import ru.cookedapp.cooked.ui.recipesOverview.RecipesOverviewFragment
@@ -48,7 +47,6 @@ interface AppComponent {
 
     // Adapters
     fun inject(adapter: RecipeCardAdapter)
-    fun inject(adapter: RecipeLineAdapter)
 
     @Component.Builder
     interface Builder {

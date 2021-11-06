@@ -17,16 +17,23 @@ import kotlinx.coroutines.launch
 import ru.cookedapp.cooked.data.db.entity.Recipe
 import ru.cookedapp.cooked.data.db.entity.RecipeCategoryEntity
 import ru.cookedapp.cooked.data.repository.RecipeRepository
+import ru.cookedapp.cooked.ui.recipeList.data.RecipeListItem
+import ru.cookedapp.cooked.ui.recipeList.data.RecipeListViewType
 import ru.cookedapp.cooked.utils.ItemTouchHelperAction
 import ru.cookedapp.cooked.utils.SingleLiveEvent
+import ru.cookedapp.cooked.utils.listBase.data.Item
 
 class RecipeListViewModel @Inject constructor(
-    private val recipeRepository: RecipeRepository
+    private val recipeRepository: RecipeRepository,
+    private val recipeListRowProvider: RecipeListRowProvider,
 ) : ViewModel(), ItemTouchHelperAction {
+
     private lateinit var recipes: Flow<List<Recipe>>
-    private val filteredRecipes = MutableLiveData<List<Recipe>>()
-    val recipeList: LiveData<List<Recipe>>
+
+    private val filteredRecipes = MutableLiveData<List<Item<RecipeListViewType>>>()
+    val recipeList: LiveData<List<Item<RecipeListViewType>>>
         get() = filteredRecipes
+
     private val recipeCategories = MutableLiveData<Set<RecipeCategoryEntity>>()
     val categorySet: LiveData<Set<RecipeCategoryEntity>>
         get() = recipeCategories
@@ -41,9 +48,7 @@ class RecipeListViewModel @Inject constructor(
                 RecipeListFragment.LIST_TYPE_ALL -> recipeRepository.getAllRecipes()
                 RecipeListFragment.LIST_TYPE_FAVORITES -> recipeRepository.getFavoriteRecipes()
                 RecipeListFragment.LIST_TYPE_FREQUENT -> recipeRepository.getFrequentRecipes()
-                else -> {
-                    throw IllegalStateException("Unknown list type $sourceKey.")
-                }
+                else -> throw IllegalStateException("Unknown list type $sourceKey.")
             }
             loadList()
         }
@@ -51,34 +56,26 @@ class RecipeListViewModel @Inject constructor(
 
     private fun loadList() {
         viewModelScope.launch {
-            recipes
-                .onEach {
-                    val categorySet = mutableSetOf<RecipeCategoryEntity>()
-                    it.forEach { recipe ->
-                        categorySet.add(recipe.category)
-                    }
-                    if (recipeCategories.value != categorySet) {
-                        recipeCategories.postValue(categorySet)
-                    }
+            recipes.onEach { recipes ->
+                val categorySet = recipes.asSequence().map { it.category }.toSet()
+                if (recipeCategories.value != categorySet) {
+                    recipeCategories.postValue(categorySet)
                 }
-                .flowOn(Dispatchers.Default)
-                .combine(selectedCategory) { list, category ->
-                    list to category
-                }
-                .map { pair ->
-                    if (pair.second == 0) {
-                        pair.first
-                    } else {
-                        pair.first.filter {
-                            it.category.id == pair.second
-                        }
+            }.flowOn(Dispatchers.Default)
+            .combine(selectedCategory) { recipes, selectedCategory ->
+                recipes to selectedCategory
+            }.map { (recipes, selectedCategory) ->
+                if (selectedCategory == 0) {
+                    recipes
+                } else {
+                    recipes.filter { recipe ->
+                        recipe.category.id == selectedCategory
                     }
                 }
-                .flowOn(Dispatchers.IO)
-                .onEach {
-                    filteredRecipes.postValue(it)
-                }
-                .launchIn(this)
+            }.flowOn(Dispatchers.IO)
+            .onEach { recipes ->
+                filteredRecipes.postValue(recipeListRowProvider.generateRows(recipes))
+            }.launchIn(this)
         }
     }
 
@@ -94,9 +91,9 @@ class RecipeListViewModel @Inject constructor(
 
     override fun itemSwiped(position: Int, direction: Int) {
         viewModelScope.launch {
-            val item = recipeList.value?.get(position)
-            deleteSnack.value = item?.name // Show snackbar with deleted item name
-            recipeRepository.removeRecipeById(item!!.id!!)
+            val item = recipeList.value?.get(position) as RecipeListItem
+            deleteSnack.value = item.recipeName // Show snackbar with deleted item name
+            recipeRepository.removeRecipeById(item.id.toInt())
         }
     }
 
