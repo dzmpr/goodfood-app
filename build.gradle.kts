@@ -1,6 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    extra["kotlinVersion"] = "1.5.30"
+    extra["kotlinVersion"] = "1.6.0"
 
     repositories {
         google()
@@ -9,7 +9,7 @@ buildscript {
 
     dependencies {
         val kotlinVersion: String by rootProject.extra
-        classpath("com.android.tools.build:gradle:7.0.2")
+        classpath("com.android.tools.build:gradle:7.0.4")
 
         classpath(kotlin("gradle-plugin", version = kotlinVersion))
         classpath(kotlin("serialization", version = kotlinVersion))
