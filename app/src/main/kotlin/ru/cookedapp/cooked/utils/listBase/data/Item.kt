@@ -1,13 +1,14 @@
 package ru.cookedapp.cooked.utils.listBase.data
 
-interface Item<ViewType : ItemViewType> {
+interface Item {
 
     val id: Long
-    val type: ViewType
 
-    fun isItemsSame(item: Item<ViewType>): Boolean = id == item.id
+    fun isItemsSame(item: Item): Boolean = id == item.id
 
-    fun isContentSame(item: Item<ViewType>): Boolean = this == item
+    fun isContentSame(item: Item): Boolean = this == item
 
-    fun calculatePayload(item: Item<ViewType>): ItemPayload? = null
+    fun calculatePayload(item: Item): ItemPayload? = null
 }
+
+typealias Items = Item

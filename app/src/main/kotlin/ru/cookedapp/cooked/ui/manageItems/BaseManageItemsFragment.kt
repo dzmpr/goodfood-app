@@ -17,7 +17,9 @@ import ru.cookedapp.cooked.databinding.FragmentManageItemsBinding
 import ru.cookedapp.cooked.ui.CookedApp
 import ru.cookedapp.cooked.ui.base.EditNameDialogFragment
 import ru.cookedapp.cooked.ui.manageItems.data.ManageItemModel
-import ru.cookedapp.cooked.ui.manageItems.data.ManageItemsViewType
+import ru.cookedapp.cooked.ui.manageItems.viewHolders.ManageItemHolder
+import ru.cookedapp.cooked.utils.listBase.ListAdapter
+import ru.cookedapp.cooked.utils.listBase.ViewHolderFactoryProvider
 import ru.cookedapp.cooked.utils.listBase.data.Item
 import ru.cookedapp.cooked.utils.listBase.data.ItemEvent
 
@@ -26,7 +28,7 @@ abstract class BaseManageItemsFragment : Fragment() {
     private var _binding: FragmentManageItemsBinding? = null
     private val binding: FragmentManageItemsBinding get() = _binding!!
 
-    private lateinit var itemsAdapter: ManageItemsAdapter
+    private lateinit var itemsAdapter: ListAdapter
 
     abstract val toolbarTextResId: Int
     abstract val renameDialogTitleResId: Int
@@ -61,12 +63,15 @@ abstract class BaseManageItemsFragment : Fragment() {
         initList()
     }
 
-    protected fun setItems(items: List<Item<ManageItemsViewType>>) {
+    protected fun setItems(items: List<Item>) {
         itemsAdapter.setList(items)
     }
 
     private fun initList() {
-        itemsAdapter = ManageItemsAdapter(lifecycleScope) { event ->
+        val holderFactoryProvider = ViewHolderFactoryProvider(
+            ManageItemModel::class to ManageItemHolder.getFactory(),
+        )
+        itemsAdapter = ListAdapter(lifecycleScope, holderFactoryProvider) { event ->
             when (event) {
                 is ItemEvent.Click -> when (event.item) {
                     is ManageItemModel -> showDialogForItem(event.item as ManageItemModel)

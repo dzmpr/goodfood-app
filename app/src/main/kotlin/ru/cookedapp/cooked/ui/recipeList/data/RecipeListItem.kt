@@ -6,14 +6,13 @@ import ru.cookedapp.cooked.utils.listBase.data.ItemPayload
 
 data class RecipeListItem(
     override val id: Long,
-    override val type: RecipeListViewType,
     val recipeName: String,
     val recipeCategoryName: String,
     val inFavorites: Boolean,
     val thumbnailUri: Uri?,
-) : Item<RecipeListViewType> {
+) : Item {
 
-    override fun calculatePayload(item: Item<RecipeListViewType>): ItemPayload? {
+    override fun calculatePayload(item: Item): ItemPayload? {
         item as RecipeListItem
         return if (inFavorites != item.inFavorites) {
             RecipeFavoriteStateChanged(item.inFavorites)

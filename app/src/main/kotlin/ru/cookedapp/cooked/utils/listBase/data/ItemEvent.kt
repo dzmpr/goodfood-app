@@ -1,25 +1,25 @@
 package ru.cookedapp.cooked.utils.listBase.data
 
-sealed interface ItemEvent<ViewType : ItemViewType> {
+sealed interface ItemEvent {
 
-    val item: Item<ViewType>
+    val item: Item
 
-    data class Click<ViewType : ItemViewType>(
-        override val item: Item<ViewType>,
-    ) : ItemEvent<ViewType>
+    data class Click(
+        override val item: Item,
+    ) : ItemEvent
 
-    data class Checked<ViewType : ItemViewType>(
-        override val item: Item<ViewType>,
+    data class Checked(
+        override val item: Item,
         val newCheckedState: Boolean,
-    ) : ItemEvent<ViewType>
+    ) : ItemEvent
 
-    data class Delete<ViewType : ItemViewType>(
-        override val item: Item<ViewType>,
-    ) : ItemEvent<ViewType>
+    data class Delete(
+        override val item: Item,
+    ) : ItemEvent
 
-    data class Custom<ViewType : ItemViewType>(
-        override val item: Item<ViewType>,
+    data class Custom(
+        override val item: Item,
         val eventType: Enum<*>,
         val payload: Any? = null,
-    ) : ItemEvent<ViewType>
+    ) : ItemEvent
 }

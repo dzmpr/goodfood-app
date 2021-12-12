@@ -9,26 +9,24 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import ru.cookedapp.cooked.data.repository.CartRepository
-import ru.cookedapp.cooked.ui.cart.data.CartViewType
 import ru.cookedapp.cooked.utils.ItemTouchHelperAction
 import ru.cookedapp.cooked.utils.listBase.data.Item
 
 class CartViewModel @Inject constructor(
-    private val cartRepository: CartRepository
-): ViewModel(), ItemTouchHelperAction {
+    private val cartRepository: CartRepository,
+    private val itemsProvider: CartItemsProvider,
+) : ViewModel(), ItemTouchHelperAction {
 
     private val cart by lazy {
-        MutableLiveData<List<Item<CartViewType>>>()
+        MutableLiveData<List<Item>>()
     }
-    val cartList: LiveData<List<Item<CartViewType>>>
+    val cartList: LiveData<List<Item>>
         get() = cart
-
-    private val cartRowProvider = CartRowProvider()
 
     init {
         viewModelScope.launch {
             cartRepository.loadCartList().onEach {
-                cart.value = cartRowProvider.generateItems(it)
+                cart.value = itemsProvider.generateItems(it)
             }.launchIn(this)
         }
     }

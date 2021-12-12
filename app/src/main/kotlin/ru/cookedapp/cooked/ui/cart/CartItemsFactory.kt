@@ -1,15 +1,14 @@
 package ru.cookedapp.cooked.ui.cart
 
+import javax.inject.Inject
 import ru.cookedapp.cooked.data.db.entity.CartItem
 import ru.cookedapp.cooked.extensions.cutDecimals
-import ru.cookedapp.cooked.ui.cart.data.CartItemModel
-import ru.cookedapp.cooked.ui.cart.data.CartViewType
+import ru.cookedapp.cooked.ui.cart.data.CartProductItem
 
-class CartRowFactory {
+class CartItemsFactory @Inject constructor() {
 
-    fun createCartItem(cartItem: CartItem) = CartItemModel(
+    fun createCartItem(cartItem: CartItem) = CartProductItem(
         id = cartItem.id!!.toLong(),
-        type = CartViewType.ITEM,
         isBought = cartItem.isBought,
         productName = cartItem.product.name,
         amount = cartItem.amount.cutDecimals(2),

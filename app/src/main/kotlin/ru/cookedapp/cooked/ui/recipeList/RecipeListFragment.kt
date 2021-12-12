@@ -22,8 +22,11 @@ import ru.cookedapp.cooked.extensions.setViewVisibility
 import ru.cookedapp.cooked.ui.CookedApp
 import ru.cookedapp.cooked.ui.recipeDetails.RecipeDetailsFragment
 import ru.cookedapp.cooked.ui.recipeList.data.RecipeListItem
+import ru.cookedapp.cooked.ui.recipeList.viewHolders.RecipeViewHolder
 import ru.cookedapp.cooked.utils.ItemSwipeDecorator
 import ru.cookedapp.cooked.utils.RecipeListItemTouchHelperCallback
+import ru.cookedapp.cooked.utils.listBase.ListAdapter
+import ru.cookedapp.cooked.utils.listBase.ViewHolderFactoryProvider
 import ru.cookedapp.cooked.utils.listBase.data.ItemEvent
 
 class RecipeListFragment : Fragment() {
@@ -110,7 +113,10 @@ class RecipeListFragment : Fragment() {
     }
 
     private fun initList() {
-        val recipeListAdapter = RecipesListAdapter(lifecycleScope) { event ->
+        val holderFactoryProvider = ViewHolderFactoryProvider(
+            RecipeListItem::class to RecipeViewHolder.getFactory(),
+        )
+        val recipeListAdapter = ListAdapter(lifecycleScope, holderFactoryProvider) { event ->
             when (event) {
                 is ItemEvent.Checked -> when (event.item) {
                     is RecipeListItem -> {
@@ -125,7 +131,7 @@ class RecipeListFragment : Fragment() {
                     }
                 }
                 is ItemEvent.Custom,
-                is ItemEvent.Delete -> error("No action.")
+                is ItemEvent.Delete -> error("Unexpected event $event.")
             }
         }
 
@@ -149,7 +155,7 @@ class RecipeListFragment : Fragment() {
         touchHelper.attachToRecyclerView(binding.rvRecipesList)
     }
 
-    private fun subscribeUi(adapter: RecipesListAdapter) {
+    private fun subscribeUi(adapter: ListAdapter) {
         viewModel.recipeList.observe(viewLifecycleOwner) { list ->
             adapter.setList(list)
         }

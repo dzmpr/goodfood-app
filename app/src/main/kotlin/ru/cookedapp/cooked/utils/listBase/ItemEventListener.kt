@@ -1,9 +1,8 @@
 package ru.cookedapp.cooked.utils.listBase
 
 import ru.cookedapp.cooked.utils.listBase.data.ItemEvent
-import ru.cookedapp.cooked.utils.listBase.data.ItemViewType
 
-fun interface ItemEventListener<ViewType : ItemViewType> {
+fun interface ItemEventListener {
 
-    fun onEvent(event: ItemEvent<ViewType>)
+    fun onEvent(event: ItemEvent)
 }

@@ -15,9 +15,12 @@ import ru.cookedapp.cooked.R
 import ru.cookedapp.cooked.databinding.FragmentCartBinding
 import ru.cookedapp.cooked.extensions.setViewVisibility
 import ru.cookedapp.cooked.ui.CookedApp
-import ru.cookedapp.cooked.ui.cart.data.CartViewType
+import ru.cookedapp.cooked.ui.cart.data.CartProductItem
+import ru.cookedapp.cooked.ui.cart.viewHolders.CartItemHolder
 import ru.cookedapp.cooked.utils.ItemSwipeDecorator
 import ru.cookedapp.cooked.utils.RecipeListItemTouchHelperCallback
+import ru.cookedapp.cooked.utils.listBase.ListAdapter
+import ru.cookedapp.cooked.utils.listBase.ViewHolderFactoryProvider
 import ru.cookedapp.cooked.utils.listBase.data.ItemEvent
 
 class CartFragment : Fragment() {
@@ -62,16 +65,19 @@ class CartFragment : Fragment() {
     }
 
     private fun initList() {
-        val cartAdapter = CartAdapter(lifecycleScope) { event ->
+        val holderFactoryProvider = ViewHolderFactoryProvider(
+            CartProductItem::class to CartItemHolder.getFactory(),
+        )
+        val cartAdapter = ListAdapter(lifecycleScope, holderFactoryProvider) { event ->
             when (event) {
-                is ItemEvent.Checked -> when (event.item.type) {
-                    CartViewType.ITEM -> {
+                is ItemEvent.Checked -> when (event.item) {
+                    is CartProductItem -> {
                         viewModel.changeBoughtState(event.item.id.toInt(), event.newCheckedState)
                     }
                 }
                 is ItemEvent.Click,
                 is ItemEvent.Custom,
-                is ItemEvent.Delete -> error("No action.")
+                is ItemEvent.Delete -> error("Unexpected event $event.")
             }
         }
 

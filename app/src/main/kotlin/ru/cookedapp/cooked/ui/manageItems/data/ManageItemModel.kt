@@ -4,6 +4,5 @@ import ru.cookedapp.cooked.utils.listBase.data.Item
 
 data class ManageItemModel(
     override val id: Long,
-    override val type: ManageItemsViewType,
     val name: String,
-): Item<ManageItemsViewType>
+): Item

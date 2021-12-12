@@ -13,18 +13,16 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.withContext
 import ru.cookedapp.cooked.utils.listBase.data.Item
 import ru.cookedapp.cooked.utils.listBase.data.ItemPayload
-import ru.cookedapp.cooked.utils.listBase.data.ItemViewType
 import ru.cookedapp.cooked.utils.listBase.data.ItemsUpdate
 
-open class BaseAdapter<ViewType : ItemViewType>(
+open class ListAdapter(
     adapterScope: CoroutineScope,
-    private val eventListener: ItemEventListener<ViewType>? = null,
-) : RecyclerView.Adapter<BaseViewHolder<ViewType>>() {
+    private val holderFactoryProvider: ViewHolderFactoryProvider,
+    private val eventListener: ItemEventListener? = null,
+) : RecyclerView.Adapter<BaseViewHolder>() {
 
-    private var items = emptyList<Item<ViewType>>()
-
-    private val holderFactories = mutableMapOf<Int, ViewHolderFactory<ViewType>>()
-    private val listUpdateFlow = MutableSharedFlow<List<Item<ViewType>>>(
+    private var items = emptyList<Item>()
+    private val listUpdateFlow = MutableSharedFlow<List<Item>>(
         extraBufferCapacity = 1,
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
@@ -47,34 +45,23 @@ open class BaseAdapter<ViewType : ItemViewType>(
     }
 
     private suspend fun calculateDiff(
-        newList: List<Item<ViewType>>,
+        newList: List<Item>,
     ): DiffUtil.DiffResult = withContext(Dispatchers.Default) {
         DiffUtil.calculateDiff(CommonDiffUtilCallback(items, newList))
     }
 
-    fun setList(newList: List<Item<ViewType>>) {
+    fun setList(newList: List<Item>) {
         listUpdateFlow.tryEmit(newList)
     }
 
-    override fun getItemViewType(position: Int) = items[position].type.value
+    override fun getItemViewType(position: Int) = holderFactoryProvider.getViewType(items[position])
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<ViewType> {
-        val viewHolderFactory = holderFactories[viewType]
-            ?: throw IllegalStateException("Factory not found for viewType: $viewType.")
-        return viewHolderFactory.create(parent).apply {
-            holderEventListener = eventListener
-        }
-    }
-
-    fun registerFactory(viewType: ItemViewType, factory: ViewHolderFactory<ViewType>) {
-        if (viewType.value in holderFactories) {
-            error("\"${viewType.value}\" view type already registered.")
-        }
-        holderFactories[viewType.value] = factory
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
+        return holderFactoryProvider.getViewHolderFactory(viewType).create(parent)
     }
 
     override fun onBindViewHolder(
-        holder: BaseViewHolder<ViewType>,
+        holder: BaseViewHolder,
         position: Int,
         payloads: MutableList<Any>
     ) {
@@ -85,7 +72,7 @@ open class BaseAdapter<ViewType : ItemViewType>(
         }
     }
 
-    private fun applyPayloads(holder: BaseViewHolder<ViewType>, payloads: List<Any>) {
+    private fun applyPayloads(holder: BaseViewHolder, payloads: List<Any>) {
         payloads.groupingBy {
             it::class
         }.reduce { _, _, payload ->
@@ -95,12 +82,18 @@ open class BaseAdapter<ViewType : ItemViewType>(
         }
     }
 
-    override fun onBindViewHolder(holder: BaseViewHolder<ViewType>, position: Int) {
-        holder.bind(items[position])
+    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+        holder.apply {
+            holderEventListener = eventListener
+            bind(items[position])
+        }
     }
 
-    override fun onViewRecycled(holder: BaseViewHolder<ViewType>) {
-        holder.unbind()
+    override fun onViewRecycled(holder: BaseViewHolder) {
+        holder.apply {
+            holderEventListener = null
+            unbind()
+        }
     }
 
     override fun getItemCount(): Int = items.size

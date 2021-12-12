@@ -4,50 +4,36 @@ import android.content.Context
 import android.view.View
 import androidx.annotation.CallSuper
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.filter
 import ru.cookedapp.cooked.utils.listBase.data.Item
 import ru.cookedapp.cooked.utils.listBase.data.ItemEvent
 import ru.cookedapp.cooked.utils.listBase.data.ItemPayload
-import ru.cookedapp.cooked.utils.listBase.data.ItemViewType
 
-abstract class BaseViewHolder<ViewType : ItemViewType>(
-    view: View
-) : RecyclerView.ViewHolder(view) {
+abstract class BaseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     @Volatile
     protected var holderState = HolderState.DETACHED
         private set
 
-    var holderEventListener: ItemEventListener<ViewType>? = null
+    var holderEventListener: ItemEventListener? = null
 
     protected val context: Context = itemView.context
 
-    /**
-     * This scope run on Main dispatcher and not intended to run heavy coroutines,
-     * only for subscribing to view events.
-     */
-    protected val viewHolderScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
-
-    fun bind(item: Item<ViewType>) {
+    fun bind(item: Item) {
         holderState = HolderState.BINDING
-        bindInternal(item)
+        onBind(item)
         holderState = HolderState.BOUND
     }
 
     fun partialBind(payload: ItemPayload) {
         holderState = HolderState.BINDING
-        partialBindInternal(payload)
+        onPartialBind(payload)
         holderState = HolderState.BOUND
     }
 
-    protected open fun bindInternal(item: Item<ViewType>) = Unit
+    protected open fun onBind(item: Item) = Unit
 
     @CallSuper
-    protected open fun partialBindInternal(payload: ItemPayload) {
+    protected open fun onPartialBind(payload: ItemPayload) {
         error("Partial bind was not handled for $payload.")
     }
 
@@ -56,31 +42,25 @@ abstract class BaseViewHolder<ViewType : ItemViewType>(
         holderState = HolderState.DETACHED
     }
 
-    protected fun dispatchClickEvent(item: Item<ViewType>): Boolean {
+    protected fun dispatchClickEvent(item: Item): Boolean {
         val event = ItemEvent.Click(item)
-        holderEventListener?.onEvent(event) ?: return false
-        return true
+        return dispatchEvent(event)
     }
 
-    protected fun dispatchDeleteEvent(item: Item<ViewType>): Boolean {
+    protected fun dispatchDeleteEvent(item: Item): Boolean {
         val event = ItemEvent.Delete(item)
-        holderEventListener?.onEvent(event) ?: return false
-        return true
+        return dispatchEvent(event)
     }
 
-    protected fun dispatchCheckedEvent(item: Item<ViewType>, isChecked: Boolean): Boolean {
+    protected fun dispatchCheckedEvent(item: Item, isChecked: Boolean): Boolean {
         val event = ItemEvent.Checked(item, isChecked)
-        holderEventListener?.onEvent(event) ?: return false
-        return true
+        return dispatchEvent(event)
     }
 
-    protected fun dispatchCustomEvent(event: ItemEvent<ViewType>): Boolean {
+    protected fun dispatchEvent(event: ItemEvent): Boolean {
+        if (holderState != HolderState.BOUND) return false
         holderEventListener?.onEvent(event) ?: return false
         return true
-    }
-
-    protected fun <T> Flow<T>.holderStateAware(): Flow<T> = filter {
-        holderState == HolderState.BOUND
     }
 
     enum class HolderState {

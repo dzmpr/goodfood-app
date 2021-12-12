@@ -2,21 +2,21 @@ package ru.cookedapp.cooked.utils.listBase.data
 
 import androidx.recyclerview.widget.DiffUtil
 
-sealed class ItemsUpdate<ViewType : ItemViewType>(
-    val newItems: List<Item<ViewType>>,
+sealed class ItemsUpdate(
+    val newItems: List<Item>,
 ) {
 
-    class ClearList<ViewType : ItemViewType>(
+    class ClearList(
         val oldItemsCount: Int,
-    ) : ItemsUpdate<ViewType>(emptyList())
+    ) : ItemsUpdate(emptyList())
 
-    class FillList<ViewType : ItemViewType>(
+    class FillList(
         val newItemsCount: Int,
-        newItems: List<Item<ViewType>>,
-    ) : ItemsUpdate<ViewType>(newItems)
+        newItems: List<Item>,
+    ) : ItemsUpdate(newItems)
 
-    class UpdateList<ViewType : ItemViewType>(
+    class UpdateList(
         val diffResult: DiffUtil.DiffResult,
-        newItems: List<Item<ViewType>>,
-    ) : ItemsUpdate<ViewType>(newItems)
+        newItems: List<Item>,
+    ) : ItemsUpdate(newItems)
 }

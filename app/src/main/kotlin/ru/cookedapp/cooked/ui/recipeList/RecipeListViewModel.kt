@@ -18,20 +18,19 @@ import ru.cookedapp.cooked.data.db.entity.Recipe
 import ru.cookedapp.cooked.data.db.entity.RecipeCategoryEntity
 import ru.cookedapp.cooked.data.repository.RecipeRepository
 import ru.cookedapp.cooked.ui.recipeList.data.RecipeListItem
-import ru.cookedapp.cooked.ui.recipeList.data.RecipeListViewType
 import ru.cookedapp.cooked.utils.ItemTouchHelperAction
 import ru.cookedapp.cooked.utils.SingleLiveEvent
-import ru.cookedapp.cooked.utils.listBase.data.Item
+import ru.cookedapp.cooked.utils.listBase.data.Items
 
 class RecipeListViewModel @Inject constructor(
     private val recipeRepository: RecipeRepository,
-    private val recipeListRowProvider: RecipeListRowProvider,
+    private val itemsProvider: RecipeListItemsProvider,
 ) : ViewModel(), ItemTouchHelperAction {
 
     private lateinit var recipes: Flow<List<Recipe>>
 
-    private val filteredRecipes = MutableLiveData<List<Item<RecipeListViewType>>>()
-    val recipeList: LiveData<List<Item<RecipeListViewType>>>
+    private val filteredRecipes = MutableLiveData<List<Items>>()
+    val recipeList: LiveData<List<Items>>
         get() = filteredRecipes
 
     private val recipeCategories = MutableLiveData<Set<RecipeCategoryEntity>>()
@@ -74,7 +73,7 @@ class RecipeListViewModel @Inject constructor(
                 }
             }.flowOn(Dispatchers.IO)
             .onEach { recipes ->
-                filteredRecipes.postValue(recipeListRowProvider.generateRows(recipes))
+                filteredRecipes.postValue(itemsProvider.generateRows(recipes))
             }.launchIn(this)
         }
     }

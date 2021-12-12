@@ -1,14 +1,9 @@
 package ru.cookedapp.cooked.ui.recipeList.viewHolders
 
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import ru.cookedapp.cooked.databinding.ItemRecipeListRecipeBinding
-import ru.cookedapp.cooked.extensions.checked
-import ru.cookedapp.cooked.extensions.clicks
 import ru.cookedapp.cooked.extensions.inflater
 import ru.cookedapp.cooked.ui.recipeList.data.RecipeFavoriteStateChanged
 import ru.cookedapp.cooked.ui.recipeList.data.RecipeListItem
-import ru.cookedapp.cooked.ui.recipeList.data.RecipeListViewType
 import ru.cookedapp.cooked.utils.listBase.BaseViewHolder
 import ru.cookedapp.cooked.utils.listBase.ViewHolderFactory
 import ru.cookedapp.cooked.utils.listBase.data.Item
@@ -16,9 +11,9 @@ import ru.cookedapp.cooked.utils.listBase.data.ItemPayload
 
 class RecipeViewHolder(
     private val binding: ItemRecipeListRecipeBinding,
-) : BaseViewHolder<RecipeListViewType>(binding.root) {
+) : BaseViewHolder(binding.root) {
 
-    override fun bindInternal(item: Item<RecipeListViewType>) {
+    override fun onBind(item: Item) {
         item as RecipeListItem
 
         with(binding) {
@@ -28,21 +23,21 @@ class RecipeViewHolder(
             ivRecipeThumbnail.setImageURI(item.thumbnailUri)
         }
 
-        binding.cbFavoriteMark.checked().holderStateAware().onEach { isChecked ->
+        binding.cbFavoriteMark.setOnCheckedChangeListener { _, isChecked ->
             dispatchCheckedEvent(item, isChecked)
-        }.launchIn(viewHolderScope)
+        }
 
-        binding.root.clicks().holderStateAware().onEach {
+        binding.root.setOnClickListener {
             dispatchClickEvent(item)
-        }.launchIn(viewHolderScope)
+        }
     }
 
-    override fun partialBindInternal(payload: ItemPayload) {
+    override fun onPartialBind(payload: ItemPayload) {
         when (payload) {
             is RecipeFavoriteStateChanged -> {
                 binding.cbFavoriteMark.isChecked = payload.inFavorites
             }
-            else -> super.partialBindInternal(payload)
+            else -> super.onPartialBind(payload)
         }
     }
 

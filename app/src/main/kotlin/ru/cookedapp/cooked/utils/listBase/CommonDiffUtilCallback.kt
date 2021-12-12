@@ -2,11 +2,10 @@ package ru.cookedapp.cooked.utils.listBase
 
 import androidx.recyclerview.widget.DiffUtil
 import ru.cookedapp.cooked.utils.listBase.data.Item
-import ru.cookedapp.cooked.utils.listBase.data.ItemViewType
 
-class CommonDiffUtilCallback<ViewType : ItemViewType>(
-    private val oldList: List<Item<ViewType>>,
-    private val newList: List<Item<ViewType>>,
+class CommonDiffUtilCallback(
+    private val oldList: List<Item>,
+    private val newList: List<Item>,
 ) : DiffUtil.Callback() {
 
     override fun getOldListSize() = oldList.size
