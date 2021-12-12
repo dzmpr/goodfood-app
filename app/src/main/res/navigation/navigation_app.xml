@@ -65,12 +65,12 @@
         tools:layout="@layout/fragment_settings"/>
     <fragment
         android:id="@+id/manageCategoriesFragment"
-        android:name="ru.cookedapp.cooked.ui.manageCategories.ManageCategoriesFragment"
+        android:name="ru.cookedapp.cooked.ui.manageItems.manageCategories.ManageCategoriesFragment"
         android:label="ManageCategoriesFragment"
-        tools:layout="@layout/fragment_manage_categories"/>
+        tools:layout="@layout/fragment_manage_items"/>
     <fragment
         android:id="@+id/manageProductsFragment"
-        android:name="ru.cookedapp.cooked.ui.manageProducts.ManageProductsFragment"
+        android:name="ru.cookedapp.cooked.ui.manageItems.manageProducts.ManageProductsFragment"
         android:label="ManageProductsFragment"
-        tools:layout="@layout/fragment_manage_products"/>
+        tools:layout="@layout/fragment_manage_items"/>
 </navigation>

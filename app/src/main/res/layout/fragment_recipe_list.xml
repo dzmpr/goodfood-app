@@ -57,6 +57,6 @@
         android:background="?attr/colorSurface"
         android:overScrollMode="never"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        tools:listitem="@layout/item_recipe_line" />
+        tools:listitem="@layout/item_recipe_list_recipe" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

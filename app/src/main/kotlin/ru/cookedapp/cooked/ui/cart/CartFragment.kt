@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,8 +15,13 @@ import ru.cookedapp.cooked.R
 import ru.cookedapp.cooked.databinding.FragmentCartBinding
 import ru.cookedapp.cooked.extensions.setViewVisibility
 import ru.cookedapp.cooked.ui.CookedApp
+import ru.cookedapp.cooked.ui.cart.data.CartProductItem
+import ru.cookedapp.cooked.ui.cart.viewHolders.CartItemHolder
 import ru.cookedapp.cooked.utils.ItemSwipeDecorator
 import ru.cookedapp.cooked.utils.RecipeListItemTouchHelperCallback
+import ru.cookedapp.cooked.utils.listBase.ListAdapter
+import ru.cookedapp.cooked.utils.listBase.ViewHolderFactoryProvider
+import ru.cookedapp.cooked.utils.listBase.data.ItemEvent
 
 class CartFragment : Fragment() {
     private var _binding: FragmentCartBinding? = null
@@ -59,11 +65,21 @@ class CartFragment : Fragment() {
     }
 
     private fun initList() {
-        val cartAdapter = CartAdapter(object : CartAdapter.BoughtChangeStateCallback {
-            override fun changeBoughtState(id: Int, state: Boolean) {
-                viewModel.changeBoughtState(id, state)
+        val holderFactoryProvider = ViewHolderFactoryProvider(
+            CartProductItem::class to CartItemHolder.getFactory(),
+        )
+        val cartAdapter = ListAdapter(lifecycleScope, holderFactoryProvider) { event ->
+            when (event) {
+                is ItemEvent.Checked -> when (event.item) {
+                    is CartProductItem -> {
+                        viewModel.changeBoughtState(event.item.id.toInt(), event.newCheckedState)
+                    }
+                }
+                is ItemEvent.Click,
+                is ItemEvent.Custom,
+                is ItemEvent.Delete -> error("Unexpected event $event.")
             }
-        })
+        }
 
         binding.rvCartList.apply {
             adapter = cartAdapter
@@ -71,12 +87,13 @@ class CartFragment : Fragment() {
             addItemDecoration(DividerItemDecoration(this.context, LinearLayoutManager.VERTICAL))
         }
 
-        val swipeDecorator = ItemSwipeDecorator.Companion.Builder()
-            .setRightSideIcon(R.drawable.ic_remove_from_cart, R.color.ivory)
-            .setBackgroundColor(R.color.rose_madder)
-            .setRightSideText(R.string.label_remove, R.color.ivory, 16f)
-            .setIconMargin(50)
-            .getDecorator()
+        val swipeDecorator = ItemSwipeDecorator.Companion.Builder().run {
+            setRightSideIcon(R.drawable.ic_remove_from_cart, R.color.ivory)
+            setBackgroundColor(R.color.rose_madder)
+            setRightSideText(R.string.label_remove, R.color.ivory, 16f)
+            setIconMargin(50)
+            getDecorator()
+        }
         val ithCallback = RecipeListItemTouchHelperCallback(viewModel, swipeDecorator)
         val touchHelper = ItemTouchHelper(ithCallback)
         touchHelper.attachToRecyclerView(binding.rvCartList)

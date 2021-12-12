@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -20,10 +21,16 @@ import ru.cookedapp.cooked.databinding.FragmentRecipeListBinding
 import ru.cookedapp.cooked.extensions.setViewVisibility
 import ru.cookedapp.cooked.ui.CookedApp
 import ru.cookedapp.cooked.ui.recipeDetails.RecipeDetailsFragment
+import ru.cookedapp.cooked.ui.recipeList.data.RecipeListItem
+import ru.cookedapp.cooked.ui.recipeList.viewHolders.RecipeViewHolder
 import ru.cookedapp.cooked.utils.ItemSwipeDecorator
 import ru.cookedapp.cooked.utils.RecipeListItemTouchHelperCallback
+import ru.cookedapp.cooked.utils.listBase.ListAdapter
+import ru.cookedapp.cooked.utils.listBase.ViewHolderFactoryProvider
+import ru.cookedapp.cooked.utils.listBase.data.ItemEvent
 
 class RecipeListFragment : Fragment() {
+
     private var _binding: FragmentRecipeListBinding? = null
     private val binding get() = _binding!!
 
@@ -106,42 +113,49 @@ class RecipeListFragment : Fragment() {
     }
 
     private fun initList() {
-        val recipeLineAdapter = RecipeLineAdapter(object : RecipeClickCallback {
-            override fun onFavoriteToggle(recipeId: Int, state: Boolean) {
-                viewModel.changeFavoriteState(recipeId, state)
-            }
-
-            override fun onRecipeClicked(recipeId: Int) {
-                val args = Bundle().apply {
-                    putInt(RecipeDetailsFragment.RECIPE_ID_KEY, recipeId)
+        val holderFactoryProvider = ViewHolderFactoryProvider(
+            RecipeListItem::class to RecipeViewHolder.getFactory(),
+        )
+        val recipeListAdapter = ListAdapter(lifecycleScope, holderFactoryProvider) { event ->
+            when (event) {
+                is ItemEvent.Checked -> when (event.item) {
+                    is RecipeListItem -> {
+                        viewModel.changeFavoriteState(event.item.id.toInt(), event.newCheckedState)
+                    }
                 }
-                Navigation.findNavController(requireActivity(), R.id.fcvContainer)
-                    .navigate(R.id.actionNavigateToRecipe, args)
+                is ItemEvent.Click -> when (event.item) {
+                    is RecipeListItem -> {
+                        val args = RecipeDetailsFragment.createOpenRecipeBundle(event.item.id.toInt())
+                        Navigation.findNavController(requireActivity(), R.id.fcvContainer)
+                            .navigate(R.id.actionNavigateToRecipe, args)
+                    }
+                }
+                is ItemEvent.Custom,
+                is ItemEvent.Delete -> error("Unexpected event $event.")
             }
-        })
-        CookedApp.appComponent.inject(recipeLineAdapter)
-        subscribeUi(recipeLineAdapter)
-
-        binding.rvRecipesList.apply {
-            layoutManager = LinearLayoutManager(this.context)
-            adapter = recipeLineAdapter
-            addItemDecoration(
-                DividerItemDecoration(this.context, LinearLayoutManager.VERTICAL)
-            )
         }
 
-        val swipeDecorator = ItemSwipeDecorator.Companion.Builder()
-            .setRightSideIcon(R.drawable.ic_trash_bin, R.color.ivory)
-            .setBackgroundColor(R.color.rose_madder)
-            .setRightSideText(R.string.delete_action_label, R.color.ivory, 16f)
-            .setIconMargin(50)
-            .getDecorator()
+        binding.rvRecipesList.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = recipeListAdapter
+            addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+        }
+
+        subscribeUi(recipeListAdapter)
+
+        val swipeDecorator = ItemSwipeDecorator.Companion.Builder().run {
+            setRightSideIcon(R.drawable.ic_trash_bin, R.color.ivory)
+            setBackgroundColor(R.color.rose_madder)
+            setRightSideText(R.string.delete_action_label, R.color.ivory, 16f)
+            setIconMargin(50)
+            getDecorator()
+        }
         val ithCallback = RecipeListItemTouchHelperCallback(viewModel, swipeDecorator)
         val touchHelper = ItemTouchHelper(ithCallback)
         touchHelper.attachToRecyclerView(binding.rvRecipesList)
     }
 
-    private fun subscribeUi(adapter: RecipeLineAdapter) {
+    private fun subscribeUi(adapter: ListAdapter) {
         viewModel.recipeList.observe(viewLifecycleOwner) { list ->
             adapter.setList(list)
         }
@@ -154,11 +168,6 @@ class RecipeListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    interface RecipeClickCallback {
-        fun onFavoriteToggle(recipeId: Int, state: Boolean)
-        fun onRecipeClicked(recipeId: Int)
     }
 
     companion object {

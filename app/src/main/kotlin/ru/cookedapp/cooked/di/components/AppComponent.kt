@@ -14,10 +14,8 @@ import ru.cookedapp.cooked.ui.CookedApp
 import ru.cookedapp.cooked.ui.cart.CartFragment
 import ru.cookedapp.cooked.ui.editRecipe.AddIngredientBottomFragment
 import ru.cookedapp.cooked.ui.editRecipe.EditRecipeFragment
-import ru.cookedapp.cooked.ui.manageCategories.ManageCategoriesFragment
-import ru.cookedapp.cooked.ui.manageProducts.ManageProductsFragment
+import ru.cookedapp.cooked.ui.manageItems.BaseManageItemsFragment
 import ru.cookedapp.cooked.ui.recipeDetails.RecipeDetailsFragment
-import ru.cookedapp.cooked.ui.recipeList.RecipeLineAdapter
 import ru.cookedapp.cooked.ui.recipeList.RecipeListFragment
 import ru.cookedapp.cooked.ui.recipesOverview.RecipeCardAdapter
 import ru.cookedapp.cooked.ui.recipesOverview.RecipesOverviewFragment
@@ -33,6 +31,7 @@ import ru.cookedapp.cooked.ui.recipesOverview.RecipesOverviewFragment
     ]
 )
 interface AppComponent {
+
     fun context(): Application
     fun inject(app: CookedApp)
 
@@ -41,14 +40,12 @@ interface AppComponent {
     fun inject(fragment: RecipeListFragment)
     fun inject(fragment: RecipeDetailsFragment)
     fun inject(fragment: CartFragment)
-    fun inject(fragment: ManageCategoriesFragment)
-    fun inject(fragment: ManageProductsFragment)
+    fun inject(fragment: BaseManageItemsFragment)
     fun inject(fragment: EditRecipeFragment)
     fun inject(fragment: AddIngredientBottomFragment)
 
     // Adapters
     fun inject(adapter: RecipeCardAdapter)
-    fun inject(adapter: RecipeLineAdapter)
 
     @Component.Builder
     interface Builder {

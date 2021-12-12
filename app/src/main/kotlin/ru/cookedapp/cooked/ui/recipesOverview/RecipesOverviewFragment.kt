@@ -31,9 +31,7 @@ class RecipesOverviewFragment : Fragment() {
         }
 
         override fun onRecipeClicked(recipeId: Int) {
-            val args = Bundle().apply {
-                putInt(RecipeDetailsFragment.RECIPE_ID_KEY, recipeId)
-            }
+            val args = RecipeDetailsFragment.createOpenRecipeBundle(recipeId)
             Navigation.findNavController(requireActivity(), R.id.fcvContainer)
                 .navigate(R.id.actionNavigateToRecipe, args)
         }
