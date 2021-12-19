@@ -3,7 +3,7 @@ package ru.cookedapp.cooked.data.db.entity
 import java.time.LocalDateTime
 
 data class Recipe(
-    val id: Int? = null,
+    val id: Long,
     var name: String,
     var description: String? = null,
     var photoFilename: String? = null,
@@ -12,5 +12,5 @@ data class Recipe(
     var lastCooked: LocalDateTime,
     var cookCount: Int = 0,
     var ingredientsList: List<IngredientWithMeta>,
-    var category: RecipeCategoryEntity
+    var category: RecipeCategoryEntity,
 )

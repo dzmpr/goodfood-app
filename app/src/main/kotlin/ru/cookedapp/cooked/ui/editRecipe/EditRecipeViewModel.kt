@@ -112,14 +112,14 @@ class EditRecipeViewModel @Inject constructor(
                 ?: RecipeCategoryEntity(recipePreferences.getValue(RecipePreferences.FIELD_NO_CATEGORY, 0), "")
 
             val recipe = Recipe(
-                null,
+                id = 0,
                 name,
                 description,
                 photoFilename,
                 servingsCount,
-                false,
+                inFavorites = false,
                 LocalDateTime.ofInstant(Instant.ofEpochMilli(0), ZoneId.systemDefault()),
-                0,
+                cookCount = 0,
                 ingredientsList,
                 category
             )

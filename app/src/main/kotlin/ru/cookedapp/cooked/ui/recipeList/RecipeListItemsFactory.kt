@@ -11,7 +11,7 @@ class RecipeListItemsFactory @Inject constructor() {
         recipe: Recipe,
         photoGateway: PhotoGateway,
     ) = RecipeListItem(
-        id = recipe.id!!.toLong(),
+        id = recipe.id,
         recipeName = recipe.name,
         recipeCategoryName = recipe.category.name,
         inFavorites = recipe.inFavorites,

@@ -27,8 +27,9 @@ import ru.cookedapp.cooked.data.prefs.RecipePreferences
         ProductEntity::class,
         RecipeCategoryEntity::class,
         ProductUnitEntity::class,
-        CartItemEntity::class],
-    version = 1
+        CartItemEntity::class
+    ],
+    version = 1,
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
@@ -64,20 +65,19 @@ abstract class AppDatabase : RoomDatabase() {
                             with(database.productUnitDao()) {
                                 val units = res.getStringArray(R.array.labels_units)
                                 units.forEach {
-                                    insert(ProductUnitEntity(name = it))
+                                    insert(ProductUnitEntity(id = 0, name = it))
                                 }
                             }
 
                             // Create category 'No category'
                             val noCategoryId = database.recipeCategoryDao()
-                                .insert(RecipeCategoryEntity(name = res.getString(R.string.label_no_category)))
-                                .toInt()
+                                .insert(RecipeCategoryEntity(id = 0, name = res.getString(R.string.label_no_category)))
 
                             context.getSharedPreferences(
                                 RecipePreferences.PREFERENCES_NAME,
                                 Context.MODE_PRIVATE
                             ).edit {
-                                putInt(RecipePreferences.FIELD_NO_CATEGORY, noCategoryId)
+                                putLong(RecipePreferences.FIELD_NO_CATEGORY, noCategoryId)
                             }
                         }
                     }

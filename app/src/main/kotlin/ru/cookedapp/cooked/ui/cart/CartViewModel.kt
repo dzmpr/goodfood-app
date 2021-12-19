@@ -31,7 +31,7 @@ class CartViewModel @Inject constructor(
         }
     }
 
-    fun changeBoughtState(id: Int, state: Boolean) {
+    fun changeBoughtState(id: Long, state: Boolean) {
         viewModelScope.launch {
             cartRepository.changeBoughtState(id, state)
         }
@@ -52,7 +52,7 @@ class CartViewModel @Inject constructor(
     override fun itemSwiped(position: Int, direction: Int) {
         viewModelScope.launch {
             cart.value?.let {
-                cartRepository.removeFromCart(it[position].id.toInt())
+                cartRepository.removeFromCart(it[position].id)
             }
         }
     }

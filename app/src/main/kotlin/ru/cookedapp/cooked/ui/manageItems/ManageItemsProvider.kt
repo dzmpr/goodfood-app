@@ -12,12 +12,12 @@ class ManageItemsProvider @Inject constructor(
     fun generateRowsFromProducts(
         products: List<ProductEntity>
     ): List<Items> = products.map { product ->
-        itemsFactory.createManageItem(product.id!!, product.name)
+        itemsFactory.createManageItem(product.id, product.name)
     }
 
     fun generateRowsFromCategories(
         categories: List<RecipeCategoryEntity>
     ): List<Items> = categories.map { category ->
-        itemsFactory.createManageItem(category.id!!, category.name)
+        itemsFactory.createManageItem(category.id, category.name)
     }
 }

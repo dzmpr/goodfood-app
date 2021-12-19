@@ -87,7 +87,7 @@ class EditRecipeFragment : Fragment() {
         }
 
         categorySelectHelper = AutocompleteSelectionHelper(binding.tilRecipeCategory) { input ->
-            RecipeCategoryEntity(name = input)
+            RecipeCategoryEntity(id = 0, name = input)
         }
 
         val nameValidator = InputValidator(binding.tilRecipeName, context?.getString(R.string.label_name_error))

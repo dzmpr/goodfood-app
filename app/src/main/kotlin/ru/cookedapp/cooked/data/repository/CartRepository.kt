@@ -18,7 +18,10 @@ class CartRepository(
     private val productDao: ProductDao,
     private val productUnitDao: ProductUnitDao
 ) {
-    suspend fun addIngredientsToCart(recipeId: Int, multiplier: Float) = withContext(Dispatchers.IO) {
+    suspend fun addIngredientsToCart(
+        recipeId: Long,
+        multiplier: Float,
+    ) = withContext(Dispatchers.IO) {
         val recipe = recipeDao.getById(recipeId)
         val ingredientsList = recipe.ingredientsList
         ingredientsList.forEach {
@@ -31,9 +34,10 @@ class CartRepository(
         if (cartItem == null) {
             cartDao.insert(
                 CartItemEntity(
+                    id = 0,
                     productId = ingredient.productId,
                     amount = ingredient.amount * multiplier,
-                    unitId = ingredient.amountUnitId
+                    unitId = ingredient.amountUnitId,
                 )
             )
         } else {
@@ -42,7 +46,7 @@ class CartRepository(
         }
     }
 
-    suspend fun changeBoughtState(id: Int, state: Boolean) = withContext(Dispatchers.IO) {
+    suspend fun changeBoughtState(id: Long, state: Boolean) = withContext(Dispatchers.IO) {
         cartDao.changeBoughtState(id, state)
     }
 
@@ -68,7 +72,7 @@ class CartRepository(
         )
     }
 
-    suspend fun removeFromCart(id: Int) = withContext(Dispatchers.IO) {
+    suspend fun removeFromCart(id: Long) = withContext(Dispatchers.IO) {
         cartDao.removeItem(id)
     }
 

@@ -33,7 +33,7 @@ class ManageCategoriesViewModel @Inject constructor(
 
     fun onCategoryRenamed(categoryId: Long, newName: String) {
         viewModelScope.launch {
-            recipeCategoryRepository.renameCategory(categoryId.toInt(), newName)
+            recipeCategoryRepository.renameCategory(categoryId, newName)
         }
     }
 }

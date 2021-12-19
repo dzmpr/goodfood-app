@@ -8,18 +8,20 @@ import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "cart",
-    foreignKeys = [ForeignKey(
-        entity = ProductEntity::class,
-        parentColumns = arrayOf("id"),
-        childColumns = arrayOf("product_id"),
-        onDelete = CASCADE
-    )]
+    foreignKeys = [
+        ForeignKey(
+            entity = ProductEntity::class,
+            parentColumns = arrayOf("id"),
+            childColumns = arrayOf("product_id"),
+            onDelete = CASCADE
+        ),
+    ]
 )
 data class CartItemEntity(
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id") var id: Int? = null,
+    @ColumnInfo(name = "id") override val id: Long,
     @ColumnInfo(name = "is_bought") var isBought: Boolean = false,
-    @ColumnInfo(name = "product_id") var productId: Int,
+    @ColumnInfo(name = "product_id") var productId: Long,
     @ColumnInfo(name = "amount") var amount: Float,
-    @ColumnInfo(name = "unit_id") var unitId: Int
-)
+    @ColumnInfo(name = "unit_id") var unitId: Long,
+) : Identifiable

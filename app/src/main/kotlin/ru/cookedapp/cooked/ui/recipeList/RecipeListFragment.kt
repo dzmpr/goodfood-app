@@ -81,7 +81,7 @@ class RecipeListFragment : Fragment() {
                 }
                 else -> {
                     val category = group[checkedId].tag as RecipeCategoryEntity
-                    viewModel.onCategorySelected(category.id!!)
+                    viewModel.onCategorySelected(category.id)
                 }
             }
         }
@@ -120,12 +120,12 @@ class RecipeListFragment : Fragment() {
             when (event) {
                 is ItemEvent.Checked -> when (event.item) {
                     is RecipeListItem -> {
-                        viewModel.changeFavoriteState(event.item.id.toInt(), event.newCheckedState)
+                        viewModel.changeFavoriteState(event.item.id, event.newCheckedState)
                     }
                 }
                 is ItemEvent.Click -> when (event.item) {
                     is RecipeListItem -> {
-                        val args = RecipeDetailsFragment.createOpenRecipeBundle(event.item.id.toInt())
+                        val args = RecipeDetailsFragment.createOpenRecipeBundle(event.item.id)
                         Navigation.findNavController(requireActivity(), R.id.fcvContainer)
                             .navigate(R.id.actionNavigateToRecipe, args)
                     }

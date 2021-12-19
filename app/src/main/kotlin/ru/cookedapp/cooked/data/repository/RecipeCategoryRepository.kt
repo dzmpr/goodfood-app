@@ -14,7 +14,7 @@ class RecipeCategoryRepository(private val recipeCategoryDao: RecipeCategoryDao)
         recipeCategoryDao.getCategoriesFlow()
     }
 
-    suspend fun renameCategory(id: Int, categoryName: String) = withContext(Dispatchers.IO) {
+    suspend fun renameCategory(id: Long, categoryName: String) = withContext(Dispatchers.IO) {
         recipeCategoryDao.renameCategory(id, categoryName)
     }
 }

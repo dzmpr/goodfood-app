@@ -59,7 +59,7 @@ class RecipeDetailsViewModel @Inject constructor(
 
     private var recipeFlowJob: Job? = null
 
-    fun loadRecipe(recipeId: Int) {
+    fun loadRecipe(recipeId: Long) {
         recipeFlowJob = viewModelScope.launch {
             recipeRepository.getFlowById(recipeId)
                 .onEach { recipe ->

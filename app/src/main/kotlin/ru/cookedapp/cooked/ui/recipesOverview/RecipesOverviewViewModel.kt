@@ -48,7 +48,7 @@ class RecipesOverviewViewModel @Inject constructor(
         }
     }
 
-    fun changeFavoriteState(recipeId: Int, state: Boolean) {
+    fun changeFavoriteState(recipeId: Long, state: Boolean) {
         viewModelScope.launch {
             recipeRepository.changeFavoritesMark(recipeId, state)
         }

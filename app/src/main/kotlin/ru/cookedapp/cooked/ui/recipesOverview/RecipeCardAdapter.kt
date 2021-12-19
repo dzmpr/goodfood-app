@@ -22,9 +22,8 @@ import ru.cookedapp.cooked.data.gateway.PhotoGateway
 
 class RecipeCardAdapter(
     private val recipeClickCallback: RecipesOverviewFragment.RecipeClickCallback,
-    private val listType: Int
-) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val listType: Int,
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     @Inject lateinit var photoGateway: PhotoGateway
     private var recipeList: List<Recipe> = listOf()
@@ -39,14 +38,14 @@ class RecipeCardAdapter(
         private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
         private var loadImageJob: Job? = null
 
-        private var recipeId: Int = 0
+        private var recipeId: Long = 0
 
         fun bind(
             recipe: Recipe,
             photoGateway: PhotoGateway,
             clickCallback: RecipesOverviewFragment.RecipeClickCallback
         ) {
-            recipeId = recipe.id!!
+            recipeId = recipe.id
 
             name.text = recipe.name
             category.text = recipe.category.name

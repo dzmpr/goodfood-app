@@ -37,7 +37,7 @@ class RecipeListViewModel @Inject constructor(
     val categorySet: LiveData<Set<RecipeCategoryEntity>>
         get() = recipeCategories
 
-    private val selectedCategory = MutableStateFlow(0)
+    private val selectedCategory = MutableStateFlow<Long>(0)
 
     val deleteSnack = SingleLiveEvent<String>()
 
@@ -64,7 +64,7 @@ class RecipeListViewModel @Inject constructor(
             .combine(selectedCategory) { recipes, selectedCategory ->
                 recipes to selectedCategory
             }.map { (recipes, selectedCategory) ->
-                if (selectedCategory == 0) {
+                if (selectedCategory == 0L) {
                     recipes
                 } else {
                     recipes.filter { recipe ->
@@ -78,11 +78,11 @@ class RecipeListViewModel @Inject constructor(
         }
     }
 
-    fun onCategorySelected(categoryId: Int) {
+    fun onCategorySelected(categoryId: Long) {
         selectedCategory.value = categoryId
     }
 
-    fun changeFavoriteState(recipeId: Int, state: Boolean) {
+    fun changeFavoriteState(recipeId: Long, state: Boolean) {
         viewModelScope.launch {
             recipeRepository.changeFavoritesMark(recipeId, state)
         }
@@ -92,7 +92,7 @@ class RecipeListViewModel @Inject constructor(
         viewModelScope.launch {
             val item = recipeList.value?.get(position) as RecipeListItem
             deleteSnack.value = item.recipeName // Show snackbar with deleted item name
-            recipeRepository.removeRecipeById(item.id.toInt())
+            recipeRepository.removeRecipeById(item.id)
         }
     }
 

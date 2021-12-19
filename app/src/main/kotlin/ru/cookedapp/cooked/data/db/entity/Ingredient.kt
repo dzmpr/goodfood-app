@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Ingredient(
-    var productId: Int,
+    var productId: Long,
     var amount: Float,
-    var amountUnitId: Int
+    var amountUnitId: Long,
 )

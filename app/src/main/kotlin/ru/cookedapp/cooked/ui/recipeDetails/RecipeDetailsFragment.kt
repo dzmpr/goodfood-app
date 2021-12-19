@@ -40,7 +40,7 @@ class RecipeDetailsFragment : Fragment() {
 
     private fun handleArguments() {
         if (arguments != null) {
-            val recipeId = requireArguments().getInt(RECIPE_ID_KEY)
+            val recipeId = requireArguments().getLong(RECIPE_ID_KEY)
             viewModel.loadRecipe(recipeId)
         } else {
             throw IllegalStateException("Recipe id should be provided.")
@@ -156,7 +156,7 @@ class RecipeDetailsFragment : Fragment() {
     companion object {
         private const val RECIPE_ID_KEY = "recipe_id_key"
 
-        fun createOpenRecipeBundle(recipeId: Int) = bundleOf(
+        fun createOpenRecipeBundle(recipeId: Long) = bundleOf(
             RECIPE_ID_KEY to recipeId
         )
     }

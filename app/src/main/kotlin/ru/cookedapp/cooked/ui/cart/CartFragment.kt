@@ -72,7 +72,7 @@ class CartFragment : Fragment() {
             when (event) {
                 is ItemEvent.Checked -> when (event.item) {
                     is CartProductItem -> {
-                        viewModel.changeBoughtState(event.item.id.toInt(), event.newCheckedState)
+                        viewModel.changeBoughtState(event.item.id, event.newCheckedState)
                     }
                 }
                 is ItemEvent.Click,

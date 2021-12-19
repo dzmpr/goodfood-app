@@ -8,7 +8,7 @@ import ru.cookedapp.cooked.ui.cart.data.CartProductItem
 class CartItemsFactory @Inject constructor() {
 
     fun createCartItem(cartItem: CartItem) = CartProductItem(
-        id = cartItem.id!!.toLong(),
+        id = cartItem.id,
         isBought = cartItem.isBought,
         productName = cartItem.product.name,
         amount = cartItem.amount.cutDecimals(2),

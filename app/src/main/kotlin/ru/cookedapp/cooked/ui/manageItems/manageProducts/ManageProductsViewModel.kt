@@ -33,7 +33,7 @@ class ManageProductsViewModel @Inject constructor(
 
     fun onProductRenamed(id: Long, name: String) {
         viewModelScope.launch {
-            productRepository.renameProduct(id.toInt(), name)
+            productRepository.renameProduct(id, name)
         }
     }
 }
