@@ -35,18 +35,22 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            manifestPlaceholders["appIconRes"] = "@mipmap/ic_launcher"
-            manifestPlaceholders["appIconRoundRes"] = "@mipmap/ic_launcher_round"
-            manifestPlaceholders["appNameRes"] = "@string/app_name"
+            with(manifestPlaceholders) {
+                put("appIconRes", "@mipmap/ic_launcher")
+                put("appIconRoundRes", "@mipmap/ic_launcher_round")
+                put("appNameRes", "@string/app_name")
+            }
         }
 
         debug {
             applicationIdSuffix = ".debug"
             versionNameSuffix = "-debug"
             isDebuggable = true
-            manifestPlaceholders["appIconRes"] = "@mipmap/ic_launcher"
-            manifestPlaceholders["appIconRoundRes"] = "@mipmap/ic_launcher_round"
-            manifestPlaceholders["appNameRes"] = "@string/app_name_debug"
+            with(manifestPlaceholders) {
+                put("appIconRes", "@mipmap/ic_launcher")
+                put("appIconRoundRes", "@mipmap/ic_launcher_round")
+                put("appNameRes", "@string/app_name_debug")
+            }
         }
     }
 
@@ -80,7 +84,7 @@ dependencies {
     val daggerVersion = "2.40.5"
     val lifecycleVersion = "2.4.0"
     val navigationVersion = "2.3.5"
-    val roomVersion = "2.3.0"
+    val roomVersion = "2.4.0"
     val preferenceVersion = "1.1.1"
     val kotlinVersion: String by rootProject.extra
 
