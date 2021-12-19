@@ -81,6 +81,9 @@ android {
 }
 
 dependencies {
+
+    implementation(project(Modules.common))
+
     // Common
     implementation(Dependencies.kotlinStdlib)
     implementation(Dependencies.coroutinesCore)

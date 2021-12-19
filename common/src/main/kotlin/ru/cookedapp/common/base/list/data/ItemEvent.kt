@@ -1,4 +1,4 @@
-package ru.cookedapp.cooked.utils.listBase.data
+package ru.cookedapp.common.base.list.data
 
 sealed interface ItemEvent {
 

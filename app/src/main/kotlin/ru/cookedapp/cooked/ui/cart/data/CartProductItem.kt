@@ -1,7 +1,7 @@
 package ru.cookedapp.cooked.ui.cart.data
 
-import ru.cookedapp.cooked.utils.listBase.data.Item
-import ru.cookedapp.cooked.utils.listBase.data.ItemPayload
+import ru.cookedapp.common.base.list.data.Item
+import ru.cookedapp.common.base.list.data.ItemPayload
 
 data class CartProductItem(
     override val id: Long,

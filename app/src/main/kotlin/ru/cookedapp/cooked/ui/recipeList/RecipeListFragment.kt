@@ -15,6 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
+import ru.cookedapp.common.base.list.ListAdapter
+import ru.cookedapp.common.base.list.ViewHolderFactoryProvider
+import ru.cookedapp.common.base.list.data.ItemEvent
 import ru.cookedapp.cooked.R
 import ru.cookedapp.cooked.data.db.entity.RecipeCategoryEntity
 import ru.cookedapp.cooked.databinding.FragmentRecipeListBinding
@@ -25,9 +28,6 @@ import ru.cookedapp.cooked.ui.recipeList.data.RecipeListItem
 import ru.cookedapp.cooked.ui.recipeList.viewHolders.RecipeViewHolder
 import ru.cookedapp.cooked.utils.ItemSwipeDecorator
 import ru.cookedapp.cooked.utils.RecipeListItemTouchHelperCallback
-import ru.cookedapp.cooked.utils.listBase.ListAdapter
-import ru.cookedapp.cooked.utils.listBase.ViewHolderFactoryProvider
-import ru.cookedapp.cooked.utils.listBase.data.ItemEvent
 
 class RecipeListFragment : Fragment() {
 

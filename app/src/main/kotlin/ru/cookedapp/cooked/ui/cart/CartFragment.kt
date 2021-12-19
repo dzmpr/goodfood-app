@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import javax.inject.Inject
+import ru.cookedapp.common.base.list.ListAdapter
+import ru.cookedapp.common.base.list.ViewHolderFactoryProvider
+import ru.cookedapp.common.base.list.data.ItemEvent
 import ru.cookedapp.cooked.R
 import ru.cookedapp.cooked.databinding.FragmentCartBinding
 import ru.cookedapp.cooked.extensions.setViewVisibility
@@ -19,9 +22,6 @@ import ru.cookedapp.cooked.ui.cart.data.CartProductItem
 import ru.cookedapp.cooked.ui.cart.viewHolders.CartItemHolder
 import ru.cookedapp.cooked.utils.ItemSwipeDecorator
 import ru.cookedapp.cooked.utils.RecipeListItemTouchHelperCallback
-import ru.cookedapp.cooked.utils.listBase.ListAdapter
-import ru.cookedapp.cooked.utils.listBase.ViewHolderFactoryProvider
-import ru.cookedapp.cooked.utils.listBase.data.ItemEvent
 
 class CartFragment : Fragment() {
     private var _binding: FragmentCartBinding? = null

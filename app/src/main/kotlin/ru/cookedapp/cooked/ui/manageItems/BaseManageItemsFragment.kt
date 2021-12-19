@@ -12,16 +12,16 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import javax.inject.Inject
+import ru.cookedapp.common.base.list.ListAdapter
+import ru.cookedapp.common.base.list.ViewHolderFactoryProvider
+import ru.cookedapp.common.base.list.data.Item
+import ru.cookedapp.common.base.list.data.ItemEvent
 import ru.cookedapp.cooked.R
 import ru.cookedapp.cooked.databinding.FragmentManageItemsBinding
 import ru.cookedapp.cooked.ui.CookedApp
 import ru.cookedapp.cooked.ui.base.EditNameDialogFragment
 import ru.cookedapp.cooked.ui.manageItems.data.ManageItemModel
 import ru.cookedapp.cooked.ui.manageItems.viewHolders.ManageItemHolder
-import ru.cookedapp.cooked.utils.listBase.ListAdapter
-import ru.cookedapp.cooked.utils.listBase.ViewHolderFactoryProvider
-import ru.cookedapp.cooked.utils.listBase.data.Item
-import ru.cookedapp.cooked.utils.listBase.data.ItemEvent
 
 abstract class BaseManageItemsFragment : Fragment() {
 

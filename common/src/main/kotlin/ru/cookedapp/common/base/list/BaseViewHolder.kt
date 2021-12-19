@@ -1,12 +1,12 @@
-package ru.cookedapp.cooked.utils.listBase
+package ru.cookedapp.common.base.list
 
 import android.content.Context
 import android.view.View
 import androidx.annotation.CallSuper
 import androidx.recyclerview.widget.RecyclerView
-import ru.cookedapp.cooked.utils.listBase.data.Item
-import ru.cookedapp.cooked.utils.listBase.data.ItemEvent
-import ru.cookedapp.cooked.utils.listBase.data.ItemPayload
+import ru.cookedapp.common.base.list.data.Item
+import ru.cookedapp.common.base.list.data.ItemEvent
+import ru.cookedapp.common.base.list.data.ItemPayload
 
 abstract class BaseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 

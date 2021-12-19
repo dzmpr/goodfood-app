@@ -14,13 +14,13 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import ru.cookedapp.common.base.list.data.Items
 import ru.cookedapp.cooked.data.db.entity.Recipe
 import ru.cookedapp.cooked.data.db.entity.RecipeCategoryEntity
 import ru.cookedapp.cooked.data.repository.RecipeRepository
 import ru.cookedapp.cooked.ui.recipeList.data.RecipeListItem
 import ru.cookedapp.cooked.utils.ItemTouchHelperAction
 import ru.cookedapp.cooked.utils.SingleLiveEvent
-import ru.cookedapp.cooked.utils.listBase.data.Items
 
 class RecipeListViewModel @Inject constructor(
     private val recipeRepository: RecipeRepository,

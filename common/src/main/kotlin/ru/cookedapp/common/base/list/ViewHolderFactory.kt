@@ -1,4 +1,4 @@
-package ru.cookedapp.cooked.utils.listBase
+package ru.cookedapp.common.base.list
 
 import android.view.ViewGroup
 

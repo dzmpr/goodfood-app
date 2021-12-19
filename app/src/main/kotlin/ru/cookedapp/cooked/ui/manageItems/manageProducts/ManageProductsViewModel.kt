@@ -8,9 +8,9 @@ import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import ru.cookedapp.common.base.list.data.Items
 import ru.cookedapp.cooked.data.repository.ProductRepository
 import ru.cookedapp.cooked.ui.manageItems.ManageItemsProvider
-import ru.cookedapp.cooked.utils.listBase.data.Items
 
 class ManageProductsViewModel @Inject constructor(
     private val productRepository: ProductRepository,

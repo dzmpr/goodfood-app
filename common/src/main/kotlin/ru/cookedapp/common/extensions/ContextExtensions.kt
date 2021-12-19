@@ -1,4 +1,4 @@
-package ru.cookedapp.cooked.extensions
+package ru.cookedapp.common.extensions
 
 import android.content.Context
 import android.graphics.drawable.Drawable

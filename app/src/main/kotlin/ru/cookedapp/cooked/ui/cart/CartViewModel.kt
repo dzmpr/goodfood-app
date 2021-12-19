@@ -8,9 +8,9 @@ import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import ru.cookedapp.common.base.list.data.Item
 import ru.cookedapp.cooked.data.repository.CartRepository
 import ru.cookedapp.cooked.utils.ItemTouchHelperAction
-import ru.cookedapp.cooked.utils.listBase.data.Item
 
 class CartViewModel @Inject constructor(
     private val cartRepository: CartRepository,
