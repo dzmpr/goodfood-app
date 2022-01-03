@@ -1,9 +1,9 @@
 package ru.cookedapp.cooked.ui.recipeList.viewHolders
 
-import ru.cookedapp.common.base.list.BaseViewHolder
-import ru.cookedapp.common.base.list.ViewHolderFactory
-import ru.cookedapp.common.base.list.data.Item
-import ru.cookedapp.common.base.list.data.ItemPayload
+import ru.cookedapp.common.baseList.BaseViewHolder
+import ru.cookedapp.common.baseList.ViewHolderFactory
+import ru.cookedapp.common.baseList.data.Item
+import ru.cookedapp.common.baseList.data.ItemPayload
 import ru.cookedapp.cooked.databinding.ItemRecipeListRecipeBinding
 import ru.cookedapp.cooked.extensions.inflater
 import ru.cookedapp.cooked.ui.recipeList.data.RecipeFavoriteStateChanged

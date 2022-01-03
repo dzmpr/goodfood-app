@@ -1,7 +1,7 @@
 package ru.cookedapp.cooked.ui.manageItems
 
 import javax.inject.Inject
-import ru.cookedapp.common.base.list.data.Items
+import ru.cookedapp.common.baseList.data.Items
 import ru.cookedapp.cooked.data.db.entity.ProductEntity
 import ru.cookedapp.cooked.data.db.entity.RecipeCategoryEntity
 

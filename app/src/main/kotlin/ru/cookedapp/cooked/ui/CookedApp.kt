@@ -25,21 +25,17 @@ class CookedApp : Application() {
     }
 
     private fun applyTheme() {
-        val theme = settingsPrefs.getValue(SettingsPreferences.FIELD_APP_THEME, SettingsPreferences.VAL_THEME_AUTO)
-        when (theme) {
-            SettingsPreferences.VAL_THEME_AUTO -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-            }
-            SettingsPreferences.VAL_THEME_DARK -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            }
-            SettingsPreferences.VAL_THEME_LIGHT -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
-            SettingsPreferences.VAL_THEME_SAVER -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY)
-            }
+        val savedTheme = settingsPrefs.getValue(
+            SettingsPreferences.FIELD_APP_THEME,
+            SettingsPreferences.VAL_THEME_AUTO,
+        )
+        val theme = when (savedTheme) {
+            SettingsPreferences.VAL_THEME_AUTO -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+            SettingsPreferences.VAL_THEME_DARK -> AppCompatDelegate.MODE_NIGHT_YES
+            SettingsPreferences.VAL_THEME_LIGHT -> AppCompatDelegate.MODE_NIGHT_NO
+            else -> error("Unexpected theme constant: $savedTheme.")
         }
+        AppCompatDelegate.setDefaultNightMode(theme)
     }
 
     companion object {

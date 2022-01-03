@@ -1,7 +1,7 @@
-package ru.cookedapp.common.base.list
+package ru.cookedapp.common.baseList
 
 import androidx.recyclerview.widget.DiffUtil
-import ru.cookedapp.common.base.list.data.Item
+import ru.cookedapp.common.baseList.data.Item
 
 class CommonDiffUtilCallback(
     private val oldList: List<Item>,

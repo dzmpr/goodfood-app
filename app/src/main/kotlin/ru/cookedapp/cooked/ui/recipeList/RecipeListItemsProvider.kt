@@ -1,7 +1,7 @@
 package ru.cookedapp.cooked.ui.recipeList
 
 import javax.inject.Inject
-import ru.cookedapp.common.base.list.data.Items
+import ru.cookedapp.common.baseList.data.Items
 import ru.cookedapp.cooked.data.db.entity.Recipe
 import ru.cookedapp.cooked.data.gateway.PhotoGateway
 

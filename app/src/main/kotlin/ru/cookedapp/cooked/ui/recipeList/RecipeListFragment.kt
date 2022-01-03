@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.get
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
@@ -15,21 +14,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
-import ru.cookedapp.common.base.list.ListAdapter
-import ru.cookedapp.common.base.list.ViewHolderFactoryProvider
-import ru.cookedapp.common.base.list.data.ItemEvent
+import ru.cookedapp.common.baseList.ListAdapter
+import ru.cookedapp.common.baseList.ViewHolderFactoryProvider
+import ru.cookedapp.common.baseList.data.ItemEvent
 import ru.cookedapp.cooked.R
 import ru.cookedapp.cooked.data.db.entity.RecipeCategoryEntity
 import ru.cookedapp.cooked.databinding.FragmentRecipeListBinding
 import ru.cookedapp.cooked.extensions.setViewVisibility
 import ru.cookedapp.cooked.ui.CookedApp
+import ru.cookedapp.cooked.ui.base.BaseFragment
 import ru.cookedapp.cooked.ui.recipeDetails.RecipeDetailsFragment
 import ru.cookedapp.cooked.ui.recipeList.data.RecipeListItem
 import ru.cookedapp.cooked.ui.recipeList.viewHolders.RecipeViewHolder
 import ru.cookedapp.cooked.utils.ItemSwipeDecorator
 import ru.cookedapp.cooked.utils.RecipeListItemTouchHelperCallback
 
-class RecipeListFragment : Fragment() {
+class RecipeListFragment : BaseFragment() {
 
     private var _binding: FragmentRecipeListBinding? = null
     private val binding get() = _binding!!
@@ -68,7 +68,7 @@ class RecipeListFragment : Fragment() {
         initCategoryChips()
 
         viewModel.deleteSnack.observe(viewLifecycleOwner) {
-            val message = resources.getString(R.string.snackbar_item_deleted, it)
+            val message = rp.getString(R.string.snackbar_item_deleted, it)
             showSnackbar(message)
         }
     }

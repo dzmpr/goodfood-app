@@ -1,6 +1,5 @@
 package ru.cookedapp.cooked.ui.settings
 
-import android.os.Build
 import android.os.Bundle
 import android.text.InputType
 import android.view.View
@@ -41,49 +40,26 @@ class SettingsFragment: PreferenceFragmentCompat() {
         val themePreference = ListPreference(context).apply {
             key = SettingsPreferences.FIELD_APP_THEME
             title = resources.getString(R.string.label_app_theme)
-            entries = if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.N) {
-                resources.getStringArray(R.array.labels_app_theme_old)
-            } else {
-                resources.getStringArray(R.array.labels_app_theme_new)
-            }
+            entries = resources.getStringArray(R.array.labels_app_theme_new)
             setDefaultValue(SettingsPreferences.VAL_THEME_AUTO)
-            entryValues = if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.N) {
-                arrayOf(
-                    SettingsPreferences.VAL_THEME_SAVER,
-                    SettingsPreferences.VAL_THEME_LIGHT,
-                    SettingsPreferences.VAL_THEME_DARK
-                )
-            } else {
-                arrayOf(
-                    SettingsPreferences.VAL_THEME_AUTO,
-                    SettingsPreferences.VAL_THEME_LIGHT,
-                    SettingsPreferences.VAL_THEME_DARK
-                )
-            }
+            entryValues = arrayOf(
+                SettingsPreferences.VAL_THEME_AUTO,
+                SettingsPreferences.VAL_THEME_LIGHT,
+                SettingsPreferences.VAL_THEME_DARK,
+            )
             isIconSpaceReserved = false
             summaryProvider = ListPreference.SimpleSummaryProvider.getInstance()
             dialogTitle = getString(R.string.label_app_theme)
         }
         themePreference.setOnPreferenceChangeListener { _, newValue ->
-            when (newValue) {
-                SettingsPreferences.VAL_THEME_DARK -> {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                    true
-                }
-                SettingsPreferences.VAL_THEME_LIGHT -> {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                    true
-                }
-                SettingsPreferences.VAL_THEME_AUTO -> {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-                    true
-                }
-                SettingsPreferences.VAL_THEME_SAVER -> {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY)
-                    true
-                }
-                else -> false
+            val theme = when (newValue) {
+                SettingsPreferences.VAL_THEME_DARK -> AppCompatDelegate.MODE_NIGHT_YES
+                SettingsPreferences.VAL_THEME_LIGHT -> AppCompatDelegate.MODE_NIGHT_NO
+                SettingsPreferences.VAL_THEME_AUTO -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+                else -> error("Unexpected theme constant: $newValue.")
             }
+            AppCompatDelegate.setDefaultNightMode(theme)
+            true
         }
         category.addPreference(themePreference)
     }
@@ -118,13 +94,11 @@ class SettingsFragment: PreferenceFragmentCompat() {
         toolbar.setNavigationOnClickListener {
             Navigation.findNavController(requireActivity(), R.id.fcvContainer).popBackStack()
         }
-        // Remove overscroll TODO: test on N
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            val list: FrameLayout = view.findViewById(android.R.id.list_container)
-            val preferenceRecycler = list.getChildAt(0)
-            if (preferenceRecycler is RecyclerView) {
-                preferenceRecycler.overScrollMode = View.OVER_SCROLL_NEVER
-            }
+        // Remove overscroll
+        val list: FrameLayout = view.findViewById(android.R.id.list_container)
+        val preferenceRecycler = list.getChildAt(0)
+        if (preferenceRecycler is RecyclerView) {
+            preferenceRecycler.overScrollMode = View.OVER_SCROLL_NEVER
         }
     }
 

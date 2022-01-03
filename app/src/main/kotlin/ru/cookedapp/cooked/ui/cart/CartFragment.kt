@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import javax.inject.Inject
-import ru.cookedapp.common.base.list.ListAdapter
-import ru.cookedapp.common.base.list.ViewHolderFactoryProvider
-import ru.cookedapp.common.base.list.data.ItemEvent
+import ru.cookedapp.common.baseList.ListAdapter
+import ru.cookedapp.common.baseList.ViewHolderFactoryProvider
+import ru.cookedapp.common.baseList.data.ItemEvent
 import ru.cookedapp.cooked.R
 import ru.cookedapp.cooked.databinding.FragmentCartBinding
 import ru.cookedapp.cooked.extensions.setViewVisibility

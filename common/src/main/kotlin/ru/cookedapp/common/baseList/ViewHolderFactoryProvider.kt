@@ -1,7 +1,7 @@
-package ru.cookedapp.common.base.list
+package ru.cookedapp.common.baseList
 
 import kotlin.reflect.KClass
-import ru.cookedapp.common.base.list.data.Item
+import ru.cookedapp.common.baseList.data.Item
 
 class ViewHolderFactoryProvider(vararg factories: Pair<KClass<out Item>, ViewHolderFactory>) {
 

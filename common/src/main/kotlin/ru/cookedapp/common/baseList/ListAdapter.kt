@@ -1,4 +1,4 @@
-package ru.cookedapp.common.base.list
+package ru.cookedapp.common.baseList
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -11,9 +11,9 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.withContext
-import ru.cookedapp.common.base.list.data.Item
-import ru.cookedapp.common.base.list.data.ItemPayload
-import ru.cookedapp.common.base.list.data.ItemsUpdate
+import ru.cookedapp.common.baseList.data.Item
+import ru.cookedapp.common.baseList.data.ItemPayload
+import ru.cookedapp.common.baseList.data.ItemsUpdate
 
 open class ListAdapter(
     adapterScope: CoroutineScope,

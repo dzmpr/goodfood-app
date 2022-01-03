@@ -12,8 +12,14 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import javax.inject.Inject
+import ru.cookedapp.common.resourceProvider.ResourceProvider
 
-open class BaseBottomSheetFragment : BottomSheetDialogFragment() {
+abstract class BaseBottomSheetFragment : BottomSheetDialogFragment() {
+
+    @Inject
+    lateinit var rp: ResourceProvider
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // Open dialog with expanded state
         val bottomSheetDialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
@@ -34,8 +40,7 @@ open class BaseBottomSheetFragment : BottomSheetDialogFragment() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 requireContext().display?.getRealMetrics(dm)
             } else {
-                val windowManager =
-                    requireContext().getSystemService(Context.WINDOW_SERVICE) as WindowManager
+                val windowManager = requireContext().getSystemService(Context.WINDOW_SERVICE) as WindowManager
                 windowManager.defaultDisplay.getRealMetrics(dm)
             }
             // Calculate required margin

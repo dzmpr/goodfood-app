@@ -1,4 +1,4 @@
-package ru.cookedapp.common.base.list.data
+package ru.cookedapp.common.baseList.data
 
 interface Item {
 

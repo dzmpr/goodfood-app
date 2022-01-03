@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import ru.cookedapp.common.base.list.data.Items
+import ru.cookedapp.common.baseList.data.Items
 import ru.cookedapp.cooked.data.db.entity.Recipe
 import ru.cookedapp.cooked.data.db.entity.RecipeCategoryEntity
 import ru.cookedapp.cooked.data.repository.RecipeRepository

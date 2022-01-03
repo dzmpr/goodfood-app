@@ -1,8 +1,8 @@
 package ru.cookedapp.cooked.ui.recipeList.data
 
 import android.net.Uri
-import ru.cookedapp.common.base.list.data.Item
-import ru.cookedapp.common.base.list.data.ItemPayload
+import ru.cookedapp.common.baseList.data.Item
+import ru.cookedapp.common.baseList.data.ItemPayload
 
 data class RecipeListItem(
     override val id: Long,

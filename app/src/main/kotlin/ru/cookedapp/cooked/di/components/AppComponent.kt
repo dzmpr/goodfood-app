@@ -9,6 +9,7 @@ import ru.cookedapp.cooked.di.modules.GatewayModule
 import ru.cookedapp.cooked.di.modules.PreferenceModule
 import ru.cookedapp.cooked.di.modules.RepositoryModule
 import ru.cookedapp.cooked.di.modules.RoomModule
+import ru.cookedapp.cooked.di.modules.UtilitiesModule
 import ru.cookedapp.cooked.di.modules.ViewModelModule
 import ru.cookedapp.cooked.ui.CookedApp
 import ru.cookedapp.cooked.ui.cart.CartFragment
@@ -27,7 +28,8 @@ import ru.cookedapp.cooked.ui.recipesOverview.RecipesOverviewFragment
         RoomModule::class,
         GatewayModule::class,
         ViewModelModule::class,
-        PreferenceModule::class
+        PreferenceModule::class,
+        UtilitiesModule::class,
     ]
 )
 interface AppComponent {

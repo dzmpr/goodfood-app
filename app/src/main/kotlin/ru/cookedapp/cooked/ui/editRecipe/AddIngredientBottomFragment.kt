@@ -32,8 +32,7 @@ class AddIngredientBottomFragment : BaseBottomSheetFragment() {
         super.onCreate(savedInstanceState)
 
         CookedApp.appComponent.inject(this)
-        editRecipeViewModel = ViewModelProvider(requireParentFragment(), vmFactory).get(
-            EditRecipeViewModel::class.java)
+        editRecipeViewModel = ViewModelProvider(requireParentFragment(), vmFactory).get(EditRecipeViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -49,9 +48,9 @@ class AddIngredientBottomFragment : BaseBottomSheetFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.tilIngredientName.requestFocus()
 
-        val nameValidator = InputValidator(binding.tilIngredientName, resources.getString(R.string.label_name_error))
-        val amountValidator = InputValidator(binding.tilAmount, resources.getString(R.string.label_name_error))
-        val unitValidator = InputValidator(binding.tilAmountUnit, resources.getString(R.string.label_product_units_error))
+        val nameValidator = InputValidator(binding.tilIngredientName, rp.getString(R.string.label_name_error))
+        val amountValidator = InputValidator(binding.tilAmount, rp.getString(R.string.label_name_error))
+        val unitValidator = InputValidator(binding.tilAmountUnit, rp.getString(R.string.label_product_units_error))
 
         selectedProductHelper = AutocompleteSelectionHelper(binding.tilIngredientName) { input ->
             ProductEntity(id = 0, name = input)
