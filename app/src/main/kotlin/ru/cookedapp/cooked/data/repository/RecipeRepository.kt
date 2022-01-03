@@ -177,7 +177,7 @@ class RecipeRepository(
 
     suspend fun addRecipe(recipe: Recipe) = withContext(Dispatchers.IO) {
         val convertedIngredients = processIngredients(recipe.ingredientsList)
-        processCategory(recipe.category)
+        val recipeCategory = processCategory(recipe.category)
         recipeDao.insert(
             RecipeEntity(
                 recipe.id,
@@ -189,21 +189,18 @@ class RecipeRepository(
                 recipe.lastCooked,
                 recipe.cookCount,
                 convertedIngredients,
-                recipe.category.id,
+                recipeCategory.id,
             )
         )
     }
 
-    private fun processIngredients(ingredients: List<IngredientWithMeta>): List<Ingredient> {
-        for (ingredient in ingredients) {
-            handleIngredient(ingredient)
-        }
-        return ingredients.map {
-            Ingredient(it.product.id, it.amount, it.unit.id)
-        }
+    private fun processIngredients(
+        ingredients: List<IngredientWithMeta>,
+    ): List<Ingredient> = ingredients.map { ingredient ->
+        processIngredient(ingredient)
     }
 
-    private fun handleIngredient(ingredient: IngredientWithMeta) {
+    private fun processIngredient(ingredient: IngredientWithMeta): Ingredient {
         // Create product if it is not exists
         val productId = if (ingredient.product.isNew()) {
             productDao.insert(ingredient.product)
@@ -212,18 +209,19 @@ class RecipeRepository(
         }
         // Increase product usage count
         productDao.increaseUsages(productId)
+        return Ingredient(productId, ingredient.amount, ingredient.unit.id)
     }
 
-    private fun processCategory(category: RecipeCategoryEntity?) {
-        if (category != null) {
-            // Create category if it is not exists
-            val categoryId = if (category.isNew()) {
-                recipeCategoryDao.insert(category)
-            } else {
-                category.id
-            }
-            // Increase category usages
-            recipeCategoryDao.increaseUsages(categoryId)
+    private fun processCategory(category: RecipeCategoryEntity): RecipeCategoryEntity {
+        // Create category if it is not exists
+        val categoryId = if (category.isNew()) {
+            recipeCategoryDao.insert(category)
+        } else {
+            category.id
         }
+        // Increase category usages
+        recipeCategoryDao.increaseUsages(categoryId)
+
+        return category.copy(id = categoryId)
     }
 }
