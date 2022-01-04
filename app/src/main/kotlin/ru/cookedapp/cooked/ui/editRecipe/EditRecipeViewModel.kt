@@ -108,8 +108,7 @@ class EditRecipeViewModel @Inject constructor(
                 Log.d(TAG, "Filename where chosen photo will be copied: '${newPhoto.toString()}'.")
             }
 
-            val category = selectedCategory
-                ?: RecipeCategoryEntity(recipePreferences.getValue(RecipePreferences.FIELD_NO_CATEGORY, 0), "")
+            val category = selectedCategory ?: RecipeCategoryEntity(recipePreferences.recipeNoCategoryId, "")
 
             val recipe = Recipe(
                 id = 0,

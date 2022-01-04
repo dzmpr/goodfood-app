@@ -1,16 +1,24 @@
 package ru.cookedapp.cooked.di.modules
 
-import dagger.Binds
+import android.content.Context
 import dagger.Module
-import ru.cookedapp.cooked.data.prefs.PreferenceHelper
-import ru.cookedapp.cooked.data.prefs.RecipePreferences
-import ru.cookedapp.cooked.data.prefs.SettingsPreferences
+import dagger.Provides
+import javax.inject.Singleton
+import ru.cookedapp.cooked.data.prefs.PreferencesFactory
 
 @Module
-abstract class PreferenceModule {
-    @Binds
-    abstract fun provideRecipePreferences(prefs: RecipePreferences): PreferenceHelper
+interface PreferenceModule {
+    companion object {
+        @Provides
+        @Singleton
+        fun providePreferencesFactory(context: Context) = PreferencesFactory(context)
 
-    @Binds
-    abstract fun provideSettingsPreferences(prefs: SettingsPreferences): PreferenceHelper
+        @Provides
+        @Singleton
+        fun provideAppSettings(factory: PreferencesFactory) = factory.createAppSettings()
+
+        @Provides
+        @Singleton
+        fun provideRecipePreferences(factory: PreferencesFactory) = factory.createRecipePreferences()
+    }
 }

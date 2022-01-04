@@ -1,7 +1,6 @@
 package ru.cookedapp.cooked.data.db
 
 import android.content.Context
-import androidx.core.content.edit
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -19,7 +18,7 @@ import ru.cookedapp.cooked.data.db.entity.ProductEntity
 import ru.cookedapp.cooked.data.db.entity.ProductUnitEntity
 import ru.cookedapp.cooked.data.db.entity.RecipeCategoryEntity
 import ru.cookedapp.cooked.data.db.entity.RecipeEntity
-import ru.cookedapp.cooked.data.prefs.RecipePreferences
+import ru.cookedapp.cooked.data.prefs.PreferencesFactory
 
 @Database(
     entities = [
@@ -70,19 +69,16 @@ abstract class AppDatabase : RoomDatabase() {
                             }
 
                             // Create category 'No category'
-                            val noCategoryId = database.recipeCategoryDao()
-                                .insert(RecipeCategoryEntity(id = 0, name = res.getString(R.string.label_no_category)))
+                            val noCategoryId = database.recipeCategoryDao().insert(
+                                RecipeCategoryEntity(id = 0, name = res.getString(R.string.label_no_category))
+                            )
 
-                            context.getSharedPreferences(
-                                RecipePreferences.PREFERENCES_NAME,
-                                Context.MODE_PRIVATE
-                            ).edit {
-                                putLong(RecipePreferences.FIELD_NO_CATEGORY, noCategoryId)
-                            }
+                            val recipePreferences = PreferencesFactory(context).createRecipePreferences()
+                            recipePreferences.recipeNoCategoryId = noCategoryId
                         }
                     }
-                })
-                .build()
+                }
+            ).build()
         }
     }
 }

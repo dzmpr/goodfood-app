@@ -165,7 +165,7 @@ class RecipeRepository(
         val category = recipeCategoryDao.getById(categoryId)
         // If this is the only recipe where this category is used - delete it
         if (category.referenceCount == 1) {
-            if (categoryId != recipePreferences.getValue(RecipePreferences.FIELD_NO_CATEGORY,1L)) {
+            if (categoryId != recipePreferences.recipeNoCategoryId) {
                 recipeCategoryDao.delete(category)
             } else {
                 recipeCategoryDao.decreaseUsages(categoryId)
