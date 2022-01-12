@@ -6,8 +6,14 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "product_units")
 data class ProductUnitEntity(
-    @PrimaryKey(autoGenerate = true) override val id: Long,
-    @ColumnInfo(name = "name") var name: String,
+    @PrimaryKey(autoGenerate = true)
+    override val id: Long,
+
+    @ColumnInfo(name = "name")
+    val name: String,
 ) : Identifiable {
+
+    constructor(name: String) : this(id = 0, name = name)
+
     override fun toString() = name
 }

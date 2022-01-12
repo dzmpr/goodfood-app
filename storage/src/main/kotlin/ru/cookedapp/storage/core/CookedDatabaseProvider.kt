@@ -38,8 +38,8 @@ internal class CookedDatabaseProvider @Inject constructor(
                         // Prepopulate units
                         with(database.productUnitDao()) {
                             val units = res.getStringArray(R.array.labels_units)
-                            units.forEach {
-                                insert(ProductUnitEntity(id = 0, name = it))
+                            units.forEach { unitName ->
+                                insert(ProductUnitEntity(name = unitName))
                             }
                         }
 
