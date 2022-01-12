@@ -13,7 +13,6 @@ import ru.cookedapp.storage.dao.ProductDao
 import ru.cookedapp.storage.dao.ProductUnitDao
 import ru.cookedapp.storage.dao.RecipeCategoryDao
 import ru.cookedapp.storage.dao.RecipeDao
-import ru.cookedapp.storage.recipePreferences.RecipePreferences
 
 @Module
 class RepositoryModule {
@@ -24,14 +23,12 @@ class RepositoryModule {
         productDao: ProductDao,
         productUnitDao: ProductUnitDao,
         photoGateway: PhotoGateway,
-        recipePreferences: RecipePreferences
     ): RecipeRepository = RecipeRepository(
         recipeDao,
         recipeCategoryDao,
         productDao,
         productUnitDao,
         photoGateway,
-        recipePreferences
     )
 
     @Provides

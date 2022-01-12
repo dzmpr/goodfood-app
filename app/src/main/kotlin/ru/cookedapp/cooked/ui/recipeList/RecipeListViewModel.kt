@@ -56,7 +56,9 @@ class RecipeListViewModel @Inject constructor(
     private fun loadList() {
         viewModelScope.launch {
             recipes.onEach { recipes ->
-                val categorySet = recipes.asSequence().map { it.category }.toSet()
+                val categorySet = recipes.asSequence().map {
+                    it.category
+                }.filterNotNull().toSet()
                 if (recipeCategories.value != categorySet) {
                     recipeCategories.postValue(categorySet)
                 }
@@ -68,7 +70,7 @@ class RecipeListViewModel @Inject constructor(
                     recipes
                 } else {
                     recipes.filter { recipe ->
-                        recipe.category.id == selectedCategory
+                        recipe.category?.id == selectedCategory
                     }
                 }
             }.flowOn(Dispatchers.IO)

@@ -23,7 +23,7 @@ interface RecipeCategoryDao {
     fun getCategoriesFlow(): Flow<List<RecipeCategoryEntity>>
 
     @Query("SELECT * FROM recipe_categories WHERE id = :id")
-    fun getById(id: Long): RecipeCategoryEntity
+    fun getById(id: Long): RecipeCategoryEntity?
 
     @Query("UPDATE recipe_categories SET reference_count = reference_count + 1 WHERE id = :id")
     fun increaseUsages(id: Long)

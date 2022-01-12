@@ -74,7 +74,7 @@ class RecipeDetailsFragment : BaseFragment() {
 
         viewModel.recipe.observe(viewLifecycleOwner) {
             binding.tvRecipeName.text = it.name
-            binding.tvRecipeCategory.text = it.category.name
+            binding.tvRecipeCategory.text = it.category?.name ?: rp.getString(R.string.label_no_category)
             binding.tvRecipeInstructions.text = it.description
             binding.cbFavorites.isChecked = it.inFavorites
             binding.tvLastCooked.text = if (it.lastCooked.isEqual(LocalDateTime.ofInstant(Instant.ofEpochMilli(0), ZoneId.systemDefault()))) {

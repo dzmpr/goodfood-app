@@ -12,5 +12,5 @@ data class Recipe(
     val lastCooked: LocalDateTime,
     val cookCount: Int = 0,
     val ingredientsList: List<IngredientWithMeta>,
-    val category: RecipeCategoryEntity,
+    val category: RecipeCategoryEntity?,
 )

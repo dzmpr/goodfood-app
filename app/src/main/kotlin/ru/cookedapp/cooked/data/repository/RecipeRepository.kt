@@ -15,7 +15,6 @@ import ru.cookedapp.storage.entity.IngredientWithMeta
 import ru.cookedapp.storage.entity.Recipe
 import ru.cookedapp.storage.entity.RecipeCategoryEntity
 import ru.cookedapp.storage.entity.RecipeEntity
-import ru.cookedapp.storage.recipePreferences.RecipePreferences
 
 class RecipeRepository(
     private val recipeDao: RecipeDao,
@@ -23,7 +22,6 @@ class RecipeRepository(
     private val productDao: ProductDao,
     private val productUnitDao: ProductUnitDao,
     private val photoGateway: PhotoGateway,
-    private val recipePreferences: RecipePreferences
 ) {
     suspend fun markAsCooked(id: Long, date: LocalDateTime) = withContext(Dispatchers.IO) {
         recipeDao.markAsCooked(id, date)
@@ -110,7 +108,9 @@ class RecipeRepository(
 
     private fun getRecipe(recipe: RecipeEntity): Recipe {
         val ingredientList = getIngredients(recipe.ingredientsList)
-        val category = recipeCategoryDao.getById(recipe.categoryId)
+        val category = recipe.categoryId?.let { categoryId ->
+            recipeCategoryDao.getById(categoryId)
+        }
 
         return Recipe(
             recipe.id,
@@ -122,7 +122,7 @@ class RecipeRepository(
             recipe.lastCooked,
             recipe.cookCount,
             ingredientList,
-            category
+            category,
         )
     }
 
@@ -161,15 +161,12 @@ class RecipeRepository(
         }
     }
 
-    private fun removeCategory(categoryId: Long) {
+    private fun removeCategory(categoryId: Long?) {
+        if (categoryId == null) return
         val category = recipeCategoryDao.getById(categoryId)
         // If this is the only recipe where this category is used - delete it
-        if (category.referenceCount == 1) {
-            if (categoryId != recipePreferences.recipeNoCategoryId) {
-                recipeCategoryDao.delete(category)
-            } else {
-                recipeCategoryDao.decreaseUsages(categoryId)
-            }
+        if (category?.referenceCount == 1) {
+            recipeCategoryDao.delete(category)
         } else {
             recipeCategoryDao.decreaseUsages(categoryId)
         }
@@ -189,7 +186,7 @@ class RecipeRepository(
                 recipe.lastCooked,
                 recipe.cookCount,
                 convertedIngredients,
-                recipeCategory.id,
+                recipeCategory?.id,
             )
         )
     }
@@ -212,7 +209,8 @@ class RecipeRepository(
         return Ingredient(productId, ingredient.amount, ingredient.unit.id)
     }
 
-    private fun processCategory(category: RecipeCategoryEntity): RecipeCategoryEntity {
+    private fun processCategory(category: RecipeCategoryEntity?): RecipeCategoryEntity? {
+        if (category == null) return null
         // Create category if it is not exists
         val categoryId = if (category.isNew()) {
             recipeCategoryDao.insert(category)

@@ -10,12 +10,9 @@ import javax.inject.Singleton
 import ru.cookedapp.common.resourceProvider.ResourceProvider
 import ru.cookedapp.storage.R
 import ru.cookedapp.storage.entity.ProductUnitEntity
-import ru.cookedapp.storage.entity.RecipeCategoryEntity
-import ru.cookedapp.storage.recipePreferences.RecipePreferences
 
 @Singleton
 internal class CookedDatabaseProvider @Inject constructor(
-    private val recipePreferences: RecipePreferences,
     private val rp: ResourceProvider,
 ) {
     private var instance: CookedDatabase? = null
@@ -33,21 +30,14 @@ internal class CookedDatabaseProvider @Inject constructor(
                     super.onCreate(db)
                     Executors.newSingleThreadExecutor().execute {
                         val database = getDatabase(context)
-                        val res = context.resources
 
                         // Prepopulate units
                         with(database.productUnitDao()) {
-                            val units = res.getStringArray(R.array.labels_units)
+                            val units = rp.getStringArray(R.array.labels_units)
                             units.forEach { unitName ->
                                 insert(ProductUnitEntity(name = unitName))
                             }
                         }
-
-                        // Create category 'No category'
-                        val noCategoryId = database.recipeCategoryDao().insert(
-                            RecipeCategoryEntity(name = rp.getString(R.string.label_no_category))
-                        )
-                        recipePreferences.recipeNoCategoryId = noCategoryId
                     }
                 }
             }

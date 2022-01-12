@@ -23,7 +23,6 @@ import ru.cookedapp.storage.entity.ProductEntity
 import ru.cookedapp.storage.entity.ProductUnitEntity
 import ru.cookedapp.storage.entity.Recipe
 import ru.cookedapp.storage.entity.RecipeCategoryEntity
-import ru.cookedapp.storage.recipePreferences.RecipePreferences
 
 class EditRecipeViewModel @Inject constructor(
     private val productRepository: ProductRepository,
@@ -31,7 +30,6 @@ class EditRecipeViewModel @Inject constructor(
     private val recipeRepository: RecipeRepository,
     private val recipeCategoryRepository: RecipeCategoryRepository,
     private val photoGateway: PhotoGateway,
-    private val recipePreferences: RecipePreferences
 ) : ViewModel() {
     private val ingredientsList: MutableList<IngredientWithMeta> = mutableListOf()
 
@@ -98,7 +96,12 @@ class EditRecipeViewModel @Inject constructor(
         ingredients.value = ingredientsList
     }
 
-    fun saveRecipe(name: String, description: String?, servingsCount: Int, selectedCategory: RecipeCategoryEntity?) {
+    fun saveRecipe(
+        name: String,
+        description: String?,
+        servingsCount: Int,
+        selectedCategory: RecipeCategoryEntity?,
+    ) {
         viewModelScope.launch {
             // Copy photo to app folder if it was picked
             if (!photoFromCamera && photoStatus) {
@@ -107,12 +110,6 @@ class EditRecipeViewModel @Inject constructor(
                 val newPhoto = photoGateway.copyPhoto(photoUri!!, internalUri)
                 Log.d(TAG, "Filename where chosen photo will be copied: '${newPhoto.toString()}'.")
             }
-
-            val category = selectedCategory ?: RecipeCategoryEntity(
-                id = recipePreferences.recipeNoCategoryId,
-                name = "",
-                referenceCount = 0
-            )
 
             val recipe = Recipe(
                 id = 0,
@@ -124,7 +121,7 @@ class EditRecipeViewModel @Inject constructor(
                 LocalDateTime.ofInstant(Instant.ofEpochMilli(0), ZoneId.systemDefault()),
                 cookCount = 0,
                 ingredientsList,
-                category
+                selectedCategory,
             )
             recipeRepository.addRecipe(recipe)
 

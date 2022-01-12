@@ -16,9 +16,5 @@ internal interface PreferencesModule {
         @Provides
         @Singleton
         fun provideAppSettings(factory: PreferencesFactory) = factory.createAppSettings()
-
-        @Provides
-        @Singleton
-        fun provideRecipePreferences(factory: PreferencesFactory) = factory.createRecipePreferences()
     }
 }

@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "e199646085e0f271a5d5fddc75eb307a",
+    "identityHash": "c5462bf809115f72afce7fc03b88555b",
     "entities": [
       {
         "tableName": "recipes",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `instructions` TEXT, `photo_filename` TEXT, `servings_num` INTEGER NOT NULL, `in_favorites` INTEGER NOT NULL, `last_cooked` INTEGER NOT NULL, `cook_count` INTEGER NOT NULL, `ingredients_list` TEXT NOT NULL, `category_id` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `instructions` TEXT, `photo_filename` TEXT, `servings_num` INTEGER NOT NULL, `in_favorites` INTEGER NOT NULL, `last_cooked` INTEGER NOT NULL, `cook_count` INTEGER NOT NULL, `ingredients_list` TEXT NOT NULL, `category_id` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -66,7 +66,7 @@
             "fieldPath": "categoryId",
             "columnName": "category_id",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -228,7 +228,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e199646085e0f271a5d5fddc75eb307a')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c5462bf809115f72afce7fc03b88555b')"
     ]
   }
 }

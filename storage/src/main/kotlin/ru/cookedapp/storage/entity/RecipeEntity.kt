@@ -36,7 +36,7 @@ data class RecipeEntity(
     val ingredientsList: List<Ingredient>,
 
     @ColumnInfo(name = "category_id")
-    val categoryId: Long,
+    val categoryId: Long?,
 ) : Identifiable {
 
     constructor(
@@ -48,7 +48,7 @@ data class RecipeEntity(
         lastCooked: LocalDateTime,
         cookCount: Int = 0,
         ingredientsList: List<Ingredient>,
-        categoryId: Long,
+        categoryId: Long?,
     ) : this(
         id = 0,
         name = name,
