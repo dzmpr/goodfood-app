@@ -45,7 +45,7 @@ internal class CookedDatabaseProvider @Inject constructor(
 
                         // Create category 'No category'
                         val noCategoryId = database.recipeCategoryDao().insert(
-                            RecipeCategoryEntity(id = 0, name = rp.getString(R.string.label_no_category))
+                            RecipeCategoryEntity(name = rp.getString(R.string.label_no_category))
                         )
                         recipePreferences.recipeNoCategoryId = noCategoryId
                     }

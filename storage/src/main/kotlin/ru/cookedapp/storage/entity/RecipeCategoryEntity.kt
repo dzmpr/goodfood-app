@@ -7,7 +7,22 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "recipe_categories")
 data class RecipeCategoryEntity(
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id") override val id: Long,
-    @ColumnInfo(name = "name") var name: String,
-    @ColumnInfo(name = "reference_count") var referenceCount: Int = 0,
-) : Identifiable
+    @ColumnInfo(name = "id")
+    override val id: Long,
+
+    @ColumnInfo(name = "name")
+    val name: String,
+
+    @ColumnInfo(name = "reference_count")
+    val referenceCount: Int,
+) : Identifiable {
+
+    constructor(
+        name: String,
+        referenceCount: Int = 0,
+    ) : this(
+        id = 0,
+        name = name,
+        referenceCount = referenceCount,
+    )
+}
