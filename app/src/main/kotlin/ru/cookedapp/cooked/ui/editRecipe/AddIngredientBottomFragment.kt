@@ -53,7 +53,7 @@ class AddIngredientBottomFragment : BaseBottomSheetFragment() {
         val unitValidator = InputValidator(binding.tilAmountUnit, rp.getString(R.string.label_product_units_error))
 
         selectedProductHelper = AutocompleteSelectionHelper(binding.tilIngredientName) { input ->
-            ProductEntity(id = 0, name = input)
+            ProductEntity(name = input)
         }.addItemSelectedListener {
             // Set focus to next text field
             binding.tilAmount.requestFocus()
