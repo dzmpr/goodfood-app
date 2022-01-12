@@ -17,8 +17,8 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.cookedapp.cooked.R
-import ru.cookedapp.cooked.data.db.entity.Recipe
 import ru.cookedapp.cooked.data.gateway.PhotoGateway
+import ru.cookedapp.storage.entity.Recipe
 
 class RecipeCardAdapter(
     private val recipeClickCallback: RecipesOverviewFragment.RecipeClickCallback,

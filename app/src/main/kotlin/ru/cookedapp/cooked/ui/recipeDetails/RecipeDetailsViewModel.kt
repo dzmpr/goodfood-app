@@ -13,12 +13,12 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import ru.cookedapp.cooked.data.db.entity.IngredientWithMeta
-import ru.cookedapp.cooked.data.db.entity.Recipe
 import ru.cookedapp.cooked.data.gateway.PhotoGateway
 import ru.cookedapp.cooked.data.repository.CartRepository
 import ru.cookedapp.cooked.data.repository.RecipeRepository
 import ru.cookedapp.cooked.utils.SingleLiveEvent
+import ru.cookedapp.storage.entity.IngredientWithMeta
+import ru.cookedapp.storage.entity.Recipe
 
 class RecipeDetailsViewModel @Inject constructor(
     private val recipeRepository: RecipeRepository,

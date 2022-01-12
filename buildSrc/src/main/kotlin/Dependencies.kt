@@ -29,6 +29,7 @@ object Dependencies {
 
     // Tests
     const val junit = "junit:junit:${Versions.junit}"
+    const val kotlinJunit = "org.jetbrains.kotlin:kotlin-test-junit:${Versions.kotlin}"
     const val junitExtensions = "androidx.test.ext:junit:${Versions.junitExtensions}"
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.espresso}"
 }

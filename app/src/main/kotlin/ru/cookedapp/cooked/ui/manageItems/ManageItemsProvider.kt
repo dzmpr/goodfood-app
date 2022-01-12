@@ -2,8 +2,8 @@ package ru.cookedapp.cooked.ui.manageItems
 
 import javax.inject.Inject
 import ru.cookedapp.common.baseList.data.Items
-import ru.cookedapp.cooked.data.db.entity.ProductEntity
-import ru.cookedapp.cooked.data.db.entity.RecipeCategoryEntity
+import ru.cookedapp.storage.entity.ProductEntity
+import ru.cookedapp.storage.entity.RecipeCategoryEntity
 
 class ManageItemsProvider @Inject constructor(
     private val itemsFactory: ManageItemsFactory,

@@ -18,7 +18,6 @@ import ru.cookedapp.common.baseList.ListAdapter
 import ru.cookedapp.common.baseList.ViewHolderFactoryProvider
 import ru.cookedapp.common.baseList.data.ItemEvent
 import ru.cookedapp.cooked.R
-import ru.cookedapp.cooked.data.db.entity.RecipeCategoryEntity
 import ru.cookedapp.cooked.databinding.FragmentRecipeListBinding
 import ru.cookedapp.cooked.extensions.setViewVisibility
 import ru.cookedapp.cooked.ui.CookedApp
@@ -28,6 +27,7 @@ import ru.cookedapp.cooked.ui.recipeList.data.RecipeListItem
 import ru.cookedapp.cooked.ui.recipeList.viewHolders.RecipeViewHolder
 import ru.cookedapp.cooked.utils.ItemSwipeDecorator
 import ru.cookedapp.cooked.utils.RecipeListItemTouchHelperCallback
+import ru.cookedapp.storage.entity.RecipeCategoryEntity
 
 class RecipeListFragment : BaseFragment() {
 

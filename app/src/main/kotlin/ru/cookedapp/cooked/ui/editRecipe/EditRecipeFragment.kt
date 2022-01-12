@@ -15,12 +15,12 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import javax.inject.Inject
 import ru.cookedapp.cooked.R
-import ru.cookedapp.cooked.data.db.entity.RecipeCategoryEntity
 import ru.cookedapp.cooked.databinding.FragmentEditRecipeBinding
 import ru.cookedapp.cooked.extensions.setViewVisibility
 import ru.cookedapp.cooked.ui.CookedApp
 import ru.cookedapp.cooked.utils.AutocompleteSelectionHelper
 import ru.cookedapp.cooked.utils.InputValidator
+import ru.cookedapp.storage.entity.RecipeCategoryEntity
 
 class EditRecipeFragment : Fragment() {
     private lateinit var binding: FragmentEditRecipeBinding

@@ -5,17 +5,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
-import ru.cookedapp.cooked.data.db.dao.ProductDao
-import ru.cookedapp.cooked.data.db.dao.ProductUnitDao
-import ru.cookedapp.cooked.data.db.dao.RecipeCategoryDao
-import ru.cookedapp.cooked.data.db.dao.RecipeDao
-import ru.cookedapp.cooked.data.db.entity.Ingredient
-import ru.cookedapp.cooked.data.db.entity.IngredientWithMeta
-import ru.cookedapp.cooked.data.db.entity.Recipe
-import ru.cookedapp.cooked.data.db.entity.RecipeCategoryEntity
-import ru.cookedapp.cooked.data.db.entity.RecipeEntity
 import ru.cookedapp.cooked.data.gateway.PhotoGateway
-import ru.cookedapp.cooked.data.prefs.RecipePreferences
+import ru.cookedapp.storage.dao.ProductDao
+import ru.cookedapp.storage.dao.ProductUnitDao
+import ru.cookedapp.storage.dao.RecipeCategoryDao
+import ru.cookedapp.storage.dao.RecipeDao
+import ru.cookedapp.storage.entity.Ingredient
+import ru.cookedapp.storage.entity.IngredientWithMeta
+import ru.cookedapp.storage.entity.Recipe
+import ru.cookedapp.storage.entity.RecipeCategoryEntity
+import ru.cookedapp.storage.entity.RecipeEntity
+import ru.cookedapp.storage.recipePreferences.RecipePreferences
 
 class RecipeRepository(
     private val recipeDao: RecipeDao,

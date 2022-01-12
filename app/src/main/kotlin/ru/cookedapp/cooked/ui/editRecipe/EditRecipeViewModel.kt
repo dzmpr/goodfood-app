@@ -12,18 +12,18 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import javax.inject.Inject
 import kotlinx.coroutines.launch
-import ru.cookedapp.cooked.data.db.entity.IngredientWithMeta
-import ru.cookedapp.cooked.data.db.entity.ProductEntity
-import ru.cookedapp.cooked.data.db.entity.ProductUnitEntity
-import ru.cookedapp.cooked.data.db.entity.Recipe
-import ru.cookedapp.cooked.data.db.entity.RecipeCategoryEntity
 import ru.cookedapp.cooked.data.gateway.PhotoGateway
-import ru.cookedapp.cooked.data.prefs.RecipePreferences
 import ru.cookedapp.cooked.data.repository.ProductRepository
 import ru.cookedapp.cooked.data.repository.ProductUnitsRepository
 import ru.cookedapp.cooked.data.repository.RecipeCategoryRepository
 import ru.cookedapp.cooked.data.repository.RecipeRepository
 import ru.cookedapp.cooked.utils.SingleLiveEvent
+import ru.cookedapp.storage.entity.IngredientWithMeta
+import ru.cookedapp.storage.entity.ProductEntity
+import ru.cookedapp.storage.entity.ProductUnitEntity
+import ru.cookedapp.storage.entity.Recipe
+import ru.cookedapp.storage.entity.RecipeCategoryEntity
+import ru.cookedapp.storage.recipePreferences.RecipePreferences
 
 class EditRecipeViewModel @Inject constructor(
     private val productRepository: ProductRepository,

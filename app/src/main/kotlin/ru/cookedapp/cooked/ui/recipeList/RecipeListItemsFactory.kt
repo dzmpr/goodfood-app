@@ -1,9 +1,9 @@
 package ru.cookedapp.cooked.ui.recipeList
 
 import javax.inject.Inject
-import ru.cookedapp.cooked.data.db.entity.Recipe
 import ru.cookedapp.cooked.data.gateway.PhotoGateway
 import ru.cookedapp.cooked.ui.recipeList.data.RecipeListItem
+import ru.cookedapp.storage.entity.Recipe
 
 class RecipeListItemsFactory @Inject constructor() {
 

@@ -3,10 +3,10 @@ package ru.cookedapp.cooked.ui
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import javax.inject.Inject
-import ru.cookedapp.cooked.data.prefs.AppSettings
-import ru.cookedapp.cooked.data.prefs.AppTheme
 import ru.cookedapp.cooked.di.components.AppComponent
 import ru.cookedapp.cooked.di.components.DaggerAppComponent
+import ru.cookedapp.storage.appSettings.AppSettings
+import ru.cookedapp.storage.appSettings.AppTheme
 
 class CookedApp : Application() {
 

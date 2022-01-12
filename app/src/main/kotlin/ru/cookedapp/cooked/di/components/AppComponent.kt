@@ -6,9 +6,7 @@ import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 import ru.cookedapp.cooked.di.modules.GatewayModule
-import ru.cookedapp.cooked.di.modules.PreferenceModule
 import ru.cookedapp.cooked.di.modules.RepositoryModule
-import ru.cookedapp.cooked.di.modules.RoomModule
 import ru.cookedapp.cooked.di.modules.UtilitiesModule
 import ru.cookedapp.cooked.di.modules.ViewModelModule
 import ru.cookedapp.cooked.ui.CookedApp
@@ -20,21 +18,20 @@ import ru.cookedapp.cooked.ui.recipeDetails.RecipeDetailsFragment
 import ru.cookedapp.cooked.ui.recipeList.RecipeListFragment
 import ru.cookedapp.cooked.ui.recipesOverview.RecipeCardAdapter
 import ru.cookedapp.cooked.ui.recipesOverview.RecipesOverviewFragment
+import ru.cookedapp.storage.di.StorageModule
 
 @Singleton
 @Component(
     modules = [
+        StorageModule::class,
         RepositoryModule::class,
-        RoomModule::class,
         GatewayModule::class,
         ViewModelModule::class,
-        PreferenceModule::class,
         UtilitiesModule::class,
     ]
 )
 interface AppComponent {
 
-    fun context(): Application
     fun inject(app: CookedApp)
 
     // Fragments

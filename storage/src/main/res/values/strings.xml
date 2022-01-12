@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="label_no_category">No category</string>
+
+    <!--    Unit's prepopulation data-->
+    <string name="label_unit_pieces">pcs.</string>
+    <string name="label_unit_teaspoon">tsp.</string>
+    <string name="label_unit_dessertspoon">dstspn.</string>
+    <string name="label_unit_tablespoon">tbs.</string>
+    <string name="label_unit_liters">l.</string>
+    <string name="label_unit_milliliters">ml.</string>
+    <string name="label_unit_glass">gl.</string>
+    <string name="label_unit_gram">g.</string>
+    <string name="label_unit_kilogram">kg.</string>
+    <string name="label_unit_pinch">pn.</string>
+
+    <string-array name="labels_units">
+        <item>@string/label_unit_pieces</item>
+        <item>@string/label_unit_teaspoon</item>
+        <item>@string/label_unit_dessertspoon</item>
+        <item>@string/label_unit_tablespoon</item>
+        <item>@string/label_unit_liters</item>
+        <item>@string/label_unit_milliliters</item>
+        <item>@string/label_unit_glass</item>
+        <item>@string/label_unit_gram</item>
+        <item>@string/label_unit_kilogram</item>
+        <item>@string/label_unit_pinch</item>
+    </string-array>
+</resources>

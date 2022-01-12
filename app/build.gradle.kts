@@ -4,7 +4,6 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("com.android.application")
-    id("kotlinx-serialization")
     id("io.gitlab.arturbosch.detekt").version("1.19.0")
 }
 
@@ -83,12 +82,12 @@ android {
 dependencies {
 
     implementation(project(Modules.common))
+    implementation(project(Modules.storage))
 
     // Common
     implementation(Dependencies.kotlinStdlib)
     implementation(Dependencies.coroutinesCore)
     implementation(Dependencies.coroutinesAndroid)
-    implementation(Dependencies.serialization)
 
     // Jetpack
     implementation(Dependencies.jetpackCore)
@@ -96,9 +95,6 @@ dependencies {
     implementation(Dependencies.material)
     implementation(Dependencies.constraintLayout)
     implementation(Dependencies.fragment)
-    implementation(Dependencies.room)
-    implementation(Dependencies.roomKtx)
-    kapt(Dependencies.roomKapt)
     implementation(Dependencies.viewModel)
     implementation(Dependencies.liveData)
     implementation(Dependencies.navigation)

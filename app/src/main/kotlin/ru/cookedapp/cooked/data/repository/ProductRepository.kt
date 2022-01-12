@@ -2,8 +2,8 @@ package ru.cookedapp.cooked.data.repository
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import ru.cookedapp.cooked.data.db.dao.ProductDao
-import ru.cookedapp.cooked.data.db.entity.ProductEntity
+import ru.cookedapp.storage.dao.ProductDao
+import ru.cookedapp.storage.entity.ProductEntity
 
 class ProductRepository(private val productDao: ProductDao) {
     suspend fun addProduct(product: ProductEntity) = withContext(Dispatchers.IO) {

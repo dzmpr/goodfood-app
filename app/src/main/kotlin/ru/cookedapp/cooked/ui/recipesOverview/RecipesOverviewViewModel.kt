@@ -7,8 +7,8 @@ import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import ru.cookedapp.cooked.data.db.entity.Recipe
 import ru.cookedapp.cooked.data.repository.RecipeRepository
+import ru.cookedapp.storage.entity.Recipe
 
 
 class RecipesOverviewViewModel @Inject constructor(

@@ -15,8 +15,8 @@ import androidx.preference.PreferenceScreen
 import androidx.recyclerview.widget.RecyclerView
 import ru.cookedapp.common.extensions.enumValueOfOrNull
 import ru.cookedapp.cooked.R
-import ru.cookedapp.cooked.data.prefs.AppSettingsImpl
-import ru.cookedapp.cooked.data.prefs.AppTheme
+import ru.cookedapp.storage.appSettings.AppSettingsImpl
+import ru.cookedapp.storage.appSettings.AppTheme
 
 class SettingsFragment: PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {

@@ -2,8 +2,8 @@ package ru.cookedapp.cooked.ui.cart
 
 import javax.inject.Inject
 import ru.cookedapp.common.extensions.format
-import ru.cookedapp.cooked.data.db.entity.CartItem
 import ru.cookedapp.cooked.ui.cart.data.CartProductItem
+import ru.cookedapp.storage.entity.CartItem
 
 class CartItemsFactory @Inject constructor() {
 

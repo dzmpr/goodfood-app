@@ -4,13 +4,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
-import ru.cookedapp.cooked.data.db.dao.CartDao
-import ru.cookedapp.cooked.data.db.dao.ProductDao
-import ru.cookedapp.cooked.data.db.dao.ProductUnitDao
-import ru.cookedapp.cooked.data.db.dao.RecipeDao
-import ru.cookedapp.cooked.data.db.entity.CartItem
-import ru.cookedapp.cooked.data.db.entity.CartItemEntity
-import ru.cookedapp.cooked.data.db.entity.Ingredient
+import ru.cookedapp.storage.dao.CartDao
+import ru.cookedapp.storage.dao.ProductDao
+import ru.cookedapp.storage.dao.ProductUnitDao
+import ru.cookedapp.storage.dao.RecipeDao
+import ru.cookedapp.storage.entity.CartItem
+import ru.cookedapp.storage.entity.CartItemEntity
+import ru.cookedapp.storage.entity.Ingredient
 
 class CartRepository(
     private val recipeDao: RecipeDao,
