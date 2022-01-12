@@ -5,19 +5,13 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import java.util.concurrent.Executors
-import javax.inject.Inject
-import javax.inject.Singleton
-import ru.cookedapp.common.resourceProvider.ResourceProvider
 import ru.cookedapp.storage.R
 import ru.cookedapp.storage.entity.ProductUnitEntity
 
-@Singleton
-internal class CookedDatabaseProvider @Inject constructor(
-    private val rp: ResourceProvider,
-) {
+internal object CookedDatabaseProvider {
     private var instance: CookedDatabase? = null
 
-    fun getDatabase(context: Context): CookedDatabase {
+    fun getInstance(context: Context): CookedDatabase {
         return instance ?: synchronized(this) {
             instance ?: buildDatabase(context).also { instance = it }
         }
@@ -29,11 +23,11 @@ internal class CookedDatabaseProvider @Inject constructor(
                 override fun onCreate(db: SupportSQLiteDatabase) {
                     super.onCreate(db)
                     Executors.newSingleThreadExecutor().execute {
-                        val database = getDatabase(context)
+                        val database = getInstance(context)
 
                         // Prepopulate units
                         with(database.productUnitDao()) {
-                            val units = rp.getStringArray(R.array.labels_units)
+                            val units = context.resources.getStringArray(R.array.labels_units)
                             units.forEach { unitName ->
                                 insert(ProductUnitEntity(name = unitName))
                             }
