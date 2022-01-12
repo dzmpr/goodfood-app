@@ -34,15 +34,14 @@ class CartRepository(
         if (cartItem == null) {
             cartDao.insert(
                 CartItemEntity(
-                    id = 0,
                     productId = ingredient.productId,
                     amount = ingredient.amount * multiplier,
                     unitId = ingredient.amountUnitId,
                 )
             )
         } else {
-            cartItem.amount += (ingredient.amount * multiplier)
-            cartDao.update(cartItem)
+            val newAmount = cartItem.amount + (ingredient.amount * multiplier)
+            cartDao.update(cartItem.copy(amount = newAmount))
         }
     }
 

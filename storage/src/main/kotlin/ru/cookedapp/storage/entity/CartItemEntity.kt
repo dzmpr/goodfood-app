@@ -19,9 +19,32 @@ import androidx.room.PrimaryKey
 )
 data class CartItemEntity(
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id") override val id: Long,
-    @ColumnInfo(name = "is_bought") var isBought: Boolean = false,
-    @ColumnInfo(name = "product_id") var productId: Long,
-    @ColumnInfo(name = "amount") var amount: Float,
-    @ColumnInfo(name = "unit_id") var unitId: Long,
-) : Identifiable
+    @ColumnInfo(name = "id")
+    override val id: Long,
+
+    @ColumnInfo(name = "is_bought")
+    val isBought: Boolean,
+
+    @ColumnInfo(name = "product_id")
+    val productId: Long,
+
+    @ColumnInfo(name = "amount")
+    val amount: Float,
+
+    @ColumnInfo(name = "unit_id")
+    val unitId: Long,
+) : Identifiable {
+
+    constructor(
+        isBought: Boolean = false,
+        productId: Long,
+        amount: Float,
+        unitId: Long,
+    ) : this(
+        id = 0,
+        isBought = isBought,
+        productId = productId,
+        amount = amount,
+        unitId = unitId,
+    )
+}
