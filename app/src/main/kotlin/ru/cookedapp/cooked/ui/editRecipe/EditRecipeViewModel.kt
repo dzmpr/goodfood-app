@@ -12,18 +12,17 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import javax.inject.Inject
 import kotlinx.coroutines.launch
-import ru.cookedapp.cooked.data.db.entity.IngredientWithMeta
-import ru.cookedapp.cooked.data.db.entity.ProductEntity
-import ru.cookedapp.cooked.data.db.entity.ProductUnitEntity
-import ru.cookedapp.cooked.data.db.entity.Recipe
-import ru.cookedapp.cooked.data.db.entity.RecipeCategoryEntity
 import ru.cookedapp.cooked.data.gateway.PhotoGateway
-import ru.cookedapp.cooked.data.prefs.RecipePreferences
 import ru.cookedapp.cooked.data.repository.ProductRepository
 import ru.cookedapp.cooked.data.repository.ProductUnitsRepository
 import ru.cookedapp.cooked.data.repository.RecipeCategoryRepository
 import ru.cookedapp.cooked.data.repository.RecipeRepository
 import ru.cookedapp.cooked.utils.SingleLiveEvent
+import ru.cookedapp.storage.entity.IngredientWithMeta
+import ru.cookedapp.storage.entity.ProductEntity
+import ru.cookedapp.storage.entity.ProductUnitEntity
+import ru.cookedapp.storage.entity.Recipe
+import ru.cookedapp.storage.entity.RecipeCategoryEntity
 
 class EditRecipeViewModel @Inject constructor(
     private val productRepository: ProductRepository,
@@ -31,7 +30,6 @@ class EditRecipeViewModel @Inject constructor(
     private val recipeRepository: RecipeRepository,
     private val recipeCategoryRepository: RecipeCategoryRepository,
     private val photoGateway: PhotoGateway,
-    private val recipePreferences: RecipePreferences
 ) : ViewModel() {
     private val ingredientsList: MutableList<IngredientWithMeta> = mutableListOf()
 
@@ -98,7 +96,12 @@ class EditRecipeViewModel @Inject constructor(
         ingredients.value = ingredientsList
     }
 
-    fun saveRecipe(name: String, description: String?, servingsCount: Int, selectedCategory: RecipeCategoryEntity?) {
+    fun saveRecipe(
+        name: String,
+        description: String?,
+        servingsCount: Int,
+        selectedCategory: RecipeCategoryEntity?,
+    ) {
         viewModelScope.launch {
             // Copy photo to app folder if it was picked
             if (!photoFromCamera && photoStatus) {
@@ -108,20 +111,17 @@ class EditRecipeViewModel @Inject constructor(
                 Log.d(TAG, "Filename where chosen photo will be copied: '${newPhoto.toString()}'.")
             }
 
-            val category = selectedCategory
-                ?: RecipeCategoryEntity(recipePreferences.getValue(RecipePreferences.FIELD_NO_CATEGORY, 0), "")
-
             val recipe = Recipe(
-                null,
+                id = 0,
                 name,
                 description,
                 photoFilename,
                 servingsCount,
-                false,
+                inFavorites = false,
                 LocalDateTime.ofInstant(Instant.ofEpochMilli(0), ZoneId.systemDefault()),
-                0,
+                cookCount = 0,
                 ingredientsList,
-                category
+                selectedCategory,
             )
             recipeRepository.addRecipe(recipe)
 

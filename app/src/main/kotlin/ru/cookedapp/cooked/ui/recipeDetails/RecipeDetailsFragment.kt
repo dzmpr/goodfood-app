@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,12 +19,14 @@ import ru.cookedapp.cooked.R
 import ru.cookedapp.cooked.databinding.FragmentRecipeBinding
 import ru.cookedapp.cooked.extensions.setViewVisibility
 import ru.cookedapp.cooked.ui.CookedApp
+import ru.cookedapp.cooked.ui.base.BaseFragment
 
-class RecipeDetailsFragment : Fragment() {
+class RecipeDetailsFragment : BaseFragment() {
     private var _binding: FragmentRecipeBinding? = null
     private val binding get() = _binding!!
 
-    @Inject lateinit var vmFactory: ViewModelProvider.Factory
+    @Inject
+    lateinit var vmFactory: ViewModelProvider.Factory
     private lateinit var viewModel: RecipeDetailsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +41,7 @@ class RecipeDetailsFragment : Fragment() {
 
     private fun handleArguments() {
         if (arguments != null) {
-            val recipeId = requireArguments().getInt(RECIPE_ID_KEY)
+            val recipeId = requireArguments().getLong(RECIPE_ID_KEY)
             viewModel.loadRecipe(recipeId)
         } else {
             throw IllegalStateException("Recipe id should be provided.")
@@ -73,14 +74,14 @@ class RecipeDetailsFragment : Fragment() {
 
         viewModel.recipe.observe(viewLifecycleOwner) {
             binding.tvRecipeName.text = it.name
-            binding.tvRecipeCategory.text = it.category.name
+            binding.tvRecipeCategory.text = it.category?.name ?: rp.getString(R.string.label_no_category)
             binding.tvRecipeInstructions.text = it.description
             binding.cbFavorites.isChecked = it.inFavorites
             binding.tvLastCooked.text = if (it.lastCooked.isEqual(LocalDateTime.ofInstant(Instant.ofEpochMilli(0), ZoneId.systemDefault()))) {
-                requireContext().resources.getString(R.string.label_last_cooked, getString(R.string.label_never))
+                rp.getString(R.string.label_last_cooked, rp.getString(R.string.label_never))
             } else {
                 val formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")
-                requireContext().resources.getString(R.string.label_last_cooked, it.lastCooked.format(formatter))
+                rp.getString(R.string.label_last_cooked, it.lastCooked.format(formatter))
             }
             listAdapter.setBaseCount(it.servingsNum)
         }
@@ -156,7 +157,7 @@ class RecipeDetailsFragment : Fragment() {
     companion object {
         private const val RECIPE_ID_KEY = "recipe_id_key"
 
-        fun createOpenRecipeBundle(recipeId: Int) = bundleOf(
+        fun createOpenRecipeBundle(recipeId: Long) = bundleOf(
             RECIPE_ID_KEY to recipeId
         )
     }

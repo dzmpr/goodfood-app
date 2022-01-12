@@ -17,14 +17,13 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.cookedapp.cooked.R
-import ru.cookedapp.cooked.data.db.entity.Recipe
 import ru.cookedapp.cooked.data.gateway.PhotoGateway
+import ru.cookedapp.storage.entity.Recipe
 
 class RecipeCardAdapter(
     private val recipeClickCallback: RecipesOverviewFragment.RecipeClickCallback,
-    private val listType: Int
-) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val listType: Int,
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     @Inject lateinit var photoGateway: PhotoGateway
     private var recipeList: List<Recipe> = listOf()
@@ -39,17 +38,18 @@ class RecipeCardAdapter(
         private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
         private var loadImageJob: Job? = null
 
-        private var recipeId: Int = 0
+        private var recipeId: Long = 0
 
         fun bind(
             recipe: Recipe,
             photoGateway: PhotoGateway,
             clickCallback: RecipesOverviewFragment.RecipeClickCallback
         ) {
-            recipeId = recipe.id!!
+            recipeId = recipe.id
 
             name.text = recipe.name
-            category.text = recipe.category.name
+            category.text = recipe.category?.name
+                ?: itemView.context.resources.getString(R.string.label_no_category)
             favoriteButton.isChecked = recipe.inFavorites
 
             loadImage(recipe, photoGateway)

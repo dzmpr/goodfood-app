@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import java.util.Locale
 import ru.cookedapp.cooked.R
-import ru.cookedapp.cooked.data.db.entity.IngredientWithMeta
+import ru.cookedapp.storage.entity.IngredientWithMeta
 
 class IngredientListAdapter: RecyclerView.Adapter<IngredientListAdapter.IngredientListViewHolder>() {
     private var ingredientsList: List<IngredientWithMeta> = mutableListOf()

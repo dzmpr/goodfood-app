@@ -1,9 +1,9 @@
 package ru.cookedapp.cooked.ui.recipeList
 
 import javax.inject.Inject
-import ru.cookedapp.cooked.data.db.entity.Recipe
+import ru.cookedapp.common.baseList.data.Items
 import ru.cookedapp.cooked.data.gateway.PhotoGateway
-import ru.cookedapp.cooked.utils.listBase.data.Items
+import ru.cookedapp.storage.entity.Recipe
 
 class RecipeListItemsProvider @Inject constructor(
     private val photoGateway: PhotoGateway,

@@ -2,8 +2,8 @@ package ru.cookedapp.cooked.ui.editRecipe
 
 import android.content.Context
 import androidx.annotation.LayoutRes
-import ru.cookedapp.cooked.data.db.entity.ProductEntity
 import ru.cookedapp.cooked.ui.base.BaseAutocompleteAdapter
+import ru.cookedapp.storage.entity.ProductEntity
 
 class ProductAutocompleteAdapter(
     context: Context,

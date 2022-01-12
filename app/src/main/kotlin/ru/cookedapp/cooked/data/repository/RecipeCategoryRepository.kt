@@ -2,8 +2,8 @@ package ru.cookedapp.cooked.data.repository
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import ru.cookedapp.cooked.data.db.dao.RecipeCategoryDao
-import ru.cookedapp.cooked.data.db.entity.RecipeCategoryEntity
+import ru.cookedapp.storage.dao.RecipeCategoryDao
+import ru.cookedapp.storage.entity.RecipeCategoryEntity
 
 class RecipeCategoryRepository(private val recipeCategoryDao: RecipeCategoryDao) {
     suspend fun getCategories(): List<RecipeCategoryEntity> = withContext(Dispatchers.IO) {
@@ -14,7 +14,7 @@ class RecipeCategoryRepository(private val recipeCategoryDao: RecipeCategoryDao)
         recipeCategoryDao.getCategoriesFlow()
     }
 
-    suspend fun renameCategory(id: Int, categoryName: String) = withContext(Dispatchers.IO) {
+    suspend fun renameCategory(id: Long, categoryName: String) = withContext(Dispatchers.IO) {
         recipeCategoryDao.renameCategory(id, categoryName)
     }
 }

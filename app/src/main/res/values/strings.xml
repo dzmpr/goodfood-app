@@ -63,7 +63,6 @@
     <string name="label_dark_theme">Dark theme</string>
     <string name="label_light_theme">Light theme</string>
     <string name="label_follow_system">Follow system</string>
-    <string name="label_follow_saver">Follow battery saver</string>
 
     <string name="label_recipe_prefs">Recipe preferences</string>
     <string name="label_app_prefs">App preferences</string>
@@ -79,12 +78,6 @@
 
     <string-array name="labels_app_theme_new">
         <item>@string/label_follow_system</item>
-        <item>@string/label_light_theme</item>
-        <item>@string/label_dark_theme</item>
-    </string-array>
-
-    <string-array name="labels_app_theme_old">
-        <item>@string/label_follow_saver</item>
         <item>@string/label_light_theme</item>
         <item>@string/label_dark_theme</item>
     </string-array>

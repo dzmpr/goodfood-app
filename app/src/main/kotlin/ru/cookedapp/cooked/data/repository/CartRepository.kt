@@ -4,13 +4,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
-import ru.cookedapp.cooked.data.db.dao.CartDao
-import ru.cookedapp.cooked.data.db.dao.ProductDao
-import ru.cookedapp.cooked.data.db.dao.ProductUnitDao
-import ru.cookedapp.cooked.data.db.dao.RecipeDao
-import ru.cookedapp.cooked.data.db.entity.CartItem
-import ru.cookedapp.cooked.data.db.entity.CartItemEntity
-import ru.cookedapp.cooked.data.db.entity.Ingredient
+import ru.cookedapp.storage.dao.CartDao
+import ru.cookedapp.storage.dao.ProductDao
+import ru.cookedapp.storage.dao.ProductUnitDao
+import ru.cookedapp.storage.dao.RecipeDao
+import ru.cookedapp.storage.entity.CartItem
+import ru.cookedapp.storage.entity.CartItemEntity
+import ru.cookedapp.storage.entity.Ingredient
 
 class CartRepository(
     private val recipeDao: RecipeDao,
@@ -18,7 +18,10 @@ class CartRepository(
     private val productDao: ProductDao,
     private val productUnitDao: ProductUnitDao
 ) {
-    suspend fun addIngredientsToCart(recipeId: Int, multiplier: Float) = withContext(Dispatchers.IO) {
+    suspend fun addIngredientsToCart(
+        recipeId: Long,
+        multiplier: Float,
+    ) = withContext(Dispatchers.IO) {
         val recipe = recipeDao.getById(recipeId)
         val ingredientsList = recipe.ingredientsList
         ingredientsList.forEach {
@@ -33,16 +36,16 @@ class CartRepository(
                 CartItemEntity(
                     productId = ingredient.productId,
                     amount = ingredient.amount * multiplier,
-                    unitId = ingredient.amountUnitId
+                    unitId = ingredient.amountUnitId,
                 )
             )
         } else {
-            cartItem.amount += (ingredient.amount * multiplier)
-            cartDao.update(cartItem)
+            val newAmount = cartItem.amount + (ingredient.amount * multiplier)
+            cartDao.update(cartItem.copy(amount = newAmount))
         }
     }
 
-    suspend fun changeBoughtState(id: Int, state: Boolean) = withContext(Dispatchers.IO) {
+    suspend fun changeBoughtState(id: Long, state: Boolean) = withContext(Dispatchers.IO) {
         cartDao.changeBoughtState(id, state)
     }
 
@@ -68,7 +71,7 @@ class CartRepository(
         )
     }
 
-    suspend fun removeFromCart(id: Int) = withContext(Dispatchers.IO) {
+    suspend fun removeFromCart(id: Long) = withContext(Dispatchers.IO) {
         cartDao.removeItem(id)
     }
 

@@ -8,9 +8,6 @@ import android.widget.AutoCompleteTextView
 import androidx.lifecycle.ViewModelProvider
 import javax.inject.Inject
 import ru.cookedapp.cooked.R
-import ru.cookedapp.cooked.data.db.entity.IngredientWithMeta
-import ru.cookedapp.cooked.data.db.entity.ProductEntity
-import ru.cookedapp.cooked.data.db.entity.ProductUnitEntity
 import ru.cookedapp.cooked.databinding.FragmentAddIngredientBinding
 import ru.cookedapp.cooked.ui.CookedApp
 import ru.cookedapp.cooked.ui.base.BaseBottomSheetFragment
@@ -18,6 +15,9 @@ import ru.cookedapp.cooked.ui.base.BaseDropdownAdapter
 import ru.cookedapp.cooked.utils.AutocompleteSelectionHelper
 import ru.cookedapp.cooked.utils.DropdownSelectionHelper
 import ru.cookedapp.cooked.utils.InputValidator
+import ru.cookedapp.storage.entity.IngredientWithMeta
+import ru.cookedapp.storage.entity.ProductEntity
+import ru.cookedapp.storage.entity.ProductUnitEntity
 
 class AddIngredientBottomFragment : BaseBottomSheetFragment() {
     private lateinit var binding: FragmentAddIngredientBinding
@@ -32,8 +32,7 @@ class AddIngredientBottomFragment : BaseBottomSheetFragment() {
         super.onCreate(savedInstanceState)
 
         CookedApp.appComponent.inject(this)
-        editRecipeViewModel = ViewModelProvider(requireParentFragment(), vmFactory).get(
-            EditRecipeViewModel::class.java)
+        editRecipeViewModel = ViewModelProvider(requireParentFragment(), vmFactory).get(EditRecipeViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -49,9 +48,9 @@ class AddIngredientBottomFragment : BaseBottomSheetFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.tilIngredientName.requestFocus()
 
-        val nameValidator = InputValidator(binding.tilIngredientName, resources.getString(R.string.label_name_error))
-        val amountValidator = InputValidator(binding.tilAmount, resources.getString(R.string.label_name_error))
-        val unitValidator = InputValidator(binding.tilAmountUnit, resources.getString(R.string.label_product_units_error))
+        val nameValidator = InputValidator(binding.tilIngredientName, rp.getString(R.string.label_name_error))
+        val amountValidator = InputValidator(binding.tilAmount, rp.getString(R.string.label_name_error))
+        val unitValidator = InputValidator(binding.tilAmountUnit, rp.getString(R.string.label_product_units_error))
 
         selectedProductHelper = AutocompleteSelectionHelper(binding.tilIngredientName) { input ->
             ProductEntity(name = input)
@@ -61,7 +60,7 @@ class AddIngredientBottomFragment : BaseBottomSheetFragment() {
         }
 
         selectedUnitHelper = DropdownSelectionHelper(binding.tilAmountUnit) { input ->
-            ProductUnitEntity(name = input)
+            ProductUnitEntity(id = 0, name = input)
         }
 
         binding.bAddIngredient.setOnClickListener {

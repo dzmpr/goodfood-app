@@ -3,13 +3,15 @@ package ru.cookedapp.cooked.ui
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import javax.inject.Inject
-import ru.cookedapp.cooked.data.prefs.SettingsPreferences
 import ru.cookedapp.cooked.di.components.AppComponent
 import ru.cookedapp.cooked.di.components.DaggerAppComponent
+import ru.cookedapp.storage.appSettings.AppSettings
+import ru.cookedapp.storage.appSettings.AppTheme
 
 class CookedApp : Application() {
 
-    @Inject lateinit var settingsPrefs: SettingsPreferences
+    @Inject
+    lateinit var appSettings: AppSettings
 
     override fun onCreate() {
         super.onCreate()
@@ -25,21 +27,12 @@ class CookedApp : Application() {
     }
 
     private fun applyTheme() {
-        val theme = settingsPrefs.getValue(SettingsPreferences.FIELD_APP_THEME, SettingsPreferences.VAL_THEME_AUTO)
-        when (theme) {
-            SettingsPreferences.VAL_THEME_AUTO -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-            }
-            SettingsPreferences.VAL_THEME_DARK -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            }
-            SettingsPreferences.VAL_THEME_LIGHT -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
-            SettingsPreferences.VAL_THEME_SAVER -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY)
-            }
+        val theme = when (appSettings.appTheme) {
+            AppTheme.AUTO -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+            AppTheme.DARK -> AppCompatDelegate.MODE_NIGHT_YES
+            AppTheme.LIGHT -> AppCompatDelegate.MODE_NIGHT_NO
         }
+        AppCompatDelegate.setDefaultNightMode(theme)
     }
 
     companion object {

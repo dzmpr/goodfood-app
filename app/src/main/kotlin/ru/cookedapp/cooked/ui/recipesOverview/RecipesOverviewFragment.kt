@@ -26,11 +26,11 @@ class RecipesOverviewFragment : Fragment() {
     private lateinit var viewModel: RecipesOverviewViewModel
 
     private val recipeCallback = object : RecipeClickCallback {
-        override fun onFavoriteToggle(recipeId: Int, state: Boolean) {
+        override fun onFavoriteToggle(recipeId: Long, state: Boolean) {
             viewModel.changeFavoriteState(recipeId, state)
         }
 
-        override fun onRecipeClicked(recipeId: Int) {
+        override fun onRecipeClicked(recipeId: Long) {
             val args = RecipeDetailsFragment.createOpenRecipeBundle(recipeId)
             Navigation.findNavController(requireActivity(), R.id.fcvContainer)
                 .navigate(R.id.actionNavigateToRecipe, args)
@@ -153,8 +153,8 @@ class RecipesOverviewFragment : Fragment() {
     }
 
     interface RecipeClickCallback {
-        fun onFavoriteToggle(recipeId: Int, state: Boolean)
-        fun onRecipeClicked(recipeId: Int)
+        fun onFavoriteToggle(recipeId: Long, state: Boolean)
+        fun onRecipeClicked(recipeId: Long)
         fun onMoreButtonClick(listType: Int)
     }
 

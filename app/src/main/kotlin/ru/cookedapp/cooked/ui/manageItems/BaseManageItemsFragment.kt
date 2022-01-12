@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
@@ -12,18 +11,19 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import javax.inject.Inject
+import ru.cookedapp.common.baseList.ListAdapter
+import ru.cookedapp.common.baseList.ViewHolderFactoryProvider
+import ru.cookedapp.common.baseList.data.Item
+import ru.cookedapp.common.baseList.data.ItemEvent
 import ru.cookedapp.cooked.R
 import ru.cookedapp.cooked.databinding.FragmentManageItemsBinding
 import ru.cookedapp.cooked.ui.CookedApp
+import ru.cookedapp.cooked.ui.base.BaseFragment
 import ru.cookedapp.cooked.ui.base.EditNameDialogFragment
 import ru.cookedapp.cooked.ui.manageItems.data.ManageItemModel
 import ru.cookedapp.cooked.ui.manageItems.viewHolders.ManageItemHolder
-import ru.cookedapp.cooked.utils.listBase.ListAdapter
-import ru.cookedapp.cooked.utils.listBase.ViewHolderFactoryProvider
-import ru.cookedapp.cooked.utils.listBase.data.Item
-import ru.cookedapp.cooked.utils.listBase.data.ItemEvent
 
-abstract class BaseManageItemsFragment : Fragment() {
+abstract class BaseManageItemsFragment : BaseFragment() {
 
     private var _binding: FragmentManageItemsBinding? = null
     private val binding: FragmentManageItemsBinding get() = _binding!!
@@ -54,7 +54,7 @@ abstract class BaseManageItemsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding.tbToolbar) {
-            title = resources.getString(toolbarTextResId)
+            title = rp.getString(toolbarTextResId)
             setNavigationOnClickListener {
                 Navigation.findNavController(requireActivity(), R.id.fcvContainer).popBackStack()
             }
@@ -95,7 +95,7 @@ abstract class BaseManageItemsFragment : Fragment() {
 
     private fun showDialogForItem(item: ManageItemModel) {
         val dialog = EditNameDialogFragment.getDialog(
-            resources.getString(renameDialogTitleResId),
+            rp.getString(renameDialogTitleResId),
             item.name,
             item.id,
         )

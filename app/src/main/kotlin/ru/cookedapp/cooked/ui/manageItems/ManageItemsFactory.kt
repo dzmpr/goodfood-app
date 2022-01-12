@@ -5,8 +5,5 @@ import ru.cookedapp.cooked.ui.manageItems.data.ManageItemModel
 
 class ManageItemsFactory @Inject constructor() {
 
-    fun createManageItem(id: Int, name: String) = ManageItemModel(
-        id = id.toLong(),
-        name = name,
-    )
+    fun createManageItem(id: Long, name: String) = ManageItemModel(id = id, name = name)
 }

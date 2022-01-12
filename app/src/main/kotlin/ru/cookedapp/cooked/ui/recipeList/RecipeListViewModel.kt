@@ -14,13 +14,13 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import ru.cookedapp.cooked.data.db.entity.Recipe
-import ru.cookedapp.cooked.data.db.entity.RecipeCategoryEntity
+import ru.cookedapp.common.baseList.data.Items
 import ru.cookedapp.cooked.data.repository.RecipeRepository
 import ru.cookedapp.cooked.ui.recipeList.data.RecipeListItem
 import ru.cookedapp.cooked.utils.ItemTouchHelperAction
 import ru.cookedapp.cooked.utils.SingleLiveEvent
-import ru.cookedapp.cooked.utils.listBase.data.Items
+import ru.cookedapp.storage.entity.Recipe
+import ru.cookedapp.storage.entity.RecipeCategoryEntity
 
 class RecipeListViewModel @Inject constructor(
     private val recipeRepository: RecipeRepository,
@@ -37,7 +37,7 @@ class RecipeListViewModel @Inject constructor(
     val categorySet: LiveData<Set<RecipeCategoryEntity>>
         get() = recipeCategories
 
-    private val selectedCategory = MutableStateFlow(0)
+    private val selectedCategory = MutableStateFlow<Long>(0)
 
     val deleteSnack = SingleLiveEvent<String>()
 
@@ -56,7 +56,9 @@ class RecipeListViewModel @Inject constructor(
     private fun loadList() {
         viewModelScope.launch {
             recipes.onEach { recipes ->
-                val categorySet = recipes.asSequence().map { it.category }.toSet()
+                val categorySet = recipes.asSequence().map {
+                    it.category
+                }.filterNotNull().toSet()
                 if (recipeCategories.value != categorySet) {
                     recipeCategories.postValue(categorySet)
                 }
@@ -64,11 +66,11 @@ class RecipeListViewModel @Inject constructor(
             .combine(selectedCategory) { recipes, selectedCategory ->
                 recipes to selectedCategory
             }.map { (recipes, selectedCategory) ->
-                if (selectedCategory == 0) {
+                if (selectedCategory == 0L) {
                     recipes
                 } else {
                     recipes.filter { recipe ->
-                        recipe.category.id == selectedCategory
+                        recipe.category?.id == selectedCategory
                     }
                 }
             }.flowOn(Dispatchers.IO)
@@ -78,11 +80,11 @@ class RecipeListViewModel @Inject constructor(
         }
     }
 
-    fun onCategorySelected(categoryId: Int) {
+    fun onCategorySelected(categoryId: Long) {
         selectedCategory.value = categoryId
     }
 
-    fun changeFavoriteState(recipeId: Int, state: Boolean) {
+    fun changeFavoriteState(recipeId: Long, state: Boolean) {
         viewModelScope.launch {
             recipeRepository.changeFavoritesMark(recipeId, state)
         }
@@ -92,7 +94,7 @@ class RecipeListViewModel @Inject constructor(
         viewModelScope.launch {
             val item = recipeList.value?.get(position) as RecipeListItem
             deleteSnack.value = item.recipeName // Show snackbar with deleted item name
-            recipeRepository.removeRecipeById(item.id.toInt())
+            recipeRepository.removeRecipeById(item.id)
         }
     }
 

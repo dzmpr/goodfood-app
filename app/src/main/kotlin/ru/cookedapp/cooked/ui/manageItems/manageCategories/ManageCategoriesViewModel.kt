@@ -8,9 +8,9 @@ import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import ru.cookedapp.common.baseList.data.Items
 import ru.cookedapp.cooked.data.repository.RecipeCategoryRepository
 import ru.cookedapp.cooked.ui.manageItems.ManageItemsProvider
-import ru.cookedapp.cooked.utils.listBase.data.Items
 
 class ManageCategoriesViewModel @Inject constructor(
     private val recipeCategoryRepository: RecipeCategoryRepository,
@@ -33,7 +33,7 @@ class ManageCategoriesViewModel @Inject constructor(
 
     fun onCategoryRenamed(categoryId: Long, newName: String) {
         viewModelScope.launch {
-            recipeCategoryRepository.renameCategory(categoryId.toInt(), newName)
+            recipeCategoryRepository.renameCategory(categoryId, newName)
         }
     }
 }

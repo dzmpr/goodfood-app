@@ -1,13 +1,13 @@
 package ru.cookedapp.cooked.ui.manageItems.viewHolders
 
 import kotlin.math.truncate
+import ru.cookedapp.common.baseList.BaseViewHolder
+import ru.cookedapp.common.baseList.ViewHolderFactory
+import ru.cookedapp.common.baseList.data.Item
 import ru.cookedapp.cooked.R
 import ru.cookedapp.cooked.databinding.ItemSimpleChipBinding
 import ru.cookedapp.cooked.extensions.inflater
 import ru.cookedapp.cooked.ui.manageItems.data.ManageItemModel
-import ru.cookedapp.cooked.utils.listBase.BaseViewHolder
-import ru.cookedapp.cooked.utils.listBase.ViewHolderFactory
-import ru.cookedapp.cooked.utils.listBase.data.Item
 
 class ManageItemHolder(
     private val binding: ItemSimpleChipBinding,

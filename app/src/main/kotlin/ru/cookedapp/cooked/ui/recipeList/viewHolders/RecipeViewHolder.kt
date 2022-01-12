@@ -1,13 +1,13 @@
 package ru.cookedapp.cooked.ui.recipeList.viewHolders
 
+import ru.cookedapp.common.baseList.BaseViewHolder
+import ru.cookedapp.common.baseList.ViewHolderFactory
+import ru.cookedapp.common.baseList.data.Item
+import ru.cookedapp.common.baseList.data.ItemPayload
 import ru.cookedapp.cooked.databinding.ItemRecipeListRecipeBinding
 import ru.cookedapp.cooked.extensions.inflater
 import ru.cookedapp.cooked.ui.recipeList.data.RecipeFavoriteStateChanged
 import ru.cookedapp.cooked.ui.recipeList.data.RecipeListItem
-import ru.cookedapp.cooked.utils.listBase.BaseViewHolder
-import ru.cookedapp.cooked.utils.listBase.ViewHolderFactory
-import ru.cookedapp.cooked.utils.listBase.data.Item
-import ru.cookedapp.cooked.utils.listBase.data.ItemPayload
 
 class RecipeViewHolder(
     private val binding: ItemRecipeListRecipeBinding,
