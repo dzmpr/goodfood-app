@@ -10,12 +10,16 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import ru.cookedapp.common.baseList.data.Items
 import ru.cookedapp.cooked.data.repository.ProductRepository
+import ru.cookedapp.cooked.ui.base.BaseViewModel
+import ru.cookedapp.cooked.ui.base.ToolbarConfig
 import ru.cookedapp.cooked.ui.manageItems.ManageItemsProvider
 
 class ManageProductsViewModel @Inject constructor(
     private val productRepository: ProductRepository,
     private val itemsProvider: ManageItemsProvider,
-) : ViewModel() {
+) : ViewModel(), BaseViewModel {
+
+    override val toolbarConfig = ToolbarConfig(title = null, subtitle = null)
 
     private val _productsList: MutableLiveData<List<Items>> by lazy {
         MutableLiveData<List<Items>>()

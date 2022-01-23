@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.get
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
-import javax.inject.Inject
 import ru.cookedapp.common.baseList.ListAdapter
 import ru.cookedapp.common.baseList.ViewHolderFactoryProvider
 import ru.cookedapp.common.baseList.data.ItemEvent
@@ -29,18 +28,13 @@ import ru.cookedapp.cooked.utils.ItemSwipeDecorator
 import ru.cookedapp.cooked.utils.RecipeListItemTouchHelperCallback
 import ru.cookedapp.storage.entity.RecipeCategoryEntity
 
-class RecipeListFragment : BaseFragment() {
+class RecipeListFragment : BaseFragment<FragmentRecipeListBinding>() {
 
-    private var _binding: FragmentRecipeListBinding? = null
-    private val binding get() = _binding!!
-
-    @Inject lateinit var vmFactory: ViewModelProvider.Factory
-    private lateinit var viewModel: RecipeListViewModel
+    override val viewModel: RecipeListViewModel by viewModels { vmFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         CookedApp.appComponent.inject(this)
-        viewModel = ViewModelProvider(this, vmFactory).get(RecipeListViewModel::class.java)
 
         handleArguments()
     }
@@ -52,14 +46,11 @@ class RecipeListFragment : BaseFragment() {
         }
     }
 
-    override fun onCreateView(
+    override fun inflateViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentRecipeListBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+        savedInstanceState: Bundle?,
+    ) = FragmentRecipeListBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -163,11 +154,6 @@ class RecipeListFragment : BaseFragment() {
 
     private fun showSnackbar(text: String) {
         Snackbar.make(binding.root, text, Snackbar.LENGTH_SHORT).show()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     companion object {
