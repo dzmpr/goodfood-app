@@ -9,6 +9,12 @@
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+.idea/render.experimental.xml
+.idea/misc.xml
+.idea/compiler.xml
+.idea/kotlinScripting.xml
+.idea/jarRepositories.xml
+.idea/codeStyles/
 
 # Generated files
 .idea/**/contentModel.xml
