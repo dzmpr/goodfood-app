@@ -1,0 +1,69 @@
+[versions]
+# Plugins
+agp = "7.4.2"
+kotlin = "1.6.10"
+detekt = "1.19.0"
+
+# Jetpack
+jetpackCore = "1.7.0"
+lifecycle = "2.4.0"
+fragment = "1.4.0"
+appCompat = "1.4.0"
+material = "1.4.0"
+constraintLayout = "2.1.2"
+navigation = "2.3.5"
+room = "2.4.0"
+preference = "1.1.1"
+exifInterface = "1.3.3"
+
+# Other dependencies
+serialization = "1.3.0"
+coroutines = "1.5.2"
+dagger = "2.40.5"
+flexbox = "3.0.0"
+
+# Tests
+junit = "4.13.2"
+junitExtensions = "1.1.3"
+espresso = "3.4.0"
+
+[libraries]
+# Kotlin
+coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
+
+# Jetpack
+jetpack-core = { module = "androidx.core:core-ktx", version.ref = "jetpackCore" }
+appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appCompat" }
+material = { module = "com.google.android.material:material", version.ref = "material" }
+constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintLayout" }
+fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "fragment" }
+exifinterface = { module = "androidx.exifinterface:exifinterface", version.ref = "exifInterface" }
+preference = { module = "androidx.preference:preference-ktx", version.ref = "preference" }
+room = { module = "androidx.room:room-runtime", version.ref = "room" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+room-kapt = { module = "androidx.room:room-compiler", version.ref = "room" }
+navigation = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
+navigation-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
+viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+livedata = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle" }
+
+# Other dependencies
+dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
+dagger-kapt = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
+flexbox = { module = "com.google.android.flexbox:flexbox", version.ref = "flexbox" }
+
+# Tests
+junit = { module = "junit:junit", version.ref = "junit" }
+junit-kotlin = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
+junit-ext = { module = "androidx.test.ext:junit", version.ref = "junitExtensions" }
+
+[plugins]
+android-library = { id = "com.android.library", version.ref = "agp" }
+android-app = { id = "com.android.application", version.ref = "agp" }
+kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }

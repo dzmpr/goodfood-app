@@ -1,15 +1,16 @@
 import io.gitlab.arturbosch.detekt.Detekt
 
+// https://youtrack.jetbrains.com/issue/KTIJ-19369
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    kotlin("android")
-    kotlin("kapt")
-    id("com.android.application")
-    id("io.gitlab.arturbosch.detekt").version("1.19.0")
+    alias(libs.plugins.kotlin)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.android.app)
+    alias(libs.plugins.detekt)
 }
 
 android {
     compileSdk = Config.compileSdk
-    buildToolsVersion = Config.buildToolsVersion
 
     defaultConfig {
         applicationId = Config.appId
@@ -81,33 +82,32 @@ android {
 
 dependencies {
 
-    implementation(project(Modules.common))
-    implementation(project(Modules.storage))
+    implementation(projects.common)
+    implementation(projects.storage)
 
     // Common
-    implementation(Dependencies.kotlinStdlib)
-    implementation(Dependencies.coroutinesCore)
-    implementation(Dependencies.coroutinesAndroid)
+    implementation(libs.coroutines)
+    implementation(libs.coroutines.android)
 
     // Jetpack
-    implementation(Dependencies.jetpackCore)
-    implementation(Dependencies.appCompat)
-    implementation(Dependencies.material)
-    implementation(Dependencies.constraintLayout)
-    implementation(Dependencies.fragment)
-    implementation(Dependencies.viewModel)
-    implementation(Dependencies.liveData)
-    implementation(Dependencies.navigation)
-    implementation(Dependencies.navigationKtx)
-    implementation(Dependencies.exifInterface)
-    implementation(Dependencies.preference)
+    implementation(libs.jetpack.core)
+    implementation(libs.appcompat)
+    implementation(libs.material)
+    implementation(libs.constraintlayout)
+    implementation(libs.fragment)
+    implementation(libs.viewmodel)
+    implementation(libs.livedata)
+    implementation(libs.navigation)
+    implementation(libs.navigation.ktx)
+    implementation(libs.exifinterface)
+    implementation(libs.preference)
 
     // Dependencies
-    implementation(Dependencies.dagger)
-    kapt(Dependencies.daggerKapt)
-    implementation(Dependencies.flexbox)
+    implementation(libs.dagger)
+    kapt(libs.dagger.kapt)
+    implementation(libs.flexbox)
 
     // Tests
-    testImplementation(Dependencies.junit)
-    androidTestImplementation(Dependencies.junitExtensions)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.junit.ext)
 }

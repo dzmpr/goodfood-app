@@ -1,6 +1,8 @@
+// https://youtrack.jetbrains.com/issue/KTIJ-19369
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    id("com.android.library")
-    kotlin("android")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin)
 }
 
 android {
@@ -38,12 +40,12 @@ android {
 dependencies {
 
     // Kotlin
-    implementation(Dependencies.coroutinesCore)
-    implementation(Dependencies.coroutinesAndroid)
+    implementation(libs.coroutines)
+    implementation(libs.coroutines.android)
     // Jetpack
-    implementation(Dependencies.jetpackCore)
-    implementation(Dependencies.material)
+    implementation(libs.jetpack.core)
+    implementation(libs.material)
     // Test
-    testImplementation(Dependencies.junit)
-    androidTestImplementation(Dependencies.junitExtensions)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.junit.ext)
 }
