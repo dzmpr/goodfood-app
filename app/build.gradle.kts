@@ -7,19 +7,14 @@ plugins {
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.android.app)
     alias(libs.plugins.detekt)
+    id("cooked-module")
 }
 
 android {
-    compileSdk = Config.compileSdk
-
     defaultConfig {
-        applicationId = Config.appId
-        minSdk = Config.minSdk
-        targetSdk = Config.targetSdk
+        applicationId = "ru.cookedapp.cooked"
         versionCode = 1
         versionName = "0.1.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildFeatures {
@@ -54,14 +49,8 @@ android {
         }
     }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-
     kotlinOptions {
-        freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
-        jvmTarget = "11"
+        freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
     }
 
     detekt {

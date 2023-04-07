@@ -7,10 +7,11 @@
         android:icon="${appIconRes}"
         android:roundIcon="${appIconRoundRes}"
         android:supportsRtl="true"
-        android:allowBackup="false"
         android:theme="@style/Theme.Cooked"
         android:name="ru.cookedapp.cooked.ui.CookedApp">
-        <activity android:name="ru.cookedapp.cooked.ui.main.MainActivity">
+        <activity
+            android:name="ru.cookedapp.cooked.ui.main.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

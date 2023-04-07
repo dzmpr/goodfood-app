@@ -5,19 +5,13 @@ plugins {
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.android.library)
+    id("cooked-module")
 }
 
 android {
     val roomSchemaDirectory = "$projectDir/schemas"
 
-    compileSdk = Config.compileSdk
-
     defaultConfig {
-        minSdk = Config.minSdk
-        targetSdk = Config.targetSdk
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
         javaCompileOptions.annotationProcessorOptions {
             arguments["room.schemaLocation"] = roomSchemaDirectory
         }
@@ -36,13 +30,6 @@ android {
             isMinifyEnabled = false
         }
     }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-
-    kotlinOptions.jvmTarget = "11"
 
     sourceSets.getByName("androidTest").assets.srcDir(roomSchemaDirectory)
 }

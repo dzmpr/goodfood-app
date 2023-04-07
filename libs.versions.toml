@@ -59,6 +59,10 @@ junit = { module = "junit:junit", version.ref = "junit" }
 junit-kotlin = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 junit-ext = { module = "androidx.test.ext:junit", version.ref = "junitExtensions" }
 
+# Precompiled plugins
+android-compiledplugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
+kotlin-compiledplugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+
 [plugins]
 android-library = { id = "com.android.library", version.ref = "agp" }
 android-app = { id = "com.android.application", version.ref = "agp" }
