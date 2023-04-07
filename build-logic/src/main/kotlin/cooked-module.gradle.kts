@@ -2,7 +2,7 @@ import extensions.android
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 android {
-    setCompileSdkVersion(31)
+    setCompileSdkVersion(33)
 
     defaultConfig {
         minSdk = 26
@@ -12,13 +12,13 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
 
 tasks.withType<KotlinCompile>().configureEach {
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
 }

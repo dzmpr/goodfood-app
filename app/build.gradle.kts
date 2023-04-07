@@ -11,6 +11,8 @@ plugins {
 }
 
 android {
+    namespace = "ru.cookedapp.cooked"
+
     defaultConfig {
         applicationId = "ru.cookedapp.cooked"
         versionCode = 1
@@ -19,6 +21,7 @@ android {
 
     buildFeatures {
         viewBinding = true
+        compose = true
     }
 
     buildTypes {
@@ -53,6 +56,10 @@ android {
         freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
     }
 
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
+    }
+
     detekt {
         buildUponDefaultConfig = true
         allRules = false
@@ -74,27 +81,26 @@ dependencies {
     implementation(projects.common)
     implementation(projects.storage)
 
-    // Common
-    implementation(libs.coroutines)
-    implementation(libs.coroutines.android)
-
     // Jetpack
     implementation(libs.jetpack.core)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)
     implementation(libs.fragment)
-    implementation(libs.viewmodel)
-    implementation(libs.livedata)
+    implementation(libs.lifecycle.viewmodel)
+    implementation(libs.lifecycle.runtimecompose)
+    implementation(libs.lifecycle.livedata)
     implementation(libs.navigation)
     implementation(libs.navigation.ktx)
     implementation(libs.exifinterface)
-    implementation(libs.preference)
 
     // Dependencies
+    implementation(libs.coroutines)
+    implementation(libs.coroutines.android)
     implementation(libs.dagger)
     kapt(libs.dagger.kapt)
     implementation(libs.flexbox)
+    implementation(libs.bundles.compose)
 
     // Tests
     testImplementation(libs.junit)

@@ -36,8 +36,8 @@ class EditRecipeFragment : Fragment() {
         }
     }
 
-    private val pickPhoto = registerForActivityResult(ActivityResultContracts.GetContent()) {
-        viewModel.setPhotoUri(it)
+    private val pickPhoto = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+        uri?.let { viewModel.setPhotoUri(it) }
     }
 
     private var newPhotoUri: Uri? = null

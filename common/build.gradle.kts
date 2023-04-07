@@ -7,6 +7,8 @@ plugins {
 }
 
 android {
+    namespace = "ru.cookedapp.common"
+
     buildTypes {
         release {
             isMinifyEnabled = true

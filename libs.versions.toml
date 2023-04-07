@@ -1,30 +1,31 @@
 [versions]
 # Plugins
 agp = "7.4.2"
-kotlin = "1.6.10"
-detekt = "1.19.0"
+kotlin = "1.8.21"
+detekt = "1.22.0"
+ksp = "1.8.21-1.0.11"
 
 # Jetpack
-jetpackCore = "1.7.0"
-lifecycle = "2.4.0"
-fragment = "1.4.0"
-appCompat = "1.4.0"
-material = "1.4.0"
-constraintLayout = "2.1.2"
-navigation = "2.3.5"
-room = "2.4.0"
-preference = "1.1.1"
-exifInterface = "1.3.3"
+jetpackCore = "1.10.0"
+lifecycle = "2.6.1"
+fragment = "1.5.7"
+appCompat = "1.6.1"
+material = "1.9.0"
+constraintLayout = "2.1.4"
+navigation = "2.5.3"
+room = "2.5.1"
+preference = "1.2.0"
+exifInterface = "1.3.6"
 
 # Other dependencies
-serialization = "1.3.0"
-coroutines = "1.5.2"
-dagger = "2.40.5"
+serialization = "1.5.0"
+coroutines = "1.7.0"
+dagger = "2.45"
 flexbox = "3.0.0"
 
 # Tests
 junit = "4.13.2"
-junitExtensions = "1.1.3"
+junitExtensions = "1.1.5"
 espresso = "3.4.0"
 
 [libraries]
@@ -43,7 +44,7 @@ exifinterface = { module = "androidx.exifinterface:exifinterface", version.ref =
 preference = { module = "androidx.preference:preference-ktx", version.ref = "preference" }
 room = { module = "androidx.room:room-runtime", version.ref = "room" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
-room-kapt = { module = "androidx.room:room-compiler", version.ref = "room" }
+room-processor = { module = "androidx.room:room-compiler", version.ref = "room" }
 navigation = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
 navigation-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
 viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
@@ -67,6 +68,7 @@ kotlin-compiledplugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", 
 android-library = { id = "com.android.library", version.ref = "agp" }
 android-app = { id = "com.android.application", version.ref = "agp" }
 kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

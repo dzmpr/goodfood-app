@@ -20,7 +20,7 @@ import ru.cookedapp.storage.appSettings.AppTheme
 
 class SettingsFragment: PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        val screen = preferenceManager.createPreferenceScreen(context)
+        val screen = preferenceManager.createPreferenceScreen(requireContext())
         preferenceManager.sharedPreferencesName = AppSettingsImpl.STORAGE_NAME
 
 //        addRecipeCategory(screen)
@@ -30,7 +30,7 @@ class SettingsFragment: PreferenceFragmentCompat() {
     }
 
     private fun addAppCategory(screen: PreferenceScreen) {
-        val category = PreferenceCategory(context).apply {
+        val category = PreferenceCategory(requireContext()).apply {
             key = CATEGORY_APP
             title = resources.getString(R.string.label_app_prefs)
             isIconSpaceReserved = false
@@ -38,7 +38,7 @@ class SettingsFragment: PreferenceFragmentCompat() {
         screen.addPreference(category)
 
 
-        val themePreference = ListPreference(context).apply {
+        val themePreference = ListPreference(requireContext()).apply {
             key = AppSettingsImpl.KEY_APP_THEME
             title = resources.getString(R.string.label_app_theme)
             entries = resources.getStringArray(R.array.labels_app_theme_new)
@@ -66,14 +66,14 @@ class SettingsFragment: PreferenceFragmentCompat() {
     }
 
     private fun addRecipeCategory(screen: PreferenceScreen) {
-        val category = PreferenceCategory(context).apply {
+        val category = PreferenceCategory(requireContext()).apply {
             key = CATEGORY_RECIPE
             title = resources.getString(R.string.label_recipe_prefs)
             isIconSpaceReserved = false
         }
         screen.addPreference(category)
 
-        val defaultServingsNumPreference = EditTextPreference(context).apply {
+        val defaultServingsNumPreference = EditTextPreference(requireContext()).apply {
             key = PREFERENCE_DEFAULT_SERVINGS
             title = resources.getString(R.string.label_default_servings)
             summary = resources.getString(R.string.desc_default_servings)

@@ -5,17 +5,14 @@ plugins {
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.ksp)
     id("cooked-module")
 }
 
-android {
-    val roomSchemaDirectory = "$projectDir/schemas"
+val roomSchemaDirectory = "$projectDir/schemas"
 
-    defaultConfig {
-        javaCompileOptions.annotationProcessorOptions {
-            arguments["room.schemaLocation"] = roomSchemaDirectory
-        }
-    }
+android {
+    namespace = "ru.cookedapp.storage"
 
     buildTypes {
         release {
@@ -31,7 +28,15 @@ android {
         }
     }
 
+    sourceSets.configureEach {
+        kotlin.srcDir("$buildDir/generated/ksp/$name/kotlin/")
+    }
+
     sourceSets.getByName("androidTest").assets.srcDir(roomSchemaDirectory)
+}
+
+ksp {
+    arg("room.schemaLocation", roomSchemaDirectory)
 }
 
 dependencies {
@@ -44,7 +49,7 @@ dependencies {
     // Room
     implementation(libs.room)
     implementation(libs.room.ktx)
-    kapt(libs.room.kapt)
+    ksp(libs.room.processor)
 
     // Common
     implementation(libs.dagger)
