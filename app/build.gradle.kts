@@ -17,6 +17,7 @@ android {
         applicationId = "ru.cookedapp.cooked"
         versionCode = 1
         versionName = "0.1.0"
+        signingConfig = signingConfigs.getByName("debug")
     }
 
     buildFeatures {
@@ -45,8 +46,8 @@ android {
             versionNameSuffix = "-debug"
             isDebuggable = true
             with(manifestPlaceholders) {
-                put("appIconRes", "@mipmap/ic_launcher")
-                put("appIconRoundRes", "@mipmap/ic_launcher_round")
+                put("appIconRes", "@mipmap/ic_launcher_debug")
+                put("appIconRoundRes", "@mipmap/ic_launcher_round_debug")
                 put("appNameRes", "@string/app_name_debug")
             }
         }

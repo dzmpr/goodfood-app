@@ -29,4 +29,8 @@
     <color name="chip_green">#36AB45</color>
     <color name="chip_light_blue">#A09BE7</color>
     <color name="chip_blue">#5671DC</color>
+
+    <!-- Icon background color -->
+    <color name="ic_launcher_background">#E82B21</color>
+    <color name="ic_launcher_background_debug">#2A2D34</color>
 </resources>
