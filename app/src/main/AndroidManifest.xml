@@ -10,6 +10,7 @@
         android:name="ru.cookedapp.cooked.ui.CookedApp">
         <activity
             android:name="ru.cookedapp.cooked.ui.main.MainActivity"
+            android:theme="@style/Theme.Cooked.Splashscreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

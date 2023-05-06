@@ -94,6 +94,7 @@ dependencies {
     implementation(libs.navigation)
     implementation(libs.navigation.ktx)
     implementation(libs.exifinterface)
+    implementation(libs.splashscreen)
 
     // Dependencies
     implementation(libs.coroutines)

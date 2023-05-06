@@ -24,4 +24,11 @@
         <item name="alertDialogTheme">@style/Theme.Cooked.Dialog</item>
         <item name="android:alertDialogTheme">@style/Theme.Cooked.AlertDialog</item>
     </style>
+
+    <style name="Theme.Cooked.Splashscreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/ic_launcher_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="postSplashScreenTheme">@style/Theme.Cooked</item>
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="o_mr1">default</item>
+    </style>
 </resources>
