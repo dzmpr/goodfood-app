@@ -1,0 +1,11 @@
+<resources>
+    <string name="settings_title">Settings</string>
+    <string name="setting_section_recipe_prefs">Recipe preferences</string>
+    <string name="setting_section_app_prefs">Application preferences</string>
+    <string name="settings_theme">Theme</string>
+    <string name="settings_theme_dark_theme">Dark theme</string>
+    <string name="settings_theme_light_theme">Light theme</string>
+    <string name="settings_theme_follow_system">Follow system</string>
+    <string name="settings_dynamic_theme">Dynamic theme</string>
+    <string name="settings_dynamic_theme_switch">Dynamic color theme</string>
+</resources>

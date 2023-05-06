@@ -1,28 +1,27 @@
 import io.gitlab.arturbosch.detekt.Detekt
 
+// https://youtrack.jetbrains.com/issue/KTIJ-19369
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    kotlin("android")
-    kotlin("kapt")
-    id("com.android.application")
-    id("io.gitlab.arturbosch.detekt").version("1.19.0")
+    alias(libs.plugins.kotlin)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.android.app)
+    alias(libs.plugins.detekt)
+    id("cooked-module")
 }
 
 android {
-    compileSdk = Config.compileSdk
-    buildToolsVersion = Config.buildToolsVersion
+    namespace = "ru.cookedapp.cooked"
 
     defaultConfig {
-        applicationId = Config.appId
-        minSdk = Config.minSdk
-        targetSdk = Config.targetSdk
+        applicationId = "ru.cookedapp.cooked"
         versionCode = 1
         versionName = "0.1.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildFeatures {
         viewBinding = true
+        compose = true
     }
 
     buildTypes {
@@ -53,14 +52,12 @@ android {
         }
     }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+    kotlinOptions {
+        freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
     }
 
-    kotlinOptions {
-        freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
-        jvmTarget = "11"
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
 
     detekt {
@@ -81,33 +78,31 @@ android {
 
 dependencies {
 
-    implementation(project(Modules.common))
-    implementation(project(Modules.storage))
-
-    // Common
-    implementation(Dependencies.kotlinStdlib)
-    implementation(Dependencies.coroutinesCore)
-    implementation(Dependencies.coroutinesAndroid)
+    implementation(projects.common)
+    implementation(projects.storage)
 
     // Jetpack
-    implementation(Dependencies.jetpackCore)
-    implementation(Dependencies.appCompat)
-    implementation(Dependencies.material)
-    implementation(Dependencies.constraintLayout)
-    implementation(Dependencies.fragment)
-    implementation(Dependencies.viewModel)
-    implementation(Dependencies.liveData)
-    implementation(Dependencies.navigation)
-    implementation(Dependencies.navigationKtx)
-    implementation(Dependencies.exifInterface)
-    implementation(Dependencies.preference)
+    implementation(libs.jetpack.core)
+    implementation(libs.appcompat)
+    implementation(libs.material)
+    implementation(libs.constraintlayout)
+    implementation(libs.fragment)
+    implementation(libs.lifecycle.viewmodel)
+    implementation(libs.lifecycle.runtimecompose)
+    implementation(libs.lifecycle.livedata)
+    implementation(libs.navigation)
+    implementation(libs.navigation.ktx)
+    implementation(libs.exifinterface)
 
     // Dependencies
-    implementation(Dependencies.dagger)
-    kapt(Dependencies.daggerKapt)
-    implementation(Dependencies.flexbox)
+    implementation(libs.coroutines)
+    implementation(libs.coroutines.android)
+    implementation(libs.dagger)
+    kapt(libs.dagger.kapt)
+    implementation(libs.flexbox)
+    implementation(libs.bundles.compose)
 
     // Tests
-    testImplementation(Dependencies.junit)
-    androidTestImplementation(Dependencies.junitExtensions)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.junit.ext)
 }

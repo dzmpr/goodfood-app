@@ -13,11 +13,12 @@ import ru.cookedapp.cooked.ui.manageItems.manageProducts.ManageProductsViewModel
 import ru.cookedapp.cooked.ui.recipeDetails.RecipeDetailsViewModel
 import ru.cookedapp.cooked.ui.recipeList.RecipeListViewModel
 import ru.cookedapp.cooked.ui.recipesOverview.RecipesOverviewViewModel
+import ru.cookedapp.cooked.ui.settings.SettingsViewModel
 import ru.cookedapp.cooked.utils.ViewModelKey
 
 
 @Module
-abstract class ViewModelModule {
+internal abstract class ViewModelModule {
 
     @Binds
     internal abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
@@ -56,4 +57,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(EditRecipeViewModel::class)
     abstract fun provideEditRecipeViewModel(editRecipeViewModel: EditRecipeViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SettingsViewModel::class)
+    abstract fun provideSettingsViewModel(settingsViewModel: SettingsViewModel): ViewModel
 }

@@ -36,6 +36,6 @@ class CookedApp : Application() {
     }
 
     companion object {
-        lateinit var appComponent: AppComponent
+        internal lateinit var appComponent: AppComponent
     }
 }

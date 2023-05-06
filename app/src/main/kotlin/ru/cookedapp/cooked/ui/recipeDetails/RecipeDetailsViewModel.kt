@@ -16,6 +16,8 @@ import kotlinx.coroutines.launch
 import ru.cookedapp.cooked.data.gateway.PhotoGateway
 import ru.cookedapp.cooked.data.repository.CartRepository
 import ru.cookedapp.cooked.data.repository.RecipeRepository
+import ru.cookedapp.cooked.ui.base.BaseViewModel
+import ru.cookedapp.cooked.ui.base.ToolbarConfig
 import ru.cookedapp.cooked.utils.SingleLiveEvent
 import ru.cookedapp.storage.entity.IngredientWithMeta
 import ru.cookedapp.storage.entity.Recipe
@@ -23,8 +25,11 @@ import ru.cookedapp.storage.entity.Recipe
 class RecipeDetailsViewModel @Inject constructor(
     private val recipeRepository: RecipeRepository,
     private val cartRepository: CartRepository,
-    private val photoGateway: PhotoGateway
-) : ViewModel() {
+    private val photoGateway: PhotoGateway,
+) : ViewModel(), BaseViewModel {
+
+    override val toolbarConfig = ToolbarConfig(title = null, subtitle = null)
+
     private val _recipe by lazy {
         MutableLiveData<Recipe>()
     }

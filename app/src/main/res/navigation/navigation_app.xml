@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/app_graph"
     app:startDestination="@id/homeFragment">
 
@@ -13,25 +13,45 @@
         <action
             android:id="@+id/actionNavigateToEditRecipe"
             app:destination="@id/editRecipeFragment"
-            app:enterAnim="@anim/screen_slide_in"
-            app:exitAnim="@anim/screen_slide_out"
-            app:popEnterAnim="@anim/screen_fade_in"
-            app:popExitAnim="@anim/screen_fade_out" />
+            app:enterAnim="@anim/animation_enter_right_to_left"
+            app:exitAnim="@anim/animation_exit_right_to_left"
+            app:popEnterAnim="@anim/animation_enter_left_to_right"
+            app:popExitAnim="@anim/animation_exit_left_to_right" />
         <action
             android:id="@+id/actionNavigateToRecipeList"
-            app:destination="@id/recipeListFragment" />
+            app:destination="@id/recipeListFragment"
+            app:enterAnim="@anim/animation_enter_right_to_left"
+            app:exitAnim="@anim/animation_exit_right_to_left"
+            app:popEnterAnim="@anim/animation_enter_left_to_right"
+            app:popExitAnim="@anim/animation_exit_left_to_right" />
         <action
             android:id="@+id/actionNavigateToRecipe"
-            app:destination="@id/recipeFragment" />
+            app:destination="@id/recipeFragment"
+            app:enterAnim="@anim/animation_enter_right_to_left"
+            app:exitAnim="@anim/animation_exit_right_to_left"
+            app:popEnterAnim="@anim/animation_enter_left_to_right"
+            app:popExitAnim="@anim/animation_exit_left_to_right" />
         <action
             android:id="@+id/actionNavigateToSettings"
-            app:destination="@id/settingsFragment" />
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@anim/animation_enter_right_to_left"
+            app:exitAnim="@anim/animation_exit_right_to_left"
+            app:popEnterAnim="@anim/animation_enter_left_to_right"
+            app:popExitAnim="@anim/animation_exit_left_to_right" />
         <action
             android:id="@+id/actionNavigateToManageCategories"
-            app:destination="@id/manageCategoriesFragment" />
+            app:destination="@id/manageCategoriesFragment"
+            app:enterAnim="@anim/animation_enter_right_to_left"
+            app:exitAnim="@anim/animation_exit_right_to_left"
+            app:popEnterAnim="@anim/animation_enter_left_to_right"
+            app:popExitAnim="@anim/animation_exit_left_to_right" />
         <action
             android:id="@+id/actionNavigateToManageProducts"
-            app:destination="@id/manageProductsFragment" />
+            app:destination="@id/manageProductsFragment"
+            app:enterAnim="@anim/animation_enter_right_to_left"
+            app:exitAnim="@anim/animation_exit_right_to_left"
+            app:popEnterAnim="@anim/animation_enter_left_to_right"
+            app:popExitAnim="@anim/animation_exit_left_to_right" />
     </fragment>
 
     <fragment
@@ -47,7 +67,11 @@
         tools:layout="@layout/fragment_recipe_list">
         <action
             android:id="@+id/actionNavigateToRecipe"
-            app:destination="@id/recipeFragment" />
+            app:destination="@id/recipeFragment"
+            app:enterAnim="@anim/animation_enter_right_to_left"
+            app:exitAnim="@anim/animation_exit_right_to_left"
+            app:popEnterAnim="@anim/animation_enter_left_to_right"
+            app:popExitAnim="@anim/animation_exit_left_to_right" />
     </fragment>
     <fragment
         android:id="@+id/recipeFragment"
@@ -56,21 +80,24 @@
         tools:layout="@layout/fragment_recipe">
         <action
             android:id="@+id/actionNavigateToEditRecipe"
-            app:destination="@id/editRecipeFragment" />
+            app:destination="@id/editRecipeFragment"
+            app:enterAnim="@anim/animation_enter_right_to_left"
+            app:exitAnim="@anim/animation_exit_right_to_left"
+            app:popEnterAnim="@anim/animation_enter_left_to_right"
+            app:popExitAnim="@anim/animation_exit_left_to_right" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="ru.cookedapp.cooked.ui.settings.SettingsFragment"
-        android:label="SettingsFragment"
-        tools:layout="@layout/fragment_settings"/>
+        android:label="SettingsFragment" />
     <fragment
         android:id="@+id/manageCategoriesFragment"
         android:name="ru.cookedapp.cooked.ui.manageItems.manageCategories.ManageCategoriesFragment"
         android:label="ManageCategoriesFragment"
-        tools:layout="@layout/fragment_manage_items"/>
+        tools:layout="@layout/fragment_manage_items" />
     <fragment
         android:id="@+id/manageProductsFragment"
         android:name="ru.cookedapp.cooked.ui.manageItems.manageProducts.ManageProductsFragment"
         android:label="ManageProductsFragment"
-        tools:layout="@layout/fragment_manage_items"/>
+        tools:layout="@layout/fragment_manage_items" />
 </navigation>

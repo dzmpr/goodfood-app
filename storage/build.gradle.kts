@@ -1,25 +1,18 @@
+// https://youtrack.jetbrains.com/issue/KTIJ-19369
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    kotlin("android")
-    kotlin("kapt")
-    id("com.android.library")
-    id("kotlinx-serialization")
+    alias(libs.plugins.kotlin)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.ksp)
+    id("cooked-module")
 }
 
+val roomSchemaDirectory = "$projectDir/schemas"
+
 android {
-    val roomSchemaDirectory = "$projectDir/schemas"
-
-    compileSdk = Config.compileSdk
-
-    defaultConfig {
-        minSdk = Config.minSdk
-        targetSdk = Config.targetSdk
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        javaCompileOptions.annotationProcessorOptions {
-            arguments["room.schemaLocation"] = roomSchemaDirectory
-        }
-    }
+    namespace = "ru.cookedapp.storage"
 
     buildTypes {
         release {
@@ -35,40 +28,40 @@ android {
         }
     }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+    sourceSets.configureEach {
+        kotlin.srcDir("$buildDir/generated/ksp/$name/kotlin/")
     }
-
-    kotlinOptions.jvmTarget = "11"
 
     sourceSets.getByName("androidTest").assets.srcDir(roomSchemaDirectory)
 }
 
+ksp {
+    arg("room.schemaLocation", roomSchemaDirectory)
+}
+
 dependencies {
 
-    implementation(project(Modules.common))
+    implementation(projects.common)
 
     // Kotlin
-    implementation(Dependencies.kotlinStdlib)
-    implementation(Dependencies.coroutinesCore)
+    implementation(libs.coroutines)
 
     // Room
-    implementation(Dependencies.room)
-    implementation(Dependencies.roomKtx)
-    kapt(Dependencies.roomKapt)
+    implementation(libs.room)
+    implementation(libs.room.ktx)
+    ksp(libs.room.processor)
 
     // Common
-    implementation(Dependencies.dagger)
-    kapt(Dependencies.daggerKapt)
-    implementation(Dependencies.serialization)
-    implementation(Dependencies.jetpackCore)
+    implementation(libs.dagger)
+    kapt(libs.dagger.kapt)
+    implementation(libs.serialization)
+    implementation(libs.jetpack.core)
 
     // Test
-    testImplementation(Dependencies.junit)
-    testImplementation(Dependencies.junitExtensions)
-    testImplementation(Dependencies.kotlinJunit)
+    testImplementation(libs.junit)
+    testImplementation(libs.junit.ext)
+    testImplementation(libs.junit.kotlin)
 
-    androidTestImplementation(Dependencies.junitExtensions)
-    androidTestImplementation(Dependencies.kotlinJunit)
+    androidTestImplementation(libs.junit.ext)
+    androidTestImplementation(libs.junit.kotlin)
 }

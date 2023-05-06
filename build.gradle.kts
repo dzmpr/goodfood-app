@@ -1,26 +1,14 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-buildscript {
-
-    repositories {
-        google()
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath("com.android.tools.build:gradle:7.0.4")
-
-        classpath(kotlin("gradle-plugin", version = Versions.kotlin))
-        classpath(kotlin("serialization", version = Versions.kotlin))
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-    }
-}
-
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
+// https://youtrack.jetbrains.com/issue/KTIJ-19369
+@Suppress("DSL_SCOPE_VIOLATION")
+plugins {
+    alias(libs.plugins.android.app) apply false
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.kotlin) apply false
+    alias(libs.plugins.kotlin.kapt) apply false
+    alias(libs.plugins.kotlin.ksp) apply false
+    alias(libs.plugins.kotlin.parcelize) apply false
+    alias(libs.plugins.kotlin.serialization) apply false
+    alias(libs.plugins.detekt) apply false
 }
 
 tasks.register<Delete>("clean") {

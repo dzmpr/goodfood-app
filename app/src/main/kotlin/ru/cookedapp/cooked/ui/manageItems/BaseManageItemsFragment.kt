@@ -4,13 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
-import javax.inject.Inject
 import ru.cookedapp.common.baseList.ListAdapter
 import ru.cookedapp.common.baseList.ViewHolderFactoryProvider
 import ru.cookedapp.common.baseList.data.Item
@@ -23,32 +21,23 @@ import ru.cookedapp.cooked.ui.base.EditNameDialogFragment
 import ru.cookedapp.cooked.ui.manageItems.data.ManageItemModel
 import ru.cookedapp.cooked.ui.manageItems.viewHolders.ManageItemHolder
 
-abstract class BaseManageItemsFragment : BaseFragment() {
-
-    private var _binding: FragmentManageItemsBinding? = null
-    private val binding: FragmentManageItemsBinding get() = _binding!!
+abstract class BaseManageItemsFragment : BaseFragment<FragmentManageItemsBinding>() {
 
     private lateinit var itemsAdapter: ListAdapter
 
     abstract val toolbarTextResId: Int
     abstract val renameDialogTitleResId: Int
 
-    @Inject
-    lateinit var vmFactory: ViewModelProvider.Factory
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         CookedApp.appComponent.inject(this)
     }
 
-    override fun onCreateView(
+    override fun inflateViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentManageItemsBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+        savedInstanceState: Bundle?,
+    ) = FragmentManageItemsBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -56,7 +45,7 @@ abstract class BaseManageItemsFragment : BaseFragment() {
         with(binding.tbToolbar) {
             title = rp.getString(toolbarTextResId)
             setNavigationOnClickListener {
-                Navigation.findNavController(requireActivity(), R.id.fcvContainer).popBackStack()
+                Navigation.findNavController(requireActivity(), R.id.fcvContainer).navigateUp()
             }
         }
 
@@ -78,7 +67,7 @@ abstract class BaseManageItemsFragment : BaseFragment() {
                 }
                 is ItemEvent.Checked,
                 is ItemEvent.Delete,
-                is ItemEvent.Custom -> error("No action.")
+                is ItemEvent.Custom -> error("Unexpected event: $event.")
             }
         }
 

@@ -16,6 +16,8 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import ru.cookedapp.common.baseList.data.Items
 import ru.cookedapp.cooked.data.repository.RecipeRepository
+import ru.cookedapp.cooked.ui.base.BaseViewModel
+import ru.cookedapp.cooked.ui.base.ToolbarConfig
 import ru.cookedapp.cooked.ui.recipeList.data.RecipeListItem
 import ru.cookedapp.cooked.utils.ItemTouchHelperAction
 import ru.cookedapp.cooked.utils.SingleLiveEvent
@@ -25,7 +27,9 @@ import ru.cookedapp.storage.entity.RecipeCategoryEntity
 class RecipeListViewModel @Inject constructor(
     private val recipeRepository: RecipeRepository,
     private val itemsProvider: RecipeListItemsProvider,
-) : ViewModel(), ItemTouchHelperAction {
+) : ViewModel(), BaseViewModel, ItemTouchHelperAction {
+
+    override val toolbarConfig = ToolbarConfig(title = null, subtitle = null)
 
     private lateinit var recipes: Flow<List<Recipe>>
 

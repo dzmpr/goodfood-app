@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -14,25 +14,19 @@ import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
-import javax.inject.Inject
 import ru.cookedapp.cooked.R
 import ru.cookedapp.cooked.databinding.FragmentRecipeBinding
 import ru.cookedapp.cooked.extensions.setViewVisibility
 import ru.cookedapp.cooked.ui.CookedApp
 import ru.cookedapp.cooked.ui.base.BaseFragment
 
-class RecipeDetailsFragment : BaseFragment() {
-    private var _binding: FragmentRecipeBinding? = null
-    private val binding get() = _binding!!
+class RecipeDetailsFragment : BaseFragment<FragmentRecipeBinding>() {
 
-    @Inject
-    lateinit var vmFactory: ViewModelProvider.Factory
-    private lateinit var viewModel: RecipeDetailsViewModel
+    override val viewModel: RecipeDetailsViewModel by viewModels { vmFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         CookedApp.appComponent.inject(this)
-        viewModel = ViewModelProvider(this, vmFactory).get(RecipeDetailsViewModel::class.java)
 
         if (savedInstanceState == null) {
             handleArguments()
@@ -48,14 +42,11 @@ class RecipeDetailsFragment : BaseFragment() {
         }
     }
 
-    override fun onCreateView(
+    override fun inflateViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentRecipeBinding.inflate(inflater)
-        return binding.root
-    }
+        savedInstanceState: Bundle?,
+    ) = FragmentRecipeBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupToolbar()

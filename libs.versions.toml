@@ -1,0 +1,99 @@
+[versions]
+# Plugins
+agp = "7.4.2"
+kotlin = "1.8.21"
+detekt = "1.22.0"
+ksp = "1.8.21-1.0.11"
+
+# Jetpack
+jetpackCore = "1.10.0"
+lifecycle = "2.6.1"
+fragment = "1.5.7"
+appCompat = "1.6.1"
+material = "1.9.0"
+constraintLayout = "2.1.4"
+navigation = "2.5.3"
+room = "2.5.1"
+exifInterface = "1.3.6"
+
+# Compose
+compose-compiler = "1.4.7"
+compose = "1.4.3"
+compose-material3 = "1.0.1"
+
+# Other dependencies
+serialization = "1.5.0"
+coroutines = "1.7.0"
+dagger = "2.45"
+flexbox = "3.0.0"
+
+# Tests
+junit = "4.13.2"
+junitExtensions = "1.1.5"
+espresso = "3.4.0"
+
+[libraries]
+# Kotlin
+coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
+
+# Jetpack
+jetpack-core = { module = "androidx.core:core-ktx", version.ref = "jetpackCore" }
+appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appCompat" }
+material = { module = "com.google.android.material:material", version.ref = "material" }
+constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintLayout" }
+fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "fragment" }
+exifinterface = { module = "androidx.exifinterface:exifinterface", version.ref = "exifInterface" }
+room = { module = "androidx.room:room-runtime", version.ref = "room" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+room-processor = { module = "androidx.room:room-compiler", version.ref = "room" }
+navigation = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
+navigation-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
+lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+lifecycle-runtimecompose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle" }
+lifecycle-livedata = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle" }
+
+# Compose
+compose-animation = { module = "androidx.compose.animation:animation", version.ref = "compose" }
+compose-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "compose" }
+compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
+compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
+compose-foundationlayout = { module = "androidx.compose.foundation:foundation-layout", version.ref = "compose" }
+compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
+compose-uitooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
+
+# Other dependencies
+dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
+dagger-kapt = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
+flexbox = { module = "com.google.android.flexbox:flexbox", version.ref = "flexbox" }
+
+# Tests
+junit = { module = "junit:junit", version.ref = "junit" }
+junit-kotlin = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
+junit-ext = { module = "androidx.test.ext:junit", version.ref = "junitExtensions" }
+
+# Precompiled plugins
+android-compiledplugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
+kotlin-compiledplugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+
+[bundles]
+compose = [
+    "compose-animation",
+    "compose-runtime",
+    "compose-ui",
+    "compose-foundation",
+    "compose-foundationlayout",
+    "compose-material3",
+    "compose-uitooling",
+]
+
+[plugins]
+android-library = { id = "com.android.library", version.ref = "agp" }
+android-app = { id = "com.android.application", version.ref = "agp" }
+kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
