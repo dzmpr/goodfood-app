@@ -23,7 +23,7 @@ class PreferencesStorage(
     }
 
     inline fun <reified T> setValue(key: String, value: T) {
-        sharedPreferences.edit {
+        sharedPreferences.edit(commit = true) {
             when (value) {
                 is Int -> this.putInt(key, value as Int)
                 is Float -> this.putFloat(key, value as Float)

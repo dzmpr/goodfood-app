@@ -18,7 +18,6 @@
         <item name="colorOnSurface">@color/white</item>
         <!-- Customize your theme here. -->
         <item name="bottomSheetDialogTheme">@style/BottomSheetDialogStyle</item>
-        <item name="preferenceTheme">@style/Theme.Cooked.Preference</item>
         <item name="alertDialogTheme">@style/Theme.Cooked.Dialog</item>
         <item name="android:alertDialogTheme">@style/Theme.Cooked.AlertDialog</item>
     </style>

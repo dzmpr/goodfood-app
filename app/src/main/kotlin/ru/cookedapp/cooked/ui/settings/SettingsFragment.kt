@@ -1,113 +1,157 @@
 package ru.cookedapp.cooked.ui.settings
 
 import android.os.Bundle
-import android.text.InputType
-import android.view.View
-import android.widget.FrameLayout
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.widget.Toolbar
-import androidx.navigation.Navigation
-import androidx.preference.EditTextPreference
-import androidx.preference.ListPreference
-import androidx.preference.PreferenceCategory
-import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.PreferenceScreen
-import androidx.recyclerview.widget.RecyclerView
-import ru.cookedapp.common.extensions.enumValueOfOrNull
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RadioButton
+import androidx.compose.material3.Switch
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ru.cookedapp.cooked.R
-import ru.cookedapp.storage.appSettings.AppSettingsImpl
+import ru.cookedapp.cooked.ui.CookedApp
+import ru.cookedapp.cooked.ui.base.ComposeFragment
+import ru.cookedapp.cooked.ui.components.ScreenScaffold
+import ru.cookedapp.cooked.ui.settings.data.SettingsScreenState
+import ru.cookedapp.cooked.ui.theme.CookedTheme
 import ru.cookedapp.storage.appSettings.AppTheme
 
-class SettingsFragment: PreferenceFragmentCompat() {
-    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        val screen = preferenceManager.createPreferenceScreen(requireContext())
-        preferenceManager.sharedPreferencesName = AppSettingsImpl.STORAGE_NAME
+internal class SettingsFragment : ComposeFragment() {
 
-//        addRecipeCategory(screen)
-        addAppCategory(screen)
+    private val viewModel: SettingsViewModel by viewModel()
 
-        preferenceScreen = screen
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        CookedApp.appComponent.inject(this)
     }
 
-    private fun addAppCategory(screen: PreferenceScreen) {
-        val category = PreferenceCategory(requireContext()).apply {
-            key = CATEGORY_APP
-            title = resources.getString(R.string.label_app_prefs)
-            isIconSpaceReserved = false
-        }
-        screen.addPreference(category)
-
-
-        val themePreference = ListPreference(requireContext()).apply {
-            key = AppSettingsImpl.KEY_APP_THEME
-            title = resources.getString(R.string.label_app_theme)
-            entries = resources.getStringArray(R.array.labels_app_theme_new)
-            setDefaultValue(AppTheme.AUTO.name)
-            entryValues = arrayOf(
-                AppTheme.AUTO.name,
-                AppTheme.LIGHT.name,
-                AppTheme.DARK.name,
-            )
-            isIconSpaceReserved = false
-            summaryProvider = ListPreference.SimpleSummaryProvider.getInstance()
-            dialogTitle = getString(R.string.label_app_theme)
-        }
-        themePreference.setOnPreferenceChangeListener { _, newValue ->
-            val theme = when (enumValueOfOrNull<AppTheme>(newValue as? String?)) {
-                AppTheme.DARK -> AppCompatDelegate.MODE_NIGHT_YES
-                AppTheme.LIGHT -> AppCompatDelegate.MODE_NIGHT_NO
-                AppTheme.AUTO -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-                else -> error("Unexpected theme constant: $newValue.")
+    @Composable
+    override fun Content() {
+        ScreenScaffold(
+            screenTitle = stringResource(R.string.settings_title),
+            onBackPressed = {
+                navController.popBackStack()
             }
-            AppCompatDelegate.setDefaultNightMode(theme)
-            true
-        }
-        category.addPreference(themePreference)
-    }
-
-    private fun addRecipeCategory(screen: PreferenceScreen) {
-        val category = PreferenceCategory(requireContext()).apply {
-            key = CATEGORY_RECIPE
-            title = resources.getString(R.string.label_recipe_prefs)
-            isIconSpaceReserved = false
-        }
-        screen.addPreference(category)
-
-        val defaultServingsNumPreference = EditTextPreference(requireContext()).apply {
-            key = PREFERENCE_DEFAULT_SERVINGS
-            title = resources.getString(R.string.label_default_servings)
-            summary = resources.getString(R.string.desc_default_servings)
-            isIconSpaceReserved = false
-            dialogTitle = resources.getString(R.string.desc_default_servings)
-        }
-        // Set number input type
-        defaultServingsNumPreference.setOnBindEditTextListener { editText ->
-            editText.inputType = InputType.TYPE_CLASS_NUMBER
-        }
-        category.addPreference(defaultServingsNumPreference)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        // Setup toolbar
-        val toolbar: Toolbar = view.findViewById(R.id.tbToolbar)
-        toolbar.setNavigationOnClickListener {
-            Navigation.findNavController(requireActivity(), R.id.fcvContainer).popBackStack()
-        }
-        // Remove overscroll
-        val list: FrameLayout = view.findViewById(android.R.id.list_container)
-        val preferenceRecycler = list.getChildAt(0)
-        if (preferenceRecycler is RecyclerView) {
-            preferenceRecycler.overScrollMode = View.OVER_SCROLL_NEVER
+        ) {
+            val state by viewModel.state.collectAsStateWithLifecycle()
+            SettingsScreen(state)
         }
     }
 
-    companion object {
-        const val CATEGORY_RECIPE = "category_recipe"
+    @Composable
+    private fun SettingsScreen(
+        state: SettingsScreenState,
+    ) {
+        val scrollState = rememberScrollState()
 
-        const val PREFERENCE_DEFAULT_SERVINGS = "pref_default_servings"
+        Column(
+            modifier = Modifier
+                .verticalScroll(scrollState)
+                .padding(vertical = 8.dp)
+        ) {
+            Text(
+                text = stringResource(R.string.setting_section_app_prefs),
+                style = MaterialTheme.typography.headlineMedium,
+                modifier = Modifier.padding(horizontal = 16.dp),
+            )
+            Text(
+                text = stringResource(R.string.settings_theme),
+                fontWeight = FontWeight.SemiBold,
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
+            )
+            AppTheme.values().forEach { theme ->
+                ThemeRow(theme = theme, selectedTheme = state.appTheme) {
+                    viewModel.onThemeChanged(theme)
+                }
+            }
+            Text(
+                text = stringResource(R.string.settings_dynamic_theme),
+                fontWeight = FontWeight.SemiBold,
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
+            )
+            SwitchRow(
+                text = stringResource(R.string.settings_dynamic_theme_switch),
+                isChecked = state.isDynamicThemeEnabled,
+            )
+        }
+    }
 
-        const val CATEGORY_APP = "category_app"
+    @Composable
+    private fun ThemeRow(
+        theme: AppTheme,
+        selectedTheme: AppTheme,
+        onRowClicked: () -> Unit,
+    ) {
+        val nameRes = when (theme) {
+            AppTheme.AUTO -> R.string.settings_theme_follow_system
+            AppTheme.LIGHT -> R.string.settings_theme_light_theme
+            AppTheme.DARK -> R.string.settings_theme_dark_theme
+        }
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .clickable(onClick = onRowClicked)
+                .padding(horizontal = 16.dp)
+        ) {
+            Text(
+                text = stringResource(nameRes)
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            RadioButton(
+                selected = theme == selectedTheme,
+                onClick = onRowClicked,
+            )
+        }
+    }
+
+    @Composable
+    private fun SwitchRow(
+        text: String,
+        isChecked: Boolean,
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .clickable {
+                    viewModel.onDynamicThemeStateChanged(!isChecked)
+                }
+                .padding(horizontal = 16.dp),
+        ) {
+            Text(text = text)
+            Spacer(modifier = Modifier.weight(1f))
+            Switch(
+                checked = isChecked,
+                onCheckedChange = {
+                    viewModel.onDynamicThemeStateChanged(!isChecked)
+                },
+            )
+        }
+    }
+
+    @Preview
+    @Composable
+    private fun Preview() {
+        CookedTheme {
+            val state = SettingsScreenState(
+                appTheme = AppTheme.DARK,
+                isDynamicThemeEnabled = true,
+            )
+            SettingsScreen(state = state)
+        }
     }
 }

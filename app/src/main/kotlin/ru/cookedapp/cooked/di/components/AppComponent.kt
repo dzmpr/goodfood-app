@@ -18,6 +18,7 @@ import ru.cookedapp.cooked.ui.recipeDetails.RecipeDetailsFragment
 import ru.cookedapp.cooked.ui.recipeList.RecipeListFragment
 import ru.cookedapp.cooked.ui.recipesOverview.RecipeCardAdapter
 import ru.cookedapp.cooked.ui.recipesOverview.RecipesOverviewFragment
+import ru.cookedapp.cooked.ui.settings.SettingsFragment
 import ru.cookedapp.storage.di.StorageModule
 
 @Singleton
@@ -30,7 +31,7 @@ import ru.cookedapp.storage.di.StorageModule
         UtilitiesModule::class,
     ]
 )
-interface AppComponent {
+internal interface AppComponent {
 
     fun inject(app: CookedApp)
 
@@ -42,6 +43,7 @@ interface AppComponent {
     fun inject(fragment: BaseManageItemsFragment)
     fun inject(fragment: EditRecipeFragment)
     fun inject(fragment: AddIngredientBottomFragment)
+    fun inject(fragment: SettingsFragment)
 
     // Adapters
     fun inject(adapter: RecipeCardAdapter)

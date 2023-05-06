@@ -89,8 +89,7 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="ru.cookedapp.cooked.ui.settings.SettingsFragment"
-        android:label="SettingsFragment"
-        tools:layout="@layout/fragment_settings" />
+        android:label="SettingsFragment" />
     <fragment
         android:id="@+id/manageCategoriesFragment"
         android:name="ru.cookedapp.cooked.ui.manageItems.manageCategories.ManageCategoriesFragment"

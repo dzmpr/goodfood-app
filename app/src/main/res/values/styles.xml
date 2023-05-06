@@ -23,10 +23,6 @@
         <item name="checkedIconTint">?attr/colorOnSurface</item>
     </style>
 
-    <style name="Theme.Cooked.Preference" parent="PreferenceThemeOverlay.v14.Material">
-        <item name="android:layout">@layout/fragment_settings</item>
-    </style>
-
     <style name="Theme.Cooked.Dialog" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
         <item name="android:background">?attr/colorSurface</item>
         <item name="dialogCornerRadius">10dp</item>
