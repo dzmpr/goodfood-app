@@ -45,13 +45,6 @@
             app:exitAnim="@anim/animation_exit_right_to_left"
             app:popEnterAnim="@anim/animation_enter_left_to_right"
             app:popExitAnim="@anim/animation_exit_left_to_right" />
-        <action
-            android:id="@+id/actionNavigateToManageProducts"
-            app:destination="@id/manageProductsFragment"
-            app:enterAnim="@anim/animation_enter_right_to_left"
-            app:exitAnim="@anim/animation_exit_right_to_left"
-            app:popEnterAnim="@anim/animation_enter_left_to_right"
-            app:popExitAnim="@anim/animation_exit_left_to_right" />
     </fragment>
 
     <fragment

@@ -57,8 +57,6 @@
     <string name="label_clear_cart">Clear cart</string>
     <string name="label_remove_purchased">Remove purchased</string>
     <string name="label_settings">Settings</string>
-    <string name="label_backup_amp_restore"><![CDATA[Backup & restore]]></string>
-    <string name="label_manage_products">Manage products</string>
     <string name="label_manage_categories">Manage categories</string>
 
     <string name="label_default_servings">Servings count</string>
