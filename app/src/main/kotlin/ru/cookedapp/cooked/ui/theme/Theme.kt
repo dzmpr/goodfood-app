@@ -66,10 +66,11 @@ private val darkColorScheme = darkColorScheme(
 @Composable
 fun CookedTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
+    isDynamicThemeEnabled: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
-        supportsDynamicTheming() -> {
+        isDynamicThemeEnabled && isDynamicThemingSupported() -> {
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
@@ -85,4 +86,4 @@ fun CookedTheme(
 }
 
 @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.S)
-fun supportsDynamicTheming() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+fun isDynamicThemingSupported() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S

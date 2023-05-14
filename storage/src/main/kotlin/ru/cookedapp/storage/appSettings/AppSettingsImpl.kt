@@ -1,5 +1,6 @@
 package ru.cookedapp.storage.appSettings
 
+import kotlinx.coroutines.flow.Flow
 import ru.cookedapp.common.preferencesStorage.PreferencesStorage
 
 class AppSettingsImpl(
@@ -12,6 +13,9 @@ class AppSettingsImpl(
     override var isDynamicThemeEnabled: Boolean
         get() = storage.getValue(KEY_DYNAMIC_THEME, defaultValue = false)
         set(value) = storage.setValue(KEY_DYNAMIC_THEME, value)
+
+    override val dynamicThemeState: Flow<Boolean>
+        get() = storage.getValueFlow(key = KEY_DYNAMIC_THEME) { isDynamicThemeEnabled }
 
     companion object {
         const val STORAGE_NAME = "settings_prefs"

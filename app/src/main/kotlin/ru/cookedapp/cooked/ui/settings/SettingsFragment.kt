@@ -27,6 +27,7 @@ import ru.cookedapp.cooked.ui.base.ComposeFragment
 import ru.cookedapp.cooked.ui.components.ScreenScaffold
 import ru.cookedapp.cooked.ui.settings.data.SettingsScreenState
 import ru.cookedapp.cooked.ui.theme.CookedTheme
+import ru.cookedapp.cooked.ui.theme.isDynamicThemingSupported
 import ru.cookedapp.storage.appSettings.AppTheme
 
 internal class SettingsFragment : ComposeFragment() {
@@ -78,16 +79,18 @@ internal class SettingsFragment : ComposeFragment() {
                     viewModel.onThemeChanged(theme)
                 }
             }
-            Text(
-                text = stringResource(R.string.settings_dynamic_theme),
-                fontWeight = FontWeight.SemiBold,
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
-            )
-            SwitchRow(
-                text = stringResource(R.string.settings_dynamic_theme_switch),
-                isChecked = state.isDynamicThemeEnabled,
-            )
+            if (isDynamicThemingSupported()) {
+                Text(
+                    text = stringResource(R.string.settings_dynamic_theme),
+                    fontWeight = FontWeight.SemiBold,
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
+                )
+                SwitchRow(
+                    text = stringResource(R.string.settings_dynamic_theme_switch),
+                    isChecked = state.isDynamicThemeEnabled,
+                )
+            }
         }
     }
 
