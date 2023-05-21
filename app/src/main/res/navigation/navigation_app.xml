@@ -39,8 +39,8 @@
             app:popEnterAnim="@anim/animation_enter_left_to_right"
             app:popExitAnim="@anim/animation_exit_left_to_right" />
         <action
-            android:id="@+id/actionNavigateToManageCategories"
-            app:destination="@id/manageCategoriesFragment"
+            android:id="@+id/actionNavigateToCategories"
+            app:destination="@id/categoriesFragment"
             app:enterAnim="@anim/animation_enter_right_to_left"
             app:exitAnim="@anim/animation_exit_right_to_left"
             app:popEnterAnim="@anim/animation_enter_left_to_right"
@@ -84,13 +84,7 @@
         android:name="ru.cookedapp.cooked.ui.settings.SettingsFragment"
         android:label="SettingsFragment" />
     <fragment
-        android:id="@+id/manageCategoriesFragment"
-        android:name="ru.cookedapp.cooked.ui.manageItems.manageCategories.ManageCategoriesFragment"
-        android:label="ManageCategoriesFragment"
-        tools:layout="@layout/fragment_manage_items" />
-    <fragment
-        android:id="@+id/manageProductsFragment"
-        android:name="ru.cookedapp.cooked.ui.manageItems.manageProducts.ManageProductsFragment"
-        android:label="ManageProductsFragment"
-        tools:layout="@layout/fragment_manage_items" />
+        android:id="@+id/categoriesFragment"
+        android:name="ru.cookedapp.cooked.ui.categories.CategoriesFragment"
+        android:label="CategoriesFragment" />
 </navigation>

@@ -26,7 +26,7 @@ class SettingsBottomFragment: BaseBottomSheetFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.llItemManageCategories.setOnClickListener {
             Navigation.findNavController(requireActivity(), R.id.fcvContainer)
-                .navigate(R.id.actionNavigateToManageCategories)
+                .navigate(R.id.actionNavigateToCategories)
             dismiss()
         }
 

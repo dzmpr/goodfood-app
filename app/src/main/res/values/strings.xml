@@ -2,6 +2,10 @@
     <string name="app_name" translatable="false">Cooked!</string>
     <string name="app_name_debug" translatable="false">Cooked! Debug</string>
 
+    <string name="label_ok">OK</string>
+    <string name="label_save">Save</string>
+    <string name="label_cancel">Cancel</string>
+
     <string name="label_navigation_recipes">Recipes</string>
     <string name="label_recipes_overview">My recipes</string>
     <string name="label_navigation_cart">Cart</string>
@@ -28,7 +32,6 @@
     <string name="ingredients_label">Ingredients</string>
     <string name="recipe_category_label">Recipe category</string>
     <string name="recipe_photo_label">Recipe photo</string>
-    <string name="save_label">Save</string>
     <string name="take_photo_action_label">Take photo</string>
     <string name="choose_photo_action_label">Choose photo</string>
     <string name="remove_photo_action_label">Remove photo</string>
@@ -57,13 +60,4 @@
     <string name="label_clear_cart">Clear cart</string>
     <string name="label_remove_purchased">Remove purchased</string>
     <string name="label_settings">Settings</string>
-    <string name="label_manage_categories">Manage categories</string>
-
-    <string name="label_default_servings">Servings count</string>
-    <string name="desc_default_servings">Default count of servings</string>
-    <string name="label_change_category_name">Rename category</string>
-    <string name="label_ok">OK</string>
-    <string name="label_cancel">Cancel</string>
-    <string name="label_name">Name</string>
-    <string name="label_change_product_name">Rename product</string>
 </resources>

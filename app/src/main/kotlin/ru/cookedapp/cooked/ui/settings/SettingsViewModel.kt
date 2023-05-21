@@ -2,7 +2,6 @@ package ru.cookedapp.cooked.ui.settings
 
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.viewModelScope
-import javax.inject.Inject
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -12,6 +11,7 @@ import ru.cookedapp.cooked.ui.base.ComposeViewModel
 import ru.cookedapp.cooked.ui.settings.data.SettingsScreenState
 import ru.cookedapp.storage.appSettings.AppSettings
 import ru.cookedapp.storage.appSettings.AppTheme
+import javax.inject.Inject
 
 internal class SettingsViewModel @Inject constructor(
     private val appSettings: AppSettings,
@@ -26,8 +26,8 @@ internal class SettingsViewModel @Inject constructor(
 
     init {
         onSettingsUpdated.receiveAsFlow().onEach {
-            updateState { currentState ->
-                currentState.copy(
+            updateState {
+                copy(
                     appTheme = appSettings.appTheme,
                     isDynamicThemeEnabled = appSettings.isDynamicThemeEnabled,
                 )

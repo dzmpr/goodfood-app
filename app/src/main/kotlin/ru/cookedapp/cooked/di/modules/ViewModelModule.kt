@@ -7,8 +7,8 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 import ru.cookedapp.cooked.di.ViewModelFactory
 import ru.cookedapp.cooked.ui.cart.CartViewModel
+import ru.cookedapp.cooked.ui.categories.CategoriesViewModel
 import ru.cookedapp.cooked.ui.editRecipe.EditRecipeViewModel
-import ru.cookedapp.cooked.ui.manageItems.manageCategories.ManageCategoriesViewModel
 import ru.cookedapp.cooked.ui.recipeDetails.RecipeDetailsViewModel
 import ru.cookedapp.cooked.ui.recipeList.RecipeListViewModel
 import ru.cookedapp.cooked.ui.recipesOverview.RecipesOverviewViewModel
@@ -44,8 +44,8 @@ internal abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(ManageCategoriesViewModel::class)
-    abstract fun provideManageCategoriesViewModel(impl: ManageCategoriesViewModel): ViewModel
+    @ViewModelKey(CategoriesViewModel::class)
+    abstract fun provideManageCategoriesViewModel(impl: CategoriesViewModel): ViewModel
 
     @Binds
     @IntoMap
