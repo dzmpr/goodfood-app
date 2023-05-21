@@ -5,9 +5,13 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Switch
@@ -45,7 +49,7 @@ internal class SettingsFragment : ComposeFragment() {
             screenTitle = stringResource(R.string.settings_title),
             onBackPressed = {
                 navController.popBackStack()
-            }
+            },
         ) {
             val state by viewModel.state.collectAsStateWithLifecycle()
             SettingsScreen(state)
@@ -61,8 +65,28 @@ internal class SettingsFragment : ComposeFragment() {
         Column(
             modifier = Modifier
                 .verticalScroll(scrollState)
-                .padding(vertical = 8.dp)
+                .padding(vertical = 8.dp),
         ) {
+            Text(
+                text = stringResource(R.string.setting_section_recipe_prefs),
+                style = MaterialTheme.typography.headlineMedium,
+                modifier = Modifier.padding(horizontal = 16.dp),
+            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable(
+                        onClick = {
+                            navController.navigate(R.id.actionNavigateToCategories)
+                        },
+                    )
+                    .padding(horizontal = 16.dp, vertical = 20.dp),
+            ) {
+                Text(text = stringResource(R.string.setting_manage_categories))
+                Spacer(modifier = Modifier.weight(1f))
+                Icon(imageVector = Icons.Filled.KeyboardArrowRight, contentDescription = null)
+            }
             Text(
                 text = stringResource(R.string.setting_section_app_prefs),
                 style = MaterialTheme.typography.headlineMedium,
@@ -109,10 +133,10 @@ internal class SettingsFragment : ComposeFragment() {
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .clickable(onClick = onRowClicked)
-                .padding(horizontal = 16.dp)
+                .padding(horizontal = 16.dp),
         ) {
             Text(
-                text = stringResource(nameRes)
+                text = stringResource(nameRes),
             )
             Spacer(modifier = Modifier.weight(1f))
             RadioButton(

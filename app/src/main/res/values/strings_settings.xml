@@ -1,6 +1,7 @@
 <resources>
     <string name="settings_title">Settings</string>
     <string name="setting_section_recipe_prefs">Recipe preferences</string>
+    <string name="setting_manage_categories">Manage categories</string>
     <string name="setting_section_app_prefs">Application preferences</string>
     <string name="settings_theme">Theme</string>
     <string name="settings_theme_dark_theme">Dark theme</string>
