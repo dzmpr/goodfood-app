@@ -5,7 +5,6 @@ include(":app")
 include(":common")
 include(":storage")
 
-enableFeaturePreview("VERSION_CATALOGS")
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {

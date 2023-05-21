@@ -1,6 +1,6 @@
 [versions]
 # Plugins
-agp = "7.4.2"
+agp = "8.0.1"
 kotlin = "1.8.21"
 detekt = "1.22.0"
 ksp = "1.8.21-1.0.11"
@@ -24,7 +24,7 @@ compose-material3 = "1.1.0"
 
 # Other dependencies
 serialization = "1.5.0"
-coroutines = "1.7.0"
+coroutines = "1.7.1"
 dagger = "2.46"
 
 # Tests

@@ -13,6 +13,7 @@ import ru.cookedapp.cooked.extensions.addStrikethroughSpan
 import ru.cookedapp.cooked.extensions.inflater
 import ru.cookedapp.cooked.ui.cart.data.CartItemBoughtStateChanged
 import ru.cookedapp.cooked.ui.cart.data.CartProductItem
+import com.google.android.material.R as RMaterial
 
 class CartItemHolder(
     private val binding: ItemCartRowBinding,
@@ -48,7 +49,7 @@ class CartItemHolder(
         val productNameColor = if (isBought) {
             context.getColorById(R.color.neutral_gray)
         } else {
-            context.resolveAttribute(R.attr.colorOnSurface).data
+            context.resolveAttribute(RMaterial.attr.colorOnSurface).data
         }
         with(binding.tvProductName) {
             setTextColor(productNameColor)
