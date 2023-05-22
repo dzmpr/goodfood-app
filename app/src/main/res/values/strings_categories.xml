@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="categories_title">Recipe categories</string>
+    <string name="categories_rename_label">Rename category</string>
+    <string name="categories_name_label">Category name</string>
+    <string name="categories_name_placeholder">Second courses</string>
+</resources>

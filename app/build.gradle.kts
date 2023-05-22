@@ -1,7 +1,6 @@
 import io.gitlab.arturbosch.detekt.Detekt
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-// https://youtrack.jetbrains.com/issue/KTIJ-19369
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.kotlin)
     alias(libs.plugins.kotlin.kapt)
@@ -53,10 +52,6 @@ android {
         }
     }
 
-    kotlinOptions {
-        freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
-    }
-
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
@@ -74,6 +69,12 @@ android {
             txt.required.set(false)
             sarif.required.set(false)
         }
+    }
+}
+
+tasks.withType<KotlinCompile> {
+    with(compilerOptions.freeCompilerArgs) {
+        add("-opt-in=androidx.compose.material3.ExperimentalMaterial3Api")
     }
 }
 
@@ -101,7 +102,6 @@ dependencies {
     implementation(libs.coroutines.android)
     implementation(libs.dagger)
     kapt(libs.dagger.kapt)
-    implementation(libs.flexbox)
     implementation(libs.bundles.compose)
 
     // Tests

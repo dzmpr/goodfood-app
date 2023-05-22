@@ -9,14 +9,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
-import javax.inject.Inject
 import ru.cookedapp.cooked.R
 import ru.cookedapp.cooked.databinding.FragmentRecipesOverviewBinding
 import ru.cookedapp.cooked.extensions.setViewVisibility
 import ru.cookedapp.cooked.ui.CookedApp
 import ru.cookedapp.cooked.ui.recipeDetails.RecipeDetailsFragment
 import ru.cookedapp.cooked.ui.recipeList.RecipeListFragment
-import ru.cookedapp.cooked.ui.settings.SettingsBottomFragment
+import javax.inject.Inject
 
 class RecipesOverviewFragment : Fragment() {
     private var _binding: FragmentRecipesOverviewBinding? = null
@@ -93,8 +92,8 @@ class RecipesOverviewFragment : Fragment() {
         binding.tbToolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.actionOpenSettings -> {
-                    val fragment = SettingsBottomFragment()
-                    fragment.show(childFragmentManager, null)
+                    Navigation.findNavController(requireActivity(), R.id.fcvContainer)
+                        .navigate(R.id.actionNavigateToSettings)
                     true
                 }
                 else -> false

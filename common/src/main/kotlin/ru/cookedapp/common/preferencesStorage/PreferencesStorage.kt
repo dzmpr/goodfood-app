@@ -2,7 +2,12 @@ package ru.cookedapp.common.preferencesStorage
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import androidx.core.content.edit
+import kotlinx.coroutines.channels.Channel.Factory.UNLIMITED
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.buffer
+import kotlinx.coroutines.flow.callbackFlow
 
 class PreferencesStorage(
     context: Context,
@@ -34,6 +39,22 @@ class PreferencesStorage(
             }
         }
     }
+
+    fun <T : Any> getValueFlow(key: String, storedValueProvider: () -> T) = callbackFlow {
+        trySend(storedValueProvider())
+
+        val listener = OnSharedPreferenceChangeListener { _, changedKey ->
+            if (changedKey == key) {
+                trySend(storedValueProvider())
+            }
+        }
+
+        sharedPreferences.registerOnSharedPreferenceChangeListener(listener)
+
+        awaitClose {
+            sharedPreferences.unregisterOnSharedPreferenceChangeListener(listener)
+        }
+    }.buffer(UNLIMITED)
 
     inline fun <reified T: Enum<T>> getEnumOrNull(key: String): T? {
         val value = sharedPreferences.getString(key, null) ?: return null

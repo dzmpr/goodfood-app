@@ -2,24 +2,21 @@
     <string name="app_name" translatable="false">Cooked!</string>
     <string name="app_name_debug" translatable="false">Cooked! Debug</string>
 
+    <string name="label_ok">OK</string>
+    <string name="label_save">Save</string>
+    <string name="label_cancel">Cancel</string>
+
     <string name="label_navigation_recipes">Recipes</string>
     <string name="label_recipes_overview">My recipes</string>
     <string name="label_navigation_cart">Cart</string>
-    <string name="label_navigation_profile">Profile</string>
     <string name="add_recipe_label">Add new recipe</string>
-    <string name="add_product_label">Add new product</string>
     <string name="add_ingredient_label">Add ingredient</string>
-    <string name="product_name_placeholder_label">Product name</string>
-    <string name="category_select_label">Select a category</string>
     <string name="unit_select_label">Select units</string>
     <string name="add_label">Add</string>
     <string name="add_more_label">Add more</string>
-    <string name="recipe_name_placeholder_label">Recipe name</string>
-    <string name="description_label">Description</string>
     <string name="delete_action_label">Delete</string>
     <string name="snackbar_item_deleted">\"%s\" was removed.</string>
     <string name="label_name_error">Field shouldn\'t be empty.</string>
-    <string name="label_category_error">Select category.</string>
     <string name="label_product_units_error">Select units.</string>
     <string name="ingredient_hint">Ingredient</string>
     <string name="amount_label">Amount</string>
@@ -28,7 +25,6 @@
     <string name="ingredients_label">Ingredients</string>
     <string name="recipe_category_label">Recipe category</string>
     <string name="recipe_photo_label">Recipe photo</string>
-    <string name="save_label">Save</string>
     <string name="take_photo_action_label">Take photo</string>
     <string name="choose_photo_action_label">Choose photo</string>
     <string name="remove_photo_action_label">Remove photo</string>
@@ -57,15 +53,4 @@
     <string name="label_clear_cart">Clear cart</string>
     <string name="label_remove_purchased">Remove purchased</string>
     <string name="label_settings">Settings</string>
-    <string name="label_backup_amp_restore"><![CDATA[Backup & restore]]></string>
-    <string name="label_manage_products">Manage products</string>
-    <string name="label_manage_categories">Manage categories</string>
-
-    <string name="label_default_servings">Servings count</string>
-    <string name="desc_default_servings">Default count of servings</string>
-    <string name="label_change_category_name">Rename category</string>
-    <string name="label_ok">OK</string>
-    <string name="label_cancel">Cancel</string>
-    <string name="label_name">Name</string>
-    <string name="label_change_product_name">Rename product</string>
 </resources>

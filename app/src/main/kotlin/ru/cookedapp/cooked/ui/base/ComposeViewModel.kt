@@ -13,5 +13,5 @@ internal abstract class ComposeViewModel<State: Any> : ViewModel() {
     private val _state by lazy { MutableStateFlow(initialState) }
     val state: StateFlow<State> get() = _state.asStateFlow()
 
-    protected fun updateState(updater: (State) -> State) = _state.update(updater)
+    protected fun updateState(updater: State.() -> State) = _state.update(updater)
 }

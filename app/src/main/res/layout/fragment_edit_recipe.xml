@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/layout_end_margin"
                 android:layout_gravity="end"
-                android:text="@string/save_label" />
+                android:text="@string/label_save" />
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
