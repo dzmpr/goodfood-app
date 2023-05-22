@@ -70,7 +70,7 @@ internal class SettingsFragment : ComposeFragment() {
             Text(
                 text = stringResource(R.string.setting_section_recipe_prefs),
                 style = MaterialTheme.typography.headlineMedium,
-                modifier = Modifier.padding(horizontal = 16.dp),
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
             )
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -90,7 +90,7 @@ internal class SettingsFragment : ComposeFragment() {
             Text(
                 text = stringResource(R.string.setting_section_app_prefs),
                 style = MaterialTheme.typography.headlineMedium,
-                modifier = Modifier.padding(horizontal = 16.dp),
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
             )
             Text(
                 text = stringResource(R.string.settings_theme),
